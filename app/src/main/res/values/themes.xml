@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Plotting_FE" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/main</item>
     </style>
 
     <style name="Theme.Plotting_FE" parent="Base.Theme.Plotting_FE" />
@@ -14,6 +14,12 @@
     </style>
 
     <style name="AndroidH2">
+        <item name="android:fontFamily">@font/noto_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingExtra">26sp</item>
+    </style>
+
+    <style name="AndroidH3">
         <item name="android:fontFamily">@font/noto_medium</item>
         <item name="android:textSize">18sp</item>
         <item name="android:lineSpacingExtra">24sp</item>
@@ -73,6 +79,12 @@
         <item name="android:lineSpacingExtra">12sp</item>
     </style>
 
+    <style name="AndroidCaption5">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineSpacingExtra">12sp</item>
+    </style>
+
     <style name="AndroidButton1">
         <item name="android:fontFamily">@font/noto_bold</item>
         <item name="android:textSize">18sp</item>
@@ -81,6 +93,12 @@
 
     <style name="AndroidButton2">
         <item name="android:fontFamily">@font/noto_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">20sp</item>
+    </style>
+
+    <style name="AndroidButton3">
+        <item name="android:fontFamily">@font/noto_regular</item>
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingExtra">20sp</item>
     </style>

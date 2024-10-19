@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".plogging.ui.PloggingInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="숭실대 환경 지킴이"
+                style="@style/AndroidH2"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <android.widget.Button
+            android:id="@+id/btn_join"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="참가하기"
+            android:background="@drawable/shape_edittext_big"
+            style="@style/AndroidButton2"
+            android:includeFontPadding="false"
+            android:textColor="@color/main"
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="코딩하기 싫은 사람 모여라!!"
+                style="@style/AndroidBody3"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="left"
+                android:layout_weight="3">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_person"
+                    android:layout_marginRight="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_current_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="/"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:id="@+id/tv_max_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="10"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_time"
+                    android:layout_marginRight="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="H"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="4"
+                android:gravity="right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="모집기간 : "
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:id="@+id/tv_recruit_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="2024.10.19"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=" ~ "
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="2024.11.19"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    style="@style/AndroidCaption5"
+                    android:includeFontPadding="false"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="모임 방식"
+            style="@style/AndroidBody2"/>
+
+        <TextView
+            android:id="@+id/tv_plogging_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="선착순"
+            android:textColor="@color/white"
+            style="@style/AndroidCaption2"
+            android:includeFontPadding="false"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@drawable/shape_text_full"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="활동 소개"
+            style="@style/AndroidBody2"/>
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="숭실대 근처를 가볍게 뛰며 플라스틱을 주워봅시다!"
+            style="@style/AndroidCaption3"
+            android:includeFontPadding="false"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="활동 장소"
+            style="@style/AndroidBody2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_location"
+                android:layout_marginRight="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="서울특별시 중구 상도동 119번지 송실대학교 정보관 앞"
+                style="@style/AndroidCaption3"
+                android:includeFontPadding="false"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/shape_round_corners_shadow"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_circle_green"
+                    android:layout_marginRight="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="출발지 : "
+                    style="@style/AndroidBody2"/>
+
+                <TextView
+                    android:id="@+id/tv_start_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="숭실대학교 정보관 1층 앞"
+                    style="@style/AndroidCaption3"
+                    android:textColor="@color/gray"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/custom_progress_bar">
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_circle_red"
+                    android:layout_marginRight="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="도착지 : "
+                    style="@style/AndroidBody2"/>
+
+                <TextView
+                    android:id="@+id/tv_end_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="미정"
+                    style="@style/AndroidCaption3"
+                    android:textColor="@color/gray"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
