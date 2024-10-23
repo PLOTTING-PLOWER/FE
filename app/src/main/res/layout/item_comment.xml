@@ -2,8 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="10dp">
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/profileImage"
@@ -54,7 +59,7 @@
                     style="@style/AndroidCaption3" />
 
                 <ImageView
-                    android:layout_width="3dp"
+                    android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
                     android:src="@drawable/ic_option"
@@ -102,6 +107,20 @@
                     style="@style/AndroidCaption6"
                     android:includeFontPadding="false"/>
             </LinearLayout>
+        </LinearLayout>
+     </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/custom_progress_bar"
+        android:paddingTop="10dp">
+    </ImageView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_reply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"/>
 </LinearLayout>
