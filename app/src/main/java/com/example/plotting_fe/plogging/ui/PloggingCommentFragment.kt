@@ -28,12 +28,12 @@ class PloggingCommentFragment : Fragment() {
 
         // 예시 댓글 데이터 추가
         val replyList = listOf(
-            Reply("1", "@SSU", "2024.10.08 12:00 PM", "답변 내용"),
-            Reply("2", "@SSU", "2024.10.08 12:01 PM", "또 다른 답변 내용")
+            Reply("1", "YU", "2024.10.08 12:30 PM", "답변 내용"),
+            Reply("2", "PARK", "2024.10.08 12:31 PM", "또 다른 답변 내용")
         )
 
-        comments.add(Comment("1", "@SSU", "6분 전", "같이 플로깅 할래?", replyList))
-        comments.add(Comment("2", "@SSU", "6분 전", "또 다른 댓글", emptyList()))
+        comments.add(Comment("1", "LEE", "2024.10.08 12:00 PM", "같이 플로깅 할래?", replyList))
+        comments.add(Comment("2", "OH", "2024.10.08 12:00 PM", "또 다른 댓글", emptyList()))
 
         commentAdapter = CommentAdapter(comments)
         commentsRecyclerView.adapter = commentAdapter
