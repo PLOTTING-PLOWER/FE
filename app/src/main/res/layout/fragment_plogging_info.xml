@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="코딩하기 싫은 사람 모여라!!"
-                style="@style/AndroidBody3"/>
+                style="@style/AndroidBody1"/>
 
         </LinearLayout>
 
@@ -210,7 +210,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="숭실대 근처를 가볍게 뛰며 플라스틱을 주워봅시다!"
-            style="@style/AndroidCaption3"
+            style="@style/AndroidBody3"
             android:includeFontPadding="false"
             android:layout_marginBottom="8dp"/>
 
@@ -235,8 +235,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="서울특별시 중구 상도동 119번지 송실대학교 정보관 앞"
-                style="@style/AndroidCaption3"
+                android:text="서울특별시 상도동 숭실대학교 정보관 앞"
+                style="@style/AndroidBody3"
                 android:includeFontPadding="false"
                 android:gravity="center_vertical"/>
         </LinearLayout>
@@ -272,7 +272,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="숭실대학교 정보관 1층 앞"
-                    style="@style/AndroidCaption3"
+                    style="@style/AndroidBody3"
                     android:textColor="@color/gray"
                     android:layout_marginLeft="5dp"/>
 
@@ -307,7 +307,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="미정"
-                    style="@style/AndroidCaption3"
+                    style="@style/AndroidBody3"
                     android:textColor="@color/gray"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
