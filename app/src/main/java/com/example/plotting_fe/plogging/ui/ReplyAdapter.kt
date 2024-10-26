@@ -1,8 +1,13 @@
 package com.example.plotting_fe.plogging.ui
 
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
@@ -14,11 +19,22 @@ class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<Repl
         val nickname: TextView = itemView.findViewById(R.id.tv_nickname)
         val date: TextView = itemView.findViewById(R.id.tv_date)
         val content: TextView = itemView.findViewById(R.id.tv_content)
+        val option: ImageView = itemView.findViewById(R.id.iv_option)
 
         fun bind(reply: Reply) {
             nickname.text = reply.username
             date.text = reply.timestamp
             content.text = reply.content
+            option.setOnClickListener(View.OnClickListener {
+                val dialogView = LayoutInflater.from(itemView.context).inflate(R.layout.dialog_comment_options, null)
+                val dialog = AlertDialog.Builder(itemView.context)
+                    .setView(dialogView)
+                    .create()
+
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.window?.setGravity(Gravity.BOTTOM)
+                dialog.show()
+            })
         }
     }
 
