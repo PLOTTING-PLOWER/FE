@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.plogging.dto.Comment
 
-class CommentAdapter(private val comments: List<Comment>) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+class CommentAdapter(
+    private val comments: List<Comment>,
+    private val onCommentClick: (Comment) -> Unit
+) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
     inner class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nickname: TextView = itemView.findViewById(R.id.tv_nickname)
@@ -34,7 +37,9 @@ class CommentAdapter(private val comments: List<Comment>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        holder.bind(comments[position])
+        val comment = comments[position]
+        holder.bind(comment)
+        holder.itemView.setOnClickListener { onCommentClick(comment) } // 클릭 리스너 설정
     }
 
     override fun getItemCount(): Int {
