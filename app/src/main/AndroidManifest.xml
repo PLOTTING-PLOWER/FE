@@ -15,6 +15,7 @@
 
         <activity
             android:name=".plogging.ui.PloggingDetailActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,22 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp"
     tools:context=".plogging.ui.PloggingCommentFragment">
 
     <ScrollView
+        android:id="@+id/sv_comment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ll_comment"
+        android:fillViewport="true">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_comment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="true"
-            tools:listitem="@layout/item_comment"/>
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_comment" />
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/shape_round_corners_shadow"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/btn_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀글"
+            style="@style/AndroidCaption2"
+            android:includeFontPadding="false"
+            android:checked="false"
+            android:textColor="@color/main"
+            android:layout_marginRight="5dp"/>
+
+        <EditText
+            android:id="@+id/et_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="댓글을 입력해주세요."
+            android:inputType="textMultiLine"
+            android:lines="3"
+            style="@style/AndroidBody3"
+            android:scrollHorizontally="false"
+            android:lineSpacingExtra="0dp"
+            android:includeFontPadding="false"
+            android:maxLines="5"
+            android:background="@android:color/transparent"
+            android:focusableInTouchMode="true"/>
+
+        <ImageButton
+            android:id="@+id/btn_send"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:text="전송"
+            style="@style/AndroidSubtitle2"
+            android:textColor="@color/main"
+            android:layout_gravity="center|end"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/ic_post"
+            android:backgroundTint="@color/main"/>
+    </LinearLayout>
 
 </FrameLayout>
