@@ -17,6 +17,9 @@
             android:exported="false" />
         <activity
             android:name=".user.ui.JoinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ui.Splash2Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,10 +29,10 @@
         </activity>
         <activity
             android:name=".plogging.ui.PloggingDetailActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

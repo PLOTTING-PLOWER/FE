@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.utils.Utils;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,11 +26,9 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-    }
 
-    // 회원가입 화면(JoinActivity)으로 전환하는 메서드
-    public void onJoinClick(View view) {
-        Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
-        startActivity(intent);
+        // 회원가입 버튼에 클릭 리스너 설정
+        findViewById(R.id.tv_gojoin).setOnClickListener(v -> Utils.onJoinClick(this));
+
     }
 }
