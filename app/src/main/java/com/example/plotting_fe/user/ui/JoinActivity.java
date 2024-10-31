@@ -1,6 +1,9 @@
 package com.example.plotting_fe.user.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,5 +25,17 @@ public class JoinActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            v.setPadding(statusBars.left, statusBars.top, statusBars.right, 0); // 하단 여백은 0으로 설정
+            return insets;
+        });
+    }
+
+    // 로그인 화면(LoginActivity)으로 전환하는 메서드
+    public void onLoginClick(View view) {
+        Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }
