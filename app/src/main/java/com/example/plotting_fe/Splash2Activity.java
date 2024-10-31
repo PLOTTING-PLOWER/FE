@@ -1,4 +1,4 @@
-package com.example.plotting_fe.user.ui;
+package com.example.plotting_fe;
 
 import android.os.Bundle;
 
@@ -8,7 +8,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.plotting_fe.R;
 import com.example.plotting_fe.utils.Utils;
 
 public class Splash2Activity extends AppCompatActivity {
