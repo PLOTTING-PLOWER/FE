@@ -7,6 +7,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.plotting_fe.HomeFragment"
         android:label="Home" />
+
+    <fragment
+        android:id="@+id/navigation_mypage"
+        android:name="com.example.plotting_fe.mypage.ui.MypageFragment"
+        android:label="Home" />
     <!--
     <fragment
         android:id="@+id/navigation_plogging"
@@ -21,10 +26,7 @@
         android:name="com.example.plotting_fe.HomeFragment"
         android:label="Home" />
 
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.example.plotting_fe.HomeFragment"
-        android:label="Home" />
+
     -->
 
 </navigation>
