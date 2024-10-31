@@ -7,6 +7,30 @@
 
     <style name="Theme.Plotting_FE" parent="Base.Theme.Plotting_FE" />
 
+    <style name="noto_bold">
+        <item name="android:fontFamily">@font/noto_bold</item>
+    </style>
+
+    <style name="noto_medium">
+        <item name="android:fontFamily">@font/noto_medium</item>
+    </style>
+
+    <style name="noto_regular">
+        <item name="android:fontFamily">@font/noto_regular</item>
+    </style>
+
+    <style name="noto_light">
+        <item name="android:fontFamily">@font/noto_light</item>
+    </style>
+
+    <style name="noto_semibold">
+        <item name="android:fontFamily">@font/noto_semibold</item>
+    </style>
+
+    <style name="noto_thin">
+        <item name="android:fontFamily">@font/noto_thin</item>
+    </style>
+
     <style name="AndroidH1">
         <item name="android:fontFamily">@font/noto_bold</item>
         <item name="android:textSize">20sp</item>
@@ -115,6 +139,11 @@
         <item name="android:lineSpacingExtra">20sp</item>
     </style>
 
+    <style name="Androidbutton4">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="AndroidRate">
         <item name="android:fontFamily">@font/noto_medium</item>
         <item name="android:textSize">36sp</item>
@@ -124,6 +153,12 @@
         <item name="android:fontFamily">@font/noto_bold</item>
         <item name="android:textSize">36sp</item>
     </style>
+
+    <style name="AndroidInputTitle">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 
     <style name="AndroidTab">
         <item name="android:fontFamily">@font/noto_bold</item>
