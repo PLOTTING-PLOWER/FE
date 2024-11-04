@@ -2,25 +2,34 @@ package com.example.plotting_fe.plogging.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
+import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.plogging.dto.Participant
+import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
+import com.example.plotting_fe.plogging.presentation.PloggingController
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class PloggingInfoFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var participantsRecyclerView: RecyclerView
     private lateinit var adapter: PloggingUserAdapter
     private lateinit var participantList: ArrayList<Participant>
+
+    private var ploggingId: Long = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +46,8 @@ class PloggingInfoFragment : Fragment() {
         llPeople.setOnClickListener {
             showParticipantsDialog()
         }
+
+        loadInfo(view)
 
         return view
     }
@@ -71,5 +82,62 @@ class PloggingInfoFragment : Fragment() {
             WindowManager.LayoutParams.MATCH_PARENT
         )
         dialog.window?.setGravity(Gravity.END)
+    }
+
+    private fun loadInfo(view: View) {
+        val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
+        ploggingController.getPloggingDetail(ploggingId).enqueue(object :
+            Callback<ResponseTemplate<PloggingDetailResponse>> {
+            override fun onResponse(
+                call: Call<ResponseTemplate<PloggingDetailResponse>>,
+                response: Response<ResponseTemplate<PloggingDetailResponse>>,
+            ) {
+                if (response.isSuccessful) {
+                    // 정상적으로 통신이 성공된 경우
+                    Log.d("post", "onResponse 성공: " + response.body().toString())
+
+                    val body = response.body()?.results
+
+                    // body에 있는 데이터를 화면에 표시
+                    body?.let {
+                        // TextView에 body.title을 설정
+                        view.findViewById<TextView>(R.id.tv_title).text = it.title
+                        view.findViewById<TextView>(R.id.tv_host).text = "플라워"
+                        view.findViewById<TextView>(R.id.tv_current_people).text =
+                            it.currentPeople.toString()
+                        view.findViewById<TextView>(R.id.tv_max_people).text =
+                            it.maxPeople.toString()
+                        view.findViewById<TextView>(R.id.tv_time).text =
+                            (it.spendTime / 60).toString()
+                        view.findViewById<TextView>(R.id.tv_recruit_start).text =
+                            it.recruitStartDate.toString()
+                        view.findViewById<TextView>(R.id.tv_recruit_end).text =
+                            it.recruitEndDate.toString()
+                        view.findViewById<TextView>(R.id.tv_plogging_type).text =
+                            it.ploggingType.toString()
+                        view.findViewById<TextView>(R.id.tv_description).text = it.content
+                        view.findViewById<TextView>(R.id.tv_start_location).text = it.startLocation
+                        view.findViewById<TextView>(R.id.tv_end_location).text = it.endLocation
+                    }
+
+
+                    view.findViewById<LinearLayout>(R.id.ll_people).setOnClickListener {
+                        showParticipantsDialog()
+                    }
+
+                } else {
+                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                    Log.d("post", "onResponse 실패 + ${response.code()}")
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ResponseTemplate<PloggingDetailResponse>>,
+                t: Throwable
+            ) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("post", "onFailure 에러: " + t.message.toString())
+            }
+        })
     }
 }
