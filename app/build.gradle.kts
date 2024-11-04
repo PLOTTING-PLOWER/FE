@@ -47,4 +47,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //retrofit2 - 서버통신
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Http 통신 라이브러리
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
