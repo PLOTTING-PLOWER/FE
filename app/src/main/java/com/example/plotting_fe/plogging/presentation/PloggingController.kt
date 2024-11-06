@@ -1,6 +1,7 @@
 package com.example.plotting_fe.plogging.presentation
 
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.plogging.dto.response.CommentResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
 import retrofit2.Call
@@ -26,4 +27,10 @@ interface PloggingController {
         @Path("ploggingId") ploggingId: Long,
         @Query("userId") userId: Long
     ): Call<ResponseTemplate<String>>
+
+    @GET("/ploggings/{ploggingId}/comments")
+    fun getComments(
+        @Path("ploggingId") ploggingId: Long,
+        @Query("userId") userId: Long
+    ): Call<ResponseTemplate<CommentResponse>>
 }
