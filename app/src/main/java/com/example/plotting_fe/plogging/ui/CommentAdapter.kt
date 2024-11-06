@@ -1,5 +1,6 @@
 package com.example.plotting_fe.plogging.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,12 @@ class CommentAdapter(
                 .placeholder(R.drawable.ic_flower) // 로딩 중에 표시할 이미지
                 .error(R.drawable.ic_flower) // 오류 발생 시 표시할 이미지
                 .into(profileImage)
+
+            Log.d("post", "comment.isWriter: ${comment.isWriter}")
+
+            if (!comment.isWriter) {
+                itemView.findViewById<ImageView>(R.id.iv_option).visibility = View.GONE
+            }
 
             // 답변 RecyclerView 설정
             repliesRecyclerView.layoutManager = LinearLayoutManager(itemView.context)

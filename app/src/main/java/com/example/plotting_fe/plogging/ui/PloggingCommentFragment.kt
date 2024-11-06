@@ -43,12 +43,12 @@ class PloggingCommentFragment : Fragment() {
 
         // 예시 댓글 데이터 추가
         val replyList = listOf(
-            Reply("1", "YU", "2024.10.08 12:30 PM", "답변 내용"),
-            Reply("2", "PARK", "2024.10.08 12:31 PM", "또 다른 답변 내용")
+            Reply("1", "YU", "2024.10.08 12:30 PM", "답변 내용", "", 1, 1, true, true),
+            Reply("2", "PARK", "2024.10.08 12:31 PM", "또 다른 답변 내용", "", 1, 1, true, true)
         )
 
-        comments.add(Comment("1", "LEE", "2024.10.08 12:00 PM", "같이 플로깅 할래?", replyList))
-        comments.add(Comment("2", "OH", "2024.10.08 12:00 PM", "또 다른 댓글", emptyList()))
+        comments.add(Comment("1", "LEE", "2024.10.08 12:00 PM", "같이 플로깅 할래?", "", 0, 0, true, true, replyList))
+        comments.add(Comment("2", "OH", "2024.10.08 12:00 PM", "또 다른 댓글", "", 0, 0, true, true, emptyList()))
 
         loadInfo(view)
 
@@ -79,12 +79,22 @@ class PloggingCommentFragment : Fragment() {
                                 comment.nickname,
                                 comment.createdDate,
                                 comment.content,
+                                comment.profileImageUrl,
+                                comment.depth,
+                                comment.parentCommentId,
+                                comment.isCommentPublic,
+                                comment.isWriter,
                                 comment.childComments.map { childComment ->
                                     Reply(
                                         childComment.commentId.toString(),
                                         childComment.nickname,
                                         childComment.createdDate,
-                                        childComment.content
+                                        childComment.content,
+                                        childComment.profileImageUrl,
+                                        childComment.depth,
+                                        childComment.parentCommentId,
+                                        childComment.isCommentPublic,
+                                        childComment.isWriter
                                     )
                                 }
                             )

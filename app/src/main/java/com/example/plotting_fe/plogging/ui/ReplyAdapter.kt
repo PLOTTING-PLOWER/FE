@@ -37,6 +37,10 @@ class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<Repl
                 .error(R.drawable.ic_flower) // 오류 발생 시 표시할 이미지
                 .into(profileImage)
 
+            if(!reply.isWriter) {
+                option.visibility = View.GONE
+            }
+
             option.setOnClickListener(View.OnClickListener {
                 val dialogView = LayoutInflater.from(itemView.context).inflate(R.layout.dialog_comment_options, null)
                 val dialog = AlertDialog.Builder(itemView.context)
