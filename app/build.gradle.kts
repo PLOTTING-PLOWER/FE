@@ -28,6 +28,7 @@ android {
     }
 
     buildFeatures {
+        viewBinding = true
         buildConfig = true
     }
 
@@ -69,4 +70,7 @@ dependencies {
     // Http 통신 라이브러리
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+
+    // glide - 이미지 로딩
+    implementation(libs.glide)
 }

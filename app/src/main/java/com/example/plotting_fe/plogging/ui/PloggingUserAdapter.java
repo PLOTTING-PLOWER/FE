@@ -3,11 +3,13 @@ package com.example.plotting_fe.plogging.ui;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.plogging.dto.Participant;
 
@@ -34,6 +36,13 @@ public class PloggingUserAdapter extends RecyclerView.Adapter<PloggingUserAdapte
         Participant participant = participantList.get(position);
         holder.nameTextView.setText(participant.getName());
         holder.detailsTextView.setText(participant.getDetails());
+
+        // Glide를 사용하여 이미지 로드
+        Glide.with(holder.profileImageView)
+                .load(participant.getProfileImageUrl()) // participant.imageUrl에 실제 이미지 URL이 있어야 함
+                .placeholder(R.drawable.ic_person) // 로딩 중에 표시할 이미지
+                .error(R.drawable.ic_person) // 오류 발생 시 표시할 이미지
+                .into(holder.profileImageView);
     }
 
     @Override
@@ -42,11 +51,13 @@ public class PloggingUserAdapter extends RecyclerView.Adapter<PloggingUserAdapte
     }
 
     static class ParticipantViewHolder extends RecyclerView.ViewHolder {
+        ImageView profileImageView;
         TextView nameTextView;
         TextView detailsTextView;
 
         public ParticipantViewHolder(@NonNull View itemView) {
             super(itemView);
+            profileImageView = itemView.findViewById(R.id.profileImage);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             detailsTextView = itemView.findViewById(R.id.detailsTextView);
         }
