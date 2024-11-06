@@ -1,7 +1,7 @@
 package com.example.plotting_fe.plogging.dto
 
 data class Comment (
-    val id: String,
+    val id: Long,
     val username: String,
     val timestamp: String,
     val content: String,
@@ -14,7 +14,7 @@ data class Comment (
 )
 
 data class Reply (
-    val id: String,
+    val id: Long,
     val username: String,
     val timestamp: String,
     val content: String,
