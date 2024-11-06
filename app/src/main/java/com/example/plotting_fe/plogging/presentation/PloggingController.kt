@@ -5,7 +5,9 @@ import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface PloggingController {
 
@@ -18,4 +20,10 @@ interface PloggingController {
     fun getPloggingUsers(
         @Path("ploggingId") ploggingId: Long
     ): Call<ResponseTemplate<PloggingUserListResponse>>
+
+    @POST("/ploggings/{ploggingId}")
+    fun joinPlogging(
+        @Path("ploggingId") ploggingId: Long,
+        @Query("userId") userId: Long
+    ): Call<ResponseTemplate<String>>
 }

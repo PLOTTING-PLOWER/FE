@@ -8,9 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -55,8 +54,42 @@ class PloggingInfoFragment : Fragment() {
 
         loadInfo(view)
 
+        // 참여하기 버튼 클릭 리스너 설정
+        binding.btnJoin.setOnClickListener {
+            joinPlogging()
+        }
+
         return view
     }
+
+    private fun joinPlogging() {
+        val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
+        ploggingController.joinPlogging(ploggingId, 1).enqueue(object :
+            Callback<ResponseTemplate<String>> {
+            override fun onResponse(
+                call: Call<ResponseTemplate<String>>,
+                response: Response<ResponseTemplate<String>>
+            ) {
+                if (response.isSuccessful) {
+                    val body = response.body()?.results
+
+                    // body가 null이 아닐 경우에만 토스트 메시지를 띄움
+                    body?.let {
+                        Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                    }
+
+                    Log.d("post", "onResponse 성공: " + response.body().toString())
+                } else {
+                    Log.d("post", "onResponse 실패 + ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<String>>, t: Throwable) {
+                Log.d("post", "onFailure 에러: " + t.message.toString())
+            }
+        })
+    }
+
 
     private fun showParticipantsDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_participants, null)
