@@ -3,16 +3,20 @@ package com.example.plotting_fe.plogging.ui
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,11 +26,14 @@ import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.plogging.dto.Comment
 import com.example.plotting_fe.plogging.dto.Reply
 import com.example.plotting_fe.plogging.dto.request.CommentUpdateRequest
+import com.example.plotting_fe.plogging.dto.request.CommentUploadRequest
 import com.example.plotting_fe.plogging.dto.response.CommentResponse
 import com.example.plotting_fe.plogging.presentation.PloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PloggingCommentFragment : Fragment() {
 
@@ -35,6 +42,7 @@ class PloggingCommentFragment : Fragment() {
     private val comments = mutableListOf<Comment>()
     private val ploggingId = 1L
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +68,60 @@ class PloggingCommentFragment : Fragment() {
         }
         commentsRecyclerView.adapter = commentAdapter
 
+        makeCommentRequest(view)
+
         return view
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun makeCommentRequest(view: View) {
+        view.findViewById<ImageButton>(R.id.btn_send).setOnClickListener {
+            // 댓글 작성
+            val content = view.findViewById<EditText>(R.id.et_comment).text.toString()
+            val parentCommentId = 0L
+            val depth = 0L
+            var isCommentPublic = true
+
+            if (view.findViewById<CheckBox>(R.id.btn_comment).isChecked) {
+                isCommentPublic = false
+            }
+
+            val uploadRequest =
+                CommentUploadRequest(content, parentCommentId, depth, isCommentPublic)
+
+            // 입력 필드 초기화
+            view.findViewById<EditText>(R.id.et_comment).text.clear()
+
+            uploadComment(uploadRequest)
+
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+
+            // 댓글 화면에 바로 추가
+            // 새 댓글 생성
+            val newComment = Comment(
+                id = comments.size.toLong() + 1,
+                username = "슝슝이",
+                timestamp = LocalDateTime.now().format(formatter),
+                content = content,
+                profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png",
+                depth = 0L,
+                parentCommentId = 0L,
+                isCommentPublic = isCommentPublic,
+                isWriter = true,
+                replies = emptyList()
+            )
+
+            // 댓글 목록에 추가
+            comments.add(newComment)
+
+            // 어댑터에 데이터 변경 알림
+            commentAdapter.notifyItemInserted(comments.size - 1)
+
+            // 입력 필드 초기화
+            view.findViewById<EditText>(R.id.et_comment).text.clear()
+
+
+        }
     }
 
     private fun loadInfo(view: View) {
@@ -114,6 +175,32 @@ class PloggingCommentFragment : Fragment() {
 
             override fun onFailure(
                 call: Call<ResponseTemplate<CommentResponse>>,
+                t: Throwable
+            ) {
+                Log.d("post", "onFailure 에러: " + t.message.toString())
+            }
+        })
+    }
+
+    private fun uploadComment(uploadRequest: CommentUploadRequest) {
+        val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
+        ploggingController.uploadComment(ploggingId, 1, uploadRequest).enqueue(object :
+            Callback<ResponseTemplate<Void>> {
+            override fun onResponse(
+                call: Call<ResponseTemplate<Void>>,
+                response: Response<ResponseTemplate<Void>>,
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("post", "onResponse 성공")
+                } else {
+                    // 에러 메시지 로깅
+                    val errorBody = response.errorBody()?.string()
+                    Log.d("post", "onResponse 실패 + ${response.code()}, 에러: $errorBody")
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ResponseTemplate<Void>>,
                 t: Throwable
             ) {
                 Log.d("post", "onFailure 에러: " + t.message.toString())

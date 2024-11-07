@@ -2,6 +2,7 @@ package com.example.plotting_fe.plogging.presentation
 
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.plogging.dto.request.CommentUpdateRequest
+import com.example.plotting_fe.plogging.dto.request.CommentUploadRequest
 import com.example.plotting_fe.plogging.dto.response.CommentResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
@@ -48,5 +49,12 @@ interface PloggingController {
     @DELETE("/ploggings/comments/{commentId}")
     fun deleteComment(
         @Path("commentId") commentId: Long
+    ): Call<ResponseTemplate<Void>>
+
+    @POST("/ploggings/{ploggingId}/comments")
+    fun uploadComment(
+        @Path("ploggingId") ploggingId: Long,
+        @Query("userId") userId: Long,
+        @Body request: CommentUploadRequest
     ): Call<ResponseTemplate<Void>>
 }
