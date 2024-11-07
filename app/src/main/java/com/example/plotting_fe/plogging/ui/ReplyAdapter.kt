@@ -3,16 +3,26 @@ package com.example.plotting_fe.plogging.ui
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
+import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.plogging.dto.Reply
+import com.example.plotting_fe.plogging.dto.request.CommentUpdateRequest
+import com.example.plotting_fe.plogging.presentation.PloggingController
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<ReplyAdapter.ReplyViewHolder>() {
 
@@ -23,7 +33,7 @@ class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<Repl
         val content: TextView = itemView.findViewById(R.id.tv_content)
         val option: ImageView = itemView.findViewById(R.id.iv_option)
 
-        fun bind(reply: Reply) {
+        fun bind(reply: Reply, view: View) {
             nickname.text = reply.username
             date.text = reply.timestamp
             content.text = reply.content
@@ -47,9 +57,68 @@ class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<Repl
                     .setView(dialogView)
                     .create()
 
+                dialogView.findViewById<TextView>(R.id.tv_edit).setOnClickListener {
+                    dialog.dismiss()
+                    editText(view, reply)
+                }
+
+                dialogView.findViewById<TextView>(R.id.tv_delete).setOnClickListener {
+
+
+                    dialog.dismiss()
+                }
+
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.window?.setGravity(Gravity.BOTTOM)
                 dialog.show()
+            })
+        }
+
+        private fun editText(view: View, reply: Reply) {
+            view.findViewById<TextView>(R.id.tv_content).visibility = View.GONE
+            view.findViewById<LinearLayout>(R.id.ll_modify).visibility = View.VISIBLE
+
+            Log.d("post", "comment.content: ${reply.content}")
+
+            view.findViewById<EditText>(R.id.et_content).hint = reply.content
+
+            view.findViewById<TextView>(R.id.btn_modify).setOnClickListener {
+                val updateContent = view.findViewById<EditText>(R.id.et_content).text.toString()
+                val commentId = reply.id
+                val updateRequest = CommentUpdateRequest(updateContent, reply.isCommentPublic)
+                updateReply(commentId, updateRequest)
+
+                val content = view.findViewById<TextView>(R.id.tv_content)
+
+                content.text = updateContent
+                content.visibility = View.VISIBLE
+                view.findViewById<LinearLayout>(R.id.ll_modify).visibility = View.GONE
+            }
+        }
+
+        private fun updateReply(commentId: Long, updateRequest: CommentUpdateRequest) {
+            val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
+            ploggingController.updateComment(commentId, updateRequest).enqueue(object :
+                Callback<ResponseTemplate<Void>> {
+                override fun onResponse(
+                    call: Call<ResponseTemplate<Void>>,
+                    response: Response<ResponseTemplate<Void>>,
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("post", "onResponse 성공")
+                    } else {
+                        // 에러 메시지 로깅
+                        val errorBody = response.errorBody()?.string()
+                        Log.d("post", "onResponse 실패 + ${response.code()}, 에러: $errorBody")
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseTemplate<Void>>,
+                    t: Throwable
+                ) {
+                    Log.d("post", "onFailure 에러: " + t.message.toString())
+                }
             })
         }
     }
@@ -60,7 +129,7 @@ class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<Repl
     }
 
     override fun onBindViewHolder(holder: ReplyViewHolder, position: Int) {
-        holder.bind(replies[position])
+        holder.bind(replies[position], holder.itemView)
     }
 
     override fun getItemCount(): Int {
