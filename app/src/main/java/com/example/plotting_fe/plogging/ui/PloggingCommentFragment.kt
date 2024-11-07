@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -132,9 +133,8 @@ class PloggingCommentFragment : Fragment() {
         }
 
         dialogView.findViewById<TextView>(R.id.tv_delete).setOnClickListener {
-
-
             dialog.dismiss()
+            deleteText(view, comment)
         }
 
         dialog.show()
@@ -167,6 +167,43 @@ class PloggingCommentFragment : Fragment() {
     private fun updateComment(commentId: Long, updateRequest: CommentUpdateRequest) {
         val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
         ploggingController.updateComment(commentId, updateRequest).enqueue(object :
+            Callback<ResponseTemplate<Void>> {
+            override fun onResponse(
+                call: Call<ResponseTemplate<Void>>,
+                response: Response<ResponseTemplate<Void>>,
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("post", "onResponse 성공")
+                } else {
+                    // 에러 메시지 로깅
+                    val errorBody = response.errorBody()?.string()
+                    Log.d("post", "onResponse 실패 + ${response.code()}, 에러: $errorBody")
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ResponseTemplate<Void>>,
+                t: Throwable
+            ) {
+                Log.d("post", "onFailure 에러: " + t.message.toString())
+            }
+        })
+    }
+
+    private fun deleteText(view: View, comment: Comment) {
+        view.findViewById<TextView>(R.id.tv_nickname).text = "(삭제)"
+        view.findViewById<TextView>(R.id.tv_content).text = "삭제된 댓글입니다."
+        view.findViewById<TextView>(R.id.tv_date).visibility = View.GONE
+        view.findViewById<ImageView>(R.id.iv_option).visibility = View.GONE
+        view.findViewById<ImageView>(R.id.profileImage).setImageResource(R.drawable.ic_flower)
+
+        deleteComment(comment)
+    }
+
+    private fun deleteComment(comment: Comment) {
+        val commentId = comment.id
+        val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
+        ploggingController.deleteComment(commentId).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,

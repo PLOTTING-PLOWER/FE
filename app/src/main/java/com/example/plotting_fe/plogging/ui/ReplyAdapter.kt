@@ -63,9 +63,8 @@ class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<Repl
                 }
 
                 dialogView.findViewById<TextView>(R.id.tv_delete).setOnClickListener {
-
-
                     dialog.dismiss()
+                    deleteText(view, reply)
                 }
 
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -99,6 +98,38 @@ class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<Repl
         private fun updateReply(commentId: Long, updateRequest: CommentUpdateRequest) {
             val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
             ploggingController.updateComment(commentId, updateRequest).enqueue(object :
+                Callback<ResponseTemplate<Void>> {
+                override fun onResponse(
+                    call: Call<ResponseTemplate<Void>>,
+                    response: Response<ResponseTemplate<Void>>,
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("post", "onResponse 성공")
+                    } else {
+                        // 에러 메시지 로깅
+                        val errorBody = response.errorBody()?.string()
+                        Log.d("post", "onResponse 실패 + ${response.code()}, 에러: $errorBody")
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseTemplate<Void>>,
+                    t: Throwable
+                ) {
+                    Log.d("post", "onFailure 에러: " + t.message.toString())
+                }
+            })
+        }
+
+        private fun deleteText(view: View, reply: Reply) {
+            view.findViewById<LinearLayout>(R.id.ll_reply).visibility = View.GONE
+            deleteComment(reply)
+        }
+
+        private fun deleteComment(reply: Reply) {
+            val commentId = reply.id
+            val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
+            ploggingController.deleteComment(commentId).enqueue(object :
                 Callback<ResponseTemplate<Void>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<Void>>,
