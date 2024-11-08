@@ -18,15 +18,18 @@
             android:text="마이페이지"  />
 
         <!-- 프로필 이미지 -->
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/page_title"
             android:layout_marginTop="25dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_flower"
-            android:contentDescription="프로필 이미지" />
+            android:background="@drawable/circle_shape"
+            android:clipToOutline="true" />
+
 
         <!-- 사용자 이름 -->
         <TextView
