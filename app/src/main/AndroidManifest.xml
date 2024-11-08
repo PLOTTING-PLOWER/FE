@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Plotting_FE"
         tools:targetApi="31">
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".mypage.ui.EditProfileActivity"
             android:exported="false" />
         <activity
             android:name=".mypage.ui.ProfileActivity"
