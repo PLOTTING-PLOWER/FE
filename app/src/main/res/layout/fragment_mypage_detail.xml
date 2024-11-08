@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mypage.ui.ProfileDetailFragment"
+    android:background="@color/white">
+
+    <!-- ScrollView로 감싸기 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 프로필 이미지와 별 이미지 감싸는 ConstraintLayout -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <!-- 프로필 이미지 -->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="25dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_flower"
+                    android:background="@drawable/circle_shape"
+                    android:clipToOutline="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+                <!-- 별 이미지 -->
+                <ImageView
+                    android:id="@+id/starIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="-15dp"
+                    android:src="@drawable/ic_star_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_image" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!-- 이름 및 직함 텍스트 -->
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="송실대 환경 지킴이"
+                style="@style/AndroidH2"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp" />
+
+            <!-- 설명 텍스트 -->
+            <TextView
+                android:id="@+id/profileDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="플라스틱의 개발은 천연 플라스틱 물질(예: 껌, 셸락)의 사용에서부터 화학적으로 수정된 천연물질(예: 천연고무, 나이트로셀룰로스, 갈랄리드), 끝으로 완전한 합성 분자(예: 베이클라이트, 에폭시, 폴리염화 비닐)로 발전해왔다. 기원전 1600년 즈음, 메소아메리카는 공, 밴드, 작은 조각상에 천연 고무를 사용하였다"
+                style="@style/AndroidCaption2"
+                android:layout_marginTop="8dp" />
+
+            <!-- 활동 기록 섹션 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="활동 기록"
+                style="@style/AndroidBody4"
+                android:layout_marginTop="24dp" />
+
+            <!-- 활동 기록 카드 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="8dp"
+                android:backgroundTint="@android:color/white">
+
+            <!-- 활동 기록 항목들 -->
+            <LinearLayout
+                android:id="@+id/activityRecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- 총 플로깅 횟수 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="총 플로깅 횟수"
+                        android:textStyle="bold"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15회"
+                        style="@style/AndroidCaption1"
+                        android:textColor="@color/main"/>
+                </LinearLayout>
+
+                <!-- 구분선 -->
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="40dp"
+                    android:background="@color/light_orange" />
+
+                <!--       총 플로깅 시간         -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="총 플로깅 시간"
+                        android:textStyle="bold"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15회"
+                        style="@style/AndroidCaption1"
+                        android:textColor="@color/main"/>
+                </LinearLayout>
+
+                <!-- 구분선 -->
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="40dp"
+                    android:background="@color/light_orange" />
+
+                <!--        이번달 등수            -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이번달 등수"
+                        android:textStyle="bold"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15회"
+                        style="@style/AndroidCaption1"
+                        android:textColor="@color/main"/>
+                </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 활동 기록 섹션 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="활동 정보"
+                style="@style/AndroidBody4"
+                android:layout_marginTop="24dp" />
+
+            </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
