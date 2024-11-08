@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_parent_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -118,7 +119,7 @@
             android:weightSum="10">
 
             <LinearLayout
-                android:id="@+id/ll_comment"
+                android:id="@+id/ll_upload_reply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

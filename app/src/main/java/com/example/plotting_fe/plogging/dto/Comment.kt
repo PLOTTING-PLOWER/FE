@@ -10,7 +10,7 @@ data class Comment (
     val parentCommentId: Long,
     val isCommentPublic: Boolean,
     val isWriter: Boolean,
-    val replies: List<Reply> = emptyList() // 답변 목록
+    var replies: MutableList<Reply> = mutableListOf()
 )
 
 data class Reply (

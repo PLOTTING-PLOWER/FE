@@ -1,5 +1,6 @@
 package com.example.plotting_fe.plogging.ui
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -16,7 +17,9 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,8 +43,10 @@ class PloggingCommentFragment : Fragment() {
     private lateinit var commentsRecyclerView: RecyclerView
     private lateinit var commentAdapter: CommentAdapter
     private val comments = mutableListOf<Comment>()
+    private var replies = mutableListOf<Reply>()
     private val ploggingId = 1L
 
+    @SuppressLint("MissingInflatedId")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,24 +58,92 @@ class PloggingCommentFragment : Fragment() {
         commentsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // 예시 댓글 데이터 추가
-        val replyList = listOf(
+        replies = mutableListOf(
             Reply(1, "YU", "2024.10.08 12:30 PM", "답변 내용", "", 1, 1, true, true),
             Reply(2, "PARK", "2024.10.08 12:31 PM", "또 다른 답변 내용", "", 1, 1, true, true)
         )
 
-        comments.add(Comment(1, "LEE", "2024.10.08 12:00 PM", "같이 플로깅 할래?", "", 0, 0, true, true, replyList))
-        comments.add(Comment(2, "OH", "2024.10.08 12:00 PM", "또 다른 댓글", "", 0, 0, true, true, emptyList()))
+        comments.add(Comment(1, "LEE", "2024.10.08 12:00 PM", "같이 플로깅 할래?", "", 0, 0, true, true, replies))
+        comments.add(Comment(2, "OH", "2024.10.08 12:00 PM", "또 다른 댓글", "", 0, 0, true, true, mutableListOf()))
 
         loadInfo(view)
 
         commentAdapter = CommentAdapter(comments) { comment ->
-            showOptionsDialog(comment, view)
+            // 댓글에 답글 작성
+            uploadReply(view, comment)
         }
+
         commentsRecyclerView.adapter = commentAdapter
 
         makeCommentRequest(view)
 
         return view
+    }
+
+    private fun uploadReply(
+        view: View,
+        comment: Comment
+    ) {
+        view.findViewById<LinearLayout>(R.id.ll_upload_reply)
+            .setOnClickListener(View.OnClickListener {
+                view.findViewById<LinearLayout>(R.id.ll_parent_comment).setBackgroundColor(
+                    ContextCompat.getColor(requireContext(), R.color.transparent_main)
+                )
+
+                Toast.makeText(requireContext(), "대댓글을 작성해주세요!", Toast.LENGTH_SHORT).show()
+
+                view.findViewById<ImageButton>(R.id.btn_send)
+                    .setOnClickListener(View.OnClickListener {
+
+                        val content = view.findViewById<EditText>(R.id.et_comment).text.toString()
+                        val parentCommentId = comment.id
+                        val depth = 1L
+                        var isCommentPublic = true
+
+                        if (view.findViewById<CheckBox>(R.id.btn_comment).isChecked) {
+                            isCommentPublic = false
+                        }
+
+                        val uploadRequest =
+                            CommentUploadRequest(content, parentCommentId, depth, isCommentPublic)
+
+                        // 입력 필드 초기화
+                        view.findViewById<EditText>(R.id.et_comment).text.clear()
+
+                        uploadComment(uploadRequest)
+
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+
+                        // 댓글 화면에 바로 추가
+                        // 새 댓글 생성
+                        val newReply = Reply(
+                            id = replies.size.toLong() + 1,
+                            username = "슝슝이",
+                            timestamp = LocalDateTime.now().format(formatter),
+                            content = content,
+                            profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png",
+                            depth = depth,
+                            parentCommentId = parentCommentId,
+                            isCommentPublic = isCommentPublic,
+                            isWriter = true
+                        )
+
+                        // 해당 댓글의 replies 리스트에 newReply 추가
+                        comment.replies.add(newReply)
+
+                        // 입력 필드 초기화
+                        view.findViewById<EditText>(R.id.et_comment).text.clear()
+
+                        // 어댑터에 데이터 변경 알림
+                        commentAdapter.notifyItemChanged(comments.indexOf(comment))
+                    })
+
+                // 어댑터에 데이터 변경 알림
+                view.findViewById<ImageView>(R.id.iv_option)
+                    .setOnClickListener(View.OnClickListener {
+                        showOptionsDialog(comment, view)
+                    })
+            })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -108,7 +181,7 @@ class PloggingCommentFragment : Fragment() {
                 parentCommentId = 0L,
                 isCommentPublic = isCommentPublic,
                 isWriter = true,
-                replies = emptyList()
+                replies = mutableListOf()
             )
 
             // 댓글 목록에 추가
@@ -119,8 +192,6 @@ class PloggingCommentFragment : Fragment() {
 
             // 입력 필드 초기화
             view.findViewById<EditText>(R.id.et_comment).text.clear()
-
-
         }
     }
 
@@ -160,7 +231,7 @@ class PloggingCommentFragment : Fragment() {
                                         childComment.isCommentPublic,
                                         childComment.isWriter
                                     )
-                                }
+                                }.toMutableList()
                             )
                         })
 
