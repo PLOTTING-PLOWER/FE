@@ -1,6 +1,8 @@
 package com.example.plotting_fe.mypage.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.utils.Utils;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -26,11 +29,18 @@ public class ProfileActivity extends AppCompatActivity {
             return insets;
         });
 
+        // 뒤로 가기 버튼 설정
         ImageView backButton = findViewById(R.id.iv_back);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        Utils.onBackButtonClick(this, backButton);
+
+        // 수정 버튼 클릭 리스너 설정
+        ImageView editButton = findViewById(R.id.iv_edit);
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // 현재 액티비티를 종료하고 이전 화면으로 돌아감
+                Log.d("ProfileActivity", "Edit button clicked"); // 로그 추가
+                Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                startActivity(intent);
             }
         });
     }
