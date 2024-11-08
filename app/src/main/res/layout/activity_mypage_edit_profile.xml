@@ -39,17 +39,35 @@
             app:layout_constraintHorizontal_bias="0.5"
             android:layout_marginTop="20dp" />
 
-
-        <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_flower"
+        <FrameLayout
+            android:id="@+id/fl_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="25dp">
+
+            <!-- 동그란 프로필 이미지 -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_flower"
+                android:background="@drawable/circle_shape"
+                android:clipToOutline="true" />
+
+            <!-- 카메라 아이콘 -->
+            <ImageView
+                android:id="@+id/iv_camera_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_camera"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="3dp" />
+
+        </FrameLayout>
 
         <!-- Name -->
         <TextView
@@ -63,7 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_image" />
+            app:layout_constraintTop_toBottomOf="@id/fl_image" />
 
         <EditText
             android:id="@+id/tv_name_value"
