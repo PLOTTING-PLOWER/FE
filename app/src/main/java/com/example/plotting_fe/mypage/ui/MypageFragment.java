@@ -16,10 +16,7 @@ import android.widget.LinearLayout;
 import com.example.plotting_fe.R;
 
 public class MypageFragment extends Fragment {
-    private LinearLayout profile;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -54,7 +51,7 @@ public class MypageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mypage, container, false);
 
-        profile = rootView.findViewById(R.id.ll_menu).findViewById(R.id.ll_profile);
+        LinearLayout profile = rootView.findViewById(R.id.ll_menu).findViewById(R.id.ll_profile);
         // 버튼을 찾고 클릭 리스너를 설정합니다.
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +61,18 @@ public class MypageFragment extends Fragment {
                 navController.navigate(R.id.action_mypage_to_profile);
             }
         });
+
+        LinearLayout star = rootView.findViewById(R.id.ll_menu).findViewById(R.id.ll_star);
+        // 버튼을 찾고 클릭 리스너를 설정합니다.
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // NavController를 통해 action_mypage_to_star로 이동
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_mypage_to_star);
+            }
+        });
+        
 
         // Inflate the layout for this fragment
         return rootView;

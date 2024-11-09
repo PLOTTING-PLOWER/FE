@@ -14,12 +14,20 @@
         android:label="Home">
         <action
             android:id="@+id/action_mypage_to_profile"
-            app:destination="@id/navigation_profile_profile"/>
+            app:destination="@id/navigation_mypage_profile"/>
+        <action
+            android:id="@+id/action_mypage_to_star"
+            app:destination="@id/navigation_mypage_star"/>
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_profile_profile"
+        android:id="@+id/navigation_mypage_profile"
         android:name="com.example.plotting_fe.mypage.ui.MypageProfileFragment"
+        android:label="profile" />
+
+    <fragment
+        android:id="@+id/navigation_mypage_star"
+        android:name="com.example.plotting_fe.mypage.ui.MypageStarFragment"
         android:label="profile" />
 
     <!--

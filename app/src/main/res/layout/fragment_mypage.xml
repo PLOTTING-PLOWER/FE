@@ -84,6 +84,7 @@
 
             <!-- 관심 목록 항목 -->
             <LinearLayout
+                android:id="@+id/ll_star"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
