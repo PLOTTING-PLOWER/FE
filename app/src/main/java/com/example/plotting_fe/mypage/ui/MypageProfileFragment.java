@@ -68,7 +68,7 @@ public class MypageProfileFragment extends Fragment {
 
         // 뒤로 가기 버튼 설정
         ImageView backButton = view.findViewById(R.id.iv_back);
-        Utils.onBackButtonClick(getActivity(), backButton);
+        Utils.onBackButtonClick(this, backButton);
 
         // 수정 버튼 클릭 리스너 설정
         ImageView editButton = view.findViewById(R.id.iv_edit);

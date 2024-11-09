@@ -25,7 +25,7 @@ public class Utils {
         context.startActivity(intent);
     }
 
-    // 액티비티용 뒤로 가기 버튼 설정 메서드
+    // 액티비티 용 뒤로 가기 버튼 설정 메서드
     public static void onBackButtonClick(final Activity activity, ImageView backButton) {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,10 +40,12 @@ public class Utils {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 백 스택이 비어있지 않으면 popBackStack으로 이전 프래그먼트로 돌아가기
                 if (fragment.getParentFragmentManager().getBackStackEntryCount() > 0) {
-                    fragment.getParentFragmentManager().popBackStack(); // 백 스택에서 이전 프래그먼트로 돌아감
+                    fragment.getParentFragmentManager().popBackStack();
                 } else {
-                    fragment.requireActivity().finish(); // 백 스택이 비어있으면 액티비티 종료
+                    // 백 스택이 비어있으면 기본 뒤로 가기 동작 수행
+                    fragment.requireActivity().onBackPressed();
                 }
             }
         });
