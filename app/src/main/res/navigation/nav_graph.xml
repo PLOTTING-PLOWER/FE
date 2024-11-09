@@ -8,6 +8,7 @@
         android:name="com.example.plotting_fe.HomeFragment"
         android:label="Home" />
 
+    <!-- 마이페이지  -->
     <fragment
         android:id="@+id/navigation_mypage"
         android:name="com.example.plotting_fe.mypage.ui.MypageFragment"
@@ -20,14 +21,28 @@
             app:destination="@id/navigation_mypage_star"/>
     </fragment>
 
+    <!--    나의 프로필    -->
     <fragment
         android:id="@+id/navigation_mypage_profile"
         android:name="com.example.plotting_fe.mypage.ui.MypageProfileFragment"
-        android:label="profile" />
+        android:label="profile" >
 
+    </fragment>
+
+    <!--    관심 목록    -->
     <fragment
         android:id="@+id/navigation_mypage_star"
         android:name="com.example.plotting_fe.mypage.ui.MypageStarFragment"
+        android:label="profile" >
+        <action
+            android:id="@+id/action_star_to_profile_detail"
+            app:destination="@id/navigation_profile_detail"/>
+    </fragment>
+
+    <!--    프로필 상세 정보    -->
+    <fragment
+        android:id="@+id/navigation_profile_detail"
+        android:name="com.example.plotting_fe.mypage.ui.ProfileDetailFragment"
         android:label="profile" />
 
     <!--

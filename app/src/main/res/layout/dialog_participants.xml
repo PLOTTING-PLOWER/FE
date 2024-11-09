@@ -68,7 +68,6 @@
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="true"
             tools:listitem="@layout/item_participant"/>
-
     </ScrollView>
 
 </LinearLayout>
