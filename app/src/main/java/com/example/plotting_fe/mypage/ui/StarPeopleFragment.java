@@ -78,7 +78,7 @@ public class StarPeopleFragment extends Fragment {
                 navController.navigate(R.id.action_star_to_profile_detail, args);
             }
         });
-        
+
         recyclerView.setAdapter(adapter);
         // Inflate the layout for this fragment
         return view;
