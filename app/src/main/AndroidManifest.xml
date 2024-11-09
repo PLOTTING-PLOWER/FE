@@ -30,9 +30,6 @@
             android:name=".mypage.ui.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".mypage.ui.ProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
