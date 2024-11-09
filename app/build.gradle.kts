@@ -1,6 +1,12 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+}
+
+val properties = Properties().apply {
+    load(project.rootProject.file("local.properties").inputStream())
 }
 
 android {
@@ -14,7 +20,16 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildTypes {
+            buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
+        }
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
 
     buildTypes {
@@ -41,9 +56,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 
     // Material Design 라이브러리 (BottomNavigationView 사용을 위해 필요)
     implementation("com.google.android.material:material:1.9.0")
@@ -54,4 +72,15 @@ dependencies {
 
     // appcompat lib
     implementation("androidx.appcompat:appcompat:1.3.0")
+
+    //retrofit2 - 서버통신
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Http 통신 라이브러리
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // glide - 이미지 로딩
+    implementation(libs.glide)
 }

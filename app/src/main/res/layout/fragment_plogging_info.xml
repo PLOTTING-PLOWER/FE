@@ -18,6 +18,7 @@
             android:layout_marginBottom="16dp">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="숭실대 환경 지킴이"
@@ -34,19 +35,24 @@
             style="@style/AndroidButton2"
             android:includeFontPadding="false"
             android:textColor="@color/main"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="25dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="25dp">
 
             <TextView
+                android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
                 android:text="코딩하기 싫은 사람 모여라!!"
-                style="@style/AndroidBody1"/>
+                android:lineSpacingExtra="0dp"
+                android:lineSpacingMultiplier="1"
+                style="@style/AndroidBody3"/>
 
         </LinearLayout>
 
@@ -170,6 +176,7 @@
                     android:includeFontPadding="false"/>
 
                 <TextView
+                    android:id="@+id/tv_recruit_end"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="2024.11.19"
@@ -202,14 +209,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="활동 소개"
+            android:text="주최자"
             style="@style/AndroidBody2"/>
 
         <TextView
-            android:id="@+id/tv_description"
+            android:id="@+id/tv_host"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="숭실대 근처를 가볍게 뛰며 플라스틱을 주워봅시다!"
+            android:text="슝슝이"
             style="@style/AndroidBody3"
             android:includeFontPadding="false"
             android:layout_marginBottom="8dp"/>
@@ -219,27 +226,6 @@
             android:layout_height="wrap_content"
             android:text="활동 장소"
             style="@style/AndroidBody2"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_location"
-                android:layout_marginRight="8dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="서울특별시 상도동 숭실대학교 정보관 앞"
-                style="@style/AndroidBody3"
-                android:includeFontPadding="false"
-                android:gravity="center_vertical"/>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -272,8 +258,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="숭실대학교 정보관 1층 앞"
+                    android:includeFontPadding="false"
                     style="@style/AndroidBody3"
                     android:textColor="@color/gray"
+                    android:lineSpacingExtra="0dp"
+                    android:lineSpacingMultiplier="1"
                     android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
@@ -281,6 +270,8 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/custom_progress_bar">
             </ImageView>
 
@@ -309,6 +300,8 @@
                     android:text="미정"
                     style="@style/AndroidBody3"
                     android:textColor="@color/gray"
+                    android:lineSpacingExtra="0dp"
+                    android:lineSpacingMultiplier="1"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
         </LinearLayout>

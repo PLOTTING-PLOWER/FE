@@ -27,19 +27,8 @@ class MainActivity : AppCompatActivity() {
             val navController = findNavController(R.id.nav_host_fragment)
             val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
             NavigationUI.setupWithNavController(bottomNavigationView, navController)
-
-            navController.addOnDestinationChangedListener { _, destination, _ ->
-                when (destination.id) {
-                    R.id.navigation_home -> {
-                        bottomNavigationView.itemIconTintList = getColorStateList(R.color.bottom_nav_item_color)
-                        bottomNavigationView.itemTextColor = getColorStateList(R.color.bottom_nav_item_color)
-                    }
-                    // 다른 페이지에 대해서도 필요하다면 추가 설정
-                }
-            }
         }
 
-        // 특정 화면에서 BottomNavigationView의 색상 설정
 
     }
 }
