@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.plotting_fe.user.ui.JoinActivity;
 import com.example.plotting_fe.user.ui.LoginActivity;
 
@@ -23,7 +25,7 @@ public class Utils {
         context.startActivity(intent);
     }
 
-    // 뒤로 가기 버튼 설정 메서드
+    // 액티비티용 뒤로 가기 버튼 설정 메서드
     public static void onBackButtonClick(final Activity activity, ImageView backButton) {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,5 +34,20 @@ public class Utils {
             }
         });
     }
+
+    // 프래그먼트에서 사용하는 뒤로 가기 버튼 설정 메서드
+    public static void onBackButtonClick(final Fragment fragment, ImageView backButton) {
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fragment.getParentFragmentManager().getBackStackEntryCount() > 0) {
+                    fragment.getParentFragmentManager().popBackStack(); // 백 스택에서 이전 프래그먼트로 돌아감
+                } else {
+                    fragment.requireActivity().finish(); // 백 스택이 비어있으면 액티비티 종료
+                }
+            }
+        });
+    }
+
 
 }

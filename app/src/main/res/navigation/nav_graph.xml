@@ -11,7 +11,17 @@
     <fragment
         android:id="@+id/navigation_mypage"
         android:name="com.example.plotting_fe.mypage.ui.MypageFragment"
-        android:label="Home" />
+        android:label="Home">
+        <action
+            android:id="@+id/action_mypage_to_profile"
+            app:destination="@id/navigation_profile_profile"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile_profile"
+        android:name="com.example.plotting_fe.mypage.ui.MypageProfileFragment"
+        android:label="profile" />
+
     <!--
     <fragment
         android:id="@+id/navigation_plogging"
