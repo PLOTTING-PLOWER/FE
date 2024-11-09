@@ -3,9 +3,18 @@
     <style name="Base.Theme.Plotting_FE" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/main</item>
+        <item name="colorPrimaryVariant">@color/light_orange</item>
     </style>
 
     <style name="Theme.Plotting_FE" parent="Base.Theme.Plotting_FE" />
+
+    <!-- 스플래시화면 -->
+    <style name="Theme.Plotting_FE.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/light_orange</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo3</item>
+        <item name="postSplashScreenTheme">@style/Theme.Plotting_FE</item>
+        <item name="windowSplashScreenAnimationDuration">800</item>
+    </style>
 
     <style name="noto_bold">
         <item name="android:fontFamily">@font/noto_bold</item>
