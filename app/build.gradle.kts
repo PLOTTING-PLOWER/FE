@@ -62,6 +62,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // 스플래쉬 화면
+    implementation("androidx.core:core-splashscreen:1.0.0")
 
     // Material Design 라이브러리 (BottomNavigationView 사용을 위해 필요)
     implementation("com.google.android.material:material:1.9.0")
