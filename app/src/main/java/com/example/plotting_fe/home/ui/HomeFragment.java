@@ -1,4 +1,4 @@
-package com.example.plotting_fe;
+package com.example.plotting_fe.home.ui;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.plotting_fe.R;
 
 /**
  * A simple {@link Fragment} subclass.

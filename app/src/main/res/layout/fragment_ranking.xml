@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.ui.RankingFragment"
+    android:background="@color/white">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="31dp"
+        android:layout_height="33dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <!-- Profile Title -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="관심 목록"
+        style="@style/AndroidButton1"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="20dp" />
+
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp">
+
+        <!-- Example Ranking Item -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_medal_star"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="이번달 내 등수"
+                    style="@style/AndroidTab"
+                    android:textColor="@color/gray"
+                    android:paddingStart="5dp"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/ranking_box"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_medal_star" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="420등"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <!-- Profile Image -->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_flower"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circle_shape"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="하츄핑"
+                    style="@style/AndroidCaption1"
+                    android:marginStart="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="0.5 H"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="2회"
+                    style="@style/AndroidCaption1"
+                    android:paddingStart="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_medal_star"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="이번달 TOP 7"
+                    style="@style/AndroidTab"
+                    android:textColor="@color/gray"
+                    android:paddingStart="5dp"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+
+
+
+            <!-- 4등 ~ 7등 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
+
+            <!-- 4등 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:layout_marginVertical="5dp">
+
+            <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_medal_gold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="4등"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <!-- Profile Image -->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_4th"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_flower"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circle_shape"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="하츄핑"
+                    style="@style/AndroidCaption1"
+                    android:marginStart="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="0.5 H"
+                    android:background="@drawable/time_background"
+                    android:textColor="@color/main"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="2회"
+                    style="@style/AndroidCaption1"
+                    android:textColor="@color/gray"
+                    android:layout_marginStart="20dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/light_gray" />
+
+            <!-- 5등 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:layout_marginVertical="5dp">
+
+
+            <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_medal_silver" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="5등"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <!-- Profile Image -->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_5th"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_flower"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circle_shape"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="하츄핑"
+                    style="@style/AndroidCaption1"
+                    android:marginStart="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="0.5 H"
+                    android:background="@drawable/time_background"
+                    android:textColor="@color/main"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="2회"
+                    style="@style/AndroidCaption1"
+                    android:textColor="@color/gray"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/light_gray" />
+
+            <!-- 6등 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:layout_marginVertical="5dp">
+
+
+            <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_medal_bronze" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="6등"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <!-- Profile Image -->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_6th"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_flower"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circle_shape"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="하츄핑"
+                    style="@style/AndroidCaption1"
+                    android:marginStart="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="0.5 H"
+                    android:background="@drawable/time_background"
+                    android:textColor="@color/main"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="2회"
+                    style="@style/AndroidCaption1"
+                    android:textColor="@color/gray"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/light_gray" />
+
+            <!-- 7등 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:layout_marginVertical="5dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_medal_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="7등"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <!-- Profile Image -->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_7th"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_flower"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circle_shape"
+                    android:clipToOutline="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="하츄핑"
+                    style="@style/AndroidCaption1"
+                    android:marginStart="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/time_background"
+                    android:textColor="@color/main"
+                    android:text="0.5 H"
+                    style="@style/AndroidCaption1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="2회"
+                    style="@style/AndroidCaption1"
+                    android:textColor="@color/gray"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/light_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
