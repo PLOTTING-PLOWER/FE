@@ -6,6 +6,7 @@ import com.example.plotting_fe.plogging.dto.request.CommentUploadRequest
 import com.example.plotting_fe.plogging.dto.response.CommentResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
+import com.plotting.server.plogging.dto.response.PloggingMapResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -57,4 +58,13 @@ interface PloggingController {
         @Query("userId") userId: Long,
         @Body request: CommentUploadRequest
     ): Call<ResponseTemplate<Void>>
+
+    @GET("/ploggings/map/info")
+    fun getPloggingInBounds(
+        @Query("lat1") lat1: Double,
+        @Query("lon1") lon1: Double,
+        @Query("lat2") lat2: Double,
+        @Query("lon2") lon2: Double,
+        @Query("zoom") zoom: Int
+    ): Call<ResponseTemplate<List<PloggingMapResponse>>>
 }

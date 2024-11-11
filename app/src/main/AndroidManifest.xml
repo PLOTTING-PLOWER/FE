@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:usesCleartextTraffic="true"
@@ -20,28 +20,41 @@
             android:name=".plogging.ui.PloggingDetailActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="false"/>
+
         <activity
             android:name=".mypage.ui.EditProfileActivity"
             android:exported="false" />
+
+        <!-- 처음 시작화면을 PloggingMapActivity로 설정 -->
         <activity
-            android:name=".WelcomeActivity"
-            android:theme="@style/Theme.Plotting_FE.Splash"
+            android:name=".plogging.ui.PloggingMapActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/Theme.Plotting_FE.Splash"
+            android:exported="true" />
+
         <activity
             android:name=".user.ui.LoginActivity"
             android:exported="false" />
+
         <activity
             android:name=".user.ui.JoinActivity"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-    </application>
 
+        <!-- 네이버 지도 API 클라이언트 ID 설정 -->
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="ixpavqfivc" />
+    </application>
 </manifest>
