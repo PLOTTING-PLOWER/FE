@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mypage.ui.MypageFragment"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        style="@style/AndroidButton1"
+        android:text="모아모아플로깅" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="60dp">
+
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:background="@drawable/search_bar"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginEnd="20dp">>
+
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:hint="플로깅 행사를 검색해보세요."
+                android:paddingLeft="40dp"
+                android:paddingTop="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/search_button"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_search" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/filter_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/ic_filter" />
+    </LinearLayout>
+
+</RelativeLayout>
