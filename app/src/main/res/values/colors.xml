@@ -9,4 +9,7 @@
     <color name="red">#FC8986</color>
     <color name="light_orange">#F8EFE7</color>
     <color name="transparent_main">#1AEF920F</color>
+    <color name="bronze">#DBB878</color>
+    <color name="gold">#F1C645</color>
+    <color name="silver">#C4C4C4</color>
 </resources>
