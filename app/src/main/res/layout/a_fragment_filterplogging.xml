@@ -68,4 +68,13 @@
             android:src="@drawable/ic_filter" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/btn_add_plogging"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="60dp"
+        android:src="@drawable/ic_plus"/>
+
 </RelativeLayout>
