@@ -51,16 +51,21 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Naver Map SDK
+    implementation("com.naver.maps:map-sdk:3.19.1")
 
     // 스플래쉬 화면
     implementation("androidx.core:core-splashscreen:1.0.0")
@@ -85,4 +90,7 @@ dependencies {
 
     // glide - 이미지 로딩
     implementation(libs.glide)
+
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
 }
