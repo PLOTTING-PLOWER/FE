@@ -27,6 +27,7 @@
             android:layout_weight="1"
             android:gravity="center"
             style="@style/AndroidH1"
+            android:text="내가 만든 플로깅"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,8 @@
         android:id="@+id/layout_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/linearLayout">
+        app:layout_constraintBottom_toBottomOf="@id/linearLayout"
+        app:layout_constraintTop_toTopOf="@id/linearLayout">
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -56,81 +58,76 @@
     <ScrollView
         android:id="@+id/sv_comment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
         android:paddingBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:fillViewport="true">
 
-    <LinearLayout
-        android:id="@+id/layout_plogging"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/layout_back">
+                    <LinearLayout
+                        android:id="@+id/layout_plogging"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/layout_back">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="10"
-            android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="10"
+                            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="모집중인 플로깅"
-                android:layout_weight="9"
-                style="@style/Androidbutton4"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"/>
+                            <TextView
+                                android:id="@+id/tv_title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="모집중인 플로깅"
+                                android:layout_weight="9"
+                                style="@style/Androidbutton4"
+                                android:textColor="@color/black"/>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_add"
-                android:layout_gravity="center_vertical" />
-        </LinearLayout>
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_add"
+                                android:layout_gravity="center_vertical" />
+                        </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_plogging"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/item_my_plogging"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_plogging"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:nestedScrollingEnabled="false"
+                            tools:listitem="@layout/item_my_plogging"/>
 
 
-        <LinearLayout
-            android:id="@+id/layout_complete_plogging"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/layout_plogging">
+                        <LinearLayout
+                            android:id="@+id/layout_complete_plogging"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@id/layout_plogging">
 
-                <TextView
-                    android:id="@+id/tv_complete_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="마감된 플로깅"
-                    android:layout_weight="9"
-                    style="@style/Androidbutton4"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/black"/>
+                            <TextView
+                                android:id="@+id/tv_complete_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="마감된 플로깅"
+                                android:layout_weight="9"
+                                style="@style/Androidbutton4"
+                                android:paddingTop="10dp"
+                                android:textColor="@color/black"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_complete_plogging"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/item_my_complete_plogging"/>
-
-        </LinearLayout>
-    </LinearLayout>
-    </ScrollView>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_complete_plogging"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:nestedScrollingEnabled="false"
+                                tools:listitem="@layout/item_my_complete_plogging"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
