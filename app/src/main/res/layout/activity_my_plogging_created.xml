@@ -14,7 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/sv_comment">
 
         <TextView
             android:id="@+id/tv_program_list_title"
@@ -50,7 +53,19 @@
         </ImageButton>
     </LinearLayout>
 
+    <ScrollView
+        android:id="@+id/sv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:paddingBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fillViewport="true">
+
     <LinearLayout
+        android:id="@+id/layout_plogging"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -85,7 +100,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:nestedScrollingEnabled="false"
             tools:listitem="@layout/item_my_plogging"/>
+
+
+        <LinearLayout
+            android:id="@+id/layout_complete_plogging"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/layout_plogging">
+
+                <TextView
+                    android:id="@+id/tv_complete_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="마감된 플로깅"
+                    android:layout_weight="9"
+                    style="@style/Androidbutton4"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_complete_plogging"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_my_complete_plogging"/>
+
+        </LinearLayout>
     </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

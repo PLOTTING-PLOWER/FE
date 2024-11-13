@@ -23,10 +23,22 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
 
         // 더미 데이터 설정
         val dummyData = listOf(
-            PloggingData(2, PloggingType.ASSIGN, "2024.11.13 10:00", "여의도 봄꽃 플로깅", "여의도, 서울", 1, 2, 10),
+            PloggingData(2, PloggingType.ASSIGN, "2024.12.13 10:00", "여의도 봄꽃 플로깅", "여의도, 서울", 1, 2, 10),
             PloggingData(3, PloggingType.DIRECT, "2024.12.24 17:00", "한강공원 플로깅", "한강, 서울", 3, 5, 5))
 
         val adapter = MyPloggingCreatedAdapter(dummyData)
         recyclerView.adapter = adapter
+
+        // RecyclerView 설정
+        val completeRecyclerView = binding.rvCompletePlogging
+        completeRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        // 더미 데이터 설정
+        val completeDummyData = listOf(
+            PloggingData(5, PloggingType.ASSIGN, "2024.11.13 10:00", "여의도 봄꽃 플로깅", "여의도, 서울", 1, 2, 10),
+            PloggingData(6, PloggingType.DIRECT, "2024.11.24 17:00", "한강공원 플로깅", "한강, 서울", 3, 5, 5))
+
+        val completeAdapter = MyCompletePloggingCreatedAdapter(completeDummyData)
+        completeRecyclerView.adapter = completeAdapter
     }
 }
