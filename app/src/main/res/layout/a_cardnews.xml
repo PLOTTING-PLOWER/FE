@@ -15,7 +15,7 @@
 
         <!-- 뒤로가기 버튼 -->
         <ImageView
-            android:id="@+id/iv_back"
+            android:id="@+id/ic_back"
             android:layout_width="31dp"
             android:layout_height="33dp"
             android:layout_marginTop="28dp"
@@ -31,7 +31,9 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintBottom_toBottomOf="@+id/ic_back"
+            app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <!--s3에 저장된 카드뉴스 이미지 가져오는 부분 -->
         <androidx.recyclerview.widget.RecyclerView
