@@ -80,6 +80,7 @@ class PloggingCommentFragment : Fragment() {
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun uploadReply(
         view: View,
         comment: Comment
