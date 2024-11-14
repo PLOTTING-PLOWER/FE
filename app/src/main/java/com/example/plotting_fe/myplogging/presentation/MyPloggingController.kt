@@ -17,6 +17,11 @@ interface MyPloggingController {
         @Query("userId") userId: Long
     ): Call<ResponseTemplate<MyPloggingCreatedResponse>>
 
+    @DELETE("/my-ploggings/created/{ploggingId}")
+    fun deleteMyPlogging(
+        @Path("ploggingId") ploggingId: Long
+    ): Call<ResponseTemplate<Void>>
+
     @GET("/my-ploggings/{ploggingId}/waiting/users")
     fun getWaitingUsers(
         @Path("ploggingId") ploggingId: Long
