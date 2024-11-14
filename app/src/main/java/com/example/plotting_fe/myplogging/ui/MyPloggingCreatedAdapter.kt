@@ -1,5 +1,6 @@
 package com.example.plotting_fe.myplogging.ui
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ class MyPloggingCreatedAdapter(private val items: List<PloggingData>) : Recycler
         val ploggintType: TextView = itemView.findViewById(R.id.tv_plogging_type)
         val currentPeople: TextView = itemView.findViewById(R.id.tvCurrentPeople)
         val maxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
+        val btnWaiting: TextView = itemView.findViewById(R.id.btn_waiting)
 
         fun bind(item: PloggingData) {
             title.text = item.title
@@ -31,6 +33,13 @@ class MyPloggingCreatedAdapter(private val items: List<PloggingData>) : Recycler
                 ploggintType.text = "선착순"
             } else {
                 ploggintType.text = "승인제"
+            }
+
+            btnWaiting.setOnClickListener {
+                val context = itemView.context
+                val intent = Intent(context, MyPloggingWaitingActivity::class.java)
+                intent.putExtra("ploggingId", item.ploggingId) // ploggingId 전달
+                context.startActivity(intent)
             }
         }
     }

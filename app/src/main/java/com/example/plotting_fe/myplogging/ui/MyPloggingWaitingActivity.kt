@@ -23,12 +23,15 @@ class MyPloggingWaitingActivity : AppCompatActivity() {
     private var _binding: ActivityMyPloggingWaitingBinding? = null
     private val binding get() = _binding!!
 
-    val ploggingId = 4L
+    var ploggingId = 4L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMyPloggingWaitingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Intent로부터 ploggingId를 가져오기
+        ploggingId = intent.getLongExtra("ploggingId", 4L)
 
         // RecyclerView 설정
         val recyclerView = binding.rvPlogging
