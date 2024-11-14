@@ -23,10 +23,15 @@ class MyPloggingCreatedAdapter(private val items: List<PloggingData>) : Recycler
             title.text = item.title
             startLocation.text = item.startLocation
             startTime.text = item.startTime
-            spendTime.text = item.spendTime.toString()
-            ploggintType.text = item.ploggingType.name
+            spendTime.text = (item.spendTime / 60).toString()
             currentPeople.text = item.currentPeople.toString()
             maxPeople.text = item.maxPeople.toString()
+
+            if (item.ploggingType.name == "DIRECT") {
+                ploggintType.text = "선착순"
+            } else {
+                ploggintType.text = "승인제"
+            }
         }
     }
 

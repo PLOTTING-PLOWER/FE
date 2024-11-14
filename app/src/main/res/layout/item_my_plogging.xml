@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="삭제"
-                    android:textColor="@color/red"
+                    android:textColor="@color/deep_red"
                     style="@style/AndroidCaption5"
                     android:includeFontPadding="false"
                     android:gravity="center_vertical"
@@ -139,6 +139,7 @@
                 android:paddingLeft="5dp"
                 android:text="어딘가, 경기도 역암"
                 android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"
                 style="@style/AndroidCaption6"
                 android:textColor="@color/gray"/>
 
