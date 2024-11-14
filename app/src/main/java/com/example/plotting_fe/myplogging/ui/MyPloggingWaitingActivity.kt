@@ -46,6 +46,10 @@ class MyPloggingWaitingActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         loadInfo(binding.root)
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun loadInfo(view: View) {
