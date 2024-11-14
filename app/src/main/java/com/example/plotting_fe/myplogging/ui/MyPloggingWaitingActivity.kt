@@ -3,23 +3,27 @@ package com.example.plotting_fe.myplogging.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plotting_fe.databinding.ActivityMyPloggingWaitingBinding
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
-import com.example.plotting_fe.myplogging.dto.MyPloggingWaitingResponse
 import com.example.plotting_fe.myplogging.dto.WaitingPeople
+import com.example.plotting_fe.myplogging.dto.response.MyPloggingWaitingResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MyPloggingWaitingActivity : AppCompatActivity() {
+    private lateinit var adapter: MyPloggingWaitingAdapter
+    private var waitingUsers = mutableListOf<WaitingPeople>()
+
     private var _binding: ActivityMyPloggingWaitingBinding? = null
     private val binding get() = _binding!!
 
-    val ploggingId = 3L
+    val ploggingId = 4L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +34,12 @@ class MyPloggingWaitingActivity : AppCompatActivity() {
         val recyclerView = binding.rvPlogging
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // 더미 데이터 설정
-        val dummyData = listOf(
-            WaitingPeople(1, "슝슝이", "https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png"),
-            WaitingPeople(2, "피치", "https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png"),
-            WaitingPeople(3, "버즈", "https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png"),
+        adapter = MyPloggingWaitingAdapter(
+            items = waitingUsers,
+            onAcceptClick = { waitingPeople -> approveRequest(waitingPeople) },
+            onRejectClick = { waitingPeople -> rejectRequest(waitingPeople) }
         )
 
-        val adapter = MyPloggingWaitingAdapter(dummyData)
         recyclerView.adapter = adapter
 
         loadInfo(binding.root)
@@ -59,13 +61,9 @@ class MyPloggingWaitingActivity : AppCompatActivity() {
 
                     // body에 있는 데이터를 화면에 표시
                     body?.let {
-                        // RecyclerView 설정
-                        val recyclerView = binding.rvPlogging
-                        recyclerView.layoutManager = LinearLayoutManager(view.context)
-
-                        // body에 있는 데이터를 RecyclerView에 표시
-                        val adapter = MyPloggingWaitingAdapter(it.responses)
-                        recyclerView.adapter = adapter
+                        waitingUsers.clear()
+                        waitingUsers.addAll(it.responses)
+                        adapter.notifyDataSetChanged()
                     }
 
                 } else {
@@ -82,5 +80,55 @@ class MyPloggingWaitingActivity : AppCompatActivity() {
                 Log.d("post", "onFailure 에러: " + t.message.toString())
             }
         })
+    }
+
+    private fun approveRequest(waitingPeople: WaitingPeople) {
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
+        myPloggingController.reqeustApprove(ploggingId, waitingPeople.ploggingUserId)
+            .enqueue(object : Callback<ResponseTemplate<String>> {
+                override fun onResponse(
+                    call: Call<ResponseTemplate<String>>,
+                    response: Response<ResponseTemplate<String>>
+                ) {
+                    if (response.isSuccessful) {
+                        val body = response.body()?.results
+                        body?.let {
+                            Toast.makeText(this@MyPloggingWaitingActivity, it.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                        Log.d("post", "onResponse 성공: ${response.body().toString()}")
+
+                        adapter.removeItem(waitingPeople)
+                    } else {
+                        Log.d("post", "onResponse 실패 + ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseTemplate<String>>, t: Throwable) {
+                    Log.d("post", "onFailure 에러: ${t.message.toString()}")
+                }
+            })
+    }
+
+    private fun rejectRequest(waitingPeople: WaitingPeople) {
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
+        myPloggingController.requestReject(waitingPeople.ploggingUserId)
+            .enqueue(object : Callback<ResponseTemplate<Void>> {
+                override fun onResponse(
+                    call: Call<ResponseTemplate<Void>>,
+                    response: Response<ResponseTemplate<Void>>
+                ) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@MyPloggingWaitingActivity, "거절이 완료 되었습니다", Toast.LENGTH_SHORT).show()
+                        Log.d("post", "onResponse 성공: ${response.body().toString()}")
+                        adapter.removeItem(waitingPeople)
+                    } else {
+                        Log.d("post", "onResponse 실패 + ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
+                    Log.d("post", "onFailure 에러: ${t.message.toString()}")
+                }
+            })
     }
 }
