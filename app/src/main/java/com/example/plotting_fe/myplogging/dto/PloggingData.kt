@@ -1,16 +1,19 @@
 package com.example.plotting_fe.myplogging.dto
 
 import com.example.plotting_fe.plogging.dto.PloggingType
-import com.example.plotting_fe.plogging.dto.Reply
 
 data class PloggingData(
-    val id: Long,
-    val type: PloggingType,
-    val startTime: String,
+    val ploggingId: Long,
+    val ploggingType: PloggingType,
     val title: String,
-    val location: String,
-    val duration: Long,
+    val content: String,
+    val startTime: String,
+    val spendTime: Long,
     val currentPeople: Long,
-    val maxPeople: Long
+    val maxPeople: Long,
+    val startLocation: String,
+    val recruitStartDate: String,
+    val recruitEndDate: String,
+    val isRecruiting: Boolean
 ) {
 }

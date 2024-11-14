@@ -12,17 +12,27 @@ class MyPloggingCreatedAdapter(private val items: List<PloggingData>) : Recycler
 
     class PloggingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.tvTitle)
-        val location: TextView = itemView.findViewById(R.id.tvStartLocation)
-        val time: TextView = itemView.findViewById(R.id.tvStartTime)
-        val duration: TextView = itemView.findViewById(R.id.tvSpendTime)
+        val startLocation: TextView = itemView.findViewById(R.id.tvStartLocation)
+        val startTime: TextView = itemView.findViewById(R.id.tvStartTime)
+        val spendTime: TextView = itemView.findViewById(R.id.tvSpendTime)
+        val ploggintType: TextView = itemView.findViewById(R.id.tv_plogging_type)
+        val currentPeople: TextView = itemView.findViewById(R.id.tvCurrentPeople)
+        val maxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
+
+        fun bind(item: PloggingData) {
+            title.text = item.title
+            startLocation.text = item.startLocation
+            startTime.text = item.startTime
+            spendTime.text = item.spendTime.toString()
+            ploggintType.text = item.ploggingType.name
+            currentPeople.text = item.currentPeople.toString()
+            maxPeople.text = item.maxPeople.toString()
+        }
     }
 
     override fun onBindViewHolder(holder: PloggingViewHolder, position: Int) {
         val item = items[position]
-        holder.title.text = item.title
-        holder.location.text = item.location
-        holder.time.text = item.startTime
-        holder.duration.text = item.duration.toString()
+        holder.bind(item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PloggingViewHolder {

@@ -1,11 +1,19 @@
 package com.example.plotting_fe.myplogging.ui
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plotting_fe.databinding.ActivityMyPloggingCreatedBinding
+import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.myplogging.dto.PloggingData
-import com.example.plotting_fe.plogging.dto.PloggingType
+import com.example.plotting_fe.myplogging.dto.response.MyPloggingCreatedResponse
+import com.example.plotting_fe.myplogging.presentation.MyPloggingController
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyPloggingCreatedActivity : AppCompatActivity() {
 
@@ -17,28 +25,63 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
         _binding = ActivityMyPloggingCreatedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // RecyclerView 설정
-        val recyclerView = binding.rvPlogging
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        loadInfo(binding.root)
+    }
 
-        // 더미 데이터 설정
-        val dummyData = listOf(
-            PloggingData(2, PloggingType.ASSIGN, "2024.12.13 10:00", "여의도 봄꽃 플로깅", "여의도, 서울", 1, 2, 10),
-            PloggingData(3, PloggingType.DIRECT, "2024.12.24 17:00", "한강공원 플로깅", "한강, 서울", 3, 5, 5))
+    private fun loadInfo(view: View) {
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
+        myPloggingController.getMyPloggingCreated(1).enqueue(object :
+            Callback<ResponseTemplate<MyPloggingCreatedResponse>> {
+            override fun onResponse(
+                call: Call<ResponseTemplate<MyPloggingCreatedResponse>>,
+                response: Response<ResponseTemplate<MyPloggingCreatedResponse>>,
+            ) {
+                if (response.isSuccessful) {
+                    // 정상적으로 통신이 성공된 경우
+                    Log.d("post", "onResponse 성공: " + response.body().toString())
 
-        val adapter = MyPloggingCreatedAdapter(dummyData)
-        recyclerView.adapter = adapter
+                    val body = response.body()?.results?.myPloggings
 
-        // RecyclerView 설정
-        val completeRecyclerView = binding.rvCompletePlogging
-        completeRecyclerView.layoutManager = LinearLayoutManager(this)
+                    // body에 있는 데이터를 화면에 표시
+                    body?.let { ploggings ->
+                        val recrutingPlogging = mutableListOf<PloggingData>()
+                        val completePlogging = mutableListOf<PloggingData>()
 
-        // 더미 데이터 설정
-        val completeDummyData = listOf(
-            PloggingData(5, PloggingType.ASSIGN, "2024.11.13 10:00", "여의도 봄꽃 플로깅", "여의도, 서울", 1, 2, 10),
-            PloggingData(6, PloggingType.DIRECT, "2024.11.24 17:00", "한강공원 플로깅", "한강, 서울", 3, 5, 5))
+                        for (plogging in ploggings) {
+                            if (plogging.isRecruiting) {
+                                recrutingPlogging.add(plogging)
+                            } else {
+                                completePlogging.add(plogging)
+                            }
+                        }
 
-        val completeAdapter = MyCompletePloggingCreatedAdapter(completeDummyData)
-        completeRecyclerView.adapter = completeAdapter
+                        // RecyclerView 설정
+                        val recyclerView = binding.rvPlogging
+                        recyclerView.layoutManager = LinearLayoutManager(view.context)
+
+                        val adapter = MyPloggingCreatedAdapter(recrutingPlogging)
+                        recyclerView.adapter = adapter
+
+                        // RecyclerView 설정
+                        val completeRecyclerView = binding.rvCompletePlogging
+                        completeRecyclerView.layoutManager = LinearLayoutManager(view.context)
+
+                        val completeAdapter = MyCompletePloggingCreatedAdapter(completePlogging)
+                        completeRecyclerView.adapter = completeAdapter
+                    }
+                } else {
+                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                    Log.d("post", "onResponse 실패 + ${response.code()}")
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ResponseTemplate<MyPloggingCreatedResponse>>,
+                t: Throwable
+            ) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("post", "onFailure 에러: " + t.message.toString())
+            }
+        })
     }
 }
