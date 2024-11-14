@@ -46,21 +46,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/btn_reject"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/shape_edittext_rectangle"
-            android:backgroundTint="@color/light_red"
-            android:text="×"
-            android:layout_marginRight="10dp"
-            style="@style/AndroidH1"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textColor="@color/deep_red">
-        </TextView>
-
-        <TextView
             android:id="@+id/btn_accept"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -68,10 +53,25 @@
             android:backgroundTint="@color/light_green"
             android:text="✓"
             style="@style/AndroidH1"
+            android:layout_marginRight="10dp"
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:includeFontPadding="false"
             android:textColor="@color/deep_green">
+        </TextView>
+
+        <TextView
+            android:id="@+id/btn_reject"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:backgroundTint="@color/light_red"
+            android:text="×"
+            style="@style/AndroidH1"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/deep_red">
         </TextView>
     </LinearLayout>
 
