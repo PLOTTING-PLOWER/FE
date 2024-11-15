@@ -93,4 +93,7 @@ dependencies {
 
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.2.1")
+
+    // BarChart
+    implementation(libs.mpandroidchart)
 }

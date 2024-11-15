@@ -18,7 +18,7 @@ dependencyResolutionManagement {
         mavenCentral()
         // 네이버 지도 SDK를 위한 저장소
         maven ("https://repository.map.naver.com/archive/maven")
-
+        maven ("https://jitpack.io")
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.plotting_fe.myplogging.presentation
 
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingCreatedResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingWaitingResponse
 import retrofit2.Call
@@ -37,4 +38,9 @@ interface MyPloggingController {
     fun requestReject(
         @Path("ploggingUserId") ploggingUserId: Long
     ): Call<ResponseTemplate<Void>>
+
+    @GET("/my-ploggings/months")
+    fun getMyMonthlyPlogging(
+        @Query("userId") userId: Long
+    ): Call<ResponseTemplate<MonthResponse>>
 }
