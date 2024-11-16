@@ -1,9 +1,9 @@
 package com.example.plotting_fe.plogging.ui
 
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.plotting_fe.R
 import com.google.android.material.tabs.TabLayout
@@ -30,5 +30,9 @@ class PloggingDetailActivity : AppCompatActivity() {
                 1 -> tab.setText("댓글")
             }
         }.attach()
+
+        findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
+            finish()
+        }
     }
 }

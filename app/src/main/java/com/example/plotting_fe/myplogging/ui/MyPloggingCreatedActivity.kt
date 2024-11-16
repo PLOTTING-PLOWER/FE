@@ -27,6 +27,10 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         loadInfo(binding.root)
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun loadInfo(view: View) {

@@ -45,6 +45,14 @@ class MyMonthlyPloggingActivity : AppCompatActivity() {
 
         setupBarChart()
 
+        loadInfo()
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun loadInfo() {
         // API 호출
         val api = ApiClient.getApiClient().create(MyPloggingController::class.java)
         api.getMyMonthlyPlogging(1L).enqueue(object : Callback<ResponseTemplate<MonthResponse>> {
@@ -62,7 +70,11 @@ class MyMonthlyPloggingActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseTemplate<MonthResponse>>, t: Throwable) {
-                Toast.makeText(this@MyMonthlyPloggingActivity, "데이터를 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@MyMonthlyPloggingActivity,
+                    "데이터를 불러오는 데 실패했습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
