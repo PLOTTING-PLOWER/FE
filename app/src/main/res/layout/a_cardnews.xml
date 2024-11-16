@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="24dp"
     android:background="#FDFDFD"
-    tools:context=".plogging.ui.PloggingMakeActivity2">
+    tools:context=".home.ui.CardnewsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_title"

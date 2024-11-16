@@ -58,7 +58,7 @@
         <!-- 플로깅 모임 생성 액티비티 -->
         <activity
             android:name=".plogging.ui.PloggingMakeActivity1"
-            android:exported="false" />
+            android:exported="true" />
 
         <activity
             android:name=".plogging.ui.PloggingMakeActivity2"

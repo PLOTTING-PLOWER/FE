@@ -15,4 +15,5 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         setContentView(R.layout.a_activity_makeplogging1);
     }
 
+
 }
