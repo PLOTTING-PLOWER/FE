@@ -7,9 +7,9 @@
     android:padding="15dp"
     android:background="@drawable/shape_round_corners_shadow">
 
-    <!-- 선착순 배너 -->
+    <!-- 플로깅 타입 -->
     <TextView
-        android:id="@+id/tvFirstCome"
+        android:id="@+id/tvploggingType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/approve_bg"
@@ -70,7 +70,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvFirstCome" />
+        app:layout_constraintTop_toBottomOf="@id/tvploggingType" />
 
     <!-- 위치와 날짜 및 시간 (왼쪽 위치, 오른쪽 날짜) -->
     <LinearLayout

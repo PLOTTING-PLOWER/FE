@@ -116,8 +116,6 @@
                     android:layout_gravity="center_vertical"
                     android:text="하츄핑"
                     style="@style/AndroidCaption1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -217,8 +215,6 @@
                     android:layout_gravity="center_vertical"
                     android:text="하츄핑"
                     style="@style/AndroidCaption1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
