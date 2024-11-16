@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 val properties = Properties().apply {
@@ -100,4 +101,12 @@ dependencies {
 
     // BarChart
     implementation(libs.mpandroidchart)
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    // 로그인
+    implementation ("com.naver.nid:naveridlogin-android-sdk:5.5.0")
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
 }
