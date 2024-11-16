@@ -15,6 +15,7 @@ class PloggingMapAdapter(private val itemList: List<PloggingMapResponse>) :
     RecyclerView.Adapter<PloggingMapAdapter.PloggingMapViewHolder>() {
 
     inner class PloggingMapViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvPloggingType: TextView = view.findViewById(R.id.tv_plogging_type)
         val tvTitle: TextView = view.findViewById(R.id.tvTitle)
         val tvCurrentPeople: TextView = view.findViewById(R.id.tvCurrentPeople)
         val tvMaxPeople: TextView = view.findViewById(R.id.tvMaxPeople)
@@ -32,6 +33,7 @@ class PloggingMapAdapter(private val itemList: List<PloggingMapResponse>) :
     override fun onBindViewHolder(holder: PloggingMapViewHolder, position: Int) {
         val currentItem = itemList[position]
 
+        holder.tvPloggingType.text = currentItem.ploggingType
         holder.tvTitle.text = currentItem.title
         holder.tvCurrentPeople.text = currentItem.currentPeople.toString()
         holder.tvMaxPeople.text = currentItem.maxPeople.toString()

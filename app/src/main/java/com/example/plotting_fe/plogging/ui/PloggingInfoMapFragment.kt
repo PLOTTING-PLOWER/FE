@@ -1,5 +1,6 @@
 package com.example.plotting_fe.plogging.ui
 
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -35,6 +36,12 @@ class PloggingInfoMapFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ploggingInfoList = arguments?.getSerializable("ploggings") as? List<PloggingMapResponse>
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        // Dialog가 닫힐 때 선택된 마커 초기화
+        (parentFragment as? PloggingMapFragment)?.resetSelectedMarker()
     }
 
     override fun onCreateView(
