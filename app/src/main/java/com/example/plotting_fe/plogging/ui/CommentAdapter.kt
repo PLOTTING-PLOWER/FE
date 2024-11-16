@@ -28,8 +28,7 @@ class CommentAdapter(
             nickname.text = comment.username
             date.text = comment.timestamp
             content.text = comment.content
-
-            val profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png"
+            val profileImageUrl = comment.profileImageUrl
 
             // Glide를 사용하여 이미지 로드
             Glide.with(profileImage)

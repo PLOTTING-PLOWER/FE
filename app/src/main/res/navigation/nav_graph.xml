@@ -5,7 +5,7 @@
     app:startDestination="@id/navigation_home">
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.plotting_fe.HomeFragment"
+        android:name="com.example.plotting_fe.home.ui.HomeFragment"
         android:label="Home" />
 
     <!-- 마이페이지  -->
@@ -45,18 +45,24 @@
         android:name="com.example.plotting_fe.mypage.ui.ProfileDetailFragment"
         android:label="profile" />
 
+    <!--    랭킹   -->
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_steps"-->
+<!--        android:name="com.example.plotting_fe.home.ui.RankingFragment"-->
+<!--        android:label="ranking" />-->
+
     <!--
     <fragment
         android:id="@+id/navigation_plogging"
-        android:name="com.example.plotting_fe.HomeFragment"
+        android:name="com.example.plotting_fe.home.ui.HomeFragment"
         android:label="Home" />
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.example.plotting_fe.HomeFragment"
+        android:name="com.example.plotting_fe.home.ui.HomeFragment"
         android:label="Home" />
     <fragment
         android:id="@+id/navigation_steps"
-        android:name="com.example.plotting_fe.HomeFragment"
+        android:name="com.example.plotting_fe.home.ui.HomeFragment"
         android:label="Home" />
 
 

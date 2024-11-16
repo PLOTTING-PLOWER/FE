@@ -6,7 +6,11 @@
     <color name="gray">#A7A7A7</color>
     <color name="light_gray">#F4F4F4</color>
     <color name="green">#55C674</color>
+    <color name="light_green">#DAFCCE</color>
+    <color name="deep_green">#26AC5E</color>
     <color name="red">#FC8986</color>
+    <color name="light_red">#F8E2E2</color>
+    <color name="deep_red">#F44E4E</color>
     <color name="light_orange">#F8EFE7</color>
     <color name="transparent_main">#1AEF920F</color>
     <color name="bronze">#DBB878</color>
