@@ -1,16 +1,19 @@
 package com.example.plotting_fe.plogging.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.plotting.server.plogging.dto.response.PloggingMapResponse
+import java.io.Serializable
 
-class PloggingInfoMapFragment : Fragment() {
+class PloggingInfoMapFragment : DialogFragment() {
 
     companion object {
         private const val ARG_PLOGGING_INFO = "plogging_info"
@@ -18,7 +21,7 @@ class PloggingInfoMapFragment : Fragment() {
         fun newInstance(ploggingInfo: List<PloggingMapResponse>): PloggingInfoMapFragment {
             val fragment = PloggingInfoMapFragment()
             val args = Bundle().apply {
-                putSerializable(ARG_PLOGGING_INFO, ArrayList(ploggingInfo))
+                putSerializable(ARG_PLOGGING_INFO, ArrayList(ploggingInfo))  // Save as Serializable
             }
             fragment.arguments = args
             return fragment
@@ -31,9 +34,7 @@ class PloggingInfoMapFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            ploggingInfoList = it.getSerializable(ARG_PLOGGING_INFO) as List<PloggingMapResponse>
-        }
+        ploggingInfoList = arguments?.getSerializable("ploggings") as? List<PloggingMapResponse>
     }
 
     override fun onCreateView(
