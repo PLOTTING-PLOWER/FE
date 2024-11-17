@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="15dp"
-    android:background="@drawable/shape_round_corners_shadow">
+    android:background="@drawable/shape_round_corners_shadow"
+    android:layout_marginBottom="16dp">
 
     <!-- 승인제 배너 -->
     <TextView

@@ -37,14 +37,14 @@
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_green_circle"
-            android:contentDescription="진행중" />
+            android:src="@drawable/ic_red_circle"
+            android:contentDescription="마감" />
 
         <TextView
             android:id="@+id/tvStatusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="진행중"
+            android:text="마감"
             android:textSize="12sp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
