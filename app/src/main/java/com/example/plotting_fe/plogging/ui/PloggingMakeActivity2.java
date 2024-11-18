@@ -25,7 +25,7 @@ import retrofit2.Response;
 
 public class PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment.OnAddressSelectedListener {
 
-    private EditText editName, editIntro, startTime, duringTime, startLocation, endLocation;
+    private EditText editName, editIntro, startDate, duringTime, startLocation, endLocation;
     private Button freeTime, btnFinish;
     private String selectedStartDate;
     private boolean is_start_location;
@@ -37,7 +37,8 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
         editName = findViewById(R.id.edit_name);
         editIntro = findViewById(R.id.edit_intro);
-        startTime = findViewById(R.id.edit_start_activity);
+        startDate = findViewById(R.id.edit_start_date_activity);
+        startDate = findViewById(R.id.edit_start_time_activity);
         duringTime = findViewById(R.id.edit_during_time);
         freeTime = findViewById(R.id.edit_during_time_free);
         startLocation = findViewById(R.id.edit_start_location);
@@ -45,7 +46,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         btnFinish = findViewById(R.id.btn_finish);
 
         // 활동 시작 날짜 입력 (클릭하면 캘린더로 선택)
-        startTime.setOnClickListener(v -> showDatePickerDialog());
+        startDate.setOnClickListener(v -> showDatePickerDialog());
 
         // 예상 소요 시간 - 자유 선택
         freeTime.setOnClickListener(v -> Toast.makeText(PloggingMakeActivity2.this, "자유 선택 기능 구현 필요", Toast.LENGTH_SHORT).show());
@@ -75,17 +76,20 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             String name = editName.getText().toString();
             String intro = editIntro.getText().toString();
             String duration = duringTime.getText().toString();
+            String startTime = duringTime.getText().toString();
             String startLoc = startLocation.getText().toString();
             String endLoc = endLocation.getText().toString();
 
             // 데이터 유효성 검사 (도착지는 null이어도 된다)
-            if (name.isEmpty() || intro.isEmpty() || duration.isEmpty() || startLoc.isEmpty()) {
+            if (name.isEmpty() || intro.isEmpty() || duration.isEmpty() ||
+                    startTime.isEmpty() || startLoc.isEmpty()) {
                 Toast.makeText(PloggingMakeActivity2.this, "필수 입력 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(PloggingMakeActivity2.this, GetPloggings.class);
                 intent.putExtra("name", name);
                 intent.putExtra("intro", intro);
                 intent.putExtra("startDate", selectedStartDate);
+                intent.putExtra("startTime", startTime);
                 intent.putExtra("duration", duration);
                 intent.putExtra("startLocation", startLoc);
                 intent.putExtra("endLocation", endLoc);
@@ -103,7 +107,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
             selectedStartDate = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
-            startTime.setText(selectedStartDate);
+            startDate.setText(selectedStartDate);
         }, year, month, day);
         datePickerDialog.show();
     }
