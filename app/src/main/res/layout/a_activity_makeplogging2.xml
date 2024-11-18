@@ -130,7 +130,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_during_time" />
 
-        <EditText
+        <Button
             android:id="@+id/edit_during_time_free"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
@@ -138,6 +138,7 @@
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/text_box"
             android:hint="자유"
+            android:src="@drawable/shape_button_round_with_color_gray"
             android:paddingStart="10dp"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@id/edit_during_time"
@@ -153,10 +154,9 @@
             android:layout_marginTop="30dp"
             app:layout_constraintTop_toBottomOf="@id/edit_during_time" />
 
-        <!-- 도착 장소 -->
-
         <EditText
             android:id="@+id/edit_start_location"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -172,14 +172,15 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="76dp"
+            android:paddingRight="20dp"
             android:src="@drawable/ic_point_location"
             app:layout_constraintEnd_toEndOf="@+id/edit_end_location"
-            android:paddingRight="20dp"
             app:layout_constraintTop_toBottomOf="@id/edit_during_time_free" />
 
         <TextView
             android:id="@+id/text_end_location"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="도착장소"
@@ -211,6 +212,7 @@
             app:layout_constraintTop_toBottomOf="@id/text_end_location" />
 
         <Button
+            android:id="@+id/btn_finish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="모임 만들기"
@@ -218,6 +220,14 @@
             app:layout_constraintTop_toBottomOf="@id/edit_end_location"
             android:layout_marginTop="30dp"
             android:paddingBottom="10dp"/>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/edit_during_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="30dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

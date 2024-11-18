@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.plotting_fe.R;
 
-public class PloggingMakeActivity1 extends AppCompatActivity {
+    public class PloggingMakeActivity1 extends AppCompatActivity {
 
     private EditText inputParticipantNum, inputStartDate, inputEndDate;
     private String selectedType = "arrival"; // 기본값: 선착순
