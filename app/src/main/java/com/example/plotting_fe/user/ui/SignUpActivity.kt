@@ -1,0 +1,128 @@
+package com.example.plotting_fe.user.ui
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.plotting_fe.R
+import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.RetrofitImpl
+import com.example.plotting_fe.plogging.presentation.PloggingController
+import com.example.plotting_fe.user.dto.request.SignUpRequest
+import com.example.plotting_fe.user.dto.response.LoginResponse
+import com.example.plotting_fe.user.presentation.AuthController
+import com.example.plotting_fe.utils.Utils
+import com.google.android.gms.auth.api.identity.SignInPassword
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+
+class SignUpActivity : AppCompatActivity() {
+
+    private val authController: AuthController by lazy{
+        RetrofitImpl.retrofit.create(AuthController::class.java)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_join)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById<View>(R.id.Join)) { v, insets ->
+            val systemBars: Insets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        val emailInput = findViewById<EditText>(R.id.et_email)
+        val nicknameInput = findViewById<EditText>(R.id.et_nickname)
+        val passwordInput = findViewById<EditText>(R.id.et_pw)
+        val passWordConfirmInput = findViewById<EditText>(R.id.et_pwConfirm)
+        val nickNameCheckBtn = findViewById<Button>(R.id.btn_nicknameCheck)
+        val joinBtn = findViewById<Button>(R.id.btn_join)
+
+        joinBtn.setOnClickListener{
+            val nickname = nicknameInput.text.toString()
+            val email = emailInput.text.toString()
+            val password = passwordInput.text.toString()
+            val passwordConfirm = passWordConfirmInput.text.toString()
+            handleSignUp(nickname, email, password, passwordConfirm)
+        }
+
+        // 로그인 버튼에 클릭 리스너 설정
+        findViewById<View>(R.id.tv_gologin).setOnClickListener {
+            Utils.onLoginClick(this)
+        }
+    }
+
+    private fun handleSignUp(nickname: String, email: String, password: String, passwordConfirm: String) {
+        if (!checkInput(nickname, email, password, passwordConfirm)) return
+
+        val request = SignUpRequest(email, password, nickname)
+        authController.signUp(request).enqueue(object : Callback<ResponseTemplate<Void>> {
+            override fun onResponse(call: Call<ResponseTemplate<Void>>, response: Response<ResponseTemplate<Void>>) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody?.isSuccess == true) {
+                        Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+
+                        // 회원 가입 성공 시 LoginActivity로 이동
+                        val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+                        startActivity(intent)
+
+                        finish() // 회원가입 성공 후 화면 종료
+                    } else {
+                        Toast.makeText(this@SignUpActivity, "회원가입 실패: ${responseBody?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this@SignUpActivity, "서버 오류: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
+                Toast.makeText(this@SignUpActivity, "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
+    private fun checkInput(nickname: String, email: String,password: String, passwordConfirm: String ): Boolean {
+        if(nickname.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()){
+            Toast.makeText(this, "닉네임, 이메일, 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        // 이메일 유효성 검사
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "유효한 이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        // 비밀번호 최소 길이 확인
+        if (password.length < 4) {
+            Toast.makeText(this, "비밀번호는 4자리 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        // 비밀번호 확인 일치 여부
+        if(password!=passwordConfirm){
+            Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+//        if(!nicknameCheck){
+//            Toast.makeText(this, "닉네임 중복 확인 해주세요", Toast.LENGTH_SHORT).show()
+//            return false
+//        }
+
+        return true
+
+    }
+
+}
