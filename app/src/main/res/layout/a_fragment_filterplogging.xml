@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".plogging.ui.GetPloggings">
+
+    <!-- 타이틀  -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        style="@style/AndroidButton1"
+        android:text="모아모아플로깅" />
+
+    <!-- 상단 묶어 버림 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="60dp">
+
+        <!-- 검색 바 -->
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:background="@drawable/search_bar"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginEnd="20dp">
+
+            <!-- 검색어 입력 -->
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:hint="플로깅 행사를 검색해보세요."
+                android:paddingLeft="40dp"
+                android:paddingTop="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <!-- 돋보기 -->
+            <ImageView
+                android:id="@+id/search_button"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_search" />
+        </LinearLayout>
+
+        <!-- 필터  -->
+        <ImageView
+            android:id="@+id/filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/ic_filter" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/plogging_list"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginTop="40dp"
+        android:layout_above="@id/btn_add_plogging"
+        tools:listitem="@layout/item_plogging_info"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:id="@+id/btn_add_plogging"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="80dp"
+        android:src="@drawable/ic_plus"/>
+
+    <!-- Bottom Navigation View 수정 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_bottom_nav_background"
+        app:itemBackground="@android:color/transparent"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemTextColor="@color/bottom_nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
+</RelativeLayout>

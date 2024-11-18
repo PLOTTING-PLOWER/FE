@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/header_title"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="#FDFDFD"
+    tools:context=".plogging.ui.PloggingMakeActivity1">
+
+    <!-- 뒤로가기 버튼 -->
+    <ImageView
+        android:id="@+id/ic_back"
+        android:layout_width="31dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 헤더 타이틀 -->
+    <TextView
+        android:id="@+id/title"
+        style="@style/AndroidH1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="어떻게 멤버를 모을까요?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 모임 방식 -->
+    <TextView
+        android:id="@+id/text_small_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="모임방식"
+        style="@style/TextAppearance.AppCompat.Menu"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 라인 -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="48dp"
+        android:background="#D3D3D3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+    <!-- 선착순 버튼 -->
+    <ImageView
+        android:id="@+id/btn_arrival"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrival"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        android:layout_marginTop="30dp"/>
+
+    <!-- 승인제 버튼 -->
+    <ImageView
+        android:id="@+id/btn_approval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_btn_approval"
+        app:layout_constraintTop_toBottomOf="@id/btn_arrival"
+        android:layout_marginTop="30dp"/>
+
+    <!-- 모집 인원 -->
+    <TextView
+        android:id="@+id/participant_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="모집 인원"
+        android:textStyle="bold"
+        style="@style/AndroidSubtitle2"
+        app:layout_constraintTop_toBottomOf="@id/btn_approval"
+        android:layout_marginTop="20dp" />
+
+    <!-- 모집 인원 수 입력 -->
+    <EditText
+        android:id="@+id/input_participant_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="모집 인원수를 입력해주세요"
+        style="@style/AndroidInputTitle"
+        android:textSize="13sp"
+        android:paddingHorizontal="30dp"
+        app:layout_constraintTop_toBottomOf="@id/participant_num"
+        android:background="@drawable/shape_edittext_rec_with_line_box"
+        />
+
+    <ImageView
+        android:id="@+id/person"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_person_color_orange"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/participant_num" />
+
+    <!-- 모집 기간 -->
+    <TextView
+        android:id="@+id/participant_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="모집 기간"
+        android:textStyle="bold"
+        style="@style/AndroidSubtitle2"
+        app:layout_constraintTop_toBottomOf="@id/input_participant_num"
+        android:layout_marginTop="30dp" />
+
+    <EditText
+        android:id="@+id/start_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_edittext_rec_with_line_box"
+        android:drawableEnd="@drawable/ic_calender"
+        android:drawablePadding="10dp"
+        android:hint="모집 시작일"
+        android:paddingHorizontal="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/participant_date"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="30dp"/>
+
+    <ImageView
+        android:id="@+id/ic_wave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_wave"
+        app:layout_constraintTop_toBottomOf="@id/participant_date"
+        app:layout_constraintLeft_toRightOf="@id/start_date"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:paddingRight="20dp"/>
+
+    <EditText
+        android:id="@+id/end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_edittext_rec_with_line_box"
+        android:drawableEnd="@drawable/ic_calender"
+        android:drawablePadding="10dp"
+        android:hint="모집 종료일"
+        android:paddingHorizontal="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/ic_wave"
+        app:layout_constraintTop_toBottomOf="@id/participant_date">
+
+    </EditText>
+
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="다음"
+        app:layout_constraintTop_toBottomOf="@id/start_date"
+        android:layout_marginTop="30dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
