@@ -3,6 +3,8 @@ package com.example.plotting_fe.myplogging.presentation
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingCreatedResponse
+import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
+import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingWaitingResponse
 import retrofit2.Call
 import retrofit2.http.DELETE
@@ -43,4 +45,15 @@ interface MyPloggingController {
     fun getMyMonthlyPlogging(
         @Query("userId") userId: Long
     ): Call<ResponseTemplate<MonthResponse>>
+
+    @GET("/my-ploggings/participated")
+    fun getMyPloggingParticipated(
+        @Query("userId") userId: Long
+    ): Call<ResponseTemplate<MyPloggingParticipatedResponse>>
+
+    @GET("/my-ploggings/scheduled")
+    fun getMyPloggingScheduled(
+        @Query("userId") userId: Long
+    ): Call<ResponseTemplate<MyPloggingScheduledResponse>>
+
 }
