@@ -28,14 +28,14 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         // 2초 후에 메인 액티비티로 이동
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish(); // 스플래시 액티비티 종료
-            }
-        }, 500);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish(); // 스플래시 액티비티 종료
+//            }
+//        }, 500);
 
         // 회원가입 버튼에 클릭 리스너 설정
         findViewById(R.id.btn_join).setOnClickListener(v -> Utils.onJoinClick(this));
