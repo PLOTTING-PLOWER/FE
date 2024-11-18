@@ -8,14 +8,13 @@ import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.plotting_fe.user.ui.JoinActivity;
-import com.example.plotting_fe.user.ui.LoginActivity;
+import com.example.plotting_fe.user.ui.SignUpActivity;
 
 public class Utils {
 
     // 회원가입 화면으로 전환하는 메서드
     public static void onJoinClick(Context context) {
-        Intent intent = new Intent(context, JoinActivity.class);
+        Intent intent = new Intent(context, SignUpActivity.class);
         context.startActivity(intent);
     }
 
