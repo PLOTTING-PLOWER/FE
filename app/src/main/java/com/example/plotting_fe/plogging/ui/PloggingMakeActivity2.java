@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,8 +26,9 @@ import retrofit2.Response;
 
 public class PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment.OnAddressSelectedListener {
 
-    private EditText editName, editIntro, startDate, duringTime, startLocation, endLocation;
-    private Button freeTime, btnFinish;
+    private EditText editName, editIntro, startDate, startTimeText,
+            startLocation, endLocation, duringTime;
+    private Button freeTime, btnFinish, duringTimeBtn;
     private String selectedStartDate;
     private boolean is_start_location;
 
@@ -38,8 +40,9 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         editName = findViewById(R.id.edit_name);
         editIntro = findViewById(R.id.edit_intro);
         startDate = findViewById(R.id.edit_start_date_activity);
-        startDate = findViewById(R.id.edit_start_time_activity);
-        duringTime = findViewById(R.id.edit_during_time);
+        startTimeText= findViewById(R.id.edit_start_time_activity);
+        duringTime = findViewById(R.id.input_during_time);
+        duringTimeBtn = findViewById(R.id.button_during_time);    // 예상 소요 시간
         freeTime = findViewById(R.id.edit_during_time_free);
         startLocation = findViewById(R.id.edit_start_location);
         endLocation = findViewById(R.id.edit_end_location);
@@ -49,7 +52,18 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         startDate.setOnClickListener(v -> showDatePickerDialog());
 
         // 예상 소요 시간 - 자유 선택
-        freeTime.setOnClickListener(v -> Toast.makeText(PloggingMakeActivity2.this, "자유 선택 기능 구현 필요", Toast.LENGTH_SHORT).show());
+        freeTime.setOnClickListener(v ->
+                Toast.makeText(PloggingMakeActivity2.this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show()
+        );
+
+        duringTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 직접 입력 선택시 입력란 보이도록 설정함
+                Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
+                duringTime.setVisibility(View.VISIBLE);
+            }
+        });
 
         // 출발 장소 입력 {네이버 제공 예시 테스트: 분당구 불정로 6}
         startLocation.setOnClickListener(v -> {
@@ -76,7 +90,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             String name = editName.getText().toString();
             String intro = editIntro.getText().toString();
             String duration = duringTime.getText().toString();
-            String startTime = duringTime.getText().toString();
+            String startTime = startTimeText.getText().toString();
             String startLoc = startLocation.getText().toString();
             String endLoc = endLocation.getText().toString();
 
