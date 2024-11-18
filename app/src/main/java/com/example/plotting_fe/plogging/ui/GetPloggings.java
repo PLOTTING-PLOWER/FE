@@ -8,7 +8,6 @@ import com.example.plotting_fe.R;
 
 public class GetPloggings extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
