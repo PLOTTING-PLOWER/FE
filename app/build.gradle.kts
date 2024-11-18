@@ -106,7 +106,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics")
 
-    // 로그인
-    implementation ("com.naver.nid:naveridlogin-android-sdk:5.5.0")
+    // 구글
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    //네아로
+    implementation ("com.navercorp.nid:oauth:5.9.1")
+
 }

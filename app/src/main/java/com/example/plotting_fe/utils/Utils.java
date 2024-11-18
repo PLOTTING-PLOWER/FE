@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.plotting_fe.user.ui.LoginActivity;
 import com.example.plotting_fe.user.ui.SignUpActivity;
 
 public class Utils {

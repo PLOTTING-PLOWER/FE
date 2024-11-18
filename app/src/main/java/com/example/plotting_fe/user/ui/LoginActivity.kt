@@ -20,6 +20,7 @@ import com.example.plotting_fe.global.util.RetrofitImpl
 import com.example.plotting_fe.user.dto.request.LoginRequest
 import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
+import com.example.plotting_fe.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,6 +55,11 @@ class LoginActivity : AppCompatActivity() {
         // 네이버 로그인
         naverLoginBtn.setOnClickListener {
             handleNaverLogin()
+        }
+
+        // 로그인 버튼에 클릭 리스너 설정
+        findViewById<View>(R.id.tv_gojoin).setOnClickListener {
+            Utils.onJoinClick(this)
         }
     }
 
