@@ -56,6 +56,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                 Toast.makeText(PloggingMakeActivity2.this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show()
         );
 
+        // 예상 소요 시간 입력 { hh:mm 형태로 입력 }
         duringTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

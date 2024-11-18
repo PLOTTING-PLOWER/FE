@@ -53,7 +53,7 @@
             <!-- 돋보기 -->
             <ImageView
                 android:id="@+id/search_button"
-                android:layout_width="60dp"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_search" />
         </LinearLayout>
