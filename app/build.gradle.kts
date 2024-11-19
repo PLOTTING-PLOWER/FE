@@ -105,4 +105,7 @@ dependencies {
 
     //json
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.0")
+
+    implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
+
 }

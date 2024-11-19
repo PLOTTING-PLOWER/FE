@@ -10,10 +10,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jakewharton.threetenabp.AndroidThreeTen
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidThreeTen.init(this);
         enableEdgeToEdge()
         setContentView(R.layout.a_activity_main)
         // 시스템 바 인셋 처리
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
             NavigationUI.setupWithNavController(bottomNavigationView, navController)
         }
+
 
 
     }

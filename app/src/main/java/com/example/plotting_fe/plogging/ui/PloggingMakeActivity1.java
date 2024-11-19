@@ -17,10 +17,10 @@ import com.example.plotting_fe.R;
 
     public class PloggingMakeActivity1 extends AppCompatActivity {
 
-    private EditText inputParticipantNum, inputStartDate, inputEndDate;
-    private String selectedType = "arrival"; // 기본값: 선착순
+    private EditText maxPeople, inputStartDate, inputEndDate;
+    private String ploggingType = "arrival"; // 기본값: 선착순
     private ImageView btnBack, btnArrival, btnApproval;
-    private String startDate, endDate;
+    private String recruitStartDate, recruitEndDate;
     private Button btnNext;
 
     @SuppressLint("MissingInflatedId")
@@ -30,7 +30,7 @@ import com.example.plotting_fe.R;
         setContentView(R.layout.a_activity_makeplogging1);
 
 
-        inputParticipantNum = findViewById(R.id.input_participant_num);
+        maxPeople = findViewById(R.id.input_participant_num);
         btnArrival = findViewById(R.id.btn_arrival);
         btnApproval = findViewById(R.id.btn_approval);
         inputStartDate = findViewById(R.id.start_date);
@@ -44,7 +44,7 @@ import com.example.plotting_fe.R;
         btnArrival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedType = "arrival";
+                ploggingType = "arrival";
                 Toast.makeText(PloggingMakeActivity1.this, "선착순을 선택했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -53,7 +53,7 @@ import com.example.plotting_fe.R;
         btnApproval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedType = "approval";
+                ploggingType = "approval";
                 Toast.makeText(PloggingMakeActivity1.this, "승인제를 선택했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -81,10 +81,10 @@ import com.example.plotting_fe.R;
                 // 다음 Activity로 이동
                 Intent intent = new Intent(PloggingMakeActivity1.this, PloggingMakeActivity2.class);
                 // 다음 페이지에게 데이터 전달
-                intent.putExtra("participantNum", inputParticipantNum.getText().toString());   //모집 인원 수
-                intent.putExtra("selectedType", selectedType);  // 선책순 or 승인제
-                intent.putExtra("startDate", startDate);    //시작일
-                intent.putExtra("endDate", endDate);    //종료일
+                intent.putExtra("participantNum", maxPeople.getText().toString());   //모집 인원 수
+                intent.putExtra("selectedType", ploggingType);  // 선책순 or 승인제
+                intent.putExtra("startDate", recruitStartDate);    //시작일
+                intent.putExtra("endDate", recruitEndDate);    //종료일
                 startActivity(intent);
             }
         });
@@ -99,10 +99,10 @@ import com.example.plotting_fe.R;
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
             String date = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
             if (isStartDate) {
-                startDate = date;
+                recruitStartDate = date;
                 inputStartDate.setText(date);
             } else {
-                endDate = date;
+                recruitEndDate = date;
                 inputEndDate.setText(date);
             }
         }, year, month, day);

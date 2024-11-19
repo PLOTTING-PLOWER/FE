@@ -5,7 +5,7 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-data class PloggingRequestDTO(
+data class PloggingRequest(
     var title: String,
     var content: String,
     var maxPeople: Long,
@@ -15,7 +15,5 @@ data class PloggingRequestDTO(
     var startTime: LocalDateTime,
     var spendTime: Long,
     var startLocation: String,
-    var endLocation: String,
-    var startLatitude: BigDecimal,
-    var startLongitude: BigDecimal
+    var endLocation: String
 )
