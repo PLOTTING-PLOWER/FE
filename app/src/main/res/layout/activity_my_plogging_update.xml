@@ -175,8 +175,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="모집 인원수를 입력해주세요"
+            android:paddingHorizontal="20dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
             style="@style/AndroidCaption2"
             android:textColor="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/participant_num"
             android:background="@drawable/shape_round_corners_shadow" />
 
@@ -207,13 +212,13 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_round_corners_shadow"
             android:drawableEnd="@drawable/ic_calender"
-            android:drawablePadding="30dp"
             android:hint="모집 시작일"
             android:paddingHorizontal="20dp"
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
             style="@style/AndroidCaption2"
             app:layout_constraintTop_toBottomOf="@id/participant_date"
+            app:layout_constraintEnd_toStartOf="@id/ic_wave"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
@@ -231,14 +236,16 @@
 
         <EditText
             android:id="@+id/end_date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_round_corners_shadow"
             android:drawableEnd="@drawable/ic_calender"
-            android:drawablePadding="30dp"
             android:hint="모집 종료일"
             android:paddingHorizontal="20dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
             style="@style/AndroidCaption2"
+            app:layout_constraintStart_toEndOf="@id/ic_wave"
             app:layout_constraintEnd_toEndOf="@id/input_participant_num"
             app:layout_constraintTop_toBottomOf="@id/participant_date">
 
@@ -251,6 +258,8 @@
             android:layout_height="wrap_content"
             android:text="다음"
             style="@style/AndroidButton2"
+            android:background="@drawable/shape_edittext_big"
+            android:includeFontPadding="false"
             app:layout_constraintBottom_toBottomOf="parent">
         </Button>
 
