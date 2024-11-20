@@ -14,20 +14,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.global.ResponseTemplate;
-import com.example.plotting_fe.global.util.ApiClient;
 import com.example.plotting_fe.plogging.dto.PloggingType;
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
 import com.example.plotting_fe.plogging.presentation.PloggingController;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment.OnAddressSelectedListener {
 
@@ -100,41 +94,65 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
             Intent intentFromFirstView = getIntent();
             String participantNum = intentFromFirstView.getStringExtra("participantNum"); // 모집 인원 수
-            String selectedType = intentFromFirstView.getStringExtra("selectedType");    // 선택 순 or 승인제
+            String selectedTypeString= intentFromFirstView.getStringExtra("selectedType");
             String startDate = intentFromFirstView.getStringExtra("startDate");          // 모집 시작일
             String endDate = intentFromFirstView.getStringExtra("endDate");
 
-            // 데이터 유효성 검사 (도착지는 null이어도 된다)
+            // 데이터 유효성 검사
             if (title.isEmpty() || content.isEmpty() || spendTimeInput.isEmpty() ||
                     startTimeInput.isEmpty() || startLoc.isEmpty() || startDate.isEmpty() ||
-                    participantNum.isEmpty() || selectedType.isEmpty()) {
+                    participantNum.isEmpty() ) {
+
                 Toast.makeText(PloggingMakeActivity2.this, "필수 입력 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
             } else {
-                // API 호출
-                PloggingController api = ApiClient.INSTANCE.getApiClient().create(PloggingController.class);
-
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
                 long maxPeople = Long.parseLong(participantNum);
-                PloggingType type = PloggingType.valueOf(selectedType.toUpperCase());
-
                 LocalDate recruitStartDate = LocalDate.parse(startDate);
                 LocalDate recruitEndDate = LocalDate.parse(endDate);
                 long spendTime = Long.parseLong(spendTimeInput);
-                LocalDateTime startTime = LocalDateTime.parse(startTimeInput);
+                LocalTime startTime = LocalTime.parse(startTimeInput);
+
+                // request를 위한 타입 변환 과정
+                PloggingType selectedType = PloggingType.valueOf(selectedTypeString.toUpperCase());
+                if (selectedType == null) {
+                    Toast.makeText(this, "잘못된 유형 값입니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 데이터 넘어가는것 확인 위한 임의 로그
+                Log.d("gogogo", "Title: " + title);
+                Log.d("gogogo", "Content: " + content);
+                Log.d("gogogo", "Start Time: " + startTimeInput);
+                Log.d("gogogo", "Spend Time: " + spendTimeInput);
+                Log.d("gogogo", "Start Location: " + startLoc);
+                Log.d("gogogo", "End Location: " + endLoc);
+                Log.d("gogogo", "Participant Num: " + participantNum);
+                Log.d("gogogo", "Selected Type: " + selectedTypeString);
+                Log.d("gogogo", "Start Date: " + startDate);
+                Log.d("gogogo", "End Date: " + endDate);
+
+
+                endLoc = (endLoc == null || endLoc.isEmpty()) ? null : endLoc;
+                spendTime = (spendTimeInput == null || spendTimeInput.isEmpty()) ? null : spendTime;
 
                 PloggingRequest request = new PloggingRequest(
                         title,
                         content,
                         maxPeople,
-                        type,
+                        selectedType,
                         recruitStartDate,
                         recruitEndDate,
-                        startTime,
+                        startTime,  //localTime으로 바꿔봄   // 계속 오류남 왜저래
                         spendTime,
                         startLoc,
                         endLoc
                 );
+
+                Intent intent = new Intent(PloggingMakeActivity2.this, GetPloggings.class);
+                startActivity(intent);
+
+                // 서버 retrofit 연결되는 부분
+                PloggingApiService ploggingApiService = new PloggingApiService();
+                ploggingApiService.createPlogging(request, 1L, PloggingMakeActivity2.this);
             }
         });
     }
