@@ -1,21 +1,26 @@
 package com.example.plotting_fe.myplogging.ui
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.plotting_fe.R
+import com.example.plotting_fe.databinding.ActivityMyPloggingUpdateBinding
 
 class MyPloggingUpdateActivity : AppCompatActivity() {
+    private var _binding: ActivityMyPloggingUpdateBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_my_plogging_update)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        _binding = ActivityMyPloggingUpdateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.btnNext.setOnClickListener {
+            val intent = Intent(this, MyPloggingUpdate2Activity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnBack.setOnClickListener {
+            finish()
         }
     }
 }

@@ -180,25 +180,28 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/text_during_time">
 
-                <Button
+                <TextView
                     android:id="@+id/button_during_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:hint="직접 입력"
-                    android:paddingStart="10dp"
+                    android:paddingHorizontal="20dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/shape_edittext_big"
+                    android:background="@drawable/shape_edittext_light_gray"
                     style="@style/AndroidCaption2"
+                    android:gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_during_time" />
 
-                <Button
+                <TextView
                     android:id="@+id/edit_during_time_free"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:paddingHorizontal="20dp"
                     android:hint="자유"
-                    android:background="@drawable/shape_edittext_big"
+                    android:background="@drawable/shape_edittext_light_gray"
+                    android:gravity="center"
                     style="@style/AndroidCaption2"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toEndOf="@id/button_during_time"
@@ -217,7 +220,7 @@
                 android:paddingStart="10dp"
                 style="@style/AndroidCaption2"
                 app:layout_constraintStart_toStartOf="parent"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/edit_during_time_free" />
 
         </LinearLayout>
@@ -227,7 +230,7 @@
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="다음"
+        android:text="완료"
         style="@style/AndroidButton2"
         android:background="@drawable/shape_edittext_big"
         android:includeFontPadding="false"
