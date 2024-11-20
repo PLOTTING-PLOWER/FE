@@ -129,12 +129,15 @@
                 app:layout_constraintTop_toBottomOf="@id/edit_intro" />
 
             <EditText
-                android:id="@+id/edit_start_date_activity"
+                android:id="@+id/edit_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/text_box"
+                android:drawableEnd="@drawable/ic_calender"
+                android:paddingHorizontal="20dp"
                 android:hint="활동 시작 날짜를 입력해주세요"
                 android:paddingStart="10dp"
+                android:focusable="false"
                 style="@style/AndroidCaption2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -151,12 +154,16 @@
                 app:layout_constraintTop_toBottomOf="@id/edit_start_date_activity" />
 
             <EditText
-                android:id="@+id/edit_start_time_activity"
+                android:id="@+id/edit_start_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/text_box"
+                android:drawableEnd="@drawable/ic_calender"
+                android:paddingHorizontal="20dp"
                 android:hint="활동 시작 시간을 입력해주세요"
+                android:inputType="datetime"
                 android:paddingStart="10dp"
+                android:focusable="false"
                 style="@style/AndroidCaption2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -184,9 +191,8 @@
                     android:id="@+id/button_during_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:hint="직접 입력"
-                    android:paddingHorizontal="20dp"
-                    android:textColor="@color/white"
+                    android:text="직접 입력"
+                    android:textColor="@color/gray"
                     android:background="@drawable/shape_edittext_light_gray"
                     style="@style/AndroidCaption2"
                     android:gravity="center"
@@ -198,12 +204,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:hint="자유"
+                    android:text="자유"
                     android:background="@drawable/shape_edittext_light_gray"
                     android:gravity="center"
                     style="@style/AndroidCaption2"
-                    android:textColor="@color/white"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toEndOf="@id/button_during_time"
                     app:layout_constraintTop_toBottomOf="@id/text_during_time" />
             </LinearLayout>
