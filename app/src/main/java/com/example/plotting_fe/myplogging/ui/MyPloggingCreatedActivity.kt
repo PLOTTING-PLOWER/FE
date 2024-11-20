@@ -1,5 +1,6 @@
 package com.example.plotting_fe.myplogging.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.myplogging.dto.PloggingData
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingCreatedResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
+import com.example.plotting_fe.plogging.ui.PloggingMakeActivity1
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,12 +23,19 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
     private var _binding: ActivityMyPloggingCreatedBinding? = null
     private val binding get() = _binding!!
 
+    private var userId = 1L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMyPloggingCreatedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         loadInfo(binding.root)
+
+        binding.ivAdd.setOnClickListener() {
+            val intent = Intent(this, PloggingMakeActivity1::class.java)
+            startActivity(intent)
+        }
 
         binding.btnBack.setOnClickListener {
             finish()
@@ -35,7 +44,7 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
 
     private fun loadInfo(view: View) {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
-        myPloggingController.getMyPloggingCreated(1).enqueue(object :
+        myPloggingController.getMyPloggingCreated(userId).enqueue(object :
             Callback<ResponseTemplate<MyPloggingCreatedResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<MyPloggingCreatedResponse>>,

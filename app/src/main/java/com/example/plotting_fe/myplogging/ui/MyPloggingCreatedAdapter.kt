@@ -24,6 +24,7 @@ class MyPloggingCreatedAdapter(
         val maxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
         val btnWaiting: TextView = itemView.findViewById(R.id.btn_waiting)
         val btnDelete: TextView = itemView.findViewById(R.id.btn_delete)
+        val btnUpdate: TextView = itemView.findViewById(R.id.btn_update)
 
         fun bind(item: PloggingData, onDeleteClick: (Long) -> Unit) {
             title.text = item.title
@@ -43,6 +44,13 @@ class MyPloggingCreatedAdapter(
             btnWaiting.setOnClickListener {
                 val context = itemView.context
                 val intent = Intent(context, MyPloggingWaitingActivity::class.java)
+                intent.putExtra("ploggingId", item.ploggingId) // ploggingId 전달
+                context.startActivity(intent)
+            }
+
+            btnUpdate.setOnClickListener() {
+                val context = itemView.context
+                val intent = Intent(context, MyPloggingUpdateActivity::class.java)
                 intent.putExtra("ploggingId", item.ploggingId) // ploggingId 전달
                 context.startActivity(intent)
             }
