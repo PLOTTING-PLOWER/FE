@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white"
+    tools:context=".myplogging.ui.MyPloggingUpdate2Activity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/sv_comment">
+
+        <TextView
+            android:id="@+id/tv_program_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            style="@style/AndroidH1"
+            android:text="모임을 소개해 주세요!"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayout"
+        app:layout_constraintTop_toTopOf="@id/linearLayout">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:foregroundGravity="bottom"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back"
+            android:scaleType="fitCenter"
+            tools:ignore="MissingConstraints"
+            android:contentDescription="TODO">
+        </ImageButton>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/sv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@id/btn_next"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 활동명 -->
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="활동명"
+                android:textStyle="bold"
+                style="@style/AndroidSubtitle1" />
+
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_box"
+                android:hint="활동명을 입력해주세요"
+                android:paddingStart="10dp"
+                style="@style/AndroidCaption2"
+                app:layout_constraintTop_toBottomOf="@id/text_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- 활동 소개 -->
+            <TextView
+                android:id="@+id/text_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="활동소개"
+                style="@style/AndroidSubtitle1"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/edit_name" />
+
+            <EditText
+                android:id="@+id/edit_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_box"
+                android:hint="활동에 대한 상세 설명을 작성해주세요."
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:scrollHorizontally="false"
+                android:paddingStart="10dp"
+                android:lineSpacingExtra="0dp"
+                android:includeFontPadding="false"
+                android:maxLines="5"
+                style="@style/AndroidCaption2"
+                app:layout_constraintTop_toBottomOf="@id/text_intro"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- 활동 시작 날짜 -->
+            <TextView
+                android:id="@+id/text_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="활동 시작 날짜"
+                style="@style/AndroidSubtitle1"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/edit_intro" />
+
+            <EditText
+                android:id="@+id/edit_start_date_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_box"
+                android:hint="활동 시작 날짜를 입력해주세요"
+                android:paddingStart="10dp"
+                style="@style/AndroidCaption2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_start_date" />
+
+            <!-- 활동 시작 시간 -->
+            <TextView
+                android:id="@+id/text_start_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="활동 시작 시간"
+                style="@style/AndroidSubtitle1"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/edit_start_date_activity" />
+
+            <EditText
+                android:id="@+id/edit_start_time_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_box"
+                android:hint="활동 시작 시간을 입력해주세요"
+                android:paddingStart="10dp"
+                style="@style/AndroidCaption2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_start_time" />
+
+
+            <!-- 예상 소요 시간 -->
+            <TextView
+                android:id="@+id/text_during_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="예상 소요 시간"
+                android:layout_marginTop="20dp"
+                style="@style/AndroidSubtitle1"
+                app:layout_constraintTop_toBottomOf="@id/edit_start_time_activity"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/text_during_time">
+
+                <Button
+                    android:id="@+id/button_during_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="직접 입력"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape_edittext_big"
+                    style="@style/AndroidCaption2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_during_time" />
+
+                <Button
+                    android:id="@+id/edit_during_time_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:hint="자유"
+                    android:background="@drawable/shape_edittext_big"
+                    style="@style/AndroidCaption2"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@id/button_during_time"
+                    app:layout_constraintTop_toBottomOf="@id/text_during_time" />
+            </LinearLayout>
+
+            <!-- 직접 입력 버튼 클릭시 예상 소요 시간 입력란 -->
+            <EditText
+                android:id="@+id/input_during_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/text_box"
+                android:hint="예상 소요 시간을 입력해주세요."
+                android:paddingStart="10dp"
+                style="@style/AndroidCaption2"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/edit_during_time_free" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="다음"
+        style="@style/AndroidButton2"
+        android:background="@drawable/shape_edittext_big"
+        android:includeFontPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </Button>
+</androidx.constraintlayout.widget.ConstraintLayout>
