@@ -75,6 +75,15 @@
             android:name=".plogging.ui.PloggingFilter"
             android:exported="true" />
 
+        <!-- 카드 뉴스 리스트 액티비티 -->
+        <activity
+            android:name=".home.ui.CardnewsListActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".home.ui.CardnewsActivity"
+            android:exported="true" />
+
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

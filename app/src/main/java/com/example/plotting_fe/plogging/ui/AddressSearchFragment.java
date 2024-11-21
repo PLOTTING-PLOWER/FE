@@ -92,9 +92,6 @@ public class AddressSearchFragment extends Fragment {
 
             @Override
             public void onFailure(Call<GeocodeResponse> call, Throwable t) {
-                // 요청 후 로딩 표시 종료
-                // hideLoadingIndicator();
-
                 Log.e("AddressSearch", "Failure: " + t.getMessage());
                 Toast.makeText(getContext(), "서버 요청에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }

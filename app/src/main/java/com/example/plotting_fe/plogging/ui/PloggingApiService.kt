@@ -15,7 +15,7 @@ import retrofit2.Response
 class PloggingApiService {
 
     val interceptor = AppInterceptor()
-    private val apiService: PloggingController = ApiClient.getPloggingController(interceptor);
+    private val apiService: PloggingController = ApiClient.getPloggingController();
 
     fun createPlogging(
         request: PloggingRequest,

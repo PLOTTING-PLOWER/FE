@@ -7,41 +7,41 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 
 object ApiClient {
     private const val BASE_URL = BuildConfig.BASE_URL
 
-    // 기존의 것
+    // Retrofit 인스턴스 생성 (HttpLoggingInterceptor 포함)
     fun getApiClient(): Retrofit {
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor) // 요청 및 응답 로그 출력
+            .build()
+
+        // Gson 인스턴스 생성 (lenient 모드 활성화)
+        val gson: Gson = GsonBuilder()
+            .setLenient() // lenient 모드 활성화
+            .create()
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .client(client) // OkHttpClient 적용
+            .addConverterFactory(GsonConverterFactory.create(gson)) // lenient Gson 사용
             .build()
     }
 
-    // 네이버
+    // NCPApiService 생성
     fun getNCPApiService(): NCPApiService {
         return getApiClient().create(NCPApiService::class.java)
     }
 
-    // 로그 확인 하기 위한 임의 확인용 메서드
-    fun getApiClient2(interceptor: AppInterceptor): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    fun getPloggingController(interceptor: AppInterceptor): PloggingController {
-        return getApiClient2(interceptor).create(PloggingController::class.java)
-    }
-
-    // 로그 확인하기 위한 메서드
-    private fun provideOkHttpClient(interceptor: AppInterceptor): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            }).build()
+    // PloggingController 생성
+    fun getPloggingController(): PloggingController {
+        return getApiClient().create(PloggingController::class.java)
     }
 }
