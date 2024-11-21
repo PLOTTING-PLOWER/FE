@@ -2,7 +2,6 @@ package com.example.plotting_fe.plogging.dto.request
 
 import com.example.plotting_fe.plogging.dto.PloggingType
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 data class PloggingRequest(

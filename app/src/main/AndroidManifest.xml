@@ -70,6 +70,11 @@
             android:name=".plogging.ui.GetPloggings"
             android:exported="true" />
 
+        <!-- 플로깅 필터 액티비티 -->
+        <activity
+            android:name=".plogging.ui.PloggingFilter"
+            android:exported="true" />
+
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

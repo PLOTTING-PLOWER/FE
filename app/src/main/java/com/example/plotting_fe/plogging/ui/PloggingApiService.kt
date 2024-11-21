@@ -7,21 +7,27 @@ import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest
 import com.example.plotting_fe.plogging.presentation.PloggingController
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.global.util.AppInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PloggingApiService {
 
-    private val apiService: PloggingController = ApiClient.getPloggingController()
+    val interceptor = AppInterceptor()
+    private val apiService: PloggingController = ApiClient.getPloggingController(interceptor);
 
     fun createPlogging(
         request: PloggingRequest,
         userId: Long,
         context: Context
     ) {
+        Log.d("gogogo", "hi Plogging")
+
+        //TODO 여기서 터짐
         val call: Call<ResponseTemplate<PloggingRequest>> = apiService.createPlogging(userId, request)
         call.enqueue(object : Callback<ResponseTemplate<PloggingRequest>> {
+
             override fun onResponse(
                 call: Call<ResponseTemplate<PloggingRequest>>,
                 response: Response<ResponseTemplate<PloggingRequest>>

@@ -16,10 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.plogging.dto.PloggingType;
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
-import com.example.plotting_fe.plogging.presentation.PloggingController;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 
@@ -147,12 +145,18 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                         endLoc
                 );
 
+                Log.d("gogogo", "intent 하기 전");
                 Intent intent = new Intent(PloggingMakeActivity2.this, GetPloggings.class);
+
+                Log.d("gogogo", "intent 한 후");
                 startActivity(intent);
 
                 // 서버 retrofit 연결되는 부분
                 PloggingApiService ploggingApiService = new PloggingApiService();
+                Log.d("gogogo", "createPlogging 호출 전");
+
                 ploggingApiService.createPlogging(request, 1L, PloggingMakeActivity2.this);
+                Log.d("gogogo", "createPlogging 호출 후");
             }
         });
     }
