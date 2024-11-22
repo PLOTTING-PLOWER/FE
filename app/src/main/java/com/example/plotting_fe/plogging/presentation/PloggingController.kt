@@ -31,8 +31,7 @@ interface PloggingController {
 
     @POST("/ploggings/{ploggingId}")
     fun joinPlogging(
-        @Path("ploggingId") ploggingId: Long,
-        @Query("userId") userId: Long
+        @Path("ploggingId") ploggingId: Long
     ): Call<ResponseTemplate<String>>
 
     @GET("/ploggings/{ploggingId}/comments")

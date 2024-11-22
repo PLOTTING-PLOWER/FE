@@ -23,8 +23,6 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
     private var _binding: ActivityMyPloggingCreatedBinding? = null
     private val binding get() = _binding!!
 
-    private var userId = 1L
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMyPloggingCreatedBinding.inflate(layoutInflater)
@@ -44,7 +42,7 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
 
     private fun loadInfo(view: View) {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
-        myPloggingController.getMyPloggingCreated(userId).enqueue(object :
+        myPloggingController.getMyPloggingCreated().enqueue(object :
             Callback<ResponseTemplate<MyPloggingCreatedResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<MyPloggingCreatedResponse>>,
@@ -71,9 +69,9 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
                         val recyclerView = binding.rvPlogging
                         recyclerView.layoutManager = LinearLayoutManager(view.context)
 
-                        val adapter = MyPloggingCreatedAdapter(recrutingPlogging) { ploggingId ->
+                        val adapter = MyPloggingCreatedAdapter(recrutingPlogging, { ploggingId ->
                             deletePlogging(ploggingId) // 삭제 요청 메서드 호출
-                        }
+                        }, this@MyPloggingCreatedActivity)
                         recyclerView.adapter = adapter
 
                         // RecyclerView 설정

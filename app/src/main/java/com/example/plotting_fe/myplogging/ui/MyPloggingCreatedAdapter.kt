@@ -11,7 +11,8 @@ import com.example.plotting_fe.myplogging.dto.PloggingData
 
 class MyPloggingCreatedAdapter(
     private val items: MutableList<PloggingData>,
-    private val onDeleteClick: (Long) -> Unit)
+    private val onDeleteClick: (Long) -> Unit,
+    private val activity: MyPloggingCreatedActivity)
     : RecyclerView.Adapter<MyPloggingCreatedAdapter.PloggingViewHolder>() {
 
     class PloggingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,7 +27,7 @@ class MyPloggingCreatedAdapter(
         val btnDelete: TextView = itemView.findViewById(R.id.btn_delete)
         val btnUpdate: TextView = itemView.findViewById(R.id.btn_update)
 
-        fun bind(item: PloggingData, onDeleteClick: (Long) -> Unit) {
+        fun bind(item: PloggingData, onDeleteClick: (Long) -> Unit, activity: MyPloggingCreatedActivity) {
             title.text = item.title
             startLocation.text = item.startLocation
             startTime.text = item.startTime
@@ -46,13 +47,22 @@ class MyPloggingCreatedAdapter(
                 val intent = Intent(context, MyPloggingWaitingActivity::class.java)
                 intent.putExtra("ploggingId", item.ploggingId) // ploggingId 전달
                 context.startActivity(intent)
+                activity.finish()
             }
 
             btnUpdate.setOnClickListener() {
                 val context = itemView.context
                 val intent = Intent(context, MyPloggingUpdateActivity::class.java)
                 intent.putExtra("ploggingId", item.ploggingId) // ploggingId 전달
+                intent.putExtra("title", item.title)
+                intent.putExtra("content", item.content)
+                intent.putExtra("startTime", item.startTime)
+                intent.putExtra("spendTime", item.spendTime)
+                intent.putExtra("maxPeople", item.maxPeople)
+                intent.putExtra("recruitStartDate", item.recruitStartDate)
+                intent.putExtra("recruitEndDate", item.recruitEndDate)
                 context.startActivity(intent)
+                activity.finish()
             }
 
             btnDelete.setOnClickListener {
@@ -63,7 +73,7 @@ class MyPloggingCreatedAdapter(
 
     override fun onBindViewHolder(holder: PloggingViewHolder, position: Int) {
         val item = items[position]
-        holder.bind(item, onDeleteClick)
+        holder.bind(item, onDeleteClick, activity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PloggingViewHolder {

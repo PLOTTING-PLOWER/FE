@@ -21,6 +21,19 @@ class MyPloggingUpdateActivity : AppCompatActivity() {
         _binding = ActivityMyPloggingUpdateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ploggingId = intent.getLongExtra("ploggingId", 1L)
+        val title = intent.getStringExtra("title")
+        val content = intent.getStringExtra("content")
+        val startTime = intent.getStringExtra("startTime")
+        val spendTime = intent.getLongExtra("spendTime", 0)
+        val maxPeople = intent.getLongExtra("maxPeople", 0)
+        val recruitStartDate = intent.getStringExtra("recruitStartDate")
+        val recruitEndDate = intent.getStringExtra("recruitEndDate")
+
+        binding.inputParticipantNum.setText(maxPeople.toString())
+        binding.startDate.setText(recruitStartDate)
+        binding.endDate.setText(recruitEndDate)
+
         binding.startDate.setOnClickListener {
             showDatePickerDialog(true)
         }
@@ -30,16 +43,24 @@ class MyPloggingUpdateActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
+            Log.d("post", "maxPeople: " + binding.inputParticipantNum.text + "recruitStartDate: " + binding.startDate.text + "recruitEndDate: " + binding.endDate.text)
+
             val intent = Intent(this, MyPloggingUpdate2Activity::class.java)
             intent.putExtra("ploggingId", ploggingId)
-            intent.putExtra("maxPeople", binding.inputParticipantNum.text.toString())
-            intent.putExtra("recruitStartTime", binding.startDate.text.toString())
-            intent.putExtra("recruitEndTime", binding.endDate.text.toString())
+            intent.putExtra("maxPeople", binding.inputParticipantNum.text.toString().toLong())
+            intent.putExtra("recruitStartDate", binding.startDate.text.toString())
+            intent.putExtra("recruitEndDate", binding.endDate.text.toString())
+            intent.putExtra("title", title)
+            intent.putExtra("content", content)
+            intent.putExtra("startTime", startTime)
+            intent.putExtra("spendTime", spendTime)
             startActivity(intent)
+            finish()
         }
 
         binding.btnBack.setOnClickListener {
-            finish()
+            val intent = Intent(this, MyPloggingCreatedActivity::class.java)
+            startActivityForResult(intent, 0)
         }
     }
 

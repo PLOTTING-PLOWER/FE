@@ -18,14 +18,13 @@ interface MyPloggingController {
 
     @GET("/my-ploggings/created")
     fun getMyPloggingCreated(
-        @Query("userId") userId: Long
     ): Call<ResponseTemplate<MyPloggingCreatedResponse>>
 
     @PATCH("/my-ploggings/created/{ploggingId}")
     fun updateMyPlogging(
         @Path("ploggingId") ploggingId: Long,
         @Body request: MyPloggingUpdateRequest
-    ): Call<ResponseTemplate<MyPloggingUpdateRequest>>
+    ): Call<ResponseTemplate<Void>>
 
     @DELETE("/my-ploggings/created/{ploggingId}")
     fun deleteMyPlogging(
@@ -50,6 +49,5 @@ interface MyPloggingController {
 
     @GET("/my-ploggings/months")
     fun getMyMonthlyPlogging(
-        @Query("userId") userId: Long
     ): Call<ResponseTemplate<MonthResponse>>
 }
