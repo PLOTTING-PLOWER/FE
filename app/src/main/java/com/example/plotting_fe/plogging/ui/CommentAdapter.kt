@@ -14,7 +14,8 @@ import com.example.plotting_fe.plogging.dto.Comment
 
 class CommentAdapter(
     private val comments: List<Comment>,
-    private val onCommentClick: (Comment) -> Unit
+    private val fragment: PloggingCommentFragment, // Fragment 참조 추가
+    private val onReplyClick: (Comment) -> Unit // 답글 작성 리스너
 ) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
     inner class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -23,6 +24,7 @@ class CommentAdapter(
         val date: TextView = itemView.findViewById(R.id.tv_date)
         val content: TextView = itemView.findViewById(R.id.tv_content)
         val repliesRecyclerView: RecyclerView = itemView.findViewById(R.id.rv_reply)
+        val option: ImageView = itemView.findViewById(R.id.iv_option)
 
         fun bind(comment: Comment) {
             nickname.text = comment.username
@@ -43,6 +45,15 @@ class CommentAdapter(
                 itemView.findViewById<ImageView>(R.id.iv_option).visibility = View.GONE
             }
 
+            option.setOnClickListener() {
+                fragment.showOptionsDialog(comment, itemView)
+            }
+
+            // 답글 클릭 리스너
+            itemView.setOnClickListener {
+                onReplyClick(comment) // 답글 작성 리스너 호출
+            }
+
             // 답변 RecyclerView 설정
             repliesRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
             repliesRecyclerView.adapter = ReplyAdapter(comment.replies)
@@ -57,7 +68,6 @@ class CommentAdapter(
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
         holder.bind(comment)
-        holder.itemView.setOnClickListener { onCommentClick(comment) } // 클릭 리스너 설정
     }
 
     override fun getItemCount(): Int {
