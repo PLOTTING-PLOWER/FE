@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#FDFDFD"
     android:padding="16dp"
     tools:context=".plogging.ui.PloggingFilter">
@@ -31,9 +31,9 @@
             android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="초기화"
             android:textColor="#FFA500"
-            android:layout_marginTop="15dp"
             android:textSize="14sp" />
 
         <!-- 첫번째 필터 조건 : 지역-->
@@ -51,21 +51,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:entries="@array/regions_array"/>
+            android:entries="@array/regions_array" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="날짜"
             android:layout_marginTop="30dp"
+            android:text="날짜"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="8dp"
+            android:orientation="horizontal"
             android:weightSum="2">
 
             <EditText
@@ -76,26 +76,26 @@
                 android:background="@drawable/shape_edittext_rec_with_line_box"
                 android:drawableEnd="@drawable/ic_calender"
                 android:hint="시작일"
-                android:textSize="13dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="15dp"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp" />
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"
+                android:textSize="13dp" />
 
             <EditText
                 android:id="@+id/endDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:paddingLeft="20dp"
-                android:hint="종료일"
-                android:textSize="13dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_edittext_rec_with_line_box"
                 android:drawableEnd="@drawable/ic_calender"
-                android:background="@drawable/shape_edittext_rec_with_line_box"/>
+                android:hint="종료일"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"
+                android:textSize="13dp" />
 
         </LinearLayout>
 
@@ -103,8 +103,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="모임 방식"
             android:layout_marginTop="30dp"
+            android:text="모임 방식"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -112,65 +112,70 @@
             android:id="@+id/meetingTypeGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_meeting_all"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:background="@drawable/button_background"
                 android:text="전체"
-                android:textSize="13dp"
-                android:background="@drawable/shape_button_round_with_color_gray"/>
+                android:textSize="13dp" />
 
             <Button
                 android:id="@+id/btn_meetin_arrival"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="선착순"
-                android:textSize="13dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
-                android:buttonTint="@color/light_gray" />
+                android:background="@drawable/button_background"
+                android:buttonTint="@color/light_gray"
+                android:text="선착순"
+                android:textSize="13dp" />
 
             <Button
                 android:id="@+id/btn_meetin_approval"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="승인제"
-                android:textSize="13dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
-                android:buttonTint="@color/light_gray" />
+                android:background="@drawable/button_background"
+                android:buttonTint="@color/light_gray"
+                android:text="승인제"
+                android:textSize="13dp" />
         </RadioGroup>
 
         <!-- 네번째 필터 조건 : 시간-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="시간"
             android:textSize="13dp"
-            android:layout_marginTop="30dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/timeGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="8dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_time_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전체"
-                android:layout_marginEnd="16dp" />
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_background"
+                android:text="전체" />
 
             <Button
                 android:id="@+id/btn_time_free"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/button_background"
                 android:text="자유"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
 
             <EditText
                 android:id="@+id/time_for_btn_time_free"
@@ -178,59 +183,71 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
-                android:inputType="number"
+                android:background="@drawable/shape_edittext_rec_with_line_box"
                 android:hint="60"
-                android:textSize="13dp"
+                android:inputType="number"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="8dp"
-                android:background="@drawable/shape_edittext_rec_with_line_box"/>
+                android:textSize="13dp" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="분 이하" />
-        </LinearLayout>
+        </RadioGroup>
 
         <!-- 다섯번째 필터 조건 : 시작 시간-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="시작 시간"
             android:layout_marginTop="30dp"
+            android:text="시작 시간"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/startTimeGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="8dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/start_time_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_background"
                 android:text="전체"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
+
+            <Button
+                android:id="@+id/start_time_free"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/button_background"
+                android:text="자유"
+                android:textSize="13dp" />
 
             <EditText
                 android:id="@+id/start_time_after_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:inputType="number"
+                android:background="@drawable/shape_edittext_rec_with_line_box"
                 android:hint="입력"
-                android:textSize="13dp"
+                android:inputType="number"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="8dp"
-                android:background="@drawable/shape_edittext_rec_with_line_box"/>
+                android:textSize="13dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 시 이후부터" />
-        </LinearLayout>
+        </RadioGroup>
 
         <!-- 여섯번째 필터 조건 : 인원수 -->
         <TextView
@@ -251,37 +268,50 @@
             <Button
                 android:id="@+id/participant_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/button_background"
                 android:buttonTint="#FFA500"
                 android:text="전체"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
 
             <Button
                 android:id="@+id/participant_5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/button_background"
                 android:buttonTint="#FFA500"
                 android:text="5"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
 
             <Button
                 android:id="@+id/participant_10"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/button_background"
                 android:buttonTint="#FFA500"
                 android:text="10"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
 
             <Button
                 android:id="@+id/participant_15"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/button_background"
                 android:buttonTint="#FFA500"
                 android:text="15"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
         </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/common_google_signin_btn_text_dark_disabled"
+            android:text="완료" />
+
     </LinearLayout>
 </ScrollView>
