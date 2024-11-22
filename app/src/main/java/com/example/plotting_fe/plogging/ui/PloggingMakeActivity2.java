@@ -18,6 +18,7 @@ import com.example.plotting_fe.plogging.dto.PloggingType;
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 
@@ -107,7 +108,8 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                 LocalDate recruitStartDate = LocalDate.parse(startDate);
                 LocalDate recruitEndDate = LocalDate.parse(endDate);
                 long spendTime = Long.parseLong(spendTimeInput);
-                LocalTime startTime = LocalTime.parse(startTimeInput);
+                LocalDateTime startTime = LocalDateTime.parse("2024-11-22T14:30:00");
+//                LocalDateTime startTime = LocalDateTime.parse(startTimeInput);
 
                 // request를 위한 타입 변환 과정
                 PloggingType selectedType = PloggingType.valueOf(selectedTypeString.toUpperCase());
@@ -127,6 +129,8 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                 Log.d("gogogo", "Selected Type: " + selectedTypeString);
                 Log.d("gogogo", "Start Date: " + startDate);
                 Log.d("gogogo", "End Date: " + endDate);
+                Log.d("gogogo", "recruitStartDate: " + recruitStartDate);
+                Log.d("gogogo", "recruitEndDate: " + recruitEndDate);
 
 
                 endLoc = (endLoc == null || endLoc.isEmpty()) ? null : endLoc;

@@ -1,6 +1,7 @@
 package com.example.plotting_fe.home.ui;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +10,23 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.home.dto.response.CardnewsResponseList;
+import com.example.plotting_fe.home.dto.response.CardnewsResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CardnewsAdapter extends RecyclerView.Adapter<CardnewsAdapter.ViewHolder> {
 
     private Context context;
-    private List<CardnewsResponseList.CardnewsResponse> cardnewsList;
+    private List<CardnewsResponse> cardnewsList;
 
-    public CardnewsAdapter(Context context, List<CardnewsResponseList.CardnewsResponse> cardnewsList) {
+    // Todo : dto 수정하기
+    public CardnewsAdapter(Context context, List<CardnewsResponse> cardnewsList) {
         this.context = context;
-        this.cardnewsList = cardnewsList != null ? cardnewsList : new ArrayList<>();
+        if (cardnewsList == null) {
+            Log.e("CardnewsList", "cardnewsList is null");
+        } else {
+            this.cardnewsList = cardnewsList;
+        }
     }
 
     @Override
@@ -32,9 +37,10 @@ public class CardnewsAdapter extends RecyclerView.Adapter<CardnewsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        CardnewsResponseList.CardnewsResponse cardnews = cardnewsList.get(position);
+        CardnewsResponse cardnews = cardnewsList.get(position);
         holder.titleTextView.setText(cardnews.getTitle());
     }
+
 
     @Override
     public int getItemCount() {

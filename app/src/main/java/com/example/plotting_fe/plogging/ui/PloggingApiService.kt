@@ -4,10 +4,11 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.example.plotting_fe.global.ResponseTemplate
-import com.example.plotting_fe.plogging.dto.request.PloggingRequest
-import com.example.plotting_fe.plogging.presentation.PloggingController
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.AppInterceptor
+import com.example.plotting_fe.home.presentation.HomeController
+import com.example.plotting_fe.plogging.dto.request.PloggingRequest
+import com.example.plotting_fe.plogging.presentation.PloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +16,7 @@ import retrofit2.Response
 class PloggingApiService {
 
     val interceptor = AppInterceptor()
-    private val apiService: PloggingController = ApiClient.getPloggingController();
+    private val apiService: PloggingController = ApiClient.getApiClient().create(PloggingController::class.java)
 
     fun createPlogging(
         request: PloggingRequest,
@@ -24,8 +25,7 @@ class PloggingApiService {
     ) {
         Log.d("gogogo", "hi Plogging")
 
-        //TODO 여기서 터짐
-        val call: Call<ResponseTemplate<PloggingRequest>> = apiService.createPlogging(userId, request)
+        val call: Call<ResponseTemplate<PloggingRequest>> = apiService.createPlogging( 1L, request)
         call.enqueue(object : Callback<ResponseTemplate<PloggingRequest>> {
 
             override fun onResponse(

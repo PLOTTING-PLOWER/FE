@@ -116,6 +116,7 @@ public class GetPloggings extends AppCompatActivity {
         if (typeString != null) {
             try {
                 type = PloggingType.valueOf(typeString.toUpperCase());
+                Log.d("FilterInputs22", type.toString());
             } catch (IllegalArgumentException e) {
                 Toast.makeText(this, "잘못된 유형 값입니다.", Toast.LENGTH_SHORT).show();
                 return;

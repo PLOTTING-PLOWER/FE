@@ -10,6 +10,7 @@ import com.example.plotting_fe.plogging.dto.response.HomeResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.plotting.server.plogging.dto.response.PloggingMapResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -34,7 +35,7 @@ interface PloggingController {
     //플로깅 모임 등록
     @POST("/ploggings")
     fun createPlogging(
-        @Path("userId") userId: Long,
+        @Query("userId") userId: Long,
         @Body request: PloggingRequest
     ): Call<ResponseTemplate<PloggingRequest>>
 
@@ -42,11 +43,11 @@ interface PloggingController {
     @GET("/ploggings/filter")
     fun findListByFilter(
         @Query("region") region: String,
-        @Query("startDate") startDate: LocalDate,
-        @Query("endDate") endDate: LocalDate,
+        @JsonFormat(pattern = "yyyy-mm-dd") @Query("startDate") startDate: LocalDate,
+        @JsonFormat(pattern = "yyyy-mm-dd") @Query("endDate") endDate: LocalDate,
         @Query("type") type: PloggingType,
         @Query("spendTime") spendTime: Long,
-        @Query("startTime") startTime: LocalDateTime,
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") @Query("startTime") startTime: LocalDateTime,
         @Query("maxPeople") maxPeople: Long
     ): Call<ResponseTemplate<List<PloggingResponse>>>
 

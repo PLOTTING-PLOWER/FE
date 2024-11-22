@@ -3,12 +3,11 @@ package com.example.plotting_fe.global.util
 import com.example.plotting_fe.BuildConfig
 import com.example.plotting_fe.global.NCPApiService
 import com.example.plotting_fe.plogging.presentation.PloggingController
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 
 object ApiClient {
     private const val BASE_URL = BuildConfig.BASE_URL
@@ -23,15 +22,12 @@ object ApiClient {
             .addInterceptor(loggingInterceptor) // 요청 및 응답 로그 출력
             .build()
 
-        // Gson 인스턴스 생성 (lenient 모드 활성화)
-        val gson: Gson = GsonBuilder()
-            .setLenient() // lenient 모드 활성화
-            .create()
+        var gson= GsonBuilder().setLenient().create()
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(client) // OkHttpClient 적용
-            .addConverterFactory(GsonConverterFactory.create(gson)) // lenient Gson 사용
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 

@@ -108,4 +108,6 @@ dependencies {
 
     implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
 
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+
 }
