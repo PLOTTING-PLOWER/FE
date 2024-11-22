@@ -157,10 +157,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
                 // 서버 retrofit 연결되는 부분
                 PloggingApiService ploggingApiService = new PloggingApiService();
-                Log.d("gogogo", "createPlogging 호출 전");
-
                 ploggingApiService.createPlogging(request, 1L, PloggingMakeActivity2.this);
-                Log.d("gogogo", "createPlogging 호출 후");
             }
         });
     }

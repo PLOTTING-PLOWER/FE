@@ -8,6 +8,7 @@ import com.example.plotting_fe.plogging.dto.request.PloggingRequest
 import com.example.plotting_fe.plogging.dto.response.CommentResponse
 import com.example.plotting_fe.plogging.dto.response.HomeResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
+import com.example.plotting_fe.plogging.dto.response.PloggingListResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
 import com.fasterxml.jackson.annotation.JsonFormat
@@ -22,6 +23,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 interface PloggingController {
 
@@ -43,13 +45,13 @@ interface PloggingController {
     @GET("/ploggings/filter")
     fun findListByFilter(
         @Query("region") region: String,
-        @JsonFormat(pattern = "yyyy-mm-dd") @Query("startDate") startDate: LocalDate,
-        @JsonFormat(pattern = "yyyy-mm-dd") @Query("endDate") endDate: LocalDate,
-        @Query("type") type: PloggingType,
+        @JsonFormat(pattern = "yyyy-MM-dd") @Query("startDate") startDate: LocalDate,
+        @JsonFormat(pattern = "yyyy-MM-dd") @Query("endDate") endDate: LocalDate,
+        @Query("type") type: String,
         @Query("spendTime") spendTime: Long,
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") @Query("startTime") startTime: LocalDateTime,
+        @JsonFormat(pattern = "HH:mm") @Query("startTime") startTime: LocalTime,  // FIXME: LocalTime으로 변경
         @Query("maxPeople") maxPeople: Long
-    ): Call<ResponseTemplate<List<PloggingResponse>>>
+    ): Call<ResponseTemplate<PloggingListResponse>>
 
 
     @GET("/ploggings/{ploggingId}/info")

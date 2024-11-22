@@ -1,8 +1,8 @@
 package com.example.plotting_fe.plogging.ui;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
+
 
 import java.util.Calendar;
 
@@ -34,6 +35,8 @@ public class PloggingFilter extends AppCompatActivity {
     private Button lastSelectedMeetingTypeButton;
     private Button lastSelectedParticipantCountButton;
     private Button lastSelectedTimeButton;
+
+    private String region, startDateStr, endDateStr, meetingType, timeStr, startTimeStr, participantsStr;
 
     private boolean freeIsCheckedOfTime = false;
     private boolean freeIsCheckedOfStartTime = false;
@@ -94,21 +97,6 @@ public class PloggingFilter extends AppCompatActivity {
         startDate.setOnClickListener(v -> showDatePickerDialogOfStart());
         endDate.setOnClickListener(v -> showDatePickerDialogOfEnd());
 
-//        //4. 시간 -> (2) 자유 선택시 입력 안내 Toast 발생
-//        btnTimeFree.setOnClickListener(v -> {
-//                    Toast.makeText(this, "상세 시간을 입력해주세요", Toast.LENGTH_SHORT).show();
-//                    freeIsCheckedOfTime = true;
-//                    btnTimeFree.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
-//                }
-//        );
-//        //5. 시작 시간 -> (2) 자유 선택시 입력 안내 Toast 발생
-//        startTimeFree.setOnClickListener(v -> {
-//                    Toast.makeText(this, "상세 시간을 입력해주세요", Toast.LENGTH_SHORT).show();
-//                    freeIsCheckedOfStartTime = true;
-//                    startTimeFree.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
-//                }
-//        );
-
         // 6. 완료 버튼
         btnSubmit.setOnClickListener(v -> submitFilters());
     }
@@ -117,7 +105,7 @@ public class PloggingFilter extends AppCompatActivity {
     private void resetFilters() {
         resetBtn();
 
-        //Todo: 데이터 초기화
+        // FIXME : 데이터 초기화 확인하기 (아마 수정할 부분이 있을 듯)
         spinnerRegion.setSelection(0); // 지역 초기화
         startDate.setText("");
         endDate.setText("");
@@ -147,9 +135,9 @@ public class PloggingFilter extends AppCompatActivity {
     private String getTimeType() {
         int selectedId = timeGroup.getCheckedRadioButtonId();
         if (selectedId == R.id.time_for_btn_time_free) {
-            return "자유";
+            return timeForFree.getText().toString();
         } else {
-            return "전체";
+            return "100000";    // FIXME : 임의 지정 (ALL일때)
         }
     }
 
@@ -158,9 +146,9 @@ public class PloggingFilter extends AppCompatActivity {
     private String getStartTimeType() {
         int selectedId = startTimeGroup.getCheckedRadioButtonId();
         if (selectedId == R.id.start_time_free) {
-            return "자유";
+            return startTimeAfterInput.getText().toString();
         } else {
-            return "전체";
+            return "00";
         }
     }
 
@@ -168,52 +156,63 @@ public class PloggingFilter extends AppCompatActivity {
     // 6. 인원수 선택
     private String getSelectedParticipants() {
         int selectedId = participantCountGroup.getCheckedRadioButtonId();
-        if (selectedId == R.id.participant_all) {
-            return "전체";
-        } else if (selectedId == R.id.participant_5) {
+        if (selectedId == R.id.participant_5) {
             return "5";
         } else if (selectedId == R.id.participant_10) {
             return "10";
         } else if (selectedId == R.id.participant_15) {
             return "15";
         }
-        return "전체"; // 기본값
+        return "10000";
     }
 
-    //최종 완료 버튼
-
-    // 필터 선택 값을 최종적으로 유효성 검사 거친 후에 -> PloggingResponse 담아서 서버로 보낸다.
-    // ploggingController 의 findListByFilter 메서드
+    // 7. 최종 완료 버튼
     private void submitFilters() {
 
-        // if 데이터 유효성 검사 성공하면 -> 완료 버튼 색 main으로 변경
+        if (spinnerRegion == null || startDate == null || endDate == null ||
+                meetingTypeGroup == null || timeGroup == null || startTimeGroup == null || participantCountGroup == null) {
+            Toast.makeText(this, "모든 필드를 입력해주세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // 1. 지역
-        String region = spinnerRegion.getSelectedItem().toString();
+        if (btnTimeFree != null && btnTimeFree.isSelected()) {
+            if (timeForFree == null || timeForFree.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "시간을 입력해주세요", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (startTimeAfterInput == null || startTimeAfterInput.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "시작 시간을 입력해주세요", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        // 필드 값 가져오기
+        // 시간
+        timeStr = getTimeType();
+        // 시작 시간
+        startTimeStr = getStartTimeType();
+        // 지역
+        region = spinnerRegion.getSelectedItem().toString();
+        // 날짜
+        startDateStr = startDate.getText().toString().trim();
+        endDateStr = endDate.getText().toString().trim();
+        // 모임 방식
+        meetingType = getSelectedMeetingType();
+        // 인원수 선택
+        participantsStr = getSelectedParticipants();
 
-        // 2. 날짜
-        String start = startDate.getText().toString();
-        String end = endDate.getText().toString();
+        // 값 전달
+        Intent intent = new Intent(this, GetPloggings.class);
+        intent.putExtra("region", region);
+        intent.putExtra("startDate", startDateStr);
+        intent.putExtra("endDate", endDateStr);
+        intent.putExtra("meetingType", meetingType);
+        intent.putExtra("time", timeStr);
+        intent.putExtra("startTime", startTimeStr);
+        intent.putExtra("participants", participantsStr);
 
-        // 3. 모임 방식
-        String meetingType = getSelectedMeetingType();
-
-        // 4. 시간
-        //만약 TimeFree 선택시 time_for_btn_time_free 는 무조건 입력 필수
-        String time = timeForFree.getText().toString();     //타입 확인하기
-
-
-        // 5. 시작 시간
-        //만약 StartTimefree 선택시 time_for_btn_time_free 는 무조건 입력 필수
-        String startTime = startTimeAfterInput.getText().toString();    //타입 확인하기
-
-
-        // 6. 인원수 선택
-        String participants = getSelectedParticipants();
-
-        // 값 response 담기
-        //서버 보내기
+        startActivity(intent);
     }
+
 
     // 달력 다이얼로그 -> 시작 시간
     private void showDatePickerDialogOfStart() {
@@ -243,7 +242,7 @@ public class PloggingFilter extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void resetBtn(){
+    private void resetBtn() {
         meetingAll.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
         meetingArrival.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
         meetingApproval.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
@@ -319,7 +318,7 @@ public class PloggingFilter extends AppCompatActivity {
         } else if (button == btnTimeAll || button == btnTimeFree) {
             lastSelectedTimeButton = button;
             resetTimeButtons();  // 시간 버튼 초기화
-        } else if ( button == startTimeAll || button == startTimeFree) {
+        } else if (button == startTimeAll || button == startTimeFree) {
             lastSelectedTimeButton = button;
             resetStartTimeButtons();  // 시간 버튼 초기화
         }
