@@ -1,6 +1,7 @@
 package com.example.plotting_fe.home.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +20,12 @@ public class CardnewsAdapter extends RecyclerView.Adapter<CardnewsAdapter.ViewHo
     private Context context;
     private List<CardnewsResponse> cardnewsList;
 
-    // Todo : dto 수정하기
     public CardnewsAdapter(Context context, List<CardnewsResponse> cardnewsList) {
         this.context = context;
-        if (cardnewsList == null) {
-            Log.e("CardnewsList", "cardnewsList is null");
-        } else {
-            this.cardnewsList = cardnewsList;
+        this.cardnewsList = cardnewsList;
+
+        for (int i = 0; i < cardnewsList.size(); i++) {
+            Log.d("CardnewsAdapter", "Index: " + i + ", Title: " + cardnewsList.get(i).getTitle());
         }
     }
 
@@ -39,8 +39,16 @@ public class CardnewsAdapter extends RecyclerView.Adapter<CardnewsAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         CardnewsResponse cardnews = cardnewsList.get(position);
         holder.titleTextView.setText(cardnews.getTitle());
-    }
 
+        holder.itemView.setOnClickListener(v -> {
+            // cardId를 CardnewsActivity로 넘기기
+            Intent intent = new Intent(context, CardsActivity.class);
+            // cardId를 전달함
+            intent.putExtra("cardId", cardnews.getId());
+//            intent.putExtra("cardId", "1");   //잘 넘어가는지 확인용 - cardId 하드코딩
+            context.startActivity(intent);
+        });
+    }
 
     @Override
     public int getItemCount() {

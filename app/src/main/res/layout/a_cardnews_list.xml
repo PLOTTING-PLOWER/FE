@@ -15,7 +15,7 @@
 
         <!-- 뒤로가기 버튼 -->
         <ImageView
-            android:id="@+id/iv_back"
+            android:id="@+id/ic_back"
             android:layout_width="31dp"
             android:layout_height="33dp"
             android:layout_marginTop="28dp"
@@ -37,7 +37,7 @@
 
         <!-- 카드 뉴스 리스트 -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/participantsRecyclerView"
+            android:id="@+id/titleRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="600dp"
             android:nestedScrollingEnabled="true"

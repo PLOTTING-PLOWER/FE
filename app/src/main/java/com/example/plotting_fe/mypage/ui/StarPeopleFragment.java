@@ -58,7 +58,7 @@ public class StarPeopleFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_star_people, container, false);
 
-        recyclerView = view.findViewById(R.id.participantsRecyclerView);
+        recyclerView = view.findViewById(R.id.titleRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // 샘플 데이터

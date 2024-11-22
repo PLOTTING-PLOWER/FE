@@ -81,7 +81,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".home.ui.CardnewsActivity"
+            android:name=".home.ui.CardsActivity"
             android:exported="true" />
 
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->
