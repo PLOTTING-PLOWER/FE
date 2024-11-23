@@ -76,14 +76,13 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<ResponseTemplate<LoginResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val token = response.body()?.results?.token
-                    saveToken(token)
-                    goToMainScreen()
+                    val responseTemplate = response.body()
+                    checkResponse(responseTemplate)
+
                 } else {
                     Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<ResponseTemplate<LoginResponse>>, t: Throwable) {
                 Toast.makeText(this@LoginActivity, "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
             }
@@ -139,24 +138,43 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<ResponseTemplate<LoginResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val token = response.body()?.results?.token
-                    saveToken(token)
-                    goToMainScreen()
+                    val responseTemplate = response.body()
+                    checkResponse(responseTemplate)
                 } else {
                     Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<ResponseTemplate<LoginResponse>>, t: Throwable) {
                 Toast.makeText(this@LoginActivity, "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun saveToken(token: String?) {
+    private fun checkResponse(responseTemplate: ResponseTemplate<LoginResponse>?){
+        if (responseTemplate != null && responseTemplate.isSuccess == true) {
+            val loginResponse = responseTemplate.results
+
+            if(loginResponse != null){
+                saveToken(loginResponse.token, loginResponse.refreshToken)
+                Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
+                goToMainScreen()
+            }else {
+                Toast.makeText(this@LoginActivity, "회원 정보가 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+        }else{
+            Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveToken(token: String, refreshToken: String) {
         if (token != null) {
-            val sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE)
-            sharedPreferences.edit().putString("jwt_token", token).apply()
+            val sharedPreferences = getSharedPreferences("AuthPrefs", MODE_PRIVATE)
+            sharedPreferences.edit().apply{
+                putString("ACCESS_TOKEN", token).apply()
+                putString("REFRESH_TOKEN", token).apply()
+                apply()
+            }
         }
     }
 
