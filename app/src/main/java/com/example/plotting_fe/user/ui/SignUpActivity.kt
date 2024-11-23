@@ -55,6 +55,11 @@ class SignUpActivity : AppCompatActivity() {
             handleSignUp(nickname, email, password, passwordConfirm)
         }
 
+        // 닉네임 중복 확인
+        nickNameCheckBtn.setOnClickListener{
+            val nickname = nicknameInput.text.toString()
+        }
+
         // 로그인 버튼에 클릭 리스너 설정
         findViewById<View>(R.id.tv_gologin).setOnClickListener {
             Utils.onLoginClick(this)
@@ -64,7 +69,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun handleSignUp(nickname: String, email: String, password: String, passwordConfirm: String) {
         if (!checkInput(nickname, email, password, passwordConfirm)) return
 
-        val request = SignUpRequest(email, password, nickname)
+        val request = SignUpRequest(nickname, email, password)
         authController.signUp(request).enqueue(object : Callback<ResponseTemplate<Void>> {
             override fun onResponse(call: Call<ResponseTemplate<Void>>, response: Response<ResponseTemplate<Void>>) {
                 if (response.isSuccessful) {
