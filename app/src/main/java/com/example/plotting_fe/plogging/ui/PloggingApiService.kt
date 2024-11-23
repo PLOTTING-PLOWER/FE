@@ -68,11 +68,11 @@ class PloggingApiService {
         region: String,
         startDate: LocalDate,
         endDate: LocalDate,
-        type: String,   // FIXME: PloggingType에서 String으로 바꿈
+        type: String,   // PloggingType을 String으로 변경
         spendTime: Long,
-        startTime: LocalTime,   // FIXME: PloggingType에서 String으로 바꿈
+        startTime: LocalTime,   // PloggingType에서 String으로 바꿈
         maxPeople: Long,
-        context: Context
+        context: Context,
     ) {
         val call: Call<ResponseTemplate<PloggingListResponse>> = apiService.findListByFilter(
             region, startDate, endDate, type, spendTime, startTime, maxPeople
@@ -85,25 +85,22 @@ class PloggingApiService {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.isSuccess == true) {
-
                         val ploggingList = responseBody.results
+                        ploggingFilterAdapter.notifyDataSetChanged()  // 데이터를 갱신
 
                         Log.d("filterPlogging", "PloggingList_is_success: ${ploggingList}")
                         Toast.makeText(context, "Plogging 목록이 성공적으로 조회되었습니다.", Toast.LENGTH_SHORT)
                             .show()
                     } else {
-
-                        Log.d("filterPlogging", "failed! ")
+                        Log.d("filterPlogging", "failed! ${responseBody?.message}")
                     }
                 } else {
                     Log.d("filterPlogging", "failed! server die ")
+                    Toast.makeText(context, "서버 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(
-                call: Call<ResponseTemplate<PloggingListResponse>>,
-                t: Throwable
-            ) {
+            override fun onFailure(call: Call<ResponseTemplate<PloggingListResponse>>, t: Throwable) {
                 Toast.makeText(context, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
                 Log.d("filterPlogging", "filterPlogging_onFailure: ${t.message}")
             }

@@ -1,5 +1,7 @@
 package com.example.plotting_fe.plogging.ui;
 
+import static java.util.Collections.emptyList;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,12 +30,13 @@ public class GetPloggings extends AppCompatActivity {
     private EditText searchInput;
     private PloggingAdapter ploggingAdapter;
     private List<PloggingResponse> ploggingList;
-//    private RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     private String region, startDateStr, endDateStr, meetingType, timeStr, startTimeStr, participantsStr;
     private Long spendTime, participants;
     private LocalDate startDate, endDate;
     private LocalTime startTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,10 @@ public class GetPloggings extends AppCompatActivity {
 
         //초기화 작업
         ploggingList = new ArrayList<>();
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        ploggingAdapter = new PloggingAdapter(this, ploggingList);
-//        recyclerView.setAdapter(ploggingAdapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ploggingAdapter = new PloggingAdapter(this, ploggingList);
+        recyclerView.setAdapter(ploggingAdapter);
 
         //  filterPlogging 에서 넘겨받은 값
         region = getIntent().getStringExtra("region");
@@ -103,7 +107,6 @@ public class GetPloggings extends AppCompatActivity {
             Log.e("Debug", "in {GetPloggings + FilterPloggings} Error : ", e);
             Toast.makeText(this, "필터 값 변환 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
         }
-
 
         //추가 버튼
         addBtn.setOnClickListener(v -> {

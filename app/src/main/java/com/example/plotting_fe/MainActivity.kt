@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AndroidThreeTen.init(this);
         enableEdgeToEdge()
-        setContentView(R.layout.a_activity_main)
+        setContentView(R.layout.a_activity_home)
         // 시스템 바 인셋 처리
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

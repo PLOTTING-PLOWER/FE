@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
-
-
 import java.util.Calendar;
 
 public class PloggingFilter extends AppCompatActivity {
@@ -37,9 +35,6 @@ public class PloggingFilter extends AppCompatActivity {
     private Button lastSelectedTimeButton;
 
     private String region, startDateStr, endDateStr, meetingType, timeStr, startTimeStr, participantsStr;
-
-    private boolean freeIsCheckedOfTime = false;
-    private boolean freeIsCheckedOfStartTime = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

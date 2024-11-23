@@ -22,6 +22,7 @@ public class PloggingAdapter extends RecyclerView.Adapter<PloggingAdapter.ViewHo
     private List<PloggingResponse> ploggingList;
     private Context context;
 
+    // 생성자
     public PloggingAdapter(Context context, List<PloggingResponse> ploggingList) {
         this.context = context;
         this.ploggingList = ploggingList;
@@ -38,13 +39,24 @@ public class PloggingAdapter extends RecyclerView.Adapter<PloggingAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PloggingResponse plogging = ploggingList.get(position);
+
+        // 데이터 바인딩
         holder.titleTextView.setText(plogging.getTitle());
         holder.startLocation.setText(plogging.getStartLocation());
-        holder.ploggingType.setText(plogging.getPloggingType().toString()); // PloggingType의 toString() 메서드에 따라 적절히 표시
-        holder.startDateAndTime.setText(plogging.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))); // 시작 시간 포맷
-        holder.duringTime.setText(String.valueOf(plogging.getSpendTime())); // 소요 시간
-        holder.maxPeople.setText(String.valueOf(plogging.getMaxPeople())); // 최대 인원
-        holder.currentPeople.setText(String.valueOf(plogging.getCurrentPeople())); // 현재 인원
+        holder.ploggingType.setText(plogging.getPloggingType().toString());
+        holder.startDateAndTime.setText(plogging.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        holder.duringTime.setText(String.valueOf(plogging.getSpendTime()));
+        holder.maxPeople.setText(String.valueOf(plogging.getMaxPeople()));
+        holder.currentPeople.setText(String.valueOf(plogging.getCurrentPeople()));
+
+        // 참여하기 버튼의 상태 설정 (현재 인원이 최대 인원에 도달하면 버튼 비활성화)
+        if (plogging.getCurrentPeople() >= plogging.getMaxPeople()) {
+            holder.joinBtn.setEnabled(false);
+            holder.joinBtn.setText("마감된 플로깅");
+        } else {
+            holder.joinBtn.setEnabled(true);
+            holder.joinBtn.setText("참여하기");
+        }
 
         // 참여하기 버튼 클릭 리스너 설정
         holder.joinBtn.setOnClickListener(v -> {
@@ -59,15 +71,21 @@ public class PloggingAdapter extends RecyclerView.Adapter<PloggingAdapter.ViewHo
         return ploggingList.size();
     }
 
+    // 데이터 갱신 메서드 추가
+    public void updatePloggingList(List<PloggingResponse> newPloggingList) {
+        this.ploggingList = newPloggingList;
+        notifyDataSetChanged(); // RecyclerView 갱신
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView titleTextView;
-        public TextView startLocation; // 시작 위치
-        public TextView ploggingType; // 플로깅 유형
-        public TextView startDateAndTime; // 시작 날짜 및 시간
-        public TextView duringTime; // 소요 시간
-        public TextView maxPeople; // 최대 인원
-        public TextView currentPeople; // 현재 인원
-        public Button joinBtn; // 참여하기 버튼
+        public TextView startLocation;
+        public TextView ploggingType;
+        public TextView startDateAndTime;
+        public TextView duringTime;
+        public TextView maxPeople;
+        public TextView currentPeople;
+        public Button joinBtn;
 
         public ViewHolder(View itemView) {
             super(itemView);
