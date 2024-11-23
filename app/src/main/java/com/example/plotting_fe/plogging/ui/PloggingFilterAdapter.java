@@ -37,9 +37,9 @@ public class PloggingFilterAdapter extends RecyclerView.Adapter<PloggingFilterAd
         PloggingResponse plogging = ploggingList.get(position);
 
         // 플로깅 데이터를 뷰에 바인딩
-        holder.regionTextView.setText(plogging.getRegion());
-        holder.startDateTextView.setText(plogging.getStartDate().toString());
-        holder.endDateTextView.setText(plogging.getEndDate().toString());
+//        holder.regionTextView.setText(plogging.getRegion());
+//        holder.startDateTextView.setText(plogging.getStartDate().toString());
+//        holder.endDateTextView.setText(plogging.getEndDate().toString());
         holder.spendTimeTextView.setText(String.valueOf(plogging.getSpendTime()));
         holder.maxPeopleTextView.setText(String.valueOf(plogging.getMaxPeople()));
     }
@@ -60,7 +60,7 @@ public class PloggingFilterAdapter extends RecyclerView.Adapter<PloggingFilterAd
 
         public PloggingViewHolder(View itemView) {
             super(itemView);
-            regionTextView = itemView.findViewById(R.id.spinner_region);
+//            regionTextView = itemView.findViewById(R.id.spinner_region);
             startDateTextView = itemView.findViewById(R.id.startDate);
             endDateTextView = itemView.findViewById(R.id.endDate);
             spendTimeTextView = itemView.findViewById(R.id.tvSpendTime);

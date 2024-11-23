@@ -86,7 +86,7 @@ class PloggingApiService {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.isSuccess == true) {
                         val ploggingList = responseBody.results
-                        ploggingFilterAdapter.notifyDataSetChanged()  // 데이터를 갱신
+//                        ploggingFilterAdapter.notifyDataSetChanged()  // 데이터를 갱신
 
                         Log.d("filterPlogging", "PloggingList_is_success: ${ploggingList}")
                         Toast.makeText(context, "Plogging 목록이 성공적으로 조회되었습니다.", Toast.LENGTH_SHORT)

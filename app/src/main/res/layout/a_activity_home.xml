@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDFDFD"
-    tools:context=".home.ui.HomeFragment">
+    tools:context=".home.ui.HomeActivity">
 
 
-<!-- 환영 인사 -->
+    <!-- 환영 인사 -->
     <!-- 환영인사 사용자 이미지 -->
     <ImageView
         android:id="@+id/welcome_image"
@@ -18,8 +18,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_flower"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 닉네임 -->
     <TextView
@@ -27,13 +27,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif-medium"
         android:text="달려라 승실이 님"
         android:textColor="#333333"
         android:textSize="14sp"
-        android:fontFamily="sans-serif-medium"
-        app:layout_constraintTop_toTopOf="@id/welcome_image"
+        app:layout_constraintEnd_toStartOf="@id/welcome_rank"
         app:layout_constraintStart_toEndOf="@id/welcome_image"
-        app:layout_constraintEnd_toStartOf="@id/welcome_rank" />
+        app:layout_constraintTop_toTopOf="@id/welcome_image" />
 
     <!-- 고정 메시지 -->
     <TextView
@@ -42,53 +42,53 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
         android:text="오늘 하루도 플로깅!"
         android:textColor="#666666"
         android:textSize="13sp"
-        android:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@id/welcome_nickname"
+        app:layout_constraintEnd_toStartOf="@id/welcome_rank"
         app:layout_constraintStart_toEndOf="@id/welcome_image"
-        app:layout_constraintEnd_toStartOf="@id/welcome_rank" />
+        app:layout_constraintTop_toBottomOf="@id/welcome_nickname" />
 
     <!-- 랭킹 버튼 -->
     <ImageView
         android:id="@+id/welcome_rank"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:src="@drawable/ic_trophy_dark"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/welcome_search" />
+        app:layout_constraintEnd_toStartOf="@id/welcome_search"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 돋보기 버튼 -->
     <ImageView
         android:id="@+id/welcome_search"
         android:layout_width="27dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:src="@drawable/ic_search"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/welcome_alarm" />
+        app:layout_constraintEnd_toStartOf="@id/welcome_alarm"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 알림 버튼 -->
     <ImageView
         android:id="@+id/welcome_alarm"
         android:layout_width="27dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_bell"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-<!-- 카드뉴스 -->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- 카드뉴스 -->
     <LinearLayout
         android:id="@+id/card_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/tab_background"
         android:orientation="horizontal"
@@ -100,8 +100,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -110,8 +110,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="짧은 카드뉴스"
                 android:textColor="#FF806E"
@@ -122,13 +122,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="플로깅이란?"
-                android:textStyle="bold"
                 android:textColor="#330600"
                 android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                android:textStyle="bold" />
 
             <!--카드뉴스 버튼 TODO: java 에서 직접 set해서 색 변경 하기 #FF8473  -->
             <Button
@@ -149,23 +149,23 @@
             android:id="@+id/img_cardnews"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="13dp"
             android:layout_marginBottom="13dp"
-            android:layout_marginStart="8dp"
-            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:src="@drawable/cardnews" />
     </LinearLayout>
 
-<!-- 카테고리 -->
+    <!-- 카테고리 -->
 
     <!-- 인기 플로깅 -->
     <HorizontalScrollView
         android:id="@+id/category_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="26dp"
         android:layout_marginEnd="30dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
@@ -182,12 +182,13 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_marginEnd="10dp">
+                android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/categoty_today_finish"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="20dp"
@@ -211,12 +212,13 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_marginEnd="10dp">
+                android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/categoty_15_up"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="20dp"
@@ -240,12 +242,13 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_marginEnd="10dp">
+                android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/category_approve"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="20dp"
@@ -274,6 +277,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/category_random"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="20dp"
@@ -302,9 +306,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/category_scroll"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/category_scroll">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
@@ -318,31 +322,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-medium"
             android:text="인기 플로깅"
-            android:textSize="16sp"
             android:textColor="#333333"
-            android:fontFamily="sans-serif-medium" />
+            android:textSize="16sp" />
 
         <!-- 플로깅 리스트 TODO: java 에서 가로 스크롤 설정해야한다. -->
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="10dp"
             android:id="@+id/rv_popular_plogging"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
+            android:paddingTop="10dp"
             tools:listitem="@layout/item_plogging_info" />
     </LinearLayout>
 
-<!-- 인기 플로워 -->
+    <!-- 인기 플로워 -->
     <LinearLayout
         android:id="@+id/popular_plowers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/popular_plogging"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/popular_plogging">
 
         <TextView
             android:id="@+id/popular_plowers_text"
@@ -350,28 +354,28 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-medium"
             android:text="인기 플로워"
-            android:textSize="16sp"
             android:textColor="#333333"
-            android:fontFamily="sans-serif-medium" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-        <ImageView
-            android:id="@+id/popular_plowers_first"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/cardnews"
-            android:background="@drawable/shape_round"
-            android:clipToOutline="true"
-            android:outlineProvider="background" />
+            <ImageView
+                android:id="@+id/popular_plowers_first"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_round"
+                android:clipToOutline="true"
+                android:outlineProvider="background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cardnews" />
 
             <ImageView
                 android:id="@+id/popular_plowers_second"
@@ -380,11 +384,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cardnews"
                 android:background="@drawable/shape_round"
                 android:clipToOutline="true"
-                android:outlineProvider="background"/>
+                android:outlineProvider="background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cardnews" />
 
             <ImageView
                 android:id="@+id/popular_plowers_third"
@@ -393,11 +397,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cardnews"
                 android:background="@drawable/shape_round"
                 android:clipToOutline="true"
-                android:outlineProvider="background"/>
+                android:outlineProvider="background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cardnews" />
 
             <ImageView
                 android:id="@+id/popular_plowers_fourth"
@@ -406,32 +410,29 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cardnews"
                 android:background="@drawable/shape_round"
                 android:clipToOutline="true"
-                android:outlineProvider="background"/>
+                android:outlineProvider="background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cardnews" />
 
+        </LinearLayout>
     </LinearLayout>
 
-    </LinearLayout>
-
-
-    <!-- 네비게이션 바 -->
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/rounded_bottom_nav_background"
-        app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/bottom_nav_item_color"
-        app:itemTextColor="@color/bottom_nav_item_color"
-        app:labelVisibilityMode="labeled"
-        app:itemBackground="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <!--&lt;!&ndash; 네비게이션 바 &ndash;&gt;-->
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/bottom_navigation"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="bottom"-->
+    <!--        android:background="@drawable/rounded_bottom_nav_background"-->
+    <!--        app:menu="@menu/bottom_nav_menu"-->
+    <!--        app:itemIconTint="@color/bottom_nav_item_color"-->
+    <!--        app:itemTextColor="@color/bottom_nav_item_color"-->
+    <!--        app:labelVisibilityMode="labeled"-->
+    <!--        app:itemBackground="@android:color/transparent"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

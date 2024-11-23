@@ -18,7 +18,6 @@ import com.example.plotting_fe.R;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class GetPloggings extends AppCompatActivity {
     private EditText searchInput;
     private PloggingAdapter ploggingAdapter;
     private List<PloggingResponse> ploggingList;
-    private RecyclerView recyclerView;
+//    private RecyclerView recyclerView;
 
     private String region, startDateStr, endDateStr, meetingType, timeStr, startTimeStr, participantsStr;
     private Long spendTime, participants;
@@ -51,9 +50,9 @@ public class GetPloggings extends AppCompatActivity {
         //초기화 작업
         ploggingList = new ArrayList<>();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ploggingAdapter = new PloggingAdapter(this, ploggingList);
-        recyclerView.setAdapter(ploggingAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        ploggingAdapter = new PloggingAdapter(this, ploggingList);
+//        recyclerView.setAdapter(ploggingAdapter);
 
         //  filterPlogging 에서 넘겨받은 값
         region = getIntent().getStringExtra("region");

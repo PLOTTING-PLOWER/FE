@@ -80,9 +80,14 @@
             android:name=".home.ui.CardnewsListActivity"
             android:exported="true" />
 
+        <!-- 카드 뉴스 액티비티 -->
         <activity
             android:name=".home.ui.CardsActivity"
             android:exported="true" />
+
+        <!-- 홈 -->
+        <activity android:name=".home.ui.HomeActivity"
+            android:exported="true"/>
 
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->
         <meta-data
