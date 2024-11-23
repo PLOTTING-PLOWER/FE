@@ -23,6 +23,8 @@ android {
 
         buildTypes {
             buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
+            buildConfigField ("String", "NAVER_CLIENT_ID", properties.getProperty("NAVER_CLIENT_ID"))
+            buildConfigField ("String", "NAVER_CLIENT_SECRET", properties.getProperty("NAVER_CLIENT_SECRET"))
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -112,5 +114,7 @@ dependencies {
     //네아로
     implementation("com.navercorp.nid:oauth:5.10.0")
 
+    //json
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.0")
 
 }

@@ -55,7 +55,7 @@ class MyMonthlyPloggingActivity : AppCompatActivity() {
     private fun loadInfo() {
         // API 호출
         val api = ApiClient.getApiClient().create(MyPloggingController::class.java)
-        api.getMyMonthlyPlogging(1L).enqueue(object : Callback<ResponseTemplate<MonthResponse>> {
+        api.getMyMonthlyPlogging().enqueue(object : Callback<ResponseTemplate<MonthResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<MonthResponse>>,
                 response: Response<ResponseTemplate<MonthResponse>>

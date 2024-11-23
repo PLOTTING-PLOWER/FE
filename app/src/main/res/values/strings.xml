@@ -11,4 +11,13 @@
         <item>공개</item>
         <item>비공개</item>
     </string-array>
+
+    <string-array name="regions_array">
+        <item>서울</item>
+        <item>부산</item>
+        <item>대전</item>
+        <item>인천</item>
+        <item>제주</item>
+    </string-array>
+
 </resources>
