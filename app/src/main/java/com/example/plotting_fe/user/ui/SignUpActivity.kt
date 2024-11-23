@@ -25,6 +25,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 
 class SignUpActivity : AppCompatActivity() {
+    private var checkedNickname: String? = null
 
     private val authController: AuthController by lazy{
         RetrofitImpl.retrofit.create(AuthController::class.java)
@@ -58,6 +59,7 @@ class SignUpActivity : AppCompatActivity() {
         // 닉네임 중복 확인
         nickNameCheckBtn.setOnClickListener{
             val nickname = nicknameInput.text.toString()
+            checkNickname(nickname)
         }
 
         // 로그인 버튼에 클릭 리스너 설정
@@ -96,10 +98,44 @@ class SignUpActivity : AppCompatActivity() {
         })
     }
 
+    private fun checkNickname(nickname: String){
+        if(nickname.isEmpty()){
+            Toast.makeText(this@SignUpActivity, "닉네임을 입력해 주세요", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        authController.checkNickname(nickname).enqueue(object: Callback<ResponseTemplate<Boolean>>{
+            override fun onResponse(
+                call: Call<ResponseTemplate<Boolean>>,
+                response: Response<ResponseTemplate<Boolean>>
+            ) {
+                if(response.isSuccessful){
+                    val responseTemplate = response.body()
+                    if(responseTemplate?.isSuccess ==true){
+                        val isAvailable = responseTemplate.results ?: false
+                        if(isAvailable){
+                            Toast.makeText(this@SignUpActivity, "사용 가능한 닉네임 입니다.", Toast.LENGTH_SHORT).show()
+                            checkedNickname = nickname
+                        }else{
+                            Toast.makeText(this@SignUpActivity, "이미 사용중인 닉네임 입니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }else{
+                        Toast.makeText(this@SignUpActivity, "닉네임 확인 실패", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    Toast.makeText(this@SignUpActivity, "닉네임 확인 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<Boolean>>, t: Throwable) {
+                Toast.makeText(this@SignUpActivity, "네트워크 오류", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
     private fun checkInput(nickname: String, email: String,password: String, passwordConfirm: String ): Boolean {
         if(nickname.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()){
-            Toast.makeText(this, "닉네임, 이메일, 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "모든 란을 작성해주세요.", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -121,13 +157,10 @@ class SignUpActivity : AppCompatActivity() {
             return false
         }
 
-//        if(!nicknameCheck){
-//            Toast.makeText(this, "닉네임 중복 확인 해주세요", Toast.LENGTH_SHORT).show()
-//            return false
-//        }
-
+        if(checkedNickname == null || checkedNickname != nickname){
+            Toast.makeText(this, "닉네임 중복 확인 해주세요", Toast.LENGTH_SHORT).show()
+            return false
+        }
         return true
-
     }
-
 }
