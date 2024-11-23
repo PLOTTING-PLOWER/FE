@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.plotting_fe.R;
 
-public class HomeActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private Button btnCardnews;
     private ImageView btnCatagotyToday, btnCatagoty15Up, btnCatagotyApprove, btnCatagotyRandom;

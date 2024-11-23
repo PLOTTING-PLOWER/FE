@@ -11,6 +11,7 @@ import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.plotting_fe.home.ui.MainActivity;
 import com.example.plotting_fe.utils.Utils;
 
 public class WelcomeActivity extends AppCompatActivity {

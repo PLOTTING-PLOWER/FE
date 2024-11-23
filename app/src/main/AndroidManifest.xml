@@ -86,7 +86,7 @@
             android:exported="true" />
 
         <!-- 홈 -->
-        <activity android:name=".home.ui.HomeActivity"
+        <activity android:name=".home.ui.MainActivity"
             android:exported="true"/>
 
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->
