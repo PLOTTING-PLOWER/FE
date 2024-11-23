@@ -159,7 +159,6 @@
 
 <!-- 카테고리 -->
 
-
     <!-- 인기 플로깅 -->
     <HorizontalScrollView
         android:id="@+id/category_scroll"
@@ -324,15 +323,17 @@
             android:textColor="#333333"
             android:fontFamily="sans-serif-medium" />
 
-        <!-- 플로깅 리스트 -->
+        <!-- 플로깅 리스트 TODO: java 에서 가로 스크롤 설정해야한다. -->
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="10dp"
             android:id="@+id/rv_popular_plogging"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp" />
+            android:padding="16dp"
+            tools:listitem="@layout/item_plogging_info" />
     </LinearLayout>
 
-    <!-- 인기 플로워 -->
+<!-- 인기 플로워 -->
     <LinearLayout
         android:id="@+id/popular_plowers"
         android:layout_width="match_parent"
@@ -343,22 +344,78 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-
         <TextView
+            android:id="@+id/popular_plowers_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
             android:text="인기 플로워"
             android:textSize="16sp"
             android:textColor="#333333"
             android:fontFamily="sans-serif-medium" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_popular_plowers"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp" />
+            android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/popular_plowers_first"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cardnews"
+            android:background="@drawable/shape_round"
+            android:clipToOutline="true"
+            android:outlineProvider="background" />
+
+            <ImageView
+                android:id="@+id/popular_plowers_second"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cardnews"
+                android:background="@drawable/shape_round"
+                android:clipToOutline="true"
+                android:outlineProvider="background"/>
+
+            <ImageView
+                android:id="@+id/popular_plowers_third"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cardnews"
+                android:background="@drawable/shape_round"
+                android:clipToOutline="true"
+                android:outlineProvider="background"/>
+
+            <ImageView
+                android:id="@+id/popular_plowers_fourth"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cardnews"
+                android:background="@drawable/shape_round"
+                android:clipToOutline="true"
+                android:outlineProvider="background"/>
+
     </LinearLayout>
+
+    </LinearLayout>
+
 
     <!-- 네비게이션 바 -->
 
