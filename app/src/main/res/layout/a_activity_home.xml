@@ -8,7 +8,6 @@
     android:background="#FDFDFD"
     tools:context=".home.ui.MainActivity">
 
-
     <!-- 환영 인사 -->
     <!-- 환영인사 사용자 이미지 -->
     <ImageView
@@ -323,7 +322,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_popular_plogging"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:padding="16dp"
             android:paddingTop="10dp"
             tools:listitem="@layout/item_plogging_info" />
@@ -411,32 +410,31 @@
         </LinearLayout>
     </LinearLayout>
 
-<!-- 네비게이션 -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="com.example.plotting_fe.home.ui.MainFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph"
-        tools:ignore="MissingConstraints" />
+<!--&lt;!&ndash; 네비게이션 &ndash;&gt;-->
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/nav_host_fragment"-->
+<!--        android:name="com.example.plotting_fe.home.ui.MainFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:defaultNavHost="true"-->
+<!--        app:navGraph="@navigation/nav_graph"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
-    <!-- 네비게이션 바 -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/rounded_bottom_nav_background"
-            app:menu="@menu/bottom_nav_menu"
-            app:itemIconTint="@color/bottom_nav_item_color"
-            app:itemTextColor="@color/bottom_nav_item_color"
-            app:labelVisibilityMode="labeled"
-            app:itemBackground="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
+<!--    &lt;!&ndash; 네비게이션 바 &ndash;&gt;-->
+<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--            android:id="@+id/bottom_navigation"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:background="@drawable/rounded_bottom_nav_background"-->
+<!--            app:menu="@menu/bottom_nav_menu"-->
+<!--            app:itemIconTint="@color/bottom_nav_item_color"-->
+<!--            app:itemTextColor="@color/bottom_nav_item_color"-->
+<!--            app:labelVisibilityMode="labeled"-->
+<!--            app:itemBackground="@android:color/transparent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
