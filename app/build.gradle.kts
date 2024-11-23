@@ -108,7 +108,9 @@ dependencies {
 
     // 구글
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
     //네아로
-    implementation ("com.navercorp.nid:oauth:5.9.1")
+    implementation("com.navercorp.nid:oauth:5.10.0")
+
 
 }

@@ -8,6 +8,8 @@ import com.example.plotting_fe.user.dto.response.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.Call
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -22,6 +24,7 @@ interface AuthController {
     fun login(@Body request: LoginRequest): Call<ResponseTemplate<LoginResponse>>
 
     @POST("/login/oauth2/code/naver")
-    fun exchangeNaverCode(@Query("code") code: String): Call<ResponseTemplate<LoginResponse>>
+    @FormUrlEncoded
+    fun loginWithNaver(@Field("accessToken") accessToken: String): Call<ResponseTemplate<LoginResponse>>
 
 }

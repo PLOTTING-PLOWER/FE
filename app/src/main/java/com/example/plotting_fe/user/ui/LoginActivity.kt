@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
@@ -21,6 +23,9 @@ import com.example.plotting_fe.user.dto.request.LoginRequest
 import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
 import com.example.plotting_fe.utils.Utils
+import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.NidOAuthIntent
+import com.navercorp.nid.oauth.NidOAuthLogin
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +44,14 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // 네이버 로그인 초기화
+        NaverIdLoginSDK.initialize(
+            context = this,
+            clientId = getString(R.string.naver_client_id),
+            clientSecret = getString(R.string.naver_client_secret),
+            clientName = getString(R.string.naver_client_name)
+        )
 
         val emailInput = findViewById<EditText>(R.id.et_email)
         val passwordInput = findViewById<EditText>(R.id.et_pw)
@@ -89,50 +102,40 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleNaverLogin() {
-        val naverAuthUrl = "https://nid.naver.com/oauth2.0/authorize" +
-                "?client_id=WehW4LZAFENKHdQImWWS" +
-                "&redirect_uri=http://10.0.2.2:8080/login/oauth2/code/naver" +
-                "&response_type=code"
-        Log.d("LoginActivity", "Naver Auth URL: $naverAuthUrl")
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(naverAuthUrl))
-        startActivity(intent)
-    }
 
-    override fun onNewIntent(intent: Intent) {
-        if (intent != null) {
-            super.onNewIntent(intent)
-        }
-
-        Log.d("LoginActivity", "onNewIntent called with intent: $intent")
-
-        intent?.let {
-            val uri = it.data
-            Log.d("LoginActivity", "URI: $uri")
-            handleIntent(it)
-        }
-    }
-
-    private fun handleIntent(intent: Intent?) {
-        val uri = intent?.data
-        if (uri != null && uri.path == "/login/oauth2/code/naver") {
-            val code = uri.getQueryParameter("code")
-            Log.d("LoginActivity", "Extracted code: $code")
-
-            if (!code.isNullOrEmpty()) {
-                handleNaverTokenExchange(code)
-            } else {
-                Log.e("LoginActivity", "Code not found in URI")
-                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+    // ActivityResultLauncher 등록
+    private val launcher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        when (result.resultCode) {
+            RESULT_OK -> {
+                val accessToken = NaverIdLoginSDK.getAccessToken()
+                if (!accessToken.isNullOrEmpty()) {
+                    sendTokenToServer(accessToken)
+                } else {
+                    Toast.makeText(this, "액세스 토큰을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                }
             }
-        }else{
-            Log.e("LoginActivity", "Invalid URI path: ${uri?.path}")
+            RESULT_CANCELED -> {
+                val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+                val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+                Toast.makeText(
+                    this,
+                    "로그인 실패: errorCode:$errorCode, errorDesc:$errorDescription",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
-    private fun handleNaverTokenExchange(authCode: String) {
-        val apiService = RetrofitImpl.retrofit.create(AuthController::class.java)
-        apiService.exchangeNaverCode(authCode).enqueue(object : Callback<ResponseTemplate<LoginResponse>> {
+    private fun handleNaverLogin() {
+        // 네이버 로그인 인증 호출 (ActivityResultLauncher 사용)
+        NaverIdLoginSDK.authenticate(this, launcher)
+    }
+
+    private fun sendTokenToServer(accessToken: String) {
+        val authController = RetrofitImpl.retrofit.create(AuthController::class.java)
+        authController.loginWithNaver(accessToken).enqueue(object : Callback<ResponseTemplate<LoginResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<LoginResponse>>,
                 response: Response<ResponseTemplate<LoginResponse>>
@@ -140,12 +143,18 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val responseTemplate = response.body()
                     checkResponse(responseTemplate)
+
                 } else {
                     Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
             }
+
             override fun onFailure(call: Call<ResponseTemplate<LoginResponse>>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@LoginActivity,
+                    "네트워크 오류: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
