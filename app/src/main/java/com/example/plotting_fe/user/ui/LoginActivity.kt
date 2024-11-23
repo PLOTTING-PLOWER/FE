@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.plotting_fe.BuildConfig
 import com.example.plotting_fe.MainActivity
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
@@ -48,8 +49,8 @@ class LoginActivity : AppCompatActivity() {
         // 네이버 로그인 초기화
         NaverIdLoginSDK.initialize(
             context = this,
-            clientId = getString(R.string.naver_client_id),
-            clientSecret = getString(R.string.naver_client_secret),
+            clientId = BuildConfig.NAVER_CLIENT_ID,
+            clientSecret = BuildConfig.NAVER_CLIENT_SECRET,
             clientName = getString(R.string.naver_client_name)
         )
 

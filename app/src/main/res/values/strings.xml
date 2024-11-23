@@ -3,9 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="google_client_id">748344239849-noacpcg2bl97nd4icrcj6og0s9ji8rdu.apps.googleusercontent.com</string>
-    <string name="naver_client_id">WehW4LZAFENKHdQImWWS</string>
-    <string name="naver_client_secret">O341EZkX7q</string>
-    <string name="naver_client_name">Plotting</string>
+    <string name="naver_client_name">plotting</string>
 
     <string-array name="profile_visibility_options">
         <item>공개</item>
