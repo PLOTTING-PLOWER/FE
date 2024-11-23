@@ -414,7 +414,7 @@
 <!-- 네비게이션 -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:name="com.example.plotting_fe.home.ui.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
@@ -439,3 +439,5 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    android:name="androidx.navigation.fragment.NavHostFragment"-->

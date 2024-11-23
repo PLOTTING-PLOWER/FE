@@ -1,33 +1,25 @@
 package com.example.plotting_fe.home.ui;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.plotting_fe.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnCardnews;
-    private ImageView btnCatagotyToday, btnCatagoty15Up, btnCatagotyApprove, btnCatagotyRandom;
-
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_activity_home);
 
-        btnCardnews = findViewById(R.id.btn_read_more);
-        btnCatagotyToday = findViewById(R.id.categoty_today_finish);
-        btnCatagoty15Up = findViewById(R.id.categoty_15_up);
-        btnCatagotyApprove = findViewById(R.id.category_approve);
-        btnCatagotyRandom = findViewById(R.id.category_random);
-
-//        btnCardnews.setOnClickListener(v -> {
-//            Intent intent = new Intent(this, CardnewsListActivity.class);
-//            startActivity(intent);
-//        });
+        // Fragment가 이미 추가되지 않은 경우에만 추가
+        if (savedInstanceState == null) {
+            MainFragment mainFragment = new MainFragment();  // Fragment 인스턴스 생성
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, mainFragment);  // Fragment를 지정된 컨테이너에 추가
+            transaction.commit();
+        }
     }
 }
