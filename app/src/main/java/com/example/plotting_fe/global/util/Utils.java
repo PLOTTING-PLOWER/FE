@@ -1,4 +1,4 @@
-package com.example.plotting_fe.utils;
+package com.example.plotting_fe.global.util;
 
 import android.app.Activity;
 import android.content.Context;

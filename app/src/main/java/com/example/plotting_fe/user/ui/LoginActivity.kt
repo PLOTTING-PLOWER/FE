@@ -1,9 +1,8 @@
 package com.example.plotting_fe.user.ui
 
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -23,10 +22,8 @@ import com.example.plotting_fe.global.util.RetrofitImpl
 import com.example.plotting_fe.user.dto.request.LoginRequest
 import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
-import com.example.plotting_fe.utils.Utils
+import com.example.plotting_fe.global.util.Utils
 import com.navercorp.nid.NaverIdLoginSDK
-import com.navercorp.nid.oauth.NidOAuthIntent
-import com.navercorp.nid.oauth.NidOAuthLogin
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -178,14 +175,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveToken(token: String, refreshToken: String) {
-        if (token != null) {
-            val sharedPreferences = getSharedPreferences("AuthPrefs", MODE_PRIVATE)
-            sharedPreferences.edit().apply{
-                putString("ACCESS_TOKEN", token).apply()
-                putString("REFRESH_TOKEN", token).apply()
-                apply()
-            }
-        }
+        com.example.plotting_fe.global.MainApplication.saveTokens(token, refreshToken)
     }
 
     private fun goToMainScreen() {

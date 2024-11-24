@@ -13,16 +13,12 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.RetrofitImpl
-import com.example.plotting_fe.plogging.presentation.PloggingController
 import com.example.plotting_fe.user.dto.request.SignUpRequest
-import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
-import com.example.plotting_fe.utils.Utils
-import com.google.android.gms.auth.api.identity.SignInPassword
+import com.example.plotting_fe.global.util.Utils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class SignUpActivity : AppCompatActivity() {
     private var checkedNickname: String? = null

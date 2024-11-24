@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.utils.Utils;
+import com.example.plotting_fe.global.util.Utils;
 
 public class EditProfileActivity extends AppCompatActivity {
 
