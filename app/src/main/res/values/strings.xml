@@ -2,9 +2,20 @@
     <string name="app_name">plotting_FE</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="google_client_id">748344239849-noacpcg2bl97nd4icrcj6og0s9ji8rdu.apps.googleusercontent.com</string>
+    <string name="naver_client_name">plotting</string>
 
     <string-array name="profile_visibility_options">
         <item>공개</item>
         <item>비공개</item>
     </string-array>
+
+    <string-array name="regions_array">
+        <item>서울</item>
+        <item>부산</item>
+        <item>대전</item>
+        <item>인천</item>
+        <item>제주</item>
+    </string-array>
+
 </resources>

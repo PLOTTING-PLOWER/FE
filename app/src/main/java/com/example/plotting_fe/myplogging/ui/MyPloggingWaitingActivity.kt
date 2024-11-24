@@ -1,5 +1,6 @@
 package com.example.plotting_fe.myplogging.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -48,7 +49,8 @@ class MyPloggingWaitingActivity : AppCompatActivity() {
         loadInfo(binding.root)
 
         binding.btnBack.setOnClickListener {
-            finish()
+            val intent = Intent(this, MyPloggingCreatedActivity::class.java)
+            startActivityForResult(intent, 0) // REQUEST_CODE는 임의의 정수 상수
         }
     }
 

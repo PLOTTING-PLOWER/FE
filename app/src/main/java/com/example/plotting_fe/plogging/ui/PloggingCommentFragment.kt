@@ -68,7 +68,7 @@ class PloggingCommentFragment : Fragment() {
 
         loadInfo(view)
 
-        commentAdapter = CommentAdapter(comments) { comment ->
+        commentAdapter = CommentAdapter(comments, this) { comment ->
             // 댓글에 답글 작성
             uploadReply(view, comment)
         }
@@ -122,7 +122,7 @@ class PloggingCommentFragment : Fragment() {
                             username = "슝슝이",
                             timestamp = LocalDateTime.now().format(formatter),
                             content = content,
-                            profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png",
+                            profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/profile/soong.png",
                             depth = depth,
                             parentCommentId = parentCommentId,
                             isCommentPublic = isCommentPublic,
@@ -177,7 +177,7 @@ class PloggingCommentFragment : Fragment() {
                 username = "슝슝이",
                 timestamp = LocalDateTime.now().format(formatter),
                 content = content,
-                profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png",
+                profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/profile/soong.png",
                 depth = 0L,
                 parentCommentId = 0L,
                 isCommentPublic = isCommentPublic,
@@ -198,7 +198,7 @@ class PloggingCommentFragment : Fragment() {
 
     private fun loadInfo(view: View) {
         val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
-        ploggingController.getComments(ploggingId, 1).enqueue(object :
+        ploggingController.getComments(ploggingId).enqueue(object :
             Callback<ResponseTemplate<CommentResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<CommentResponse>>,
@@ -256,7 +256,7 @@ class PloggingCommentFragment : Fragment() {
 
     private fun uploadComment(uploadRequest: CommentUploadRequest) {
         val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
-        ploggingController.uploadComment(ploggingId, 1, uploadRequest).enqueue(object :
+        ploggingController.uploadComment(ploggingId, uploadRequest).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,
@@ -280,7 +280,7 @@ class PloggingCommentFragment : Fragment() {
         })
     }
 
-    private fun showOptionsDialog(comment: Comment, view: View) {
+    fun showOptionsDialog(comment: Comment, view: View) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_comment_options, null)
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)

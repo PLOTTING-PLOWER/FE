@@ -6,7 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".user.ui.JoinActivity"
+    tools:context=".user.ui.SignUpActivity"
     android:id="@+id/Join" >
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,41 +27,18 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="50dp"/>
 
-    <!-- 이름 입력 필드 -->
-
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="이름"
-        style="@style/AndroidInputTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_join" />
-
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_box"
-        android:hint="이름을 입력해주세요"
-        android:padding="15dp"
-        app:layout_constraintStart_toStartOf="@id/tv_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_name"
-        app:layout_constraintWidth_percent="0.85" />
-
     <!-- 닉네임 입력 필드 -->
     <TextView
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="닉네임"
         style="@style/AndroidInputTitle"
-        app:layout_constraintStart_toStartOf="@id/et_name"
-        app:layout_constraintTop_toBottomOf="@id/et_name" />
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_join" />
 
     <EditText
         android:id="@+id/et_nickname"

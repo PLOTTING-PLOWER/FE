@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 val properties = Properties().apply {
@@ -22,6 +23,8 @@ android {
 
         buildTypes {
             buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
+            buildConfigField ("String", "NAVER_CLIENT_ID", properties.getProperty("NAVER_CLIENT_ID"))
+            buildConfigField ("String", "NAVER_CLIENT_SECRET", properties.getProperty("NAVER_CLIENT_SECRET"))
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -103,4 +106,18 @@ dependencies {
 
     // BarChart
     implementation(libs.mpandroidchart)
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    // 구글
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
+    //네아로
+    implementation("com.navercorp.nid:oauth:5.10.0")
+
+    //json
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.0")
+
 }

@@ -28,49 +28,52 @@
             android:name=".mypage.ui.EditProfileActivity"
             android:exported="false" />
 
-        <!-- 처음 시작화면 설정 -->
         <activity
             android:name=".plogging.ui.PloggingMapActivity"
-            android:exported="true">
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/Theme.Plotting_FE.Splash"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".WelcomeActivity"
-            android:theme="@style/Theme.Plotting_FE.Splash"
-            android:exported="true" />
+        <activity android:name=".user.ui.LoginActivity"
+            android:exported="true">
+        </activity>
 
         <activity
-            android:name=".user.ui.LoginActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".user.ui.JoinActivity"
+            android:name=".user.ui.SignUpActivity"
             android:exported="false" />
 
         <activity
             android:name=".MainActivity"
             android:exported="false" />
 
+        <!-- 플로깅 모임 생성 액티비티1 -->
         <activity
-            android:name=".myplogging.ui.MyPloggingScheduledActivity"
-            android:exported="false" />
+            android:name=".plogging.ui.PloggingMakeActivity1"
+            android:exported="true" />
 
+        <!-- 플로깅 모임 생성 액티비티2 -->
         <activity
-            android:name=".myplogging.ui.MyPloggingParticipatedActivity"
-            android:exported="false" />
+            android:name=".plogging.ui.PloggingMakeActivity2"
+            android:exported="true" />
 
+        <!-- 플로깅 검색 액티비티 -->
         <activity
-            android:name=".myplogging.ui.MyPloggingCreatedActivity"
-            android:exported="false" />
-
+            android:name=".plogging.ui.GetPloggings"
+            android:exported="true" />
 
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="ixpavqfivc" />
+
     </application>
 </manifest>
