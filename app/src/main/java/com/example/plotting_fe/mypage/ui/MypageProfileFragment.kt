@@ -30,6 +30,8 @@ class MypageProfileFragment: Fragment() {
     private lateinit var profileMessageTextView : TextView
     private lateinit var publicTextView : TextView
 
+    private var profile: MyProfileResponse? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,11 +51,23 @@ class MypageProfileFragment: Fragment() {
 
         // 수정 버튼 클릭 리스너 설정
         val editButton: ImageView = view.findViewById(R.id.iv_edit)
+        editButton.isEnabled = false // 초기에는 비활성화
+
         editButton.setOnClickListener {
             Log.d("ProfileActivity", "Edit button clicked")
-            // SampleActivity로 전환하는 Intent 생성
-            val intent = Intent(activity, EditProfileActivity::class.java)
-            startActivity(intent) // 액티비티 시작
+            profile?.let {
+                // 데이터를 Intent에 담아 EditProfileActivity로 전달
+                val intent = Intent(activity, EditProfileActivity::class.java).apply {
+                    putExtra("nickname", it.nickname)
+                    putExtra("email", it.email)
+                    putExtra("profileMessage", it.profileMessage)
+                    putExtra("profileImageUrl", it.profileImageUrl)
+                    putExtra("isProfilePublic", it.isProfilePublic)
+                }
+                startActivity(intent)
+            } ?: run {
+                Log.d("profile->edit: intent", "프로필 데이터를 불러오는 중입니다.")
+            }
         }
 
         loadProfile()
@@ -82,12 +96,15 @@ class MypageProfileFragment: Fragment() {
             }
             override fun onFailure(call: Call<ResponseTemplate<MyProfileResponse>>, t: Throwable) {
                 Log.d("get", "onFailure 에러: " +  t.message.toString())
-
             }
         })
     }
 
     private fun updateUI(profile: MyProfileResponse){
+        this.profile = profile  // 프로필 데이터 저장
+        // editButton 활성화
+        view?.findViewById<ImageView>(R.id.iv_edit)?.isEnabled = true
+
         nicknameTextView.text = profile.nickname
         emailTextView.text = profile.email
         profileMessageTextView.text = profile.profileMessage
@@ -96,7 +113,7 @@ class MypageProfileFragment: Fragment() {
             .placeholder(R.drawable.ic_flower)
             .error(R.drawable.ic_flower)
             .into(profileImageView)
-        publicTextView.text = if(profile.isProfileResponse) "공개" else "비공개"
+        publicTextView.text = if(profile.isProfilePublic) "공개" else "비공개"
     }
 
 }

@@ -5,5 +5,5 @@ data class MyProfileResponse (
     val email: String,
     val profileMessage: String,
     val profileImageUrl: String,
-    val isProfileResponse: Boolean
+    val isProfilePublic: Boolean
 )
