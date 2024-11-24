@@ -21,6 +21,7 @@ import com.example.plotting_fe.plogging.presentation.PloggingController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.gson.Gson
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.CameraUpdate
@@ -46,6 +47,8 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var lastCenterPosition: LatLng? = null
     private val DISTANCE_THRESHOLD = 1000.0  // 1km
+    // 그리드 크기 설정
+    private val GRID_SIZE = 0.03 // 약 3km (위도/경도 기준)
 
     // 권한 요청을 위한 ActivityResultLauncher 선언
     private val requestPermissionLauncher =
@@ -156,9 +159,6 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
-    // 그리드 크기 설정
-    private val GRID_SIZE = 0.03 // 약 3km (위도/경도 기준)
-
     // 그리드에 맞게 데이터를 클러스터링하는 함수
     private fun clusterPloggings(ploggings: List<PloggingMapResponse>): Map<String, List<PloggingMapResponse>> {
         val clusters = mutableMapOf<String, MutableList<PloggingMapResponse>>()
@@ -202,14 +202,18 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
             val clusterLatLng = LatLng(avgLat, avgLon)
             val marker = Marker().apply {
                 position = clusterLatLng
-                captionText = "${firstTitle} 외 ${ploggings.size}개"
+                captionText = "${firstTitle} 포함 ${ploggings.size}개"
                 icon = OverlayImage.fromResource(R.drawable.ic_location_not_click) // 클러스터 마커 이미지 설정
             }
 
             // 마커 클릭 이벤트 리스너 설정
             marker.setOnClickListener {
-                // 클릭 시 해당 클러스터의 플로깅 데이터 목록을 보여주는 프래그먼트 호출
-                val fragment = PloggingInfoMapFragment.newInstance(ploggings)
+
+                // 클릭 시 해당 클러스터의 플로깅 데이터 목록을 JSON 문자열로 변환
+                val ploggingsJson = Gson().toJson(ploggings)
+
+                // JSON 문자열을 PloggingInfoMapFragment로 전달
+                val fragment = PloggingInfoMapFragment.newInstance(ploggingsJson)
 
                 // Fragment를 Dialog로 띄우기
                 fragment.show(childFragmentManager, "PloggingInfoMapFragment")
@@ -258,11 +262,11 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
                     marker.icon = OverlayImage.fromResource(R.drawable.ic_location_on_click)
 
                     // 데이터 전달
-                    val fragment = PloggingInfoMapFragment().apply {
-                        arguments = Bundle().apply {
-                            putSerializable("ploggings", ArrayList(ploggings)) // 데이터 전달
-                        }
-                    }
+                    // 클릭 시 해당 클러스터의 플로깅 데이터 목록을 JSON 문자열로 변환
+                    val ploggingsJson = Gson().toJson(ploggings)
+
+                    // JSON 문자열을 PloggingInfoMapFragment로 전달
+                    val fragment = PloggingInfoMapFragment.newInstance(ploggingsJson)
 
                     // Fragment를 Dialog로 띄우기
                     fragment.show(childFragmentManager, "PloggingInfoMapFragment")

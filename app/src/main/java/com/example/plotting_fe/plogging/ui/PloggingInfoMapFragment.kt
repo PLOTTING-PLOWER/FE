@@ -18,10 +18,11 @@ class PloggingInfoMapFragment : DialogFragment() {
     companion object {
         private const val ARG_PLOGGING_INFO = "plogging_info"
 
-        fun newInstance(ploggingInfo: List<PloggingMapResponse>): PloggingInfoMapFragment {
+        // JSON 문자열을 받는 newInstance 메서드
+        fun newInstance(ploggingInfoJson: String): PloggingInfoMapFragment {
             val fragment = PloggingInfoMapFragment()
             val args = Bundle().apply {
-                putString(ARG_PLOGGING_INFO, Gson().toJson(ploggingInfo)) // Convert List to JSON
+                putString(ARG_PLOGGING_INFO, ploggingInfoJson) // JSON 문자열 전달
             }
             fragment.arguments = args
             return fragment
@@ -35,16 +36,17 @@ class PloggingInfoMapFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Convert JSON string back to List<PloggingMapResponse>
+        // arguments에서 JSON 문자열을 꺼내 List<PloggingMapResponse>로 변환
         val json = arguments?.getString(ARG_PLOGGING_INFO)
         if (json != null) {
             val type = object : TypeToken<List<PloggingMapResponse>>() {}.type
-            ploggingInfoList = Gson().fromJson(json, type)
+            ploggingInfoList = Gson().fromJson(json, type) // JSON을 List<PloggingMapResponse>로 변환
         }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
+        // DialogFragment가 dismiss될 때 부모 fragment의 메서드를 호출
         (parentFragment as? PloggingMapFragment)?.resetSelectedMarker()
     }
 
@@ -61,11 +63,13 @@ class PloggingInfoMapFragment : DialogFragment() {
         recyclerView = view.findViewById(R.id.recyclerViewPlogging)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        // ploggingInfoList가 null이거나 비어있으면 RecyclerView 숨기기
         if (ploggingInfoList.isNullOrEmpty()) {
             recyclerView.visibility = View.GONE
             return
         }
 
+        // RecyclerView Adapter 설정
         adapter = PloggingMapAdapter(ploggingInfoList!!)
         recyclerView.adapter = adapter
     }
