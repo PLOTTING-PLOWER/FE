@@ -15,5 +15,5 @@ data class PloggingResponse(
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     val startTime: LocalDateTime,
     val spendTime: Long,
-    val startLocation: String
+    val startLocation: String,
 )

@@ -50,7 +50,7 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         btnApproval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ploggingType = "APPROVE";
+                ploggingType = "ASSIGN";
                 Toast.makeText(PloggingMakeActivity1.this, "승인제를 선택했습니다.", Toast.LENGTH_SHORT).show();
             }
         });

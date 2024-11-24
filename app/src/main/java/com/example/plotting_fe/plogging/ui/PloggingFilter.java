@@ -113,17 +113,17 @@ public class PloggingFilter extends AppCompatActivity {
     //1. 지역 선택 -> spanning 이라서 자동으로 된다
     //2. 날짜 선택 -> 날짜 입력 달력 나와서 값 입력 된다
 
-    //3. 모임 방식 선택
+    //3. 모임 방식 선택 FIXME ALL 일때 하드코딩함.
     private String getSelectedMeetingType() {
         int selectedId = meetingTypeGroup.getCheckedRadioButtonId();
         if (selectedId == R.id.btn_meeting_all) {
-            return "전체";
+            return "DIRECT";
         } else if (selectedId == R.id.btn_meetin_arrival) {
-            return "선착순";
+            return "DIRECT";
         } else if (selectedId == R.id.btn_meetin_approval) {
-            return "승인제";
+            return "ASSIGN";
         }
-        return "전체"; // 기본값
+        return "DIRECT"; // ALL일때
     }
 
     //4. 시간
@@ -137,13 +137,13 @@ public class PloggingFilter extends AppCompatActivity {
     }
 
 
-    //5. 시작 시간
+    //5. 시작 시간 FIXME 하드코딩함
     private String getStartTimeType() {
         int selectedId = startTimeGroup.getCheckedRadioButtonId();
         if (selectedId == R.id.start_time_free) {
             return startTimeAfterInput.getText().toString();
         } else {
-            return "00";
+            return "01";    //ALL일때 시간 설정
         }
     }
 
@@ -158,7 +158,7 @@ public class PloggingFilter extends AppCompatActivity {
         } else if (selectedId == R.id.participant_15) {
             return "15";
         }
-        return "10000";
+        return "10000"; //ALL일때
     }
 
     // 7. 최종 완료 버튼

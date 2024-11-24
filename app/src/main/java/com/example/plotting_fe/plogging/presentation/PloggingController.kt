@@ -49,7 +49,7 @@ interface PloggingController {
         @JsonFormat(pattern = "yyyy-MM-dd") @Query("endDate") endDate: LocalDate,
         @Query("type") type: String,
         @Query("spendTime") spendTime: Long,
-        @JsonFormat(pattern = "HH:mm") @Query("startTime") startTime: LocalTime,  // FIXME: LocalTime으로 변경
+        @JsonFormat(pattern = "yyy-MM-dd HH:mm") @Query("startTime") startTime: LocalDateTime,  // FIXME: LocalTime으로 변경 -> 다시 localdate time으로 변경
         @Query("maxPeople") maxPeople: Long
     ): Call<ResponseTemplate<PloggingListResponse>>
 
