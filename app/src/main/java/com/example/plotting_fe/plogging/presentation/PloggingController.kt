@@ -40,15 +40,16 @@ interface PloggingController {
         @Body request: PloggingRequest
     ): Call<ResponseTemplate<PloggingRequest>>
 
+    // FIXME: time 관련 String으로 변경
     // 플로깅 리스트 조회
     @GET("/ploggings/filter")
     fun findListByFilter(
         @Query("region") region: String,
-        @JsonFormat(pattern = "yyyy-MM-dd") @Query("startDate") startDate: LocalDate,
-        @JsonFormat(pattern = "yyyy-MM-dd") @Query("endDate") endDate: LocalDate,
+        @Query("startDate") startDate: String,
+        @Query("endDate") endDate: String,
         @Query("type") type: String,
         @Query("spendTime") spendTime: Long,
-        @JsonFormat(pattern = "yyy-MM-dd HH:mm") @Query("startTime") startTime: LocalDateTime,  // FIXME: LocalTime으로 변경 -> 다시 localdate time으로 변경
+        @Query("startTime") startTime: String,
         @Query("maxPeople") maxPeople: Long
     ): Call<ResponseTemplate<PloggingListResponse>>
 

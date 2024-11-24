@@ -1,6 +1,7 @@
 package com.example.plotting_fe.plogging.ui
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -21,9 +22,6 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class PloggingApiService {
-
-//    val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmlja25hbWUiOiLsip3sip3snbQiLCJpYXQiOjE3MzI0Mzg4NzQsImV4cCI6MTczMjQ0NjA3NCwiaXNzIjoicGxvdHRpbmcifQ.B54hskmXVpcQam5qSWG8Fx4A3B17XWlqGv0HSWGskJM"
-//    val userId = extractUserIdFromToken(token)
 
     val interceptor = AppInterceptor()
     private val apiService: PloggingController =
@@ -47,20 +45,20 @@ class PloggingApiService {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.isSuccess == true) {
-                        Toast.makeText(context, "Plogging이 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT)
-                            .show()
-                        Log.d("gogogo", "Plogging_is_success! ")
+                        Toast.makeText(context, "Plogging이 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT).show()
+
+                        //GetPlogging으로 이동
+                        val intent = Intent(context, GetPloggings::class.java)
+                        context.startActivity(intent)
                     } else {
                         Toast.makeText(
                             context,
                             "Plogging 생성에 실패했습니다: ${responseBody?.message ?: "알 수 없는 오류"}",
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.d("gogogo", "Plogging_is_failed! ")
                     }
                 } else {
                     Toast.makeText(context, "Plogging 생성에 실패했습니다.", Toast.LENGTH_SHORT).show()
-                    Log.d("gogogo", "Plogging_is_failed! server die ")
                 }
             }
 
@@ -73,11 +71,11 @@ class PloggingApiService {
     // TODO : 플로깅 필터링
     fun filterPlogging(
         region: String,
-        startDate: LocalDate,
-        endDate: LocalDate,
+        startDate: String,
+        endDate: String,
         type: String,   // PloggingType을 String으로 변경
         spendTime: Long,
-        startTime: LocalDateTime,   // PloggingType에서 String으로 바꿈
+        startTime: String,   // PloggingType에서 String으로 바꿈
         maxPeople: Long,
         context: Context,
         recyclerView: RecyclerView,
@@ -130,18 +128,4 @@ class PloggingApiService {
             }
         })
     }
-
-//    fun extractUserIdFromToken(token: String): Long? {
-//        try {
-//            // JWT 토큰을 디코딩합니다.
-//            val decodedJWT: DecodedJWT = JWT.decode(token)
-//
-//            // 'sub' 클레임에서 userId를 추출합니다. (JWT에서 일반적으로 'sub' 필드는 사용자 ID를 의미)
-//            val userId = decodedJWT.getClaim("sub").asLong()
-//            return userId
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//            return null
-//        }
-//    }
 }

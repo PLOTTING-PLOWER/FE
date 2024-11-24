@@ -14,12 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.plogging.dto.PloggingType;
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment.OnAddressSelectedListener {
@@ -119,7 +114,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                 //3번, 4번, 7번
                 recruitStartDate = startDateStr;  //형식 2024-11-11
                 recruitEndDate = endDateStr;    //형식 2024-11-11
-                startDateTime = startDateStr + " " + startTimeInput + ":00:00"; //형식 2024-11-11 10:00:00
+                startDateTime = startDateStr + "T" + startTimeInput + ":00"; //형식 2024-11-11 10:00
                 //2번
                 long maxPeople = Long.parseLong(participantNum);
                 //8번

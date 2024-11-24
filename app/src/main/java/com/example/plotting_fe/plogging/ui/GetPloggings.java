@@ -33,6 +33,7 @@ public class GetPloggings extends AppCompatActivity {
 
     private String region, startDateStr, endDateStr, meetingType, timeStr, startTimeStr, participantsStr;
     private Long spendTime, participants;
+    private String startTime;
     private LocalDate startDate, endDate;
     private LocalDateTime startDateTime;
 
@@ -69,40 +70,40 @@ public class GetPloggings extends AppCompatActivity {
 //  e: LocalDate, endDate: LocalDate, type: String, spendTime: Long,
 //  타입 바꾸기 startTime: LocalDateTime,  maxPeople: Long
         try {
-            DateTimeFormatter dateFormatter = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            }
+//            DateTimeFormatter dateFormatter = null;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            }
+//
+//            // 날짜 타입 변경
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                startDate = LocalDate.parse(startDateStr, dateFormatter);
+//                Log.d("Debug", "startDate: " + startDate);
+//            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                endDate = LocalDate.parse(endDateStr, dateFormatter);
+//                Log.d("Debug", "endDate: " + endDate);
+//            }
+//
+//
+//            DateTimeFormatter dateTimeFormatter = null;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");   // FIXME : LocalTime으로 변경
+//            }
+//
 
-            // 날짜 타입 변경
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startDate = LocalDate.parse(startDateStr, dateFormatter);
-                Log.d("Debug", "startDate: " + startDate);
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                endDate = LocalDate.parse(endDateStr, dateFormatter);
-                Log.d("Debug", "endDate: " + endDate);
-            }
 
-            DateTimeFormatter dateTimeFormatter = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");   // FIXME : LocalTime으로 변경
-            }
-
-            if (startTimeStr != null && !startTimeStr.contains(":")) {
-                startTimeStr = startTimeStr + ":00";
-                Log.d("Debug", "{Before}-> Formatted startTimeStr: " + startTimeStr);
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                String startDateTimeStr = startDateStr + " " + startTimeStr; // 예시)"2024-11-30 13:00"
-
-                // LocalDateTime으로 변환
-                DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                startDateTime = LocalDateTime.parse(startDateTimeStr, localDateTimeFormatter);
-
-                Log.d("Debug", "{After}-> Formatted startDateTime: " + startDateTime);
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                String startDateTimeStr = startDateStr + " " + startTimeStr; // 예시)"2024-11-30 13:00"
+//
+//                // LocalDateTime으로 변환
+//                DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//                startDateTime = LocalDateTime.parse(startDateTimeStr, localDateTimeFormatter);
+//
+//                Log.d("Debug", "{After}-> Formatted startDateTime: " + startDateTime);
+//            }
+            startTimeStr = startTimeStr + ":00:00";
+            startTime = startDateStr + "T" + startTimeStr;
             spendTime = Long.parseLong(timeStr);
             Log.d("Debug", "spendTime: " + spendTime);
             participants = Long.parseLong(participantsStr);
@@ -145,7 +146,7 @@ public class GetPloggings extends AppCompatActivity {
         PloggingApiService ploggingApiService = new PloggingApiService();
 
 // 파라미터 순서 : region, startDate, endDate, type, spendTime, startTime, maxPeople
-        ploggingApiService.filterPlogging(region, startDate, endDate, meetingType, spendTime, startDateTime, participants, GetPloggings.this, recyclerView, ploggingAdapter);
+        ploggingApiService.filterPlogging(region, startDateStr, endDateStr, meetingType, spendTime, startTime, participants, GetPloggings.this, recyclerView, ploggingAdapter);
     }
 
 //    private void loadPloggings() {
