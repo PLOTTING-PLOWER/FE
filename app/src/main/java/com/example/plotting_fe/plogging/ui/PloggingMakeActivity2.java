@@ -30,9 +30,12 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
     private String selectedStartDate;
     private boolean is_start_location;
 
-    private LocalDate recruitStartDate;
-    private LocalDate recruitEndDate;
-    private LocalDateTime startDateTime;
+    /*
+    String으로 타입 바꿈
+     */
+    private String recruitStartDate;
+    private String recruitEndDate;
+    private String startDateTime;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -40,7 +43,6 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_activity_makeplogging2);
 
-        // UI 컴포넌트 초기화
         editName = findViewById(R.id.edit_name);
         editIntro = findViewById(R.id.edit_intro);
         startDate = findViewById(R.id.edit_start_date_activity);
@@ -86,22 +88,23 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             is_start_location = false;
         });
 
-        /*
-         완료 버튼 클릭 시 데이터 제출 처리
-         */
+        // 완료 버튼 클릭 시 데이터 제출 처리
         btnFinish.setOnClickListener(v -> {
-            String title = editName.getText().toString();
-            String content = editIntro.getText().toString();
-            String spendTimeInput = duringTime.getText().toString();
-            String startTimeInput = startTimeText.getText().toString();
-            String startLoc = startLocation.getText().toString();
-            String endLoc = endLocation.getText().toString();
 
+            //PloggingMakeActivity1에서 가져온 데이터
             Intent intentFromFirstView = getIntent();
-            String participantNum = intentFromFirstView.getStringExtra("participantNum");
-            String selectedTypeString = intentFromFirstView.getStringExtra("selectedType");
-            String startDateStr = intentFromFirstView.getStringExtra("startDate");  //recruitStart
-            String endDateStr= intentFromFirstView.getStringExtra("endDate");   //recruitEnd
+            String selectedType = intentFromFirstView.getStringExtra("selectedType");   // 1.모임 방식 (선착순/승인제)
+            String participantNum = intentFromFirstView.getStringExtra("participantNum");   //2. 모집 인원수
+            String startDateStr = intentFromFirstView.getStringExtra("startDate");  //3.모집 시작일
+            String endDateStr= intentFromFirstView.getStringExtra("endDate");   //4. 모집 종료일
+
+            //PloggingMakeActivity2의 데이터
+            String title = editName.getText().toString();   //5. 활동명
+            String content = editIntro.getText().toString();    //6. 활동 소개
+            String spendTimeInput = duringTime.getText().toString();    //7. 활동 시작 시간
+            String startTimeInput = startTimeText.getText().toString();     //8. 예상 소요시간
+            String startLoc = startLocation.getText().toString();   //9. 출발장소
+            String endLoc = endLocation.getText().toString();   //10. 도착장소
 
             // 데이터 유효성 검사
             if (title.isEmpty() || content.isEmpty() || spendTimeInput.isEmpty() ||
@@ -112,55 +115,17 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             }
 
             try {
-
-                /*
-                데이터 변환
-                 */
-                //Formatter 이용한 날짜 변환
-
-
-                DateTimeFormatter dateFormatter = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("yyyy-MM-dd");
-                    recruitStartDate = LocalDate.parse(startDateStr, dateFormatter);
-                    recruitEndDate = LocalDate.parse(endDateStr, dateFormatter);
-                }
-//                DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("HH:mm");    //혹시 몰라서 두는 것
-
-                //fixme
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-                    // 시작 날짜와 시간을 합쳐서 LocalDateTime 객체 생성   fixme
-                    String startDateTimeStr = startDateStr + " " + startTimeInput + ":00";
-
-                    startDateTime = LocalDateTime.parse(startDateTimeStr, dateTimeFormatter);
-                    Log.d("gogogo", startDateTime.toString());
-                    }
-
+                //1번, 5번, 6번, 9번, 10번 String인지 확인하기 -> String 이다!
+                //3번, 4번, 7번
+                recruitStartDate = startDateStr;  //형식 2024-11-11
+                recruitEndDate = endDateStr;    //형식 2024-11-11
+                startDateTime = startDateStr + " " + startTimeInput + ":00:00"; //형식 2024-11-11 10:00:00
+                //2번
                 long maxPeople = Long.parseLong(participantNum);
-
+                //8번
                 long spendTime = spendTimeInput.isEmpty() ? 0 : Long.parseLong(spendTimeInput);
 
-
-
-                // PloggingRequest 객체 생성
-                PloggingType selectedType = PloggingType.valueOf(selectedTypeString.toUpperCase());
-                if (selectedType == null) {
-                    Toast.makeText(this, "잘못된 유형 값입니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                /*
-                데이터 확인
-                * */
-                Log.d("debug", "recruitStartDate: " + recruitStartDate);
-                Log.d("debug", "recruitEndDate: " + recruitEndDate);
-                Log.d("debug", "startDateTime: " + startDateTime);
-
-                /*
-                 유효한 데이터를 사용하여 PloggingRequest 객체 생성
-                 */
+                // 유효한 데이터를 사용하여 PloggingRequest 객체 생성
                 PloggingRequest request = new PloggingRequest(
                         title,
                         content,
@@ -175,18 +140,10 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                 );
                 Log.d("debug", "PloggingRequest created: " + request);
 
-                /*
-                 다음 액티비티로 데이터 전송
-                 */
-                Log.d("gogogo", "intent 하기 전");
-//                Intent intent = new Intent(PloggingMakeActivity2.this, GetPloggings.class);
-//                startActivity(intent);
-
-                // 필요시 API를 호출하여 서버와 통신
+                // API 호출하여 서버와 통신
                 PloggingApiService ploggingApiService = new PloggingApiService();
-                ploggingApiService.createPlogging(request, 1L, PloggingMakeActivity2.this);
+                ploggingApiService.createPlogging(request, PloggingMakeActivity2.this);
             } catch (Exception e) {
-                // 파싱 오류 또는 기타 예외 처리
                 Log.e("Error", "Invalid input data: " + e.getMessage());
                 Toast.makeText(PloggingMakeActivity2.this, "입력 데이터를 확인해주세요.", Toast.LENGTH_SHORT).show();
             }
@@ -211,10 +168,9 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
     public void onAddressSelected(String address) {
         if (is_start_location) {
             startLocation.setText(address);
-            getSupportFragmentManager().popBackStack(); // 프래그먼트 닫기
         } else {
             endLocation.setText(address);
-            getSupportFragmentManager().popBackStack(); // 프래그먼트 닫기
         }
+        getSupportFragmentManager().popBackStack();
     }
 }

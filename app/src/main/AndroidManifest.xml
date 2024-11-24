@@ -89,6 +89,9 @@
         <activity android:name=".home.ui.MainActivity"
             android:exported="true"/>
 
+        <activity android:name=".myplogging.ui.MyPloggingUpdate2Activity"
+            android:exported="true" />
+
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

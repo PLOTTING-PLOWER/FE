@@ -120,4 +120,7 @@ dependencies {
 
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
 
+    //token
+    implementation ("com.auth0:java-jwt:3.18.2")
+
 }

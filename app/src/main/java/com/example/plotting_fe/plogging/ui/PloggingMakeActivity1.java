@@ -3,23 +3,25 @@ package com.example.plotting_fe.plogging.ui;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.plogging.dto.PloggingType;
 
 public class PloggingMakeActivity1 extends AppCompatActivity {
 
     private EditText maxPeople, inputStartDate, inputEndDate;
     private String ploggingType;
-    private ImageView btnBack, btnArrival, btnApproval;
+    private ImageView btnBack;
+    private LinearLayout btnArrival, btnApproval;
     private String recruitStartDate, recruitEndDate;
     private Button btnNext;
 
@@ -28,14 +30,15 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_activity_makeplogging1);
 
-        maxPeople = findViewById(R.id.input_participant_num);
-        btnArrival = findViewById(R.id.btn_arrival);
-        btnApproval = findViewById(R.id.btn_approval);
-        inputStartDate = findViewById(R.id.start_date);
-        inputEndDate = findViewById(R.id.end_date);
-        btnNext = findViewById(R.id.btn_next);
-        btnBack = findViewById(R.id.ic_back);
+        btnArrival = findViewById(R.id.btn_time);   //1. 선착순 버튼
+        btnApproval = findViewById(R.id.btn_approval);  //2. 승인제 버튼
+        maxPeople = findViewById(R.id.input_participant_num);   //3. 모집 인원 수
 
+        inputStartDate = findViewById(R.id.start_date); //4.모집 시작일
+        inputEndDate = findViewById(R.id.end_date); //5.모집 마감일
+
+        btnNext = findViewById(R.id.btn_next);  //6. 다음 버튼
+        btnBack = findViewById(R.id.btn_back);  //0. 뒤로가기 버튼
 
         // 선착순(btn_arrival) 버튼 선택
         btnArrival.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +79,11 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("PloggingMakeActivity1", "participantNum: " + maxPeople.getText().toString());
+                Log.d("PloggingMakeActivity1", "selectedType: " + ploggingType);
+                Log.d("PloggingMakeActivity1", "startDate: " + recruitStartDate);
+                Log.d("PloggingMakeActivity1", "endDate: " + recruitEndDate);
+
                 // 다음 Activity로 이동
                 Intent intent = new Intent(PloggingMakeActivity1.this, PloggingMakeActivity2.class);
                 // 다음 페이지에게 데이터 전달
@@ -85,6 +93,12 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
                 intent.putExtra("endDate", recruitEndDate);    //종료일
                 startActivity(intent);
             }
+        });
+
+        // 뒤로 가기 버튼
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(PloggingMakeActivity1.this, GetPloggings.class);
+            startActivityForResult(intent, 0);
         });
     }
 

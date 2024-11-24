@@ -37,7 +37,6 @@ interface PloggingController {
     //플로깅 모임 등록
     @POST("/ploggings")
     fun createPlogging(
-        @Query("userId") userId: Long,
         @Body request: PloggingRequest
     ): Call<ResponseTemplate<PloggingRequest>>
 

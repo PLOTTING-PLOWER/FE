@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.auth0.jwt.JWT
+import com.auth0.jwt.interfaces.DecodedJWT
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.AppInterceptor
@@ -20,6 +22,9 @@ import java.time.LocalTime
 
 class PloggingApiService {
 
+//    val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmlja25hbWUiOiLsip3sip3snbQiLCJpYXQiOjE3MzI0Mzg4NzQsImV4cCI6MTczMjQ0NjA3NCwiaXNzIjoicGxvdHRpbmcifQ.B54hskmXVpcQam5qSWG8Fx4A3B17XWlqGv0HSWGskJM"
+//    val userId = extractUserIdFromToken(token)
+
     val interceptor = AppInterceptor()
     private val apiService: PloggingController =
         ApiClient.getApiClient().create(PloggingController::class.java)
@@ -27,13 +32,12 @@ class PloggingApiService {
     // TODO : 플로깅 만들기
     fun createPlogging(
         request: PloggingRequest,
-        userId: Long,
         context: Context
     ) {
         Log.d("gogogo", "hi Plogging")
 
         val call: Call<ResponseTemplate<PloggingRequest>> =
-            apiService.createPlogging(userId, request)
+            apiService.createPlogging(request)
         call.enqueue(object : Callback<ResponseTemplate<PloggingRequest>> {
 
             override fun onResponse(
@@ -126,4 +130,18 @@ class PloggingApiService {
             }
         })
     }
+
+//    fun extractUserIdFromToken(token: String): Long? {
+//        try {
+//            // JWT 토큰을 디코딩합니다.
+//            val decodedJWT: DecodedJWT = JWT.decode(token)
+//
+//            // 'sub' 클레임에서 userId를 추출합니다. (JWT에서 일반적으로 'sub' 필드는 사용자 ID를 의미)
+//            val userId = decodedJWT.getClaim("sub").asLong()
+//            return userId
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            return null
+//        }
+//    }
 }
