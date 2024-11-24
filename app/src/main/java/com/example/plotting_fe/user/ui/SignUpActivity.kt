@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.RetrofitImpl
 import com.example.plotting_fe.user.dto.request.SignUpRequest
 import com.example.plotting_fe.user.presentation.AuthController
@@ -24,7 +25,7 @@ class SignUpActivity : AppCompatActivity() {
     private var checkedNickname: String? = null
 
     private val authController: AuthController by lazy{
-        RetrofitImpl.retrofit.create(AuthController::class.java)
+        ApiClient.getApiClient().create(AuthController::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

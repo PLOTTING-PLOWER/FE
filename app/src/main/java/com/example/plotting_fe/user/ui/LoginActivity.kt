@@ -18,6 +18,7 @@ import com.example.plotting_fe.BuildConfig
 import com.example.plotting_fe.MainActivity
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.RetrofitImpl
 import com.example.plotting_fe.user.dto.request.LoginRequest
 import com.example.plotting_fe.user.dto.response.LoginResponse
@@ -132,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendTokenToServer(accessToken: String) {
-        val authController = RetrofitImpl.retrofit.create(AuthController::class.java)
+        val authController = ApiClient.getApiClient().create(AuthController::class.java)
         authController.loginWithNaver(accessToken).enqueue(object : Callback<ResponseTemplate<LoginResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<LoginResponse>>,
