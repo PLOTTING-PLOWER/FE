@@ -148,6 +148,7 @@
 
             <!-- 푸시 알림 항목 -->
             <LinearLayout
+                android:id="@+id/ll_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -158,7 +159,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_logout"
-                    android:contentDescription="푸시 알림 설정" />
+                    android:contentDescription="로그아웃" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -175,6 +176,7 @@
 
             <!-- 탈퇴  -->
             <LinearLayout
+                android:id="@+id/ll_withdraw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
