@@ -1,6 +1,5 @@
 package com.example.plotting_fe.user.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -19,7 +18,6 @@ import com.example.plotting_fe.MainActivity
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
-import com.example.plotting_fe.global.util.RetrofitImpl
 import com.example.plotting_fe.user.dto.request.LoginRequest
 import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
@@ -31,7 +29,7 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private val authController: AuthController by lazy {
-        RetrofitImpl.retrofit.create(AuthController::class.java)
+        ApiClient.getApiClient().create(AuthController::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,7 +131,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendTokenToServer(accessToken: String) {
-        val authController = ApiClient.getApiClient().create(AuthController::class.java)
         authController.loginWithNaver(accessToken).enqueue(object : Callback<ResponseTemplate<LoginResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<LoginResponse>>,
@@ -176,7 +173,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveToken(token: String, refreshToken: String) {
-        com.example.plotting_fe.global.MainApplication.saveTokens(token, refreshToken)
+        com.example.plotting_fe.global.TokenApplication.saveTokens(token, refreshToken)
     }
 
     private fun goToMainScreen() {

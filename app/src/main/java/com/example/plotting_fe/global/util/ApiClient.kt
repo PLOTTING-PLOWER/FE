@@ -1,8 +1,7 @@
 package com.example.plotting_fe.global.util
 
-import android.content.Context
 import com.example.plotting_fe.BuildConfig
-import com.example.plotting_fe.global.MainApplication
+import com.example.plotting_fe.global.TokenApplication
 import com.example.plotting_fe.global.NCPApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -19,7 +18,7 @@ object ApiClient {
                 val request = chain.request().newBuilder()
 
                 // 토큰 가져오기
-                val token = MainApplication.getAccessToken()
+                val token = TokenApplication.getAccessToken()
 
                 // 토큰이 존재하면 Authorization 헤더 추가
                 if (!token.isNullOrEmpty()) {

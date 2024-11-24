@@ -2,6 +2,7 @@ package com.example.plotting_fe.user.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -120,12 +121,12 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.makeText(this@SignUpActivity, "닉네임 확인 실패", Toast.LENGTH_SHORT).show()
                     }
                 }else{
-                    Toast.makeText(this@SignUpActivity, "닉네임 확인 실패", Toast.LENGTH_SHORT).show()
+                    Log.d("get", "onResponse 실패: " + response.code())
                 }
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Boolean>>, t: Throwable) {
-                Toast.makeText(this@SignUpActivity, "네트워크 오류", Toast.LENGTH_SHORT).show()
+                Log.d("get", "onFailure 에러: " +  t.message.toString())
             }
         })
     }

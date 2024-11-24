@@ -112,12 +112,25 @@
             app:layout_constraintStart_toEndOf="@id/et_nickname_value"
             app:layout_constraintTop_toBottomOf="@id/tv_nickname_label" />
 
+        <TextView
+            android:id="@+id/tv_alert_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="중복 확인을 해주세요"
+            android:textColor="@color/red"
+            style="@style/AndroidCaption4"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/et_nickname_value"
+            app:layout_constraintTop_toBottomOf="@id/et_nickname_value" />
+
+
         <!-- Email -->
         <TextView
             android:id="@+id/tv_email_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text="이메일"
             android:textColor="@color/gray"
             style="@style/AndroidBody3"
@@ -146,7 +159,7 @@
             android:id="@+id/tv_intro_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text="자기 소개"
             android:textColor="@color/gray"
             style="@style/AndroidBody3"
@@ -155,7 +168,7 @@
 
 
         <EditText
-            android:id="@+id/tv_intro_value"
+            android:id="@+id/et_intro_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="봉사를 좋아하는 한 소녀입니다 :)"
@@ -173,12 +186,12 @@
             android:id="@+id/tv_visibility_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text="프로필 공개 범위"
             android:textColor="@color/gray"
             style="@style/AndroidBody3"
-            app:layout_constraintStart_toStartOf="@id/tv_intro_value"
-            app:layout_constraintTop_toBottomOf="@id/tv_intro_value" />
+            app:layout_constraintStart_toStartOf="@id/et_intro_value"
+            app:layout_constraintTop_toBottomOf="@id/et_intro_value" />
 
         <Spinner
             android:id="@+id/visibility_spinner"
@@ -190,7 +203,7 @@
             android:backgroundTint="@color/main" />
 
         <Button
-            android:id="@+id/btn_join"
+            android:id="@+id/btn_edit"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"

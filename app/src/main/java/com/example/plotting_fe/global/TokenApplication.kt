@@ -3,7 +3,7 @@ package com.example.plotting_fe.global
 import android.app.Application
 import android.content.Context
 
-class MainApplication : Application() {
+class TokenApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 

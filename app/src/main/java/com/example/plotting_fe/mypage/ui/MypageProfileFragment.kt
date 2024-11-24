@@ -54,7 +54,7 @@ class MypageProfileFragment: Fragment() {
         editButton.isEnabled = false // 초기에는 비활성화
 
         editButton.setOnClickListener {
-            Log.d("ProfileActivity", "Edit button clicked")
+            Log.d("MypageProfileFragment", "Edit button clicked")
             profile?.let {
                 // 데이터를 Intent에 담아 EditProfileActivity로 전달
                 val intent = Intent(activity, EditProfileActivity::class.java).apply {
@@ -73,6 +73,11 @@ class MypageProfileFragment: Fragment() {
         loadProfile()
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadProfile() // 프래그먼트가 다시 보여질 때 프로필 데이터를 로드
     }
 
     private fun loadProfile(){
