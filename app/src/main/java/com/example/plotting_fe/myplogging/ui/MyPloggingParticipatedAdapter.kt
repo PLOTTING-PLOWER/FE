@@ -1,5 +1,7 @@
 package com.example.plotting_fe.myplogging.ui
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
+import com.example.plotting_fe.plogging.ui.PloggingDetailActivity
 
 class MyPloggingParticipatedAdapter(
+    private val context: Context,
     private val dataList: List<MyPloggingParticipatedResponse>
 ) : RecyclerView.Adapter<MyPloggingParticipatedAdapter.ViewHolder>() {
 
@@ -23,6 +27,7 @@ class MyPloggingParticipatedAdapter(
         val SpendTime: TextView = itemView.findViewById(R.id.tvSpendTime)
         val CurrentPeople: TextView = itemView.findViewById(R.id.tvCurrentPeople)
         val MaxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
+        val btnJoin: Button = itemView.findViewById(R.id.btnJoin)
 
         // 데이터를 뷰에 바인딩하는 메서드
         fun bind(item: MyPloggingParticipatedResponse) {
@@ -37,6 +42,12 @@ class MyPloggingParticipatedAdapter(
                 PloggingType.text = "선착순"
             } else {
                 PloggingType.text = "승인제"
+            }
+
+            // 버튼 클릭 리스너 설정
+            btnJoin.setOnClickListener {
+                val intent = Intent(context, PloggingDetailActivity::class.java)
+                context.startActivity(intent) // Context를 사용해 액티비티 이동
             }
         }
     }

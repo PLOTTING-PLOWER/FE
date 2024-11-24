@@ -5,6 +5,7 @@ import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingCreatedResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
+import com.example.plotting_fe.myplogging.dto.response.MyPloggingSummaryResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingWaitingResponse
 import retrofit2.Call
 import retrofit2.http.DELETE
@@ -49,11 +50,23 @@ interface MyPloggingController {
     @GET("/my-ploggings/participated")
     fun getMyPloggingParticipated(
         @Query("userId") userId: Long
-    ): Call<ResponseTemplate<MyPloggingParticipatedResponse>>
+    ): Call<ResponseTemplate<List<MyPloggingParticipatedResponse>>>
 
     @GET("/my-ploggings/scheduled")
     fun getMyPloggingScheduled(
         @Query("userId") userId: Long
-    ): Call<ResponseTemplate<MyPloggingScheduledResponse>>
+    ): Call<ResponseTemplate<List<MyPloggingScheduledResponse>>>
+
+    @GET("/my-ploggings/summary")
+    fun getPloggingSummary(
+        @Query("userId") userId: Long
+    ): Call<ResponseTemplate<MyPloggingSummaryResponse>>
+
+    @DELETE("/my-ploggings/{ploggingId}/Cancel/{ploggingUserId}")
+    fun reqeustCancel(
+        @Path("ploggingId") ploggingId: Long,
+        @Path("ploggingUserId") ploggingUserId: Long
+    ): Call<ResponseTemplate<Void>>
+
 
 }

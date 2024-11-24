@@ -38,9 +38,11 @@ class PloggingInfoMapFragment : DialogFragment() {
 
         // arguments에서 JSON 문자열을 꺼내 List<PloggingMapResponse>로 변환
         val json = arguments?.getString(ARG_PLOGGING_INFO)
-        if (json != null) {
+        if (!json.isNullOrEmpty()) {
             val type = object : TypeToken<List<PloggingMapResponse>>() {}.type
-            ploggingInfoList = Gson().fromJson(json, type) // JSON을 List<PloggingMapResponse>로 변환
+            ploggingInfoList = Gson().fromJson(json, type)
+        } else {
+            ploggingInfoList = emptyList() // null일 경우 빈 리스트로 초기화
         }
     }
 
