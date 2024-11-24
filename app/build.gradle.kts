@@ -74,6 +74,9 @@ dependencies {
     // Material Design 라이브러리 (BottomNavigationView 사용을 위해 필요)
     implementation("com.google.android.material:material:1.9.0")
 
+    //Gson
+    implementation ("com.google.code.gson:gson:2.10.1")
+
     // Navigation Component 라이브러리
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.0")

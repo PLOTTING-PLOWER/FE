@@ -28,7 +28,7 @@
             android:name=".mypage.ui.EditProfileActivity"
             android:exported="false" />
 
-        <!-- 처음 시작화면을 PloggingMapActivity로 설정 -->
+        <!-- 처음 시작화면 설정 -->
         <activity
             android:name=".plogging.ui.PloggingMapActivity"
             android:exported="true">
@@ -54,6 +54,19 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".myplogging.ui.MyPloggingScheduledActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".myplogging.ui.MyPloggingParticipatedActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".myplogging.ui.MyPloggingCreatedActivity"
+            android:exported="false" />
+
 
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->
         <meta-data

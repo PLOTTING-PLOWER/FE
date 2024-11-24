@@ -1,18 +1,17 @@
 package com.example.plotting_fe.plogging.ui
 
 import android.content.DialogInterface
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.plotting.server.plogging.dto.response.PloggingMapResponse
-import java.io.Serializable
 
 class PloggingInfoMapFragment : DialogFragment() {
 
@@ -22,7 +21,7 @@ class PloggingInfoMapFragment : DialogFragment() {
         fun newInstance(ploggingInfo: List<PloggingMapResponse>): PloggingInfoMapFragment {
             val fragment = PloggingInfoMapFragment()
             val args = Bundle().apply {
-                putSerializable(ARG_PLOGGING_INFO, ArrayList(ploggingInfo))  // Save as Serializable
+                putString(ARG_PLOGGING_INFO, Gson().toJson(ploggingInfo)) // Convert List to JSON
             }
             fragment.arguments = args
             return fragment
@@ -35,12 +34,17 @@ class PloggingInfoMapFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ploggingInfoList = arguments?.getSerializable("ploggings") as? List<PloggingMapResponse>
+
+        // Convert JSON string back to List<PloggingMapResponse>
+        val json = arguments?.getString(ARG_PLOGGING_INFO)
+        if (json != null) {
+            val type = object : TypeToken<List<PloggingMapResponse>>() {}.type
+            ploggingInfoList = Gson().fromJson(json, type)
+        }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        // Dialog가 닫힐 때 선택된 마커 초기화
         (parentFragment as? PloggingMapFragment)?.resetSelectedMarker()
     }
 
@@ -57,9 +61,12 @@ class PloggingInfoMapFragment : DialogFragment() {
         recyclerView = view.findViewById(R.id.recyclerViewPlogging)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        ploggingInfoList?.let {
-            adapter = PloggingMapAdapter(it)
-            recyclerView.adapter = adapter
+        if (ploggingInfoList.isNullOrEmpty()) {
+            recyclerView.visibility = View.GONE
+            return
         }
+
+        adapter = PloggingMapAdapter(ploggingInfoList!!)
+        recyclerView.adapter = adapter
     }
 }

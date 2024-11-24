@@ -209,11 +209,7 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
             // 마커 클릭 이벤트 리스너 설정
             marker.setOnClickListener {
                 // 클릭 시 해당 클러스터의 플로깅 데이터 목록을 보여주는 프래그먼트 호출
-                val fragment = PloggingInfoMapFragment().apply {
-                    arguments = Bundle().apply {
-                        putSerializable("ploggings", ArrayList(ploggings)) // 데이터 전달
-                    }
-                }
+                val fragment = PloggingInfoMapFragment.newInstance(ploggings)
 
                 // Fragment를 Dialog로 띄우기
                 fragment.show(childFragmentManager, "PloggingInfoMapFragment")
