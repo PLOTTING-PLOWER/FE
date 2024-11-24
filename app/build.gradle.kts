@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.plotting_fe"
-        minSdk = 26
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -102,6 +102,16 @@ dependencies {
 
     // BarChart
     implementation(libs.mpandroidchart)
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    // 구글
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
+    //네아로
+    implementation("com.navercorp.nid:oauth:5.10.0")
 
     //json
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.0")

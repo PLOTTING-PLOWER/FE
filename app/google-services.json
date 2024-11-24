@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "748344239849",
+    "project_id": "plotting-441907",
+    "storage_bucket": "plotting-441907.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748344239849:android:6d6c703da5dc49a8e7b278",
+        "android_client_info": {
+          "package_name": "com.example.plotting_fe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748344239849-noacpcg2bl97nd4icrcj6og0s9ji8rdu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plotting_fe",
+            "certificate_hash": "d45ecef4ec163fdfe3f3ba8312712bcaa812e6d5"
+          }
+        },
+        {
+          "client_id": "748344239849-gbshqgc8btvj5e2sc7h9dhp0fno0icuc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALbXeJvzFmuGOXXMZup5uRG5Ls0FKU9Ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748344239849-gbshqgc8btvj5e2sc7h9dhp0fno0icuc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

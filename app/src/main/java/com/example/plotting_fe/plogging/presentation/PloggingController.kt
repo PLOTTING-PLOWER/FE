@@ -66,14 +66,12 @@ interface PloggingController {
 
     @POST("/ploggings/{ploggingId}")
     fun joinPlogging(
-        @Path("ploggingId") ploggingId: Long,
-        @Query("userId") userId: Long
+        @Path("ploggingId") ploggingId: Long
     ): Call<ResponseTemplate<String>>
 
     @GET("/ploggings/{ploggingId}/comments")
     fun getComments(
-        @Path("ploggingId") ploggingId: Long,
-        @Query("userId") userId: Long
+        @Path("ploggingId") ploggingId: Long
     ): Call<ResponseTemplate<CommentResponse>>
 
     @PATCH("/ploggings/comments/{commentId}")
@@ -90,7 +88,6 @@ interface PloggingController {
     @POST("/ploggings/{ploggingId}/comments")
     fun uploadComment(
         @Path("ploggingId") ploggingId: Long,
-        @Query("userId") userId: Long,
         @Body request: CommentUploadRequest
     ): Call<ResponseTemplate<Void>>
 

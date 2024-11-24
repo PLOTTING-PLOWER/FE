@@ -64,7 +64,7 @@ class PloggingInfoFragment : Fragment() {
 
     private fun joinPlogging() {
         val ploggingController = ApiClient.getApiClient().create(PloggingController::class.java)
-        ploggingController.joinPlogging(ploggingId, 1).enqueue(object :
+        ploggingController.joinPlogging(ploggingId).enqueue(object :
             Callback<ResponseTemplate<String>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<String>>,
