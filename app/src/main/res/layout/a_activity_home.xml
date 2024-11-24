@@ -328,7 +328,7 @@
             tools:listitem="@layout/item_plogging_info" />
     </LinearLayout>
 
-<!-- 인기 플로워 -->
+    <!-- 인기 플로워 -->
     <LinearLayout
         android:id="@+id/popular_plowers"
         android:layout_width="match_parent"
@@ -339,6 +339,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/popular_plogging">
 
+        <!-- 제목 텍스트 -->
         <TextView
             android:id="@+id/popular_plowers_text"
             android:layout_width="wrap_content"
@@ -350,70 +351,142 @@
             android:textColor="#333333"
             android:textSize="16sp" />
 
+        <!-- 플로워 아이템들 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-            <ImageView
-                android:id="@+id/popular_plowers_first"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <!-- 첫 번째 플로워 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/shape_round"
-                android:clipToOutline="true"
-                android:outlineProvider="background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cardnews" />
+                android:layout_marginEnd="16dp">
 
-            <ImageView
-                android:id="@+id/popular_plowers_second"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                <ImageView
+                    android:id="@+id/popular_plowers_first"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shape_round"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cardnews" />
+
+                <TextView
+                    android:id="@+id/plower_name_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+
+            <!-- 두 번째 플로워 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/shape_round"
-                android:clipToOutline="true"
-                android:outlineProvider="background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cardnews" />
+                android:layout_marginEnd="16dp">
 
-            <ImageView
-                android:id="@+id/popular_plowers_third"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                <ImageView
+                    android:id="@+id/popular_plowers_second"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shape_round"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cardnews" />
+
+                <TextView
+                    android:id="@+id/plower_name_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+
+            <!-- 세 번째 플로워 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/shape_round"
-                android:clipToOutline="true"
-                android:outlineProvider="background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cardnews" />
+                android:layout_marginEnd="16dp">
 
-            <ImageView
-                android:id="@+id/popular_plowers_fourth"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                <ImageView
+                    android:id="@+id/popular_plowers_third"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shape_round"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cardnews" />
+
+                <TextView
+                    android:id="@+id/plower_name_third"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+
+            <!-- 네 번째 플로워 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/shape_round"
-                android:clipToOutline="true"
-                android:outlineProvider="background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cardnews" />
+                android:layout_marginEnd="16dp">
 
+                <ImageView
+                    android:id="@+id/popular_plowers_fourth"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shape_round"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cardnews" />
+
+                <TextView
+                    android:id="@+id/plower_name_fourth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-<!--&lt;!&ndash; 네비게이션 &ndash;&gt;-->
+
+
+    <!--&lt;!&ndash; 네비게이션 &ndash;&gt;-->
 <!--    <androidx.fragment.app.FragmentContainerView-->
 <!--        android:id="@+id/nav_host_fragment"-->
-<!--        android:name="com.example.plotting_fe.home.ui.MainFragment"-->
+<!--        android:name="com.example.plotting_fe.home.ui.MainActivity"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="0dp"-->
 <!--        app:defaultNavHost="true"-->
@@ -438,4 +511,3 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    android:name="androidx.navigation.fragment.NavHostFragment"-->

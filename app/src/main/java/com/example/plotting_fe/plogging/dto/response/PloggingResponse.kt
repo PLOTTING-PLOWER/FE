@@ -10,9 +10,9 @@ data class PloggingResponse(
     val title: String,
     val currentPeople: Long,
     val maxPeople: Long,
-    val ploggingType: PloggingType,
-    val recruitEndDate: LocalDate,
-    val startTime: LocalDateTime,
+    val ploggingType: String,
+    val recruitEndDate: String,
+    val startTime: String,
     val spendTime: Long,
     val startLocation: String,
 )

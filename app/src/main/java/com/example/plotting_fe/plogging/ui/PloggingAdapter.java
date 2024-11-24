@@ -44,7 +44,7 @@ public class PloggingAdapter extends RecyclerView.Adapter<PloggingAdapter.ViewHo
         holder.titleTextView.setText(plogging.getTitle());
         holder.startLocation.setText(plogging.getStartLocation());
         holder.ploggingType.setText(plogging.getPloggingType().toString());
-        holder.startDateAndTime.setText(plogging.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        holder.startDateAndTime.setText(plogging.getStartTime().toString());
         holder.duringTime.setText(String.valueOf(plogging.getSpendTime()));
         holder.maxPeople.setText(String.valueOf(plogging.getMaxPeople()));
         holder.currentPeople.setText(String.valueOf(plogging.getCurrentPeople()));

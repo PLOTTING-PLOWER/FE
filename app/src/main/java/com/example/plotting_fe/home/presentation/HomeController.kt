@@ -4,6 +4,7 @@ import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.home.dto.response.CardResponse
 import com.example.plotting_fe.home.dto.response.CardResponseList
 import com.example.plotting_fe.home.dto.response.CardnewsResponseList
+import com.example.plotting_fe.plogging.dto.response.HomeResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -19,4 +20,9 @@ interface HomeController {
     fun getCard(
         @Path("cardnewsId") cardnewsId: Long
     ): Call<ResponseTemplate<CardResponseList>>
+
+    // 홈 조회
+    @GET("/ploggings/home")
+    fun getHome(
+    ): Call<ResponseTemplate<HomeResponse>>
 }
