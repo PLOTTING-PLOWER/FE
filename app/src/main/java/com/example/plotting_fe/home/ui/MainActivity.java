@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnRead;
     private ImageView btnCategotyTodayWillFinish, btnCategoty15Up, btnCategoryApprove, btnCategoryDirect;
-    private ImageView btnPlower1, btnPlower2, btnPlower3, btnPlower4, userProfile;
+    private ImageView btnPlower1, btnPlower2, btnPlower3, btnPlower4, userProfile, btnRanking, btnAlarm, btnSearch;
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
     private List<PloggingResponse> dummyData;  // List<String>에서 List<PloggingResponse>로 변경
@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
         btnPlowerName2 = findViewById(R.id.plower_name_second);
         btnPlowerName3 = findViewById(R.id.plower_name_third);
         btnPlowerName4 = findViewById(R.id.plower_name_fourth);
+        btnRanking = findViewById(R.id.welcome_rank);
+        btnAlarm = findViewById(R.id.welcome_alarm);
+        btnSearch = findViewById(R.id.welcome_search);
+
     }
 
     private void setupRecyclerView() {
@@ -123,6 +127,19 @@ public class MainActivity extends AppCompatActivity {
             v.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.button_color_in_home));
             startActivity(new Intent(this, CardnewsListActivity.class));
         });
+
+        btnRanking.setOnClickListener(v -> {
+            startActivity(new Intent(this, RankingFragment.class ));
+        });
+
+        btnSearch.setOnClickListener(v -> {
+            startActivity(new Intent(this, GetPloggings.class));
+        });
+
+//        // TODO : 알림 화면으로 intent
+//        btnAlarm.setOnClickListener(v -> {
+//            startActivity(new Intent(this, 알림 화면.class));
+//        });
 
         // 카테고리 버튼 연결 모아놓은 메서드
         setupCategoryButtons();
