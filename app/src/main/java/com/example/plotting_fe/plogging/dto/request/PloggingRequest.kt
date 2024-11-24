@@ -13,7 +13,7 @@ data class PloggingRequest(
     var type: PloggingType,
     @JsonFormat(pattern = "yyyy-MM-dd") var recruitStartDate: LocalDate,
     @JsonFormat(pattern = "yyyy-MM-dd") var recruitEndDate: LocalDate,
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm") var startTime: LocalDateTime,
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") var startTime: LocalDateTime,
     var spendTime: Long,
     var startLocation: String,
     var endLocation: String

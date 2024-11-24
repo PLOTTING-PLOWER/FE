@@ -30,6 +30,10 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
     private String selectedStartDate;
     private boolean is_start_location;
 
+    private LocalDate recruitStartDate;
+    private LocalDate recruitEndDate;
+    private LocalDateTime startDateTime;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +86,9 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             is_start_location = false;
         });
 
-        // 완료 버튼 클릭 시 데이터 제출 처리
+        /*
+         완료 버튼 클릭 시 데이터 제출 처리
+         */
         btnFinish.setOnClickListener(v -> {
             String title = editName.getText().toString();
             String content = editIntro.getText().toString();
@@ -107,25 +113,36 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
             try {
 
-                //Formatter
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("yyyy-MM-dd");
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("HH:mm");
-                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("yyyy-MM-dd HH:mm");
+                /*
+                데이터 변환
+                 */
+                //Formatter 이용한 날짜 변환
 
+
+                DateTimeFormatter dateFormatter = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("yyyy-MM-dd");
+                    recruitStartDate = LocalDate.parse(startDateStr, dateFormatter);
+                    recruitEndDate = LocalDate.parse(endDateStr, dateFormatter);
+                }
+//                DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("HH:mm");    //혹시 몰라서 두는 것
+
+                //fixme
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                    // 시작 날짜와 시간을 합쳐서 LocalDateTime 객체 생성   fixme
+                    String startDateTimeStr = startDateStr + " " + startTimeInput + ":00";
+
+                    startDateTime = LocalDateTime.parse(startDateTimeStr, dateTimeFormatter);
+                    Log.d("gogogo", startDateTime.toString());
+                    }
 
                 long maxPeople = Long.parseLong(participantNum);
 
-                LocalDate recruitStartDate = LocalDate.parse(startDateStr, dateFormatter);
-                Log.d("gogogo", startDateStr);
-
-                LocalDate recruitEndDate = LocalDate.parse(endDateStr, dateFormatter);
-
                 long spendTime = spendTimeInput.isEmpty() ? 0 : Long.parseLong(spendTimeInput);
 
-                // 시작 날짜와 시간을 합쳐서 LocalDateTime 객체 생성
-                String startDateTimeStr = startDateStr + " " + startTimeInput;
 
-                LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, dateTimeFormatter);
 
                 // PloggingRequest 객체 생성
                 PloggingType selectedType = PloggingType.valueOf(selectedTypeString.toUpperCase());
@@ -134,7 +151,16 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                     return;
                 }
 
-                // 유효한 데이터를 사용하여 PloggingRequest 객체 생성
+                /*
+                데이터 확인
+                * */
+                Log.d("debug", "recruitStartDate: " + recruitStartDate);
+                Log.d("debug", "recruitEndDate: " + recruitEndDate);
+                Log.d("debug", "startDateTime: " + startDateTime);
+
+                /*
+                 유효한 데이터를 사용하여 PloggingRequest 객체 생성
+                 */
                 PloggingRequest request = new PloggingRequest(
                         title,
                         content,
@@ -147,8 +173,11 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                         startLoc,
                         endLoc.isEmpty() ? null : endLoc
                 );
+                Log.d("debug", "PloggingRequest created: " + request);
 
-                // 다음 액티비티로 데이터 전송
+                /*
+                 다음 액티비티로 데이터 전송
+                 */
                 Log.d("gogogo", "intent 하기 전");
 //                Intent intent = new Intent(PloggingMakeActivity2.this, GetPloggings.class);
 //                startActivity(intent);
