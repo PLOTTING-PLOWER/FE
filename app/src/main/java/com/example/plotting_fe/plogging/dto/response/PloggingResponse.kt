@@ -12,7 +12,6 @@ data class PloggingResponse(
     val maxPeople: Long,
     val ploggingType: PloggingType,
     val recruitEndDate: LocalDate,
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     val startTime: LocalDateTime,
     val spendTime: Long,
     val startLocation: String,

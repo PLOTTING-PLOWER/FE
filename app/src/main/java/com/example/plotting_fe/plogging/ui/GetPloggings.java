@@ -1,9 +1,7 @@
 package com.example.plotting_fe.plogging.ui;
 
-import static java.util.Collections.emptyList;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -16,10 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +28,6 @@ public class GetPloggings extends AppCompatActivity {
     private String region, startDateStr, endDateStr, meetingType, timeStr, startTimeStr, participantsStr;
     private Long spendTime, participants;
     private String startTime;
-    private LocalDate startDate, endDate;
-    private LocalDateTime startDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,38 +62,6 @@ public class GetPloggings extends AppCompatActivity {
 //  e: LocalDate, endDate: LocalDate, type: String, spendTime: Long,
 //  타입 바꾸기 startTime: LocalDateTime,  maxPeople: Long
         try {
-//            DateTimeFormatter dateFormatter = null;
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            }
-//
-//            // 날짜 타입 변경
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                startDate = LocalDate.parse(startDateStr, dateFormatter);
-//                Log.d("Debug", "startDate: " + startDate);
-//            }
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                endDate = LocalDate.parse(endDateStr, dateFormatter);
-//                Log.d("Debug", "endDate: " + endDate);
-//            }
-//
-//
-//            DateTimeFormatter dateTimeFormatter = null;
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");   // FIXME : LocalTime으로 변경
-//            }
-//
-
-
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                String startDateTimeStr = startDateStr + " " + startTimeStr; // 예시)"2024-11-30 13:00"
-//
-//                // LocalDateTime으로 변환
-//                DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//                startDateTime = LocalDateTime.parse(startDateTimeStr, localDateTimeFormatter);
-//
-//                Log.d("Debug", "{After}-> Formatted startDateTime: " + startDateTime);
-//            }
             startTimeStr = startTimeStr + ":00:00";
             startTime = startDateStr + "T" + startTimeStr;
             spendTime = Long.parseLong(timeStr);
@@ -149,9 +109,8 @@ public class GetPloggings extends AppCompatActivity {
         ploggingApiService.filterPlogging(region, startDateStr, endDateStr, meetingType, spendTime, startTime, participants, GetPloggings.this, recyclerView, ploggingAdapter);
     }
 
-//    private void loadPloggings() {
-//        List<PloggingResponse> mockData = new ArrayList<>();
-//        mockData.add(new PloggingResponse(1L, "Seoul Plogging", 3, 10, PloggingType.ASSIGN, 2024-12-24, 13:00, 120, "분당구 불정로 6"));
-//        ploggingAdapter.updatePloggingList(mockData);
-//    }
+    private void searchPlogging() {
+        PloggingApiService ploggingApiService = new PloggingApiService();
+        ploggingApiService.filterPlogging(region, startDateStr, endDateStr, meetingType, spendTime, startTime, participants, GetPloggings.this, recyclerView, ploggingAdapter);
+    }
 }
