@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnRead;
     private ImageView btnCategotyTodayWillFinish, btnCategoty15Up, btnCategoryApprove, btnCategoryDirect;
-    private ImageView btnPlower1, btnPlower2, btnPlower3, btnPlower4;
+    private ImageView btnPlower1, btnPlower2, btnPlower3, btnPlower4, userProfile;
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
     private List<PloggingResponse> dummyData;  // List<String>에서 List<PloggingResponse>로 변경
-    private TextView btnPlowerName1, btnPlowerName2, btnPlowerName3, btnPlowerName4;
+    private TextView btnPlowerName1, btnPlowerName2, btnPlowerName3, btnPlowerName4, userNickname;
 
     private HomeApiService homeApiService;
 
@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
+        userProfile = findViewById(R.id.welcome_image);
+        userNickname = findViewById(R.id.welcome_nickname);
         btnRead = findViewById(R.id.btn_read_more);
         btnCategotyTodayWillFinish = findViewById(R.id.categoty_today_finish);
         btnCategoty15Up = findViewById(R.id.categoty_15_up);
@@ -148,8 +150,10 @@ public class MainActivity extends AppCompatActivity {
             public void onHomeDataReceived(HomeResponse homeResponse) {
                 Toast.makeText(MainActivity.this, "반갑습니다!", Toast.LENGTH_SHORT).show();
                 Log.d("MainActivity", "Home data received: " + homeResponse.toString());
+
             }
 
+            // 인기 플로깅
             @Override
             public void onPloggingDataReceived(List<PloggingResponse> ploggingResponseList) {
                 Log.d("MainActivity", "Plogging data received: " + ploggingResponseList);
@@ -159,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+            // 인기 플로워
             @Override
             public void onPlowerDataReceived(PlowerListResponse plowerListResponse) {
                 Log.d("MainActivity", "Plower data received: " + plowerListResponse);
@@ -207,6 +212,12 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                 }
+            }
+
+            // 유저 이름
+            @Override
+            public void onUserDataReceiver(String nickname) {
+                userNickname.setText(nickname);
             }
 
             @Override

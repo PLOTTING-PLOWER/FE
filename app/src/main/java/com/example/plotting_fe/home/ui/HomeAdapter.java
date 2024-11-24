@@ -1,7 +1,7 @@
 package com.example.plotting_fe.home.ui;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +24,7 @@ import java.util.Locale;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
-    private List<PloggingResponse> dataList;  // PloggingResponse 객체 리스트
-    private boolean is_status;
+    private List<PloggingResponse> dataList;
 
     public HomeAdapter(List<PloggingResponse> dataList) {
         this.dataList = dataList;
@@ -86,13 +85,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         //4. 즐겨찾기 버튼
         holder.btnStar.setOnClickListener(v -> {
-            int mainColor = ContextCompat.getColor(v.getContext(), R.color.main);
-            int grayColor = ContextCompat.getColor(v.getContext(), R.color.gray); // 원래 색
+            ImageView starIcon = (ImageView) v;
 
-            if (((ColorDrawable) v.getBackground()).getColor() == mainColor) {
-                v.setBackgroundColor(grayColor); // 원래 색으로 변경
+            Drawable colorStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_color);
+            Drawable grayStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_gray);
+
+            if (starIcon.getDrawable().getConstantState().equals(colorStar.getConstantState())) {
+                starIcon.setImageDrawable(grayStar);  // ic_star_gray로 변경
             } else {
-                v.setBackgroundColor(mainColor); // main 색으로 변경
+                starIcon.setImageDrawable(colorStar);  // ic_star_color로 변경
             }
         });
     }
