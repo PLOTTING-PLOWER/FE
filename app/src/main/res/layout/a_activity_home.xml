@@ -156,8 +156,6 @@
             android:src="@drawable/cardnews" />
     </LinearLayout>
 
-
-<!-- 카테고리 -->
     <HorizontalScrollView
         android:id="@+id/category_scroll"
         android:layout_width="match_parent"
@@ -204,6 +202,7 @@
                     android:text="오늘마감"
                     android:textColor="#595959"
                     android:textSize="13sp" />
+
             </LinearLayout>
 
             <!-- 15명 이상 -->
@@ -231,7 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="15명 이상"
+                    android:text="15명 이하"
                     android:textColor="#595959"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -294,7 +293,6 @@
                     android:textColor="#595959"
                     android:textSize="12sp" />
             </LinearLayout>
-
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -326,6 +324,7 @@
             android:padding="16dp"
             android:paddingTop="10dp"
             tools:listitem="@layout/item_plogging_info" />
+
     </LinearLayout>
 
     <!-- 인기 플로워 -->
@@ -480,8 +479,6 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-
 
     <!--&lt;!&ndash; 네비게이션 &ndash;&gt;-->
 <!--    <androidx.fragment.app.FragmentContainerView-->

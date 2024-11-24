@@ -6,7 +6,6 @@ import com.example.plotting_fe.plogging.dto.response.PlowerListResponse;
 
 import java.util.List;
 
-// HomeResponseListener.java
 public interface HomeResponseListener {
     void onHomeDataReceived(HomeResponse homeResponse);  // 홈 데이터 수신
     void onPloggingDataReceived(List<PloggingResponse> ploggingResponseList);  // 플로깅 데이터 수신

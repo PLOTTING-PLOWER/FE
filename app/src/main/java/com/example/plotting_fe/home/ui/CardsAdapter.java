@@ -1,9 +1,11 @@
 package com.example.plotting_fe.home.ui;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,42 +14,40 @@ import com.example.plotting_fe.R;
 
 import java.util.List;
 
-public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
+public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ImageViewHolder> {
 
-    private List<String> cardUrls;
+    private final Context context;
+    private final List<String> imageUrls;
 
-    public CardsAdapter(List<String> cardUrls) {
-        this.cardUrls = cardUrls;
+    public CardsAdapter(Context context, List<String> imageUrls) {
+        this.context = context;
+        this.imageUrls = imageUrls;
     }
 
     @NonNull
     @Override
-    public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.a_cardnews, parent, false);
-        return new CardViewHolder(view);
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_cardnews_img, parent, false);
+        return new ImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        String imageUrl = cardUrls.get(position);
-
-        // 카드 뉴스 이미지 (url)  로드
-        Glide.with(holder.itemView.getContext())
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+        String imageUrl = imageUrls.get(position);
+        Glide.with(context)
                 .load(imageUrl)
-                .placeholder(R.drawable.custom_progress_bar) // 로딩 중 표시할 기본 이미지
-                .error(R.drawable.ic_bar) // 로드 실패 시 표시할 기본 이미지
-                .into(holder.imageView); // 이미지뷰에 설정
+                .into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return cardUrls.size(); // URL 리스트 크기 반환
+        return imageUrls.size();
     }
 
-    static class CardViewHolder extends RecyclerView.ViewHolder {
+    public static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
-        public CardViewHolder(@NonNull View itemView) {
+        public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.img_card);
         }

@@ -49,6 +49,48 @@ public class GetPloggings extends AppCompatActivity {
         ploggingAdapter = new PloggingAdapter(this, ploggingList);
         recyclerView.setAdapter(ploggingAdapter);
 
+
+        //버튼 연결 모음
+        buttons();
+
+        // TODO: 서버에서 넘겨온 데이터 받아서 PloggingAdapter에 연결해서 보여주기.
+        if (intent.hasExtra("ploggings")) {
+            val receivedPloggings = intent.getParcelableArrayListExtra<PloggingResponse>("ploggings")
+            if (receivedPloggings != null) {
+                ploggingList.clear()
+                ploggingList.addAll(receivedPloggings)
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+
+    private void buttons() {
+        //추가 버튼
+        addBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(GetPloggings.this, PloggingMakeActivity1.class);
+            startActivity(intent);
+        });
+
+        //필터링 버튼
+        filterBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(GetPloggings.this, PloggingFilter.class);
+            startActivity(intent);
+        });
+
+        // 검색 버튼
+        searchBtn.setOnClickListener(v -> {
+            String searchQuery = searchInput.getText().toString().trim();
+            if (searchQuery.isEmpty()) {
+                Toast.makeText(GetPloggings.this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+//                searchPloggings(searchQuery);
+            }
+        });
+    }
+
+
+    private void filteringData() {
         //  filterPlogging 에서 넘겨받은 값
         region = getIntent().getStringExtra("region");
         startDateStr = getIntent().getStringExtra("startDate");
@@ -76,28 +118,6 @@ public class GetPloggings extends AppCompatActivity {
             Log.e("Debug", "in {GetPloggings + FilterPloggings} Error : ", e);
             Toast.makeText(this, "필터 값 변환 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
         }
-
-        //추가 버튼
-        addBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(GetPloggings.this, PloggingMakeActivity1.class);
-            startActivity(intent);
-        });
-
-        //필터링 버튼
-        filterBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(GetPloggings.this, PloggingFilter.class);
-            startActivity(intent);
-        });
-
-        // 검색 버튼
-        searchBtn.setOnClickListener(v -> {
-            String searchQuery = searchInput.getText().toString().trim();
-            if (searchQuery.isEmpty()) {
-                Toast.makeText(GetPloggings.this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
-            } else {
-//                searchPloggings(searchQuery);
-            }
-        });
     }
 
     // TODO: 플로깅 필터링 서버 연결

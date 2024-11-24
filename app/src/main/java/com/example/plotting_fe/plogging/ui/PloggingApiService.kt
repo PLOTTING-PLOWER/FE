@@ -95,8 +95,13 @@ class PloggingApiService {
 
                         val ploggingList: List<PloggingResponse> = responseBody.results?.ploggingResponseList ?: emptyList()
                         if (ploggingList.isNotEmpty()) {
-                            adapter.updatePloggingList(ploggingList)
-                            recyclerView.adapter = adapter
+//                            adapter.updatePloggingList(ploggingList)
+//                            recyclerView.adapter = adapter
+
+                            //fixme : getPlogging으로 intent
+                            val intent = Intent(context, GetPloggings::class.java)
+                            intent.putParcelableArrayListExtra("ploggings", ArrayList(ploggingList))
+                            context.startActivity(intent)
 
                             Log.d("filterPlogging", "PloggingList_is_success: ${ploggingList}")
 

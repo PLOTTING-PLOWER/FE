@@ -19,8 +19,13 @@ import com.example.plotting_fe.plogging.dto.response.HomeResponse;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
 import com.example.plotting_fe.plogging.dto.response.PlowerListResponse;
 import com.example.plotting_fe.plogging.ui.GetPloggings;
+import com.example.plotting_fe.plogging.ui.PloggingAdapter;
+import com.example.plotting_fe.plogging.ui.PloggingApiService;
+import com.example.plotting_fe.plogging.ui.PloggingMakeActivity2;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView btnPlowerName1, btnPlowerName2, btnPlowerName3, btnPlowerName4, userNickname;
 
     private HomeApiService homeApiService;
+    private PloggingApiService ploggingApiService;
+    private PloggingAdapter ploggingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         // 서버에서 홈 데이터 가져오기
         getHome();
 
-        // 더미 데이터 추가 (TODO: 서버 데이터로 변경 필요)
+        // 더미 데이터 추가 (TODO: 서버 데이터 존재시 지울예정 변경 필요)
         setDummyData();
 
         // 어댑터 설정
@@ -129,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnRanking.setOnClickListener(v -> {
-            startActivity(new Intent(this, RankingFragment.class ));
+            startActivity(new Intent(this, RankingFragment.class));
         });
 
         btnSearch.setOnClickListener(v -> {
@@ -145,18 +152,84 @@ public class MainActivity extends AppCompatActivity {
         setupCategoryButtons();
     }
 
+
+    //  파라미터 : region: String, startDate: LocalDate, endDate: LocalDate, type: String, spendTime: Long,
+//  타입 바꾸기 startTime: LocalDateTime,  maxPeople: Long
     private void setupCategoryButtons() {
-        btnCategotyTodayWillFinish.setOnClickListener(v -> startCategoryActivity());
-        btnCategoty15Up.setOnClickListener(v -> startCategoryActivity());
-        btnCategoryApprove.setOnClickListener(v -> startCategoryActivity());
-        btnCategoryDirect.setOnClickListener(v -> startCategoryActivity());
+        // 한번만 초기화
+        if (ploggingApiService == null) {
+            ploggingApiService = new PloggingApiService();
+        }
+
+        btnCategotyTodayWillFinish.setOnClickListener(v -> {
+
+            // 현재 날짜와 시간을 String으로 변환
+            String endDate = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                endDate = LocalDate.now().toString();
+            }
+            String startTime = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                startTime = LocalDateTime.now().toString();
+            }
+            String region = "Seoul";
+            String startDate = "2024-01-01";
+            String type = "DIRECT";
+            Long spendTime = 1L;
+            Long maxPeople = 1000L;
+
+            // 서버 호출하기
+            ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
+                    this, recyclerView, ploggingAdapter);
+        });
+
+        btnCategoty15Up.setOnClickListener(v -> {
+            String region = "Seoul";
+            String startDate = "2024-01-01";
+            String endDate = "2025-01-01";
+            String type = "DIRECT";
+            Long spendTime = 1L;
+            String startTime = "2024-01-01T01:00:00";
+            Long maxPeople = 15L;
+
+            // 서버 호출하기
+            ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
+                    this, recyclerView, ploggingAdapter);
+        });
+
+        btnCategoryApprove.setOnClickListener(v -> {
+            String region = "Seoul";
+            String startDate = "2024-01-01";
+            String endDate = "2025-01-01";
+            String type = "APPROVE";
+            Long spendTime = 1L;
+            String startTime = "2024-01-01T01:00:00";
+            Long maxPeople = 1000L;
+
+            // 서버 호출하기
+            ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
+                    this, recyclerView, ploggingAdapter);
+        });
+
+        btnCategoryDirect.setOnClickListener(v -> {
+            String region = "Seoul";
+            String startDate = "2024-01-01";
+            String endDate = "2025-01-01";
+            String type = "DIRECT";
+            Long spendTime = 1L;
+            String startTime = "2024-01-01T01:00:00";
+            Long maxPeople = 1000L;
+
+            // 서버 호출하기
+            ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
+                    this, recyclerView, ploggingAdapter);
+        });
     }
 
     private void startCategoryActivity() {
         Intent intent = new Intent(this, GetPloggings.class);
         startActivity(intent);
     }
-
 
 
     // 홈에 각 데이터 맵핑함

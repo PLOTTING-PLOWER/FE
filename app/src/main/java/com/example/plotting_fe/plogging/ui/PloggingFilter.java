@@ -206,7 +206,10 @@ public class PloggingFilter extends AppCompatActivity {
         intent.putExtra("participants", participantsStr);
 
         startActivity(intent);
+
     }
+
+
 
 
     // 달력 다이얼로그 -> 시작 시간
