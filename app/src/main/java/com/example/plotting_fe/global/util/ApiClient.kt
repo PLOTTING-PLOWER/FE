@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
     private const val BASE_URL = BuildConfig.BASE_URL
+//    private const val BASE_URL = "http://10.0.2.2:8080/"
 
     fun getApiClient(): Retrofit {
 
@@ -17,9 +18,8 @@ object ApiClient {
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
 
-                // SharedPreferences에서 토큰 가져오기
-                val prefs = MainApplication.appContext.getSharedPreferences("AuthPrefs", Context.MODE_PRIVATE)
-                val token = prefs.getString("ACCESS_TOKEN", null)
+                // 토큰 가져오기
+                val token = MainApplication.getAccessToken()
 
                 // 토큰이 존재하면 Authorization 헤더 추가
                 if (!token.isNullOrEmpty()) {
