@@ -8,6 +8,7 @@ import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedRes
 class PloggingViewBinder(private val includeView: View) {
 
 
+
     private val ploggingType: TextView = includeView.findViewById(R.id.tvploggingType)
     private val title: TextView = includeView.findViewById(R.id.tvTitle)
     private val startLocation: TextView = includeView.findViewById(R.id.tvStartLocation)
