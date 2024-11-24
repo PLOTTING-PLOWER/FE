@@ -6,13 +6,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ic_logo3"
+        android:icon="@drawable/ic_logo2"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_logo2"
         android:supportsRtl="true"
@@ -43,10 +42,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".user.ui.LoginActivity"
-            android:exported="true">
+        <activity
+            android:name=".myplogging.ui.MyPloggingUpdateActivity"
+            android:exported="false" >
         </activity>
-
+        <activity
+            android:name=".myplogging.ui.MyPloggingUpdate2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".myplogging.ui.MyMonthlyPloggingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".myplogging.ui.MyPloggingWaitingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ui.LoginActivity"
+            android:exported="false" />
         <activity
             android:name=".user.ui.SignUpActivity"
             android:exported="false" />
@@ -74,6 +85,5 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="ixpavqfivc" />
-
     </application>
 </manifest>
