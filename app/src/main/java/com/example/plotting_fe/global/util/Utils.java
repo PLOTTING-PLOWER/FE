@@ -1,4 +1,4 @@
-package com.example.plotting_fe.utils;
+package com.example.plotting_fe.global.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,15 +14,17 @@ import com.example.plotting_fe.user.ui.SignUpActivity;
 public class Utils {
 
     // 회원가입 화면으로 전환하는 메서드
-    public static void onJoinClick(Context context) {
-        Intent intent = new Intent(context, SignUpActivity.class);
-        context.startActivity(intent);
+    public static void onJoinClick(Activity activity) {
+        Intent intent = new Intent(activity, SignUpActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     // 로그인 화면(LoginActivity)으로 전환하는 메서드
-    public static void onLoginClick(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
-        context.startActivity(intent);
+    public static void onLoginClick(Activity activity) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     // 액티비티 용 뒤로 가기 버튼 설정 메서드

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.utils.Utils;
+import com.example.plotting_fe.global.util.Utils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 

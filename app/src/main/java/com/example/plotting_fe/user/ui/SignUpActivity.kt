@@ -2,6 +2,7 @@ package com.example.plotting_fe.user.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,23 +13,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.RetrofitImpl
-import com.example.plotting_fe.plogging.presentation.PloggingController
 import com.example.plotting_fe.user.dto.request.SignUpRequest
-import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
-import com.example.plotting_fe.utils.Utils
-import com.google.android.gms.auth.api.identity.SignInPassword
+import com.example.plotting_fe.global.util.Utils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class SignUpActivity : AppCompatActivity() {
     private var checkedNickname: String? = null
 
     private val authController: AuthController by lazy{
-        RetrofitImpl.retrofit.create(AuthController::class.java)
+        ApiClient.getApiClient().create(AuthController::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,12 +121,12 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.makeText(this@SignUpActivity, "닉네임 확인 실패", Toast.LENGTH_SHORT).show()
                     }
                 }else{
-                    Toast.makeText(this@SignUpActivity, "닉네임 확인 실패", Toast.LENGTH_SHORT).show()
+                    Log.d("get", "onResponse 실패: " + response.code())
                 }
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Boolean>>, t: Throwable) {
-                Toast.makeText(this@SignUpActivity, "네트워크 오류", Toast.LENGTH_SHORT).show()
+                Log.d("get", "onFailure 에러: " +  t.message.toString())
             }
         })
     }
