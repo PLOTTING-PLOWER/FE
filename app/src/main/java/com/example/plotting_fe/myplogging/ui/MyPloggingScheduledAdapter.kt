@@ -1,15 +1,19 @@
 package com.example.plotting_fe.myplogging.ui
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
 
 class MyPloggingScheduledAdapter(
-    private val dataList: List<MyPloggingScheduledResponse>
+    private val context: Context,
+    private val dataList: List<MyPloggingScheduledResponse>,
+    private val onCancelClick: (ploggingId: Long, UserId: Long) -> Unit
 ) : RecyclerView.Adapter<MyPloggingScheduledAdapter.ViewHolder>() {
 
     // ViewHolder 클래스 정의
@@ -22,6 +26,7 @@ class MyPloggingScheduledAdapter(
         val CurrentPeople: TextView = itemView.findViewById(R.id.tvCurrentPeople)
         val MaxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
         val IsAssigned: TextView = itemView.findViewById(R.id.tvIsAssigned)
+        val cancelButton: Button = itemView.findViewById(R.id.btnCancel)
 
         // 데이터를 뷰에 바인딩하는 메서드
         fun bind(item: MyPloggingScheduledResponse) {
@@ -42,6 +47,11 @@ class MyPloggingScheduledAdapter(
                 IsAssigned.text = "승인완료"
             } else {
                 IsAssigned.text = "승인대기"
+            }
+
+            cancelButton.setOnClickListener {
+                // Call the onCancelClick function to trigger the API request
+                onCancelClick(item.ploggingId, 1L)
             }
         }
     }

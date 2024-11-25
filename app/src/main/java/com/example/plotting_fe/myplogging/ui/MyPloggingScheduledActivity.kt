@@ -80,9 +80,37 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(dataList: List<MyPloggingScheduledResponse>) {
-        adapter = MyPloggingScheduledAdapter(dataList)
+        adapter = MyPloggingScheduledAdapter(this,dataList) { ploggingId, userId ->
+            // 취소 버튼 클릭 시 호출되는 메서드
+            cancelPlogging(ploggingId, userId)
+        }
         recyclerViewScheduledPlogging.adapter = adapter
     }
+
+    private fun cancelPlogging(ploggingId: Long, userId: Long) {
+        val myPloggingController = RetrofitImpl.retrofit.create(MyPloggingController::class.java)
+
+        myPloggingController.reqeustCancel(ploggingId, userId)
+            .enqueue(object : Callback<ResponseTemplate<Void>> {
+                override fun onResponse(
+                    call: Call<ResponseTemplate<Void>>,
+                    response: Response<ResponseTemplate<Void>>
+                ) {
+                    if (response.isSuccessful) {
+                        showToast("플로깅이 취소되었습니다.")
+                        // 취소 후 데이터를 갱신
+                        fetchData()
+                    } else {
+                        showToast("취소에 실패했습니다. 다시 시도해 주세요.")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
+                    showToast("서버 연결에 실패했습니다.")
+                }
+            })
+    }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
