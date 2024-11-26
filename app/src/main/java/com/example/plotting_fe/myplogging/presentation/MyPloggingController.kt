@@ -75,7 +75,7 @@ interface MyPloggingController {
         @Path("UserId") UserId: Long
     ): Call<ResponseTemplate<Void>>
 
-    @POST("/star/plogging/update/{ploggingId}")
+    @POST("/star/plogging/{ploggingId}")
     fun updateStar(
         @Path("ploggingId") ploggingId: Long
     ): Call<ResponseTemplate<Void>>
