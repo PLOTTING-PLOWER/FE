@@ -14,6 +14,7 @@ data class PloggingData(
     val startLocation: String,
     val recruitStartDate: String,
     val recruitEndDate: String,
-    val isRecruiting: Boolean
+    val isRecruiting: Boolean,
+    val isStar: Boolean
 ) {
 }

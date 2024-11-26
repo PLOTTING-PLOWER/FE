@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
@@ -26,6 +27,8 @@ class MyPloggingCreatedAdapter(
         val btnWaiting: TextView = itemView.findViewById(R.id.btn_waiting)
         val btnDelete: TextView = itemView.findViewById(R.id.btn_delete)
         val btnUpdate: TextView = itemView.findViewById(R.id.btn_update)
+        val grayStar: ImageView = itemView.findViewById(R.id.iv_gray_star)
+        val colorStar: ImageView = itemView.findViewById(R.id.iv_color_star)
 
         fun bind(item: PloggingData, onDeleteClick: (Long) -> Unit, activity: MyPloggingCreatedActivity) {
             title.text = item.title
@@ -40,6 +43,14 @@ class MyPloggingCreatedAdapter(
                 btnWaiting.visibility = View.INVISIBLE
             } else {
                 ploggintType.text = "승인제"
+            }
+
+            if (item.isStar) {
+                grayStar.visibility = View.INVISIBLE
+                colorStar.visibility = View.VISIBLE
+            } else {
+                grayStar.visibility = View.VISIBLE
+                colorStar.visibility = View.INVISIBLE
             }
 
             btnWaiting.setOnClickListener {
