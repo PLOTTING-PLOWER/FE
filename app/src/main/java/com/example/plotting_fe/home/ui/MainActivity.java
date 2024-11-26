@@ -15,11 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.plogging.dto.response.HomeResponse;
+import com.example.plotting_fe.home.dto.response.HomeResponse;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
-import com.example.plotting_fe.plogging.dto.response.PlowerListResponse;
+import com.example.plotting_fe.plogging.dto.response.PlowerResponse;
 import com.example.plotting_fe.plogging.ui.GetPloggings;
-import com.example.plotting_fe.plogging.ui.PloggingAdapter;
 import com.example.plotting_fe.plogging.ui.PloggingApiService;
 
 import java.time.LocalDate;
@@ -34,11 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btnPlower1, btnPlower2, btnPlower3, btnPlower4, userProfile, btnRanking, btnAlarm, btnSearch;
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
-    private List<PloggingResponse> dummyData;  // List<String>에서 List<PloggingResponse>로 변경
     private TextView btnPlowerName1, btnPlowerName2, btnPlowerName3, btnPlowerName4, userNickname;
+    private List<PloggingResponse> dataList = new ArrayList<>();
 
     private HomeApiService homeApiService;
     private PloggingApiService ploggingApiService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +51,15 @@ public class MainActivity extends AppCompatActivity {
         // 리사이클러뷰 레이아웃 매니저 설정
         setupRecyclerView();
 
+        // 어댑터 설정
+        setupAdapter();
+
         // 서버에서 홈 데이터 가져오기
         getHome();
 
         // 더미 데이터 추가 (TODO: 서버 데이터 존재시 지울예정 변경 필요)
         setDummyData();
 
-        // 어댑터 설정
-        setupAdapter();
 
         // 버튼 클릭 이벤트 설정
         setupButtonListeners();
@@ -87,44 +88,49 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void setupRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
     }
 
     private void setDummyData() {
+
+        List<PloggingResponse> dummyData = new ArrayList<>();
+
+
         dummyData = new ArrayList<PloggingResponse>();
 
         // PloggingResponse 객체를 생성하여 리스트에 추가
         dummyData.add(new PloggingResponse(
-                1L, "플로깅1", 5L, 10L, "ASSIGN",
+                1L, "플로깅1", 5L, "ASSIGN",
                 "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"
         ));
 
         dummyData.add(new PloggingResponse(
-                2L, "플로깅 2", 3L, 8L, "ASSIGN",
-                "2024-12-25", "2024-12-20T09:30:00", 90L, "Busan"
+                1L, "플로깅1", 5L, "ASSIGN",
+                "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"
         ));
 
         dummyData.add(new PloggingResponse(
-                3L, "플로깅 3", 7L, 12L, "ASSIGN",
-                "2024-12-10", "2024-12-05T08:00:00", 150L, "Incheon"
+                1L, "플로깅1", 5L, "ASSIGN",
+                "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"
         ));
 
         dummyData.add(new PloggingResponse(
-                4L, "플로깅 4", 2L, 5L, "ASSIGN",
-                "2024-11-30", "2024-11-25T11:00:00", 60L, "Gyeongju"
+                1L, "플로깅1", 5L, "ASSIGN",
+                "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"
         ));
+        homeAdapter.updateDataList(dummyData);
     }
 
     private void setupAdapter() {
-        // 더미 데이터 설정
-        setDummyData();
-
-        // HomeAdapter에 더미 데이터를 전달하고 RecyclerView에 설정
-        homeAdapter = new HomeAdapter(dummyData);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(homeAdapter);
+        homeAdapter = new HomeAdapter(dataList);  // 어댑터 초기화
         recyclerView.setAdapter(homeAdapter);
     }
+
 
     private void setupButtonListeners() {
         btnRead.setOnClickListener(v -> {
@@ -174,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             String type = "DIRECT";
             Long spendTime = 1L;
             Long maxPeople = 1000L;
+            startActivity(new Intent(MainActivity.this, GetPloggings.class));
 
             // 서버 호출하기
             ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
@@ -188,10 +195,12 @@ public class MainActivity extends AppCompatActivity {
             Long spendTime = 1L;
             String startTime = "2024-01-01T01:00:00";
             Long maxPeople = 15L;
+            startActivity(new Intent(MainActivity.this, GetPloggings.class));
 
             // 서버 호출하기
             ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
                     this);
+
         });
 
         btnCategoryApprove.setOnClickListener(v -> {
@@ -202,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
             Long spendTime = 1L;
             String startTime = "2024-01-01T01:00:00";
             Long maxPeople = 1000L;
+            startActivity(new Intent(MainActivity.this, GetPloggings.class));
 
             // 서버 호출하기
             ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
@@ -217,17 +227,13 @@ public class MainActivity extends AppCompatActivity {
             String startTime = "2024-01-01T01:00:00";
             Long maxPeople = 1000L;
 
+            startActivity(new Intent(MainActivity.this, GetPloggings.class));
+
             // 서버 호출하기
             ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
                     this);
         });
     }
-
-    private void startCategoryActivity() {
-        Intent intent = new Intent(this, GetPloggings.class);
-        startActivity(intent);
-    }
-
 
     // 홈에 각 데이터 맵핑함
     private void getHome() {
@@ -252,15 +258,14 @@ public class MainActivity extends AppCompatActivity {
 
             // 인기 플로워
             @Override
-            public void onPlowerDataReceived(PlowerListResponse plowerListResponse) {
-                Log.d("MainActivity", "Plower data received: " + plowerListResponse);
-
+            public void onPlowerDataReceived(List<PlowerResponse> PlowerResponse) {
                 // Plower 목록 가져오기
-                List<PlowerListResponse.PloggingUser> plowerList = plowerListResponse.getPloggingUserList();
+                List<PlowerResponse> plowerList = PlowerResponse;
+                Log.d("Plower", plowerList.toString());
 
                 // 각 플로워에 대해 처리
                 for (int index = 0; index < plowerList.size(); index++) {
-                    PlowerListResponse.PloggingUser plower = plowerList.get(index);
+                    PlowerResponse plower = plowerList.get(index);
 
                     switch (index) {
                         case 0:
@@ -300,7 +305,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
             // 유저 이름
             @Override
             public void onUserDataReceiver(String nickname) {

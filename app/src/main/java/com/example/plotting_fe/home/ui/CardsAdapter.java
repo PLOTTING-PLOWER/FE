@@ -1,6 +1,7 @@
 package com.example.plotting_fe.home.ui;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.plotting_fe.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ImageViewHolder> {
 
     private final Context context;
-    private final List<String> imageUrls;
+    private List<String> imageUrls;
 
+    // Constructor
     public CardsAdapter(Context context, List<String> imageUrls) {
         this.context = context;
-        this.imageUrls = imageUrls;
+        this.imageUrls = imageUrls != null ? imageUrls : new ArrayList<>();
     }
 
     @NonNull
@@ -33,23 +36,35 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        String imageUrl = imageUrls.get(position);
-        Glide.with(context)
-                .load(imageUrl)
-                .into(holder.imageView);
+        if (imageUrls != null && !imageUrls.isEmpty()) {
+            Log.d("CardsAdapter", "Loading image: " + imageUrls);  // URL 확인
+            String imageUrl = imageUrls.get(position);
+            Glide.with(context)
+                    .load(imageUrl)
+                    .into(holder.imageView);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return imageUrls.size();
+        return imageUrls != null ? imageUrls.size() : 0;
     }
 
+    // updateData 메소드 구현
+    public void updateData(List<String> newImageUrls) {
+        if (newImageUrls != null) {
+            this.imageUrls = newImageUrls;
+            notifyDataSetChanged();  // 데이터가 변경되었음을 RecyclerView에 알림
+        }
+    }
+
+    // ViewHolder to hold imageView
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.img_card);
+            imageView = itemView.findViewById(R.id.img_card);  // Ensure this ID exists in your layout
         }
     }
 }

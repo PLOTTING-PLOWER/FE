@@ -1,14 +1,13 @@
 package com.example.plotting_fe.plogging.presentation
 
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.home.dto.response.HomeResponse
 import com.example.plotting_fe.plogging.dto.PloggingType
 import com.example.plotting_fe.plogging.dto.request.CommentUpdateRequest
 import com.example.plotting_fe.plogging.dto.request.CommentUploadRequest
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest
 import com.example.plotting_fe.plogging.dto.response.CommentResponse
-import com.example.plotting_fe.plogging.dto.response.HomeResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
-import com.example.plotting_fe.plogging.dto.response.PloggingListResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
 import com.fasterxml.jackson.annotation.JsonFormat
@@ -34,10 +33,9 @@ interface PloggingController {
     ): Call<ResponseTemplate<PloggingResponse>>
 
     //플로깅 홈
-    @GET("/ploggings/home/{ploggingId}/{userId}")
+    @GET("/ploggings/home/{userId}")
     fun getHome(
         @Query("userId") userId: Long,
-        @Path("ploggingId") ploggingId: Long
     ): Call<ResponseTemplate<HomeResponse>>
 
     //플로깅 모임 등록

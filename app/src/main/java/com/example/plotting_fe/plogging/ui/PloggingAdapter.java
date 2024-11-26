@@ -47,16 +47,16 @@ public class PloggingAdapter extends RecyclerView.Adapter<PloggingAdapter.ViewHo
         holder.startDateAndTime.setText(plogging.getStartTime().toString());
         holder.duringTime.setText(String.valueOf(plogging.getSpendTime()));
         holder.maxPeople.setText(String.valueOf(plogging.getMaxPeople()));
-        holder.currentPeople.setText(String.valueOf(plogging.getCurrentPeople()));
+//        holder.currentPeople.setText(String.valueOf(plogging.getCurrentPeople()));
 
-        // 참여하기 버튼의 상태 설정 (현재 인원이 최대 인원에 도달하면 버튼 비활성화)
-        if (plogging.getCurrentPeople() >= plogging.getMaxPeople()) {
-            holder.joinBtn.setEnabled(false);
-            holder.joinBtn.setText("마감된 플로깅");
-        } else {
-            holder.joinBtn.setEnabled(true);
-            holder.joinBtn.setText("참여하기");
-        }
+//        // 참여하기 버튼의 상태 설정 (현재 인원이 최대 인원에 도달하면 버튼 비활성화)
+//        if (plogging.getCurrentPeople() >= plogging.getMaxPeople()) {
+//            holder.joinBtn.setEnabled(false);
+//            holder.joinBtn.setText("마감된 플로깅");
+//        } else {
+//            holder.joinBtn.setEnabled(true);
+//            holder.joinBtn.setText("참여하기");
+//        }
 
         // 참여하기 버튼 클릭 리스너 설정
         holder.joinBtn.setOnClickListener(v -> {

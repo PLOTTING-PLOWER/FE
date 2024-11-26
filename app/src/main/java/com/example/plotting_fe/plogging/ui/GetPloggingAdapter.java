@@ -66,7 +66,7 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
         String formattedSpendTime = formatSpendTime(data.getSpendTime());
         holder.spendTime.setText(formattedSpendTime);
         //8. 현재 참여 인원
-        holder.currentPeople.setText(String.valueOf(data.getCurrentPeople()));
+//        holder.currentPeople.setText(String.valueOf(data.getCurrentPeople()));
         //9. "/" 표시
         holder.and.setText("/");
         //10. 최대 참가 인원

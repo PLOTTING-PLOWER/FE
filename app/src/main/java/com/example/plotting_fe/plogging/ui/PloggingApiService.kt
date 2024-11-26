@@ -102,7 +102,6 @@ class PloggingApiService {
                             for ((index, plogging) in ploggingList.withIndex()) {
                                 intent.putExtra("ploggingId_$index", plogging.ploggingId)
                                 intent.putExtra("ploggingTitle_$index", plogging.title)
-                                intent.putExtra("ploggingCurrentPeople_$index", plogging.currentPeople)
                                 intent.putExtra("ploggingMaxPeople_$index", plogging.maxPeople)
                                 intent.putExtra("ploggingType_$index", plogging.ploggingType)
                                 intent.putExtra("ploggingRecruitEndDate_$index", plogging.recruitEndDate)

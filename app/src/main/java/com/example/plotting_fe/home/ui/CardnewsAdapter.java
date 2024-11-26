@@ -35,11 +35,11 @@ public class CardnewsAdapter extends RecyclerView.Adapter<CardnewsAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (cardnewsList != null && !cardnewsList.isEmpty()) {
             CardnewsResponse cardnews = cardnewsList.get(position);
-            holder.titleTextView.setText(cardnews.getTitle());
+            holder.titleTextView.setText(cardnews.getCardnewsTitle());
 
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, CardsActivity.class);
-                intent.putExtra("cardnewsId", String.valueOf(cardnews.getId()));
+                intent.putExtra("cardnewsId", String.valueOf(cardnews.getCardnewsId()));
                 context.startActivity(intent);
             });
         }

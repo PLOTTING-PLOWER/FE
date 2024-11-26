@@ -3,7 +3,6 @@ package com.example.plotting_fe.plogging.dto.response
 data class PloggingResponse(
     val ploggingId: Long,
     val title: String,
-    val currentPeople: Long,
     val maxPeople: Long,
     val ploggingType: String,
     val recruitEndDate: String,

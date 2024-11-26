@@ -1,15 +1,17 @@
 package com.example.plotting_fe.home.ui
 
+import com.example.plotting_fe.home.dto.response.HomeResponse
 import android.util.Log
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.home.dto.response.CardResponse
 import com.example.plotting_fe.home.dto.response.CardResponseList
 import com.example.plotting_fe.home.dto.response.CardnewsResponseList
 import com.example.plotting_fe.home.presentation.HomeController
-import com.example.plotting_fe.plogging.dto.response.HomeResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class HomeApiService {
 
@@ -25,10 +27,21 @@ class HomeApiService {
                 if (response.isSuccessful) {
                     val homeResponse = response.body()?.results
                     if (homeResponse != null) {
-                        // 각각의 데이터를 별도의 콜백 메서드로 전달
+                        // nullPointerException 터져서 임시 처리.
+                        val plowerList =
+                            homeResponse.plowerResponseList.plowerResponseList ?: emptyList()
+
                         listener.onHomeDataReceived(homeResponse)
-                        listener.onPloggingDataReceived(homeResponse.ploggingResponseList)
-                        listener.onPlowerDataReceived(homeResponse.plowerResponseList)
+                        listener.onPloggingDataReceived(homeResponse.ploggingStarResponseList.ploggingResponseList)
+                        listener.onPlowerDataReceived(plowerList)
+                        listener.onUserDataReceiver(homeResponse.userNickname)
+
+                        Log.d("HomeData", "homeResponse: " + homeResponse)
+                        Log.d(
+                            "onPloggingDataReceived",
+                            "ploggingResponseList: " + homeResponse.ploggingStarResponseList.ploggingResponseList.toString()
+                        );
+                        Log.d("onPlowerDataReceived", "plower" + plowerList)
                     } else {
                         Log.d("HomeApiService", "onResponse 실패: Body가 null입니다.")
                     }
@@ -71,39 +84,33 @@ class HomeApiService {
         })
     }
 
-    fun loadCards(cardId: Long, listener: CardsListener) {
-        apiService.getCard(cardId).enqueue(object : Callback<ResponseTemplate<CardResponseList>> {
+    fun loadCardnews(cardnewsId: Long, listener: CardsListener) {
+        apiService.getCard(cardnewsId).enqueue(object : Callback<ResponseTemplate<CardResponse>> {
             override fun onResponse(
-                call: Call<ResponseTemplate<CardResponseList>>,
-                response: Response<ResponseTemplate<CardResponseList>>
+                call: Call<ResponseTemplate<CardResponse>>,
+                response: Response<ResponseTemplate<CardResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val cardResponseList = response.body()?.results?.cardResponseList
-                    if (cardResponseList != null) {
-                        // 카드 리스트 디버깅 로그
-                        Log.d("cardnews", "cardnews result: $cardResponseList")
+                    val cardResponse = response.body()?.results
+                    Log.d("cardnews", "API Response: ${response.body()}") // 전체 응답 본문 로깅
 
-                        // 카드 ID로 필터링
-                        val selectedCard = cardResponseList.find { it.cardnewsId == cardId }
-
-                        if (selectedCard != null) {
-                            // 카드 ID로 필터링된 데이터를 onCardsReceived로 전달
-                            listener.onCardsReceived(listOf(selectedCard))  // 리스트로 전달
-                        } else {
-                            Log.d("HomeApiService", "해당 카드 뉴스를 찾을 수 없습니다.")
-                            listener.onCardsReceived(emptyList())  // 빈 리스트 전달
-                        }
-                    } else {
-                        Log.d("HomeApiService", "Card 데이터가 없습니다.")
-                        listener.onCardsReceived(emptyList())  // 빈 리스트 전달
+                    cardResponse?.let {
+                        listener.onCardsReceived(listOf(it))
+                    } ?: run {
+                        Log.d("HomeApiService", "No card data received.")
+                        listener.onCardsReceived(emptyList())
                     }
                 } else {
-                    Log.d("HomeApiService", "Card API 호출 실패: ${response.code()}")
-                    listener.onCardsReceived(emptyList())  // 빈 리스트 전달
+                    // 응답 실패 시 로그 출력
+                    Log.d(
+                        "HomeApiService",
+                        "Card API 호출 실패: ${response.code()} ${response.message()}"
+                    )
+                    listener.onCardsReceived(emptyList())
                 }
             }
 
-            override fun onFailure(call: Call<ResponseTemplate<CardResponseList>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseTemplate<CardResponse>>, t: Throwable) {
                 Log.d("HomeApiService", "Cardnews API 호출 실패: ${t.message}")
                 listener.onCardsReceived(emptyList())
             }

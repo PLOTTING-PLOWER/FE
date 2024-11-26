@@ -36,12 +36,12 @@ public class GetPloggings extends AppCompatActivity {
 
         ploggingList = new ArrayList<>();
 
-        // RecyclerView에 어댑터 연결
+        // RecyclerView에 어댑터 연결 위한 RecyclerView 초기화
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getPloggingAdapter = new GetPloggingAdapter(ploggingList);
         recyclerView.setAdapter(getPloggingAdapter);
 
-        // 버튼 설정
+        // 버튼 모음
         buttons();
 
         Intent intent = getIntent();
@@ -57,11 +57,10 @@ public class GetPloggings extends AppCompatActivity {
             long spendTime = intent.getLongExtra("ploggingSpendTime_" + index, 0L);
             String startLocation = intent.getStringExtra("ploggingStartLocation_" + index);
 
-            // Plogging 객체 생성 후 리스트에 추가
             PloggingResponse plogging = new PloggingResponse(
                     ploggingId,
                     title,
-                    currentPeople,
+//                    currentPeople,
                     maxPeople,
                     ploggingType,
                     recruitEndDate,
@@ -72,7 +71,7 @@ public class GetPloggings extends AppCompatActivity {
             ploggingList.add(plogging);
         }
 
-        // 어댑터에 데이터 업데이트
+        // intent로 받은 데이터를 RecyclerView로 넘기기
         getPloggingAdapter.updateDataList(ploggingList);
         getPloggingAdapter.notifyDataSetChanged();
     }
