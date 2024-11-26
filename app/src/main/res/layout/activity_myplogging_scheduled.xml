@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#F9F9F9">
 
     <!-- Back Button and Title Row -->
     <LinearLayout
@@ -33,6 +35,8 @@
     <!-- RecyclerView for Plogging Map Items -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_scheduled_plogging"
+        tools:listitem="@layout/item_scheduled_plogging"
+        android:nestedScrollingEnabled="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

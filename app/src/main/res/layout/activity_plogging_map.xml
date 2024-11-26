@@ -72,11 +72,12 @@
 
             <!-- Filter Icon -->
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_filter"
+                android:id="@+id/filter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp" />
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_filter" />
 
         </LinearLayout>
 

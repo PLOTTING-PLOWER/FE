@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="15dp"
-    android:background="@drawable/shape_round_corners_shadow">
+    android:background="@drawable/shape_round_corners_shadow"
+    android:layout_marginBottom="16dp">
 
     <!-- 승인제 배너 -->
     <TextView
-        android:id="@+id/tvApprove"
+        android:id="@+id/tvploggingType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/approve_bg"
         android:text="승인제"
-        android:textColor="@color/white"
+        android:textColor="#EF920F"
         android:textSize="8sp"
         android:textStyle="bold"
         android:paddingHorizontal="15dp"
@@ -33,7 +34,7 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/tvWaiting"
+            android:id="@+id/tvIsAssigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="승인대기"
@@ -81,7 +82,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvApprove" />
+        app:layout_constraintTop_toBottomOf="@id/tvploggingType" />
 
     <!-- 위치와 날짜 및 시간 (왼쪽 위치, 오른쪽 날짜) -->
     <LinearLayout
@@ -183,7 +184,7 @@
 
     <!-- 취소하기 버튼 (오른쪽 아래) -->
     <Button
-        android:id="@+id/btnJoin"
+        android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="4dp"

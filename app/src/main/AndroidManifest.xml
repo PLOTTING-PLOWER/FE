@@ -30,18 +30,18 @@
             android:exported="false" />
 
         <activity
-            android:name=".plogging.ui.PloggingMapActivity"
-            android:exported="false">
+            android:name=".myplogging.ui.MyPloggingHomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/Theme.Plotting_FE.Splash"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".user.ui.LoginActivity"
@@ -69,6 +69,22 @@
         <!-- 플로깅 검색 액티비티 -->
         <activity
             android:name=".plogging.ui.GetPloggings"
+            android:exported="true" />
+
+        <activity
+            android:name=".myplogging.ui.MyPloggingParticipatedActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".myplogging.ui.MyPloggingCreatedActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".myplogging.ui.MyMonthlyPloggingActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".myplogging.ui.MyPloggingScheduledActivity"
             android:exported="true" />
 
         <!-- 네이버 지도 API 클라이언트 ID 설정 -->

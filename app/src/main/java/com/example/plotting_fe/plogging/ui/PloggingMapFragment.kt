@@ -16,11 +16,12 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
-import com.example.plotting_fe.global.util.RetrofitImpl
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.plogging.presentation.PloggingController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.gson.Gson
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.CameraUpdate
@@ -33,7 +34,6 @@ import retrofit2.Response
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.plotting.server.plogging.dto.response.PloggingMapResponse
-import java.math.BigDecimal
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -45,6 +45,8 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var lastCenterPosition: LatLng? = null
     private val DISTANCE_THRESHOLD = 1000.0  // 1km
+    // 그리드 크기 설정
+    private val GRID_SIZE = 0.03 // 약 3km (위도/경도 기준)
 
     // 권한 요청을 위한 ActivityResultLauncher 선언
     private val requestPermissionLauncher =
@@ -95,7 +97,7 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
             CameraUpdate.toCameraPosition(
                 CameraPosition(
                     LatLng(37.5263886632, 126.933612357),
-                    12.0
+                    14.0
                 )
             )
         )
@@ -128,7 +130,7 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
 
         // Retrofit 서비스 인스턴스
         val ploggingController: PloggingController by lazy {
-            RetrofitImpl.retrofit.create(PloggingController::class.java)
+            ApiClient.getApiClient().create(PloggingController::class.java)
         }
 
         ploggingController.getPloggingInBounds(lat1, lon1, zoom).enqueue(object : Callback<ResponseTemplate<List<PloggingMapResponse>>> {
@@ -155,44 +157,128 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
-    // 마커를 저장할 리스트
-    private val markers = mutableListOf<Marker>()
+    // 그리드에 맞게 데이터를 클러스터링하는 함수
+    private fun clusterPloggings(ploggings: List<PloggingMapResponse>): Map<String, List<PloggingMapResponse>> {
+        val clusters = mutableMapOf<String, MutableList<PloggingMapResponse>>()
 
-    private fun updateMapWithPloggings(ploggings: List<PloggingMapResponse>) {
-        // 새 데이터와 기존 마커를 비교하여 변경된 마커만 업데이트하거나 추가/제거
-        // 플로깅 데이터로 지도에 마커 추가
         ploggings.forEach { plogging ->
-            val latLng = LatLng(plogging.startLatitude.toDouble(), plogging.startLongitude.toDouble())
+            val lat = plogging.startLatitude.toDouble()
+            val lon = plogging.startLongitude.toDouble()
+
+            // 그리드 좌표 계산
+            val gridLat = (lat / GRID_SIZE).toInt() * GRID_SIZE
+            val gridLon = (lon / GRID_SIZE).toInt() * GRID_SIZE
+
+            val gridKey = "$gridLat,$gridLon" // 각 그리드의 좌표를 키로 사용
+
+            // 해당 그리드에 포함되는 플로깅 데이터를 추가
+            if (clusters.containsKey(gridKey)) {
+                clusters[gridKey]?.add(plogging)
+            } else {
+                clusters[gridKey] = mutableListOf(plogging)
+            }
+        }
+
+        return clusters
+    }
+
+    // 클러스터링된 데이터로 지도에 마커 추가
+    private fun updateMapWithClusters(clusters: Map<String, List<PloggingMapResponse>>) {
+
+        // 기존 마커 제거
+        clearMarkers()
+
+        clusters.forEach { (gridKey, ploggings) ->
+            // 그리드의 중심 좌표 계산
+            val avgLat = ploggings.map { it.startLatitude.toDouble() }.average()
+            val avgLon = ploggings.map { it.startLongitude.toDouble() }.average()
+
+            // 가장 먼저 온 데이터의 타이틀 가져오기
+            val firstTitle = ploggings.firstOrNull()?.title ?: "Unknown"
+
+            // 마커 위치 설정
+            val clusterLatLng = LatLng(avgLat, avgLon)
             val marker = Marker().apply {
-                position = latLng
-                captionText = plogging.title
-                icon = OverlayImage.fromResource(R.drawable.ic_location_not_click) // 초기 마커 이미지 설정
+                position = clusterLatLng
+                captionText = "${firstTitle} 포함 ${ploggings.size}개"
+                icon = OverlayImage.fromResource(R.drawable.ic_location_not_click) // 클러스터 마커 이미지 설정
             }
 
             // 마커 클릭 이벤트 리스너 설정
             marker.setOnClickListener {
-                // 클릭 시 마커 이미지 변경
-                marker.icon = OverlayImage.fromResource(R.drawable.ic_location_on_click)
 
-                // 데이터 전달
-                val fragment = PloggingInfoMapFragment().apply {
-                    arguments = Bundle().apply {
-                        putSerializable("ploggings", ArrayList(ploggings)) // 데이터 전달
-                    }
-                }
+                // 클릭 시 해당 클러스터의 플로깅 데이터 목록을 JSON 문자열로 변환
+                val ploggingsJson = Gson().toJson(ploggings)
+
+                // JSON 문자열을 PloggingInfoMapFragment로 전달
+                val fragment = PloggingInfoMapFragment.newInstance(ploggingsJson)
 
                 // Fragment를 Dialog로 띄우기
                 fragment.show(childFragmentManager, "PloggingInfoMapFragment")
 
                 true // 클릭 이벤트 처리 완료
             }
-
+            Log.d(TAG, "cluster")
             marker.map = naverMap
-
-            // 마커 리스트에 추가
-            markers.add(marker)
+            markerList.add(marker)  // 추가된 마커를 리스트에 저장
         }
     }
+
+    private var selectedMarker: Marker? = null // 현재 선택된 마커를 저장
+    private val markerList = mutableListOf<Marker>()  // 마커들을 관리할 리스트
+
+    private fun updateMapWithPloggings(ploggings: List<PloggingMapResponse>) {
+        // 현재 줌 레벨 가져오기
+        val zoomLevel = naverMap.cameraPosition.zoom
+
+        // 기존 마커 제거
+        clearMarkers()
+
+        //  클러스터링을 적용
+        if (zoomLevel <= 13) {
+
+            // 클러스터링 로직을 호출
+            val clusters = clusterPloggings(ploggings)
+            updateMapWithClusters(clusters)
+        } else {
+            //  개별 마커로 표시
+            ploggings.forEach { plogging ->
+                val latLng = LatLng(plogging.startLatitude.toDouble(), plogging.startLongitude.toDouble())
+                val marker = Marker().apply {
+                    position = latLng
+                    captionText = plogging.title
+                    icon = OverlayImage.fromResource(R.drawable.ic_location_not_click) // 초기 마커 이미지 설정
+                }
+
+                // 마커 클릭 이벤트 리스너 설정
+                marker.setOnClickListener {
+
+                    // 이전에 선택된 마커가 있다면 원래 이미지로 복원
+                    selectedMarker?.icon = OverlayImage.fromResource(R.drawable.ic_location_not_click)
+
+                    // 현재 마커를 선택된 마커로 설정
+                    selectedMarker = marker
+                    marker.icon = OverlayImage.fromResource(R.drawable.ic_location_on_click)
+
+                    // 데이터 전달
+                    // 클릭 시 해당 클러스터의 플로깅 데이터 목록을 JSON 문자열로 변환
+                    val ploggingsJson = Gson().toJson(ploggings)
+
+                    // JSON 문자열을 PloggingInfoMapFragment로 전달
+                    val fragment = PloggingInfoMapFragment.newInstance(ploggingsJson)
+
+                    // Fragment를 Dialog로 띄우기
+                    fragment.show(childFragmentManager, "PloggingInfoMapFragment")
+
+                    true // 클릭 이벤트 처리 완료
+                }
+                Log.d(TAG, "invidisual")
+                marker.map = naverMap
+                markerList.add(marker)  // 추가된 마커를 리스트에 저장
+            }
+        }
+    }
+
 
     // 두 좌표 간 거리 계산 (단위: 미터)
     private fun calculateDistance(start: LatLng, end: LatLng): Double {
@@ -241,44 +327,20 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
-    // 더미 데이터를 만드는 함수
-    private fun createDummyPloggings(): List<PloggingMapResponse> {
-        return listOf(
-            PloggingMapResponse(
-                ploggingId = 1,
-                title = "Plogging Event 1",
-                currentPeople = 10,
-                maxPeople = 20,
-                ploggingType = "Public",
-                recruitEndDate = "2024-12-01",
-                startTime = "2024-12-05 10:00:00",
-                spendTime = 60,
-                startLocation = "Seoul",
-                startLatitude = BigDecimal("37.5665"),
-                startLongitude = BigDecimal("126.9780")
-            ),
-            PloggingMapResponse(
-                ploggingId = 2,
-                title = "Plogging Event 2",
-                currentPeople = 5,
-                maxPeople = 15,
-                ploggingType = "Private",
-                recruitEndDate = "2024-11-25",
-                startTime = "2024-11-30 14:00:00",
-                spendTime = 45,
-                startLocation = "Incheon",
-                startLatitude = BigDecimal("37.4563"),
-                startLongitude = BigDecimal("126.7052")
-            )
-        )
+    fun resetSelectedMarker() {
+        selectedMarker?.icon = OverlayImage.fromResource(R.drawable.ic_location_not_click)
+        selectedMarker = null // 선택된 마커 초기화
     }
 
-    private fun testUpdateMap() {
-        val dummyPloggings = createDummyPloggings()
-        updateMapWithPloggings(dummyPloggings)
+    // 기존 마커 제거 메서드
+    private fun clearMarkers() {
+        markerList.forEach { it.map = null } // 지도에서 마커 제거
+        markerList.clear() // 리스트 초기화
     }
+
+
 }
+
 
 
 
