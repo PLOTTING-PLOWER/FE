@@ -61,7 +61,7 @@
                 android:id="@+id/profileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="송실대 환경 지킴이"
+                android:text=""
                 style="@style/AndroidH2"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp" />
@@ -71,7 +71,7 @@
                 android:id="@+id/profileDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="플라스틱의 개발은 천연 플라스틱 물질(예: 껌, 셸락)의 사용에서부터 화학적으로 수정된 천연물질(예: 천연고무, 나이트로셀룰로스, 갈랄리드), 끝으로 완전한 합성 분자(예: 베이클라이트, 에폭시, 폴리염화 비닐)로 발전해왔다. 기원전 1600년 즈음, 메소아메리카는 공, 밴드, 작은 조각상에 천연 고무를 사용하였다"
+                android:text=""
                 style="@style/AndroidCaption2"
                 android:layout_marginTop="8dp" />
 
@@ -117,6 +117,7 @@
                         android:textSize="12dp"
                         android:textColor="@color/black"/>
                     <TextView
+                        android:id="@+id/tv_totalCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="15회"
@@ -148,9 +149,10 @@
                         android:textSize="12dp"
                         android:textColor="@color/black"/>
                     <TextView
+                        android:id="@+id/tv_totalTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15회"
+                        android:text="-"
                         style="@style/AndroidCaption1"
                         android:textColor="@color/main"/>
                 </LinearLayout>
@@ -179,9 +181,10 @@
                         android:textSize="12dp"
                         android:textColor="@color/black"/>
                     <TextView
+                        android:id="@+id/tv_ranking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15회"
+                        android:text="-"
                         style="@style/AndroidCaption1"
                         android:textColor="@color/main"/>
                 </LinearLayout>
@@ -190,12 +193,12 @@
             </androidx.cardview.widget.CardView>
 
             <!-- 활동 기록 섹션 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="활동 정보"
-                style="@style/AndroidBody4"
-                android:layout_marginTop="24dp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="활동 정보"-->
+<!--                style="@style/AndroidBody4"-->
+<!--                android:layout_marginTop="24dp" />-->
 
             </LinearLayout>
 
