@@ -1,6 +1,7 @@
 package com.example.plotting_fe.myplogging.ui
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
+import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.myplogging.dto.PloggingData
+import com.example.plotting_fe.myplogging.presentation.MyPloggingController
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyPloggingCreatedAdapter(
     private val items: MutableList<PloggingData>,
@@ -46,11 +53,23 @@ class MyPloggingCreatedAdapter(
             }
 
             if (item.isStar) {
-                grayStar.visibility = View.INVISIBLE
+                grayStar.visibility = View.GONE
                 colorStar.visibility = View.VISIBLE
             } else {
                 grayStar.visibility = View.VISIBLE
-                colorStar.visibility = View.INVISIBLE
+                colorStar.visibility = View.GONE
+            }
+
+            grayStar.setOnClickListener {
+                updateStar(item.ploggingId)
+                grayStar.visibility = View.GONE
+                colorStar.visibility = View.VISIBLE
+            }
+
+            colorStar.setOnClickListener {
+                updateStar(item.ploggingId)
+                grayStar.visibility = View.VISIBLE
+                colorStar.visibility = View.GONE
             }
 
             btnWaiting.setOnClickListener {
@@ -79,6 +98,24 @@ class MyPloggingCreatedAdapter(
             btnDelete.setOnClickListener {
                 onDeleteClick(item.ploggingId) // ploggingId 전달
             }
+        }
+
+        fun updateStar(ploggingId: Long) {
+            val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
+            myPloggingController.updateStar(ploggingId).enqueue(object :
+                Callback<ResponseTemplate<Void>> {
+                override fun onResponse(call: Call<ResponseTemplate<Void>>, response: Response<ResponseTemplate<Void>>) {
+                    if (response.isSuccessful) {
+                        Log.d("post", "성공: $ploggingId")
+                    } else {
+                        Log.d("post", "삭제 실패: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
+                    Log.d("post", "실패: ${t.message}")
+                }
+            })
         }
     }
 
