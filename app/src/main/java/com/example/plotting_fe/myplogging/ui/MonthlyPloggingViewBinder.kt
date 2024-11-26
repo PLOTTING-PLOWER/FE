@@ -11,7 +11,7 @@ class MonthlyPloggingViewBinder(private val includeView: View) {
     private val tvMonthTime: TextView = includeView.findViewById(R.id.tv_month_time)
 
     fun bind(data: MonthResponse.MonthData) {
-        tvCount.text = "${data.participationCount} 회"
-        tvMonthTime.text = "${data.totalHour} 시간"
+        tvCount.text = "${data.participationCount}"
+        tvMonthTime.text = "${data.totalHour}"
     }
 }
