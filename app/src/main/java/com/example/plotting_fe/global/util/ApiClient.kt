@@ -1,5 +1,6 @@
 package com.example.plotting_fe.global.util
 
+import com.example.plotting_fe.BuildConfig
 import com.example.plotting_fe.global.application.TokenApplication
 import com.example.plotting_fe.global.NCPApiService
 import com.example.plotting_fe.user.presentation.AuthController
@@ -13,8 +14,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-//    private const val BASE_URL = BuildConfig.BASE_URL
-    private const val BASE_URL = "http://10.0.2.2:8080/"
+    private const val BASE_URL = BuildConfig.BASE_URL
+//    private const val BASE_URL = "http://10.0.2.2:8080/"
 
     fun getApiClient(): Retrofit {
 
