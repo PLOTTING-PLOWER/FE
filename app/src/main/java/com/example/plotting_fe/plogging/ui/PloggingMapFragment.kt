@@ -16,7 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
-import com.example.plotting_fe.global.util.RetrofitImpl
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.plogging.presentation.PloggingController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -28,14 +28,12 @@ import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
-import com.naver.maps.map.clustering.Cluster
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.plotting.server.plogging.dto.response.PloggingMapResponse
-import java.math.BigDecimal
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -132,7 +130,7 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
 
         // Retrofit 서비스 인스턴스
         val ploggingController: PloggingController by lazy {
-            RetrofitImpl.retrofit.create(PloggingController::class.java)
+            ApiClient.getApiClient().create(PloggingController::class.java)
         }
 
         ploggingController.getPloggingInBounds(lat1, lon1, zoom).enqueue(object : Callback<ResponseTemplate<List<PloggingMapResponse>>> {
@@ -254,6 +252,7 @@ class PloggingMapFragment : Fragment(), OnMapReadyCallback {
 
                 // 마커 클릭 이벤트 리스너 설정
                 marker.setOnClickListener {
+
                     // 이전에 선택된 마커가 있다면 원래 이미지로 복원
                     selectedMarker?.icon = OverlayImage.fromResource(R.drawable.ic_location_not_click)
 

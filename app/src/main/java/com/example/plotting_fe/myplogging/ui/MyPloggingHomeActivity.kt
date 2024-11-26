@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
-import com.example.plotting_fe.global.util.RetrofitImpl
+import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingSummaryResponse
@@ -44,6 +45,8 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         fetchData()
 
         fetchPloggingData_2()
+
+        fetchPloggingData_3()
 
         fetchPloggingData_4()
     }
@@ -89,7 +92,7 @@ class MyPloggingHomeActivity : AppCompatActivity() {
     }
 
     private fun fetchData() {
-        val myPloggingController = RetrofitImpl.retrofit.create(MyPloggingController::class.java)
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
         val userId = 2L // 테스트용으로 사용자 ID 설정
 
         myPloggingController.getPloggingSummary(userId)
@@ -126,7 +129,7 @@ class MyPloggingHomeActivity : AppCompatActivity() {
     }
 
     private fun fetchPloggingData_2() {
-        val myPloggingController = RetrofitImpl.retrofit.create(MyPloggingController::class.java)
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
         val userId = 1L // 테스트용으로 사용자 ID 설정
 
         myPloggingController.getMyPloggingScheduled(userId)
@@ -167,8 +170,36 @@ class MyPloggingHomeActivity : AppCompatActivity() {
 
     }
 
+    private fun fetchPloggingData_3() {
+
+        val api = ApiClient.getApiClient().create(MyPloggingController::class.java)
+        api.getMyMonthlyPlogging().enqueue(object : Callback<ResponseTemplate<MonthResponse>> {
+            override fun onResponse(
+                call: Call<ResponseTemplate<MonthResponse>>,
+                response: Response<ResponseTemplate<MonthResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("post", "onResponse 성공: " + response.body().toString())
+                    val monthResponses = response.body()?.results?.responses ?: emptyList()
+                    updatePloggingView_3(monthResponses[0])
+                } else {
+                    Log.d("post", "onResponse 실패 + ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<MonthResponse>>, t: Throwable) {
+                Toast.makeText(
+                    this@MyPloggingHomeActivity,
+                    "데이터를 불러오는 데 실패했습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+    }
+
     private fun fetchPloggingData_4() {
-        val myPloggingController = RetrofitImpl.retrofit.create(MyPloggingController::class.java)
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
         val userId = 1L // 테스트용으로 사용자 ID 설정
 
         myPloggingController.getMyPloggingParticipated(userId)
@@ -212,6 +243,12 @@ class MyPloggingHomeActivity : AppCompatActivity() {
     private fun updatePloggingView_2(data: MyPloggingScheduledResponse) {
         val includeView = findViewById<View>(R.id.include_2)
         val viewBinder = ScheduledPloggingViewBinder(includeView)
+        viewBinder.bind(data) // 데이터를 바인딩
+    }
+
+    private fun updatePloggingView_3(data: MonthResponse.MonthData) {
+        val includeView = findViewById<View>(R.id.include_3)
+        val viewBinder = MonthlyPloggingViewBinder(includeView)
         viewBinder.bind(data) // 데이터를 바인딩
     }
 

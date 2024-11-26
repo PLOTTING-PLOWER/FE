@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.RetrofitImpl
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
@@ -46,7 +47,7 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
     }
 
     private fun fetchData() {
-        val myPloggingController = RetrofitImpl.retrofit.create(MyPloggingController::class.java)
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
         val userId = 1L // 테스트용으로 사용자 ID 설정
 
         myPloggingController.getMyPloggingScheduled(userId)
@@ -88,7 +89,7 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
     }
 
     private fun cancelPlogging(ploggingId: Long, userId: Long) {
-        val myPloggingController = RetrofitImpl.retrofit.create(MyPloggingController::class.java)
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
 
         myPloggingController.reqeustCancel(ploggingId, userId)
             .enqueue(object : Callback<ResponseTemplate<Void>> {
