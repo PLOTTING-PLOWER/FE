@@ -45,7 +45,7 @@ class PloggingAdapter(
 
     inner class PloggingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         private val title :TextView = itemView.findViewById(R.id.tvTitle)
-        private val ploggingType :TextView = itemView.findViewById(R.id.tvFirstCome)
+        private val ploggingType :TextView = itemView.findViewById(R.id.tvploggingType)
         private val maxPeople :TextView = itemView.findViewById(R.id.tvMaxPeople)
         private val currentPeople :TextView = itemView.findViewById(R.id.tvCurrentPeople)
         private val startTime :TextView = itemView.findViewById(R.id.tvStartTime)
