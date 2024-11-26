@@ -10,8 +10,8 @@ import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.plotting_fe.global.TokenApplication;
-import com.example.plotting_fe.global.util.Utils;
+import com.example.plotting_fe.global.application.TokenApplication;
+import com.example.plotting_fe.global.util.ClickUtil;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -39,10 +39,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         // 회원가입 버튼에 클릭 리스너 설정
-        findViewById(R.id.btn_join).setOnClickListener(v -> Utils.onJoinClick(this));
+        findViewById(R.id.btn_join).setOnClickListener(v -> ClickUtil.onJoinClick(this));
 
         // 로그인 버튼에 클릭 리스너 설정
-        findViewById(R.id.btn_login).setOnClickListener(v -> Utils.onLoginClick(this));
+        findViewById(R.id.btn_login).setOnClickListener(v -> ClickUtil.onLoginClick(this));
     }
 
     private boolean isLoggedIn() {

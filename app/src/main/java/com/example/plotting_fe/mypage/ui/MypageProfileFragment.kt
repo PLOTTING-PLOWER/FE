@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
@@ -15,10 +14,9 @@ import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
-import com.example.plotting_fe.global.util.Utils
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.mypage.dto.response.MyProfileResponse
 import com.example.plotting_fe.mypage.presentation.MypageController
-import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,7 +45,7 @@ class MypageProfileFragment: Fragment() {
 
         // 뒤로 가기 버튼 설정
         val backButton: ImageView = view.findViewById(R.id.iv_back)
-        Utils.onBackButtonClick(this, backButton)
+        ClickUtil.onBackButtonClick(this, backButton)
 
         // 수정 버튼 클릭 리스너 설정
         val editButton: ImageView = view.findViewById(R.id.iv_edit)

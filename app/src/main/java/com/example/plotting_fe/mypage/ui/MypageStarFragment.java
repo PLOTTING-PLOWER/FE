@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.global.util.Utils;
+import com.example.plotting_fe.global.util.ClickUtil;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -70,7 +70,7 @@ public class MypageStarFragment extends Fragment {
 
         // 뒤로 가기 버튼 설정
         ImageView backButton = view.findViewById(R.id.iv_back);
-        Utils.onBackButtonClick(this, backButton);
+        ClickUtil.onBackButtonClick(this, backButton);
 
         return view;
     }

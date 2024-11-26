@@ -8,6 +8,7 @@ import com.example.plotting_fe.user.dto.response.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.Call
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -17,7 +18,7 @@ interface AuthController {
     @POST("/auth/signup")
     fun signUp(@Body request: SignUpRequest): Call<ResponseTemplate<Void>>
 
-    @GET("/auth/check-nickname")
+    @GET("/auth/validation/nickname")
     fun checkNickname(@Query("nickname") nickname: String): Call<ResponseTemplate<Boolean>>
 
     @POST("/auth/login/self")
@@ -27,4 +28,11 @@ interface AuthController {
     @FormUrlEncoded
     fun loginWithNaver(@Field("accessToken") accessToken: String): Call<ResponseTemplate<LoginResponse>>
 
+    @DELETE("/auth/withdraw")
+    fun withdrawUser(): Call<ResponseTemplate<Void>>
+
+    @POST("/auth/refresh-token")
+    fun refreshAccessToken(
+        @Body request: String
+    ): Call<ResponseTemplate<String>>
 }

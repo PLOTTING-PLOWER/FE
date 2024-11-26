@@ -1,4 +1,4 @@
-package com.example.plotting_fe.global
+package com.example.plotting_fe.global.application
 
 import android.app.Application
 import android.content.Context
@@ -6,7 +6,6 @@ import android.content.Context
 class TokenApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-
         appContext = applicationContext
     }
 
