@@ -21,8 +21,6 @@ import com.example.plotting_fe.plogging.dto.response.PlowerListResponse;
 import com.example.plotting_fe.plogging.ui.GetPloggings;
 import com.example.plotting_fe.plogging.ui.PloggingAdapter;
 import com.example.plotting_fe.plogging.ui.PloggingApiService;
-import com.example.plotting_fe.plogging.ui.PloggingMakeActivity2;
-
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     private HomeApiService homeApiService;
     private PloggingApiService ploggingApiService;
-    private PloggingAdapter ploggingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
             // 서버 호출하기
             ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
-                    this, recyclerView, ploggingAdapter);
+                    this);
         });
 
         btnCategoty15Up.setOnClickListener(v -> {
@@ -194,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
             // 서버 호출하기
             ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
-                    this, recyclerView, ploggingAdapter);
+                    this);
         });
 
         btnCategoryApprove.setOnClickListener(v -> {
@@ -208,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
             // 서버 호출하기
             ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
-                    this, recyclerView, ploggingAdapter);
+                    this);
         });
 
         btnCategoryDirect.setOnClickListener(v -> {
@@ -222,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
             // 서버 호출하기
             ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
-                    this, recyclerView, ploggingAdapter);
+                    this);
         });
     }
 

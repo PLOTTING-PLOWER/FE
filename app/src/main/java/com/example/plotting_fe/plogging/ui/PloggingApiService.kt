@@ -45,7 +45,8 @@ class PloggingApiService {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.isSuccess == true) {
-                        Toast.makeText(context, "Plogging이 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Plogging이 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT)
+                            .show()
 
                         //GetPlogging으로 이동
                         val intent = Intent(context, GetPloggings::class.java)
@@ -78,33 +79,40 @@ class PloggingApiService {
         startTime: String,   // PloggingType에서 String으로 바꿈
         maxPeople: Long,
         context: Context,
-        recyclerView: RecyclerView,
-        adapter: PloggingAdapter
+//    recyclerView: RecyclerView,
+//    adapter: PloggingAdapter
     ) {
-        val call: Call<ResponseTemplate<PloggingListResponse>> = apiService.findListByFilter(
+        val call: Call<ResponseTemplate<List<PloggingResponse>>> = apiService.findListByFilter(
             region, startDate, endDate, type, spendTime, startTime, maxPeople
         )
-        call.enqueue(object : Callback<ResponseTemplate<PloggingListResponse>> {
+        call.enqueue(object : Callback<ResponseTemplate<List<PloggingResponse>>> {
             override fun onResponse(
-                call: Call<ResponseTemplate<PloggingListResponse>>,
-                response: Response<ResponseTemplate<PloggingListResponse>>
+                call: Call<ResponseTemplate<List<PloggingResponse>>>,
+                response: Response<ResponseTemplate<List<PloggingResponse>>>
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.isSuccess == true) {
 
-                        val ploggingList: List<PloggingResponse> = responseBody.results?.ploggingResponseList ?: emptyList()
+                        val ploggingList: List<PloggingResponse> =
+                            responseBody.results ?: emptyList()
                         if (ploggingList.isNotEmpty()) {
-//                            adapter.updatePloggingList(ploggingList)
-//                            recyclerView.adapter = adapter
 
-                            //fixme : getPlogging으로 intent
                             val intent = Intent(context, GetPloggings::class.java)
-                            intent.putParcelableArrayListExtra("ploggings", ArrayList(ploggingList))
+                            for ((index, plogging) in ploggingList.withIndex()) {
+                                intent.putExtra("ploggingId_$index", plogging.ploggingId)
+                                intent.putExtra("ploggingTitle_$index", plogging.title)
+                                intent.putExtra("ploggingCurrentPeople_$index", plogging.currentPeople)
+                                intent.putExtra("ploggingMaxPeople_$index", plogging.maxPeople)
+                                intent.putExtra("ploggingType_$index", plogging.ploggingType)
+                                intent.putExtra("ploggingRecruitEndDate_$index", plogging.recruitEndDate)
+                                intent.putExtra("ploggingStartTime_$index", plogging.startTime)
+                                intent.putExtra("ploggingSpendTime_$index", plogging.spendTime)
+                                intent.putExtra("ploggingStartLocation_$index", plogging.startLocation)
+                            }
                             context.startActivity(intent)
 
                             Log.d("filterPlogging", "PloggingList_is_success: ${ploggingList}")
-
                             Toast.makeText(
                                 context,
                                 "Plogging 목록이 성공적으로 조회되었습니다.",
@@ -125,11 +133,50 @@ class PloggingApiService {
             }
 
             override fun onFailure(
-                call: Call<ResponseTemplate<PloggingListResponse>>,
+                call: Call<ResponseTemplate<List<PloggingResponse>>>,
                 t: Throwable
             ) {
                 Toast.makeText(context, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
                 Log.d("filterPlogging", "filterPlogging_onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun getPloggingWithTitle(
+        title: String,
+        context: Context
+    ) {
+        val call: Call<ResponseTemplate<PloggingResponse>> =
+            apiService.getPloggingWithTitle(title) // title 매개변수 사용
+
+        call.enqueue(object : Callback<ResponseTemplate<PloggingResponse>> {
+            override fun onResponse(
+                call: Call<ResponseTemplate<PloggingResponse>>,
+                response: Response<ResponseTemplate<PloggingResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null && responseBody.isSuccess == true) {
+                        Toast.makeText(context, "Plogging이 성공적으로 검색되었습니다.", Toast.LENGTH_SHORT)
+                            .show()
+
+                        // GetPlogging으로 이동
+                        val intent = Intent(context, GetPloggings::class.java)
+                        context.startActivity(intent)
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Plogging 검색에 실패했습니다: ${responseBody?.message ?: "알 수 없는 오류"}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(context, "Plogging 검색에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<PloggingResponse>>, t: Throwable) {
+                Toast.makeText(context, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }
         })
     }

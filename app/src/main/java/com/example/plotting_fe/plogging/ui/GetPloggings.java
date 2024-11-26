@@ -1,19 +1,17 @@
 package com.example.plotting_fe.plogging.ui;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +19,9 @@ public class GetPloggings extends AppCompatActivity {
 
     private ImageView addBtn, searchBtn, filterBtn;
     private EditText searchInput;
-    private PloggingAdapter ploggingAdapter;
     private List<PloggingResponse> ploggingList;
     private RecyclerView recyclerView;
-
-    private String region, startDateStr, endDateStr, meetingType, timeStr, startTimeStr, participantsStr;
-    private Long spendTime, participants;
-    private String startTime;
+    private GetPloggingAdapter getPloggingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,32 +32,50 @@ public class GetPloggings extends AppCompatActivity {
         searchInput = findViewById(R.id.search_edit_text);
         searchBtn = findViewById(R.id.search_button);
         filterBtn = findViewById(R.id.filter);
-
         recyclerView = findViewById(R.id.plogging_list);
 
-        //초기화 작업
         ploggingList = new ArrayList<>();
 
-        //recyclerview에 adapter 연결
+        // RecyclerView에 어댑터 연결
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ploggingAdapter = new PloggingAdapter(this, ploggingList);
-        recyclerView.setAdapter(ploggingAdapter);
+        getPloggingAdapter = new GetPloggingAdapter(ploggingList);
+        recyclerView.setAdapter(getPloggingAdapter);
 
-
-        //버튼 연결 모음
+        // 버튼 설정
         buttons();
 
-        // TODO: 서버에서 넘겨온 데이터 받아서 PloggingAdapter에 연결해서 보여주기.
-        if (intent.hasExtra("ploggings")) {
-            val receivedPloggings = intent.getParcelableArrayListExtra<PloggingResponse>("ploggings")
-            if (receivedPloggings != null) {
-                ploggingList.clear()
-                ploggingList.addAll(receivedPloggings)
-                adapter.notifyDataSetChanged()
-            }
-        }
-    }
+        Intent intent = getIntent();
+        int indexCount = intent.getIntExtra("indexCount", 0); // 총 개수 전달받기
+        for (int index = 0; index < indexCount; index++) {
+            Long ploggingId = Long.parseLong(intent.getStringExtra("ploggingId_" + index));
+            String title = intent.getStringExtra("ploggingTitle_" + index);
+            int currentPeople = intent.getIntExtra("ploggingCurrentPeople_" + index, 0);
+            int maxPeople = intent.getIntExtra("ploggingMaxPeople_" + index, 0);
+            String ploggingType = intent.getStringExtra("ploggingType_" + index);
+            String recruitEndDate = intent.getStringExtra("ploggingRecruitEndDate_" + index);
+            String startTime = intent.getStringExtra("ploggingStartTime_" + index);
+            long spendTime = intent.getLongExtra("ploggingSpendTime_" + index, 0L);
+            String startLocation = intent.getStringExtra("ploggingStartLocation_" + index);
 
+            // Plogging 객체 생성 후 리스트에 추가
+            PloggingResponse plogging = new PloggingResponse(
+                    ploggingId,
+                    title,
+                    currentPeople,
+                    maxPeople,
+                    ploggingType,
+                    recruitEndDate,
+                    startTime,
+                    spendTime,
+                    startLocation
+            );
+            ploggingList.add(plogging);
+        }
+
+        // 어댑터에 데이터 업데이트
+        getPloggingAdapter.updateDataList(ploggingList);
+        getPloggingAdapter.notifyDataSetChanged();
+    }
 
     private void buttons() {
         //추가 버튼
@@ -80,57 +92,17 @@ public class GetPloggings extends AppCompatActivity {
 
         // 검색 버튼
         searchBtn.setOnClickListener(v -> {
-            String searchQuery = searchInput.getText().toString().trim();
-            if (searchQuery.isEmpty()) {
+            String searchTitle = searchInput.getText().toString().trim();
+            if (searchTitle.isEmpty()) {
                 Toast.makeText(GetPloggings.this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
             } else {
-//                searchPloggings(searchQuery);
+                searchPlogging(searchTitle);
             }
         });
     }
 
-
-    private void filteringData() {
-        //  filterPlogging 에서 넘겨받은 값
-        region = getIntent().getStringExtra("region");
-        startDateStr = getIntent().getStringExtra("startDate");
-        endDateStr = getIntent().getStringExtra("endDate");
-        meetingType = getIntent().getStringExtra("meetingType");
-        timeStr = getIntent().getStringExtra("time");
-        startTimeStr = getIntent().getStringExtra("startTime");
-        participantsStr = getIntent().getStringExtra("participants");
-
-//  파라미터 : region: String, startDat
-//  e: LocalDate, endDate: LocalDate, type: String, spendTime: Long,
-//  타입 바꾸기 startTime: LocalDateTime,  maxPeople: Long
-        try {
-            startTimeStr = startTimeStr + ":00:00";
-            startTime = startDateStr + "T" + startTimeStr;
-            spendTime = Long.parseLong(timeStr);
-            Log.d("Debug", "spendTime: " + spendTime);
-            participants = Long.parseLong(participantsStr);
-            Log.d("Debug", "participants: " + participants);
-
-            //받은 후에 바로 필터링 서버 연결
-            filterPlogging();
-
-        } catch (Exception e) {
-            Log.e("Debug", "in {GetPloggings + FilterPloggings} Error : ", e);
-            Toast.makeText(this, "필터 값 변환 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    // TODO: 플로깅 필터링 서버 연결
-    private void filterPlogging() {
-        //필터 연결
+    private void searchPlogging(String searchTitle) {
         PloggingApiService ploggingApiService = new PloggingApiService();
-
-// 파라미터 순서 : region, startDate, endDate, type, spendTime, startTime, maxPeople
-        ploggingApiService.filterPlogging(region, startDateStr, endDateStr, meetingType, spendTime, startTime, participants, GetPloggings.this, recyclerView, ploggingAdapter);
-    }
-
-    private void searchPlogging() {
-        PloggingApiService ploggingApiService = new PloggingApiService();
-        ploggingApiService.filterPlogging(region, startDateStr, endDateStr, meetingType, spendTime, startTime, participants, GetPloggings.this, recyclerView, ploggingAdapter);
+        ploggingApiService.getPloggingWithTitle(searchTitle, this);
     }
 }

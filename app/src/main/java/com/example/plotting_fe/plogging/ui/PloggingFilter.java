@@ -3,6 +3,7 @@ package com.example.plotting_fe.plogging.ui;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
 import java.util.Calendar;
@@ -29,12 +31,19 @@ public class PloggingFilter extends AppCompatActivity {
     private TextView btnReset;
     private String selectedStartDate, selectedEndDate;
 
+    private String formattedStartTime;
+
     //버튼 색상 위한 변수
     private Button lastSelectedMeetingTypeButton;
     private Button lastSelectedParticipantCountButton;
     private Button lastSelectedTimeButton;
 
     private String region, startDateStr, endDateStr, meetingType, timeStr, startTimeStr, participantsStr;
+    private PloggingAdapter ploggingAdapter;
+    private PloggingApiService ploggingApiService;
+    private RecyclerView recyclerView;
+    private Long parsedTime;
+    private Long parsedParticipate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,14 +190,15 @@ public class PloggingFilter extends AppCompatActivity {
             }
         }
         // 필드 값 가져오기
+        // 날짜
+        startDateStr = startDate.getText().toString().trim();
         // 시간
         timeStr = getTimeType();
         // 시작 시간
         startTimeStr = getStartTimeType();
+        formattedStartTime = startDateStr + "T" + startTimeStr + ":00:00";
         // 지역
         region = spinnerRegion.getSelectedItem().toString();
-        // 날짜
-        startDateStr = startDate.getText().toString().trim();
         endDateStr = endDate.getText().toString().trim();
         // 모임 방식
         meetingType = getSelectedMeetingType();
@@ -196,21 +206,30 @@ public class PloggingFilter extends AppCompatActivity {
         participantsStr = getSelectedParticipants();
 
         // 값 전달
-        Intent intent = new Intent(this, GetPloggings.class);
-        intent.putExtra("region", region);
-        intent.putExtra("startDate", startDateStr);
-        intent.putExtra("endDate", endDateStr);
-        intent.putExtra("meetingType", meetingType);
-        intent.putExtra("time", timeStr);
-        intent.putExtra("startTime", startTimeStr);
-        intent.putExtra("participants", participantsStr);
+//        Intent intent = new Intent(this, GetPloggings.class);
+//        intent.putExtra("region", region);
+//        intent.putExtra("startDate", startDateStr);
+//        intent.putExtra("endDate", endDateStr);
+//        intent.putExtra("meetingType", meetingType);
+//        intent.putExtra("time", timeStr);
+//        intent.putExtra("startTime", startTimeStr);
+//        intent.putExtra("participants", participantsStr);
 
-        startActivity(intent);
+        parsedTime = Long.parseLong(timeStr);
+        parsedParticipate = Long.parseLong(participantsStr);
 
+        //서버 연결
+        filterPlogging();
     }
 
-
-
+    //서버 연결하는데 파라미터로 값 전달
+    private void filterPlogging() {
+        //필터 연결
+        PloggingApiService ploggingApiService = new PloggingApiService();
+// 파라미터 순서 : region, startDate, endDate, type, spendTime, startTime, maxPeople
+        ploggingApiService.filterPlogging(region, startDateStr, endDateStr, meetingType,
+                parsedTime, formattedStartTime, parsedParticipate, this);
+    }
 
     // 달력 다이얼로그 -> 시작 시간
     private void showDatePickerDialogOfStart() {

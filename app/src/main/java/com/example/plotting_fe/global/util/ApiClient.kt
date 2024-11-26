@@ -24,7 +24,7 @@ object ApiClient {
 
     fun getApiClient(): Retrofit {
 //        val accessToken = preferences?.getString("accessToken", "")
-        val accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmlja25hbWUiOiLsip3sip3snbQiLCJpYXQiOjE3MzI0ODA5MTMsImV4cCI6MTczMjQ4ODExMywiaXNzIjoicGxvdHRpbmcifQ.Nsp2rQSONIfG1g6NTgGjZE6ELWfWxC5ip1NM1KOLoAU"
+        val accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmlja25hbWUiOiLsip3sip3snbQiLCJpYXQiOjE3MzI1NDg0MTEsImV4cCI6MTczMjU1NTYxMSwiaXNzIjoicGxvdHRpbmcifQ.0jR-wtkroOSEqEGlYPCdybknjs6SeNGymTewrndHSaI"
 
         Log.d("accessToken", accessToken.toString())
 

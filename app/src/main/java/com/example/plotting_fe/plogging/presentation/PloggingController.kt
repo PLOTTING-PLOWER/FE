@@ -27,6 +27,12 @@ import java.time.LocalTime
 
 interface PloggingController {
 
+    //플로깅 검색
+    @GET("/ploggings/{title}")
+    fun getPloggingWithTitle(
+        @Path("title") title: String
+    ): Call<ResponseTemplate<PloggingResponse>>
+
     //플로깅 홈
     @GET("/ploggings/home/{ploggingId}/{userId}")
     fun getHome(
@@ -51,7 +57,7 @@ interface PloggingController {
         @Query("spendTime") spendTime: Long,
         @Query("startTime") startTime: String,
         @Query("maxPeople") maxPeople: Long
-    ): Call<ResponseTemplate<PloggingListResponse>>
+    ): Call<ResponseTemplate<List<PloggingResponse>>>
 
 
     @GET("/ploggings/{ploggingId}/info")
