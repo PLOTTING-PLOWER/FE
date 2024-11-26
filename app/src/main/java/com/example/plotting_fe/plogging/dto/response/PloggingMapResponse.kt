@@ -1,7 +1,6 @@
 package com.plotting.server.plogging.dto.response
 
 import java.math.BigDecimal
-import java.io.Serializable
 
 data class PloggingMapResponse(
     val ploggingId: Long,
@@ -15,7 +14,8 @@ data class PloggingMapResponse(
     val startLocation: String,
     val startLatitude: BigDecimal,
     val startLongitude: BigDecimal
-) : Serializable
+)
+
 
 
 
