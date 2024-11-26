@@ -25,7 +25,6 @@ class StarPeopleFragment : Fragment() {
     private lateinit var adapter: PeopleAdapter
     private val peopleList: MutableList<Person> = mutableListOf()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

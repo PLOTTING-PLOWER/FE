@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.plotting_fe"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -116,5 +116,4 @@ dependencies {
 
     //json
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.0")
-
 }
