@@ -1,12 +1,11 @@
 package com.example.plotting_fe.home.ui
 
-import com.example.plotting_fe.home.dto.response.HomeResponse
 import android.util.Log
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.home.dto.response.CardResponse
-import com.example.plotting_fe.home.dto.response.CardResponseList
 import com.example.plotting_fe.home.dto.response.CardnewsResponseList
+import com.example.plotting_fe.home.dto.response.HomeResponse
 import com.example.plotting_fe.home.presentation.HomeController
 import retrofit2.Call
 import retrofit2.Callback
