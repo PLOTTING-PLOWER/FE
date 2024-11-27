@@ -90,6 +90,7 @@
                     android:src="@drawable/ic_medal_star" />
 
                 <TextView
+                    android:id="@+id/ranking_my"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -100,7 +101,7 @@
 
                 <!-- Profile Image -->
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_image"
+                    android:id="@+id/iv_my"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_flower"
@@ -111,6 +112,7 @@
                     android:layout_marginStart="20dp" />
 
                 <TextView
+                    android:id="@+id/nickname_my"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -120,6 +122,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/hour_my"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -129,6 +132,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/count_my"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -173,6 +177,7 @@
 
                 <!--     2등       -->
                 <LinearLayout
+                    android:id="@+id/ll_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -181,6 +186,7 @@
 
                     <!-- Profile Image -->
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_2"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:src="@drawable/ic_flower"
@@ -190,6 +196,7 @@
                         android:layout_marginVertical="5dp"/>
 
                     <TextView
+                        android:id="@+id/nickname_2"
                         style="@style/noto_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -215,6 +222,7 @@
                             android:layout_height="50dp"
                             android:src="@drawable/ic_2rd"/>
                         <TextView
+                            android:id="@+id/hour_2"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:text="60H"
@@ -223,6 +231,7 @@
                             style="@style/noto_bold"/>
 
                         <TextView
+                            android:id="@+id/count_2"
                             style="@style/noto_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
@@ -244,6 +253,7 @@
 
                 <!--     1등       -->
                 <LinearLayout
+                    android:id="@+id/ll_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -252,6 +262,7 @@
 
                     <!-- Profile Image -->
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_1"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:src="@drawable/ic_flower"
@@ -261,6 +272,7 @@
                         android:layout_marginVertical="5dp"/>
 
                     <TextView
+                        android:id="@+id/nickname_1"
                         style="@style/noto_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -286,6 +298,7 @@
                             android:layout_height="50dp"
                             android:src="@drawable/ic_1st"/>
                         <TextView
+                            android:id="@+id/hour_1"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:text="60H"
@@ -294,6 +307,7 @@
                             style="@style/noto_bold"/>
 
                         <TextView
+                            android:id="@+id/count_1"
                             style="@style/noto_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
@@ -313,8 +327,9 @@
 
                 </LinearLayout>
 
-                <!--     1등       -->
+                <!--     3등       -->
                 <LinearLayout
+                    android:id="@+id/ll_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -323,6 +338,7 @@
 
                     <!-- Profile Image -->
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_3"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:src="@drawable/ic_flower"
@@ -332,6 +348,7 @@
                         android:layout_marginVertical="5dp"/>
 
                     <TextView
+                        android:id="@+id/nickname_3"
                         style="@style/noto_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -357,6 +374,7 @@
                             android:layout_height="50dp"
                             android:src="@drawable/ic_1st"/>
                         <TextView
+                            android:id="@+id/hour_3"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:text="60H"
@@ -365,6 +383,7 @@
                             style="@style/noto_bold"/>
 
                         <TextView
+                            android:id="@+id/count_3"
                             style="@style/noto_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
@@ -398,6 +417,7 @@
 
             <!-- 4등 -->
             <LinearLayout
+                android:id="@+id/ll_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -422,7 +442,7 @@
 
                 <!-- Profile Image -->
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_4th"
+                    android:id="@+id/iv_4"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_flower"
@@ -433,6 +453,7 @@
                     android:layout_marginStart="20dp" />
 
                 <TextView
+                    android:id="@+id/nickname_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -442,6 +463,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/hour_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -454,6 +476,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/count_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -464,12 +487,14 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/view_5"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@color/light_gray" />
 
             <!-- 5등 -->
             <LinearLayout
+                android:id="@+id/ll_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -495,7 +520,7 @@
 
                 <!-- Profile Image -->
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_5th"
+                    android:id="@+id/iv_5"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_flower"
@@ -506,6 +531,7 @@
                     android:layout_marginStart="20dp" />
 
                 <TextView
+                    android:id="@+id/nickname_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -515,12 +541,12 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/hour_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="0.5 H"
                     android:paddingHorizontal="10dp"
-
                     android:background="@drawable/time_background"
                     android:textColor="@color/main"
                     style="@style/AndroidCaption1"
@@ -528,6 +554,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/count_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -539,12 +566,14 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/view_6"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@color/light_gray" />
 
             <!-- 6등 -->
             <LinearLayout
+                android:id="@+id/ll_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -570,7 +599,7 @@
 
                 <!-- Profile Image -->
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_6th"
+                    android:id="@+id/iv_6"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_flower"
@@ -581,6 +610,7 @@
                     android:layout_marginStart="20dp" />
 
                 <TextView
+                    android:id="@+id/nickname_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -590,12 +620,12 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/hour_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="0.5 H"
                     android:paddingHorizontal="10dp"
-
                     android:background="@drawable/time_background"
                     android:textColor="@color/main"
                     style="@style/AndroidCaption1"
@@ -603,6 +633,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/count_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -614,12 +645,14 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/view_7"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@color/light_gray" />
 
             <!-- 7등 -->
             <LinearLayout
+                android:id="@+id/ll_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -644,7 +677,7 @@
 
                 <!-- Profile Image -->
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_7th"
+                    android:id="@+id/iv_7"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_flower"
@@ -655,6 +688,7 @@
                     android:layout_marginStart="20dp" />
 
                 <TextView
+                    android:id="@+id/nickname_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -664,6 +698,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/hour_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -676,6 +711,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
+                    android:id="@+id/count_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -686,10 +722,6 @@
                     android:gravity="center_vertical" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/light_gray" />
             </LinearLayout>
         </LinearLayout>
 
