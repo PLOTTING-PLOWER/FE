@@ -1,6 +1,12 @@
 package com.example.plotting_fe.global.application
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import com.example.plotting_fe.R
 import com.example.plotting_fe.global.util.FcmTokenUtil
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -26,9 +32,38 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
         Log.d("FCM", "Message received: ${remoteMessage.data}")
 
-        // 필요하면 알림 처리 코드 추가
+//        remoteMessage.notification?.let {
+//            Log.d("FCM", "Notification Title: ${it.title}, Body: ${it.body}")
+//        }
+
+        // Notification Payload 확인
         remoteMessage.notification?.let {
-            Log.d("FCM", "Notification Title: ${it.title}, Body: ${it.body}")
+            val title = it.title ?: "Default Title"
+            val body = it.body ?: "Default Body"
+            showNotification(title, body)
         }
+
+    }
+
+    private fun showNotification(title: String, body: String) {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        // 알림 채널 설정
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "FCM_CHANNEL",
+                "FCM Notifications",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notificationBuilder = NotificationCompat.Builder(this, "FCM_CHANNEL")
+            .setSmallIcon(R.drawable.ic_notification) // 알림 아이콘? 아니면 ,,, 로고?
+            .setContentTitle(title) // 알림 제목
+            .setContentText(body) // 알림 본문
+            .setAutoCancel(true)
+
+        notificationManager.notify(0, notificationBuilder.build())
     }
 }

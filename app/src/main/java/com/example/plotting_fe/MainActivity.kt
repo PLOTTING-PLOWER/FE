@@ -1,26 +1,24 @@
 package com.example.plotting_fe
 
-import android.media.session.MediaSession.Token
+import android.content.pm.PackageManager
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.plotting_fe.databinding.AActivityMainBinding
-import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.application.TokenApplication
-import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.FcmTokenUtil
-import com.example.plotting_fe.user.presentation.AuthController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
     private var _binding: AActivityMainBinding? = null
@@ -47,6 +45,29 @@ class MainActivity : AppCompatActivity() {
 
         // FCM 토큰 요청 및 서버 전송
         fetchFcmToken()
+
+        // 안드로이드 13 이상일 경우 알림 권한 요청
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestNotificationPermission()
+        }
+    }
+
+    private fun requestNotificationPermission() {
+        val permissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            if (isGranted) {
+                // 사용자가 권한을 허용했을 때
+                println("알림 권한 허용됨")
+            } else {
+                // 사용자가 권한을 거부했을 때
+                println("알림 권한 거부됨")
+            }
+        }
+
+        if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 
     private fun fetchFcmToken() {
