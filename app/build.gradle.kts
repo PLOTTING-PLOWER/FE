@@ -113,6 +113,7 @@ dependencies {
 
     // 구글
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("com.google.firebase:firebase-messaging:23.2.0")
 
     //네아로
     implementation("com.navercorp.nid:oauth:5.10.0")
