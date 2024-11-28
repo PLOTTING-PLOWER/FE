@@ -205,6 +205,7 @@
             android:paddingHorizontal="30dp">
 
             <TextView
+                android:id="@+id/tv_month1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -213,6 +214,7 @@
                 style="@style/AndroidCaption2"/>
 
             <TextView
+                android:id="@+id/tv_month2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -221,6 +223,7 @@
                 style="@style/AndroidCaption2"/>
 
             <TextView
+                android:id="@+id/tv_month3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -229,6 +232,7 @@
                 style="@style/AndroidCaption2"/>
 
             <TextView
+                android:id="@+id/tv_month4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -237,6 +241,7 @@
                 style="@style/AndroidCaption2"/>
 
             <TextView
+                android:id="@+id/tv_month5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -1,0 +1,11 @@
+<!-- drawable/edit_text_box.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 버튼 배경 -->
+    <item android:top="2dp" android:left="2dp">
+        <shape>
+            <solid android:color="#919191" /> <!-- 노란색 배경 -->
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</layer-list>
+

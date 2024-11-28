@@ -17,11 +17,12 @@ import com.example.plotting_fe.BuildConfig
 import com.example.plotting_fe.MainActivity
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.application.TokenApplication
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.user.dto.request.LoginRequest
 import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
-import com.example.plotting_fe.global.util.Utils
+import com.example.plotting_fe.global.util.ClickUtil
 import com.navercorp.nid.NaverIdLoginSDK
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 로그인 버튼에 클릭 리스너 설정
         findViewById<View>(R.id.tv_gojoin).setOnClickListener {
-            Utils.onJoinClick(this)
+            ClickUtil.onJoinClick(this)
         }
     }
 
@@ -173,7 +174,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveToken(token: String, refreshToken: String) {
-        com.example.plotting_fe.global.TokenApplication.saveTokens(token, refreshToken)
+        TokenApplication.saveTokens(token, refreshToken)
     }
 
     private fun goToMainScreen() {

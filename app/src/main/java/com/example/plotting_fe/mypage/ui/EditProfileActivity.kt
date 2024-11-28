@@ -18,14 +18,12 @@ import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
-import com.example.plotting_fe.global.util.Utils
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.mypage.dto.request.MyProfileRequest
 import com.example.plotting_fe.mypage.presentation.MypageController
 import com.example.plotting_fe.user.presentation.AuthController
-import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,7 +58,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         // 뒤로가기 버튼 설정
         val backButton: ImageView = findViewById(R.id.iv_back)
-        Utils.onBackButtonClick(this, backButton)
+        ClickUtil.onBackButtonClick(this, backButton)
 
         // Intent에서 데이터 가져오기
         val nickname = intent.getStringExtra("nickname")

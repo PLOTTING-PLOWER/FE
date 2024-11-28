@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.plotting_fe"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -113,11 +113,11 @@ dependencies {
 
     // 구글
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("com.google.firebase:firebase-messaging:23.2.0")
 
     //네아로
     implementation("com.navercorp.nid:oauth:5.10.0")
 
     //json
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.0")
-
 }

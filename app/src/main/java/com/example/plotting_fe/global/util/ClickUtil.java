@@ -1,7 +1,6 @@
 package com.example.plotting_fe.global.util;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.plotting_fe.user.ui.LoginActivity;
 import com.example.plotting_fe.user.ui.SignUpActivity;
 
-public class Utils {
+public class ClickUtil {
 
     // 회원가입 화면으로 전환하는 메서드
     public static void onJoinClick(Activity activity) {

@@ -44,6 +44,7 @@ class MyMonthlyPloggingActivity : AppCompatActivity() {
         )
 
         setupBarChart()
+        updateMonthLabels()
 
         loadInfo()
 
@@ -164,14 +165,16 @@ class MyMonthlyPloggingActivity : AppCompatActivity() {
 
         val dataSet = BarDataSet(entries, "플로깅 시간").apply {
             // 색상 설정 (값이 0인 경우 색상을 투명하게 설정)
-            val colors = entries.map {
-                if (it.y == currentMonthData?.totalHour?.toFloat()?.div(60)) {
-                    ContextCompat.getColor(this@MyMonthlyPloggingActivity, R.color.main) // 이번 달 색상
-                }
-                else if (it.y > 0) {
-                    ContextCompat.getColor(this@MyMonthlyPloggingActivity, R.color.light_orange) // Y값이 0보다 클 때 색상
-                } else {
-                    Color.WHITE // Y값이 0일 때 투명하게 설정
+            val colors = entries.map { entry ->
+                when (entry.x) {
+                    0f -> ContextCompat.getColor(this@MyMonthlyPloggingActivity, R.color.main) // 이번 달 색상
+                    else -> {
+                        if (entry.y > 0) {
+                            ContextCompat.getColor(this@MyMonthlyPloggingActivity, R.color.light_orange) // Y값이 0보다 클 때 색상
+                        } else {
+                            Color.WHITE // Y값이 0일 때 색상
+                        }
+                    }
                 }
             }
             setColors(colors)
@@ -195,6 +198,29 @@ class MyMonthlyPloggingActivity : AppCompatActivity() {
             invalidate()
         }
     }
+
+    private fun updateMonthLabels() {
+        // 현재 월 계산
+        val calendar = Calendar.getInstance()
+        val currentMonth = calendar.get(Calendar.MONTH) // 0부터 시작 (0 = 1월)
+
+        // TextView ID 리스트
+        val monthTextViews = listOf(
+            binding.tvMonth1,
+            binding.tvMonth2,
+            binding.tvMonth3,
+            binding.tvMonth4,
+            binding.tvMonth5
+        )
+
+        // TextView에 월 이름 설정
+        val months = listOf("1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월")
+        for ((index, textView) in monthTextViews.withIndex()) {
+            val monthToDisplay = (currentMonth - 2 + index + 12) % 12 // 이전 2개월부터 현재와 이후 2개월까지
+            textView.text = months[monthToDisplay]
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

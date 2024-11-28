@@ -145,7 +145,7 @@ class PloggingInfoFragment : Fragment() {
                     body?.let { it ->
                         // 참여자 목록 생성
                         val participants = it.ploggingUserList.map {
-                            Participant("https://plower.s3.ap-northeast-2.amazonaws.com/file1/80110b36-21f8-433a-ab33-6d3daf641904_pg.png", it.nickname, "내용 추가 부분")
+                            Participant(1L, it.profileImageUrl, it.nickname, it.profileMessage)
                         }
 
                         // currentPeople 및 maxPeople 반환

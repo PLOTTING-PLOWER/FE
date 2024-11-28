@@ -14,10 +14,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
-import com.example.plotting_fe.global.util.RetrofitImpl
 import com.example.plotting_fe.user.dto.request.SignUpRequest
 import com.example.plotting_fe.user.presentation.AuthController
-import com.example.plotting_fe.global.util.Utils
+import com.example.plotting_fe.global.util.ClickUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
 
         // 로그인 버튼에 클릭 리스너 설정
         findViewById<View>(R.id.tv_gologin).setOnClickListener {
-            Utils.onLoginClick(this)
+            ClickUtil.onLoginClick(this)
         }
     }
 
