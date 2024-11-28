@@ -18,7 +18,9 @@ object ApiClient {
                 val request = chain.request().newBuilder()
 
                 // 토큰 가져오기
-                val token = TokenApplication.getAccessToken()
+            //    val token = TokenApplication.getAccessToken()
+                val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmlja25hbWUiOiLsip3sip3snbQiLCJpYXQiOjE3MzI3NjMxNzYsImV4cCI6MTczMjc3MDM3NiwiaXNzIjoicGxvdHRpbmcifQ.hCuWL8w5e9HRiaQcF_a3i4lbXUXBmP42p0F3OLIbT0M"
+
 
                 // 토큰이 존재하면 Authorization 헤더 추가
                 if (!token.isNullOrEmpty()) {

@@ -30,8 +30,8 @@
             android:exported="false" />
 
         <activity
-            android:name=".WelcomeActivity"
-            android:theme="@style/Theme.Plotting_FE.Splash"
+            android:name=".myplogging.ui.MyPloggingHomeActivity"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,20 +52,14 @@
             android:name=".MainActivity"
             android:exported="false" />
 
-        <!-- 플로깅 모임 생성 액티비티1 -->
-        <activity
-            android:name=".plogging.ui.PloggingMakeActivity1"
-            android:exported="true" />
+
 
         <!-- 플로깅 모임 생성 액티비티2 -->
         <activity
             android:name=".plogging.ui.PloggingMakeActivity2"
             android:exported="true" />
 
-        <!-- 플로깅 검색 액티비티 -->
-        <activity
-            android:name=".plogging.ui.GetPloggings"
-            android:exported="true" />
+
 
         <activity
             android:name=".myplogging.ui.MyPloggingParticipatedActivity"
@@ -83,9 +77,6 @@
             android:name=".myplogging.ui.MyMonthlyPloggingActivity"
             android:exported="true" />
 
-        <activity
-            android:name=".myplogging.ui.MyPloggingHomeActivity"
-            android:exported="true" />
 
         <activity
             android:name=".plogging.ui.PloggingMapActivity"

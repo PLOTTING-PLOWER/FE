@@ -69,11 +69,11 @@ interface MyPloggingController {
         @Query("userId") userId: Long
     ): Call<ResponseTemplate<MyPloggingSummaryResponse>>
 
-    @DELETE("/my-ploggings/{ploggingId}/Cancel/{UserId}")
+    @DELETE("/my-ploggings/{ploggingId}/Cancel")
     fun reqeustCancel(
         @Path("ploggingId") ploggingId: Long,
         @Path("UserId") UserId: Long
-    ): Call<ResponseTemplate<Void>>
+    ): Call<ResponseTemplate<MyPloggingSummaryResponse>>
 
 
 }
