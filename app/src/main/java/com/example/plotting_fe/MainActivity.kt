@@ -18,6 +18,8 @@ import com.example.plotting_fe.databinding.AActivityMainBinding
 import com.example.plotting_fe.global.application.TokenApplication
 import com.example.plotting_fe.global.util.FcmTokenUtil
 import com.example.plotting_fe.myplogging.ui.MyPloggingHomeActivity
+import com.example.plotting_fe.myplogging.ui.MyPloggingParticipatedActivity
+import com.example.plotting_fe.myplogging.ui.MyPloggingScheduledActivity
 import com.example.plotting_fe.plogging.ui.PloggingMapActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging

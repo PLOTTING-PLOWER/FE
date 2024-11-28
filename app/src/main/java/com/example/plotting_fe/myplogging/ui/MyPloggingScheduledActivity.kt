@@ -80,7 +80,7 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(dataList: List<MyPloggingScheduledResponse>) {
-        adapter = MyPloggingScheduledAdapter(this,dataList) { ploggingId, userId ->
+        adapter = MyPloggingScheduledAdapter(this,dataList) { ploggingId ->
             // 취소 버튼 클릭 시 호출되는 메서드
             cancelPlogging(ploggingId)
         }

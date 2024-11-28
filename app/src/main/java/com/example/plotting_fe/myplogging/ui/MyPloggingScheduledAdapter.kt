@@ -21,7 +21,7 @@ import retrofit2.Response
 class MyPloggingScheduledAdapter(
     private val context: Context,
     private val dataList: List<MyPloggingScheduledResponse>,
-    private val onCancelClick: (ploggingId: Long, UserId: Long) -> Unit
+    private val onCancelClick: (ploggingId: Long) -> Unit
 ) : RecyclerView.Adapter<MyPloggingScheduledAdapter.ViewHolder>() {
 
     // ViewHolder 클래스 정의
@@ -81,7 +81,7 @@ class MyPloggingScheduledAdapter(
 
             cancelButton.setOnClickListener {
                 // Call the onCancelClick function to trigger the API request
-                onCancelClick(item.ploggingId, 1L)
+                onCancelClick(item.ploggingId)
             }
         }
     }
