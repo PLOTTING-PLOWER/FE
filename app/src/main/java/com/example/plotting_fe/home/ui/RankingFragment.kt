@@ -17,6 +17,7 @@ import com.example.plotting_fe.home.ui.dto.response.RankingListResponse
 import com.example.plotting_fe.home.ui.dto.response.RankingResponse
 import com.example.plotting_fe.home.ui.presentation.RankingController
 import com.example.plotting_fe.mypage.dto.response.DetailProfileResponse
+import com.example.plotting_fe.myplogging.ui.MyPloggingHomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -83,6 +84,10 @@ class RankingFragment : Fragment() {
         myhour.text = (myRanking.totalHours/60).toString()+" H"
         mycount.text = myRanking.totalCount.toString()+" 회"
 
+        val activity = requireActivity()
+        if (activity is MyPloggingHomeActivity) {
+            activity.updateMyRankText(myRank.text.toString())
+        }
 
 //        top ranking
         val rankingContainers = listOf(

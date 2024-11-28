@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plotting_fe.R
 import com.example.plotting_fe.myplogging.ui.MyPloggingHomeActivity
@@ -14,17 +15,16 @@ class PloggingMapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plogging_map)
 
-        val searchEditText: EditText = findViewById(R.id.search_edit_text)
+        val search: TextView = findViewById(R.id.search_text)
         val filter : ImageView = findViewById(R.id.filter)
 
         filter.setOnClickListener {
-            val intent = Intent(this, PloggingMapFilterActivity::class.java)
+            val intent = Intent(this, GetPloggings::class.java)
             startActivity(intent)
         }
 
-        searchEditText.setOnClickListener {
-            // EditText 클릭 시 MyPloggingHomeActivity로 이동
-            val intent = Intent(this, MyPloggingHomeActivity::class.java)
+        search.setOnClickListener {
+            val intent = Intent(this, GetPloggings::class.java)
             startActivity(intent)
         }
 

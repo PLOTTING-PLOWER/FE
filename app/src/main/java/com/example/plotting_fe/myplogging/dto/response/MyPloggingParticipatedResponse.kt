@@ -11,5 +11,6 @@ data class MyPloggingParticipatedResponse(
     val currentPeople: Long,
     val maxPeople: Long,
     val startLocation: String,
+    val isStar : Boolean,
 ) {
 }

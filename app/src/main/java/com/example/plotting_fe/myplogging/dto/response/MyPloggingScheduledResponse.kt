@@ -12,5 +12,6 @@ data class MyPloggingScheduledResponse(
     val maxPeople: Long,
     val startLocation: String,
     val isAssigned : Boolean,
+    val isStar : Boolean,
 ) {
 }

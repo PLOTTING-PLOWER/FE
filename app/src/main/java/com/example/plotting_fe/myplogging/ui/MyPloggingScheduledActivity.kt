@@ -48,10 +48,9 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
 
     private fun fetchData() {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
-        val userId = 1L // 테스트용으로 사용자 ID 설정
 
-        myPloggingController.getMyPloggingScheduled(userId)
-            .enqueue(object : Callback<ResponseTemplate<List<MyPloggingScheduledResponse>>> {
+        myPloggingController.getMyPloggingScheduled().enqueue(object :
+            Callback<ResponseTemplate<List<MyPloggingScheduledResponse>>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<List<MyPloggingScheduledResponse>>>,
                     response: Response<ResponseTemplate<List<MyPloggingScheduledResponse>>>
@@ -83,16 +82,16 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
     private fun setupRecyclerView(dataList: List<MyPloggingScheduledResponse>) {
         adapter = MyPloggingScheduledAdapter(this,dataList) { ploggingId, userId ->
             // 취소 버튼 클릭 시 호출되는 메서드
-            cancelPlogging(ploggingId, userId)
+            cancelPlogging(ploggingId)
         }
         recyclerViewScheduledPlogging.adapter = adapter
     }
 
-    private fun cancelPlogging(ploggingId: Long, userId: Long) {
+    private fun cancelPlogging(ploggingId: Long) {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
 
-        myPloggingController.reqeustCancel(ploggingId, userId)
-            .enqueue(object : Callback<ResponseTemplate<Void>> {
+        myPloggingController.reqeustCancel(ploggingId).enqueue(object :
+            Callback<ResponseTemplate<Void>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<Void>>,
                     response: Response<ResponseTemplate<Void>>
@@ -106,7 +105,10 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
+                override fun onFailure(
+                    call: Call<ResponseTemplate<Void>>,
+                    t: Throwable
+                ) {
                     showToast("서버 연결에 실패했습니다.")
                 }
             })

@@ -56,24 +56,20 @@ interface MyPloggingController {
 
     @GET("/my-ploggings/participated")
     fun getMyPloggingParticipated(
-        @Query("userId") userId: Long
     ): Call<ResponseTemplate<List<MyPloggingParticipatedResponse>>>
 
     @GET("/my-ploggings/scheduled")
     fun getMyPloggingScheduled(
-        @Query("userId") userId: Long
     ): Call<ResponseTemplate<List<MyPloggingScheduledResponse>>>
 
     @GET("/my-ploggings/summary")
     fun getPloggingSummary(
-        @Query("userId") userId: Long
     ): Call<ResponseTemplate<MyPloggingSummaryResponse>>
 
     @DELETE("/my-ploggings/{ploggingId}/Cancel")
     fun reqeustCancel(
         @Path("ploggingId") ploggingId: Long,
-        @Path("UserId") UserId: Long
-    ): Call<ResponseTemplate<MyPloggingSummaryResponse>>
+    ): Call<ResponseTemplate<Void>>
 
     @POST("/star/plogging/{ploggingId}")
     fun updateStar(

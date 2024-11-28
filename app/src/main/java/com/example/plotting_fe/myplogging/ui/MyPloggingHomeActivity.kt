@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.home.ui.RankingFragment
 import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
@@ -31,8 +32,8 @@ class MyPloggingHomeActivity : AppCompatActivity() {
     private lateinit var tvBtnShowMore2: TextView      // 'Show More' 버튼 2
     private lateinit var tvBtnShowMore3: TextView      // 'Show More' 버튼 3
     private lateinit var tvBtnShowMoreAdd: TextView
-    private lateinit var trophy : ImageView
     private lateinit var edit : ImageView
+    private lateinit var myRank : TextView             // 랭킹
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +61,13 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         tvBtnShowMore2 = findViewById(R.id.tv_btn_show_more2)
         tvBtnShowMore3 = findViewById(R.id.tv_btn_show_more3)
         tvBtnShowMoreAdd = findViewById(R.id.tv_btn_show_more_add)
-        trophy = findViewById(R.id.trophy)
         edit = findViewById(R.id.edit)
+
+        // 프래그먼트 초기화
+        val rankingFragment = RankingFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, rankingFragment)
+            .commit()
 
         // 버튼 클릭 이벤트 설정
         edit.setOnClickListener {
@@ -84,18 +90,12 @@ class MyPloggingHomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        trophy.setOnClickListener {
-            val intent = Intent(this, MyPloggingParticipatedActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 
     private fun fetchData() {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
-        val userId = 2L // 테스트용으로 사용자 ID 설정
 
-        myPloggingController.getPloggingSummary(userId)
+        myPloggingController.getPloggingSummary()
             .enqueue(object : Callback<ResponseTemplate<MyPloggingSummaryResponse>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<MyPloggingSummaryResponse>>,
@@ -130,9 +130,8 @@ class MyPloggingHomeActivity : AppCompatActivity() {
 
     private fun fetchPloggingData_2() {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
-        val userId = 1L // 테스트용으로 사용자 ID 설정
 
-        myPloggingController.getMyPloggingScheduled(userId)
+        myPloggingController.getMyPloggingScheduled()
             .enqueue(object : Callback<ResponseTemplate<List<MyPloggingScheduledResponse>>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<List<MyPloggingScheduledResponse>>>,
@@ -200,9 +199,8 @@ class MyPloggingHomeActivity : AppCompatActivity() {
 
     private fun fetchPloggingData_4() {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
-        val userId = 1L // 테스트용으로 사용자 ID 설정
 
-        myPloggingController.getMyPloggingParticipated(userId)
+        myPloggingController.getMyPloggingParticipated()
             .enqueue(object : Callback<ResponseTemplate<List<MyPloggingParticipatedResponse>>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<List<MyPloggingParticipatedResponse>>>,
@@ -270,6 +268,13 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         ploggingTime.text = "${response.totalSpendTime}시간"
     }
 
+    // Fragment에서 값을 받을 메서드
+    fun updateMyRankText(myRankText: String) {
+        Log.d("MyRank", "Received myRank: $myRankText")
+        myRank = findViewById(R.id.ranking)
+        myRank.text = "$myRankText"
+
+    }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
