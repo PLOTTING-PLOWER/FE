@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.Insets
@@ -23,6 +24,7 @@ import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     private var checkedNickname: String? = null
+    private lateinit var alertCheckTextView: TextView
 
     private val authController: AuthController by lazy{
         ApiClient.getApiClient().create(AuthController::class.java)
@@ -44,6 +46,8 @@ class SignUpActivity : AppCompatActivity() {
         val passWordConfirmInput = findViewById<EditText>(R.id.et_pwConfirm)
         val nickNameCheckBtn = findViewById<Button>(R.id.btn_nicknameCheck)
         val joinBtn = findViewById<Button>(R.id.btn_join)
+        alertCheckTextView.visibility = View.GONE // 텍스트뷰 숨기기
+
 
         joinBtn.setOnClickListener{
             val nickname = nicknameInput.text.toString()
@@ -74,7 +78,7 @@ class SignUpActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody?.isSuccess == true) {
-                        Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SignUpActivity, "회원가입이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
 
                         // 회원 가입 성공 시 LoginActivity로 이동
                         val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
@@ -111,11 +115,13 @@ class SignUpActivity : AppCompatActivity() {
                     if(responseTemplate?.isSuccess ==true){
                         val isAvailable = responseTemplate.results ?: false
                         if(isAvailable){
-                            Toast.makeText(this@SignUpActivity, "사용 가능한 닉네임 입니다.", Toast.LENGTH_SHORT).show()
                             checkedNickname = nickname
+                            alertCheckTextView.text = "사용 가능한 닉네임 입니다."
                         }else{
-                            Toast.makeText(this@SignUpActivity, "이미 사용중인 닉네임 입니다.", Toast.LENGTH_SHORT).show()
+                            alertCheckTextView.text = "이미 사용중인 닉네임 입니다."
                         }
+                        alertCheckTextView.visibility = View.VISIBLE // 텍스트뷰 보이기
+                        Log.d("get", "onResponse 성공: " + response.body().toString())
                     }else{
                         Toast.makeText(this@SignUpActivity, "닉네임 확인 실패", Toast.LENGTH_SHORT).show()
                     }
@@ -155,9 +161,11 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         if(checkedNickname == null || checkedNickname != nickname){
-            Toast.makeText(this, "닉네임 중복 확인 해주세요", Toast.LENGTH_SHORT).show()
+            alertCheckTextView.text = "중복 확인을 해주세요"
+            alertCheckTextView.visibility = View.VISIBLE // 텍스트뷰 보이기
             return false
         }
+        alertCheckTextView.visibility = View.GONE // 텍스트뷰 숨기기
         return true
     }
 }
