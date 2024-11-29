@@ -480,7 +480,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!--&lt;!&ndash; 네비게이션 &ndash;&gt;-->
+<!--    &lt;!&ndash; 네비게이션 &ndash;&gt;-->
 <!--    <androidx.fragment.app.FragmentContainerView-->
 <!--        android:id="@+id/nav_host_fragment"-->
 <!--        android:name="com.example.plotting_fe.home.ui.MainActivity"-->
@@ -490,21 +490,21 @@
 <!--        app:navGraph="@navigation/nav_graph"-->
 <!--        tools:ignore="MissingConstraints" />-->
 
-<!--    &lt;!&ndash; 네비게이션 바 &ndash;&gt;-->
-<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--            android:id="@+id/bottom_navigation"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            android:background="@drawable/rounded_bottom_nav_background"-->
-<!--            app:menu="@menu/bottom_nav_menu"-->
-<!--            app:itemIconTint="@color/bottom_nav_item_color"-->
-<!--            app:itemTextColor="@color/bottom_nav_item_color"-->
-<!--            app:labelVisibilityMode="labeled"-->
-<!--            app:itemBackground="@android:color/transparent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent" />-->
+    <!-- 네비게이션 바 -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/rounded_bottom_nav_background"
+            app:menu="@menu/bottom_nav_menu"
+            app:itemIconTint="@color/bottom_nav_item_color"
+            app:itemTextColor="@color/bottom_nav_item_color"
+            app:labelVisibilityMode="labeled"
+            app:itemBackground="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
