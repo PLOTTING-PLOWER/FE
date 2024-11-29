@@ -48,26 +48,29 @@ class MainActivity : AppCompatActivity() {
             // 기본 네비게이션 설정
             NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
-            // BottomNavigationView 클릭 이벤트 추가
-            bottomNavigationView.setOnItemSelectedListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.navigation_map -> {
-                        // PloggingMapActivity로 이동
-                        startActivity(Intent(this, PloggingMapActivity::class.java))
-                        true
-                    }
-                    R.id.navigation_steps -> {
-                        // MyPloggingHomeActivity로 이동
-                        startActivity(Intent(this, MyPloggingHomeActivity::class.java))
-                        true
-                    }
-                    else -> {
-                        // 기본 네비게이션 처리
-                        NavigationUI.onNavDestinationSelected(menuItem, navController)
-                        true
-                    }
-                }
-            }
+
+//            // FIXME
+//            // TODO: 메인 화면은 여기가 아니라, home 도메인-> MainActivity 로 설정함.
+//            // BottomNavigationView 클릭 이벤트 추가
+//            bottomNavigationView.setOnItemSelectedListener { menuItem ->
+//                when (menuItem.itemId) {
+//                    R.id.navigation_map -> {
+//                        // PloggingMapActivity로 이동
+//                        startActivity(Intent(this, PloggingMapActivity::class.java))
+//                        true
+//                    }
+//                    R.id.navigation_steps -> {
+//                        // MyPloggingHomeActivity로 이동
+//                        startActivity(Intent(this, MyPloggingHomeActivity::class.java))
+//                        true
+//                    }
+//                    else -> {
+//                        // 기본 네비게이션 처리
+//                        NavigationUI.onNavDestinationSelected(menuItem, navController)
+//                        true
+//                    }
+//                }
+//            }
         }
 
         // FCM 토큰 요청 및 서버 전송
@@ -109,15 +112,15 @@ class MainActivity : AppCompatActivity() {
             Log.d("FCM", "FCM Token: $token")
 
             val savedToken = TokenApplication.getFcmToken()
-            if(token!=savedToken){
+            if (token != savedToken) {
                 // 변경된 경우 서버로 토큰 전송
                 FcmTokenUtil.sendTokenToServer(token)
                 TokenApplication.saveFcmToken(token) // 새토큰 저장
-            }else{
+            } else {
                 Log.d("FCM", "Token has not changed")
             }
         }
     }
-
-
 }
+
+

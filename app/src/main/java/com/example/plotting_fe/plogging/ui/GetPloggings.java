@@ -8,11 +8,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.home.ui.MainActivity;
+import com.example.plotting_fe.mypage.ui.MypageFragment;
+import com.example.plotting_fe.myplogging.ui.MyPloggingHomeActivity;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +51,7 @@ public class GetPloggings extends AppCompatActivity {
         // 버튼 모음
         buttons();
 
-//        Intent intent = getIntent();
-
+        setupBottomNavigationView();
     }
 
     private void buttons() {
@@ -89,5 +93,33 @@ public class GetPloggings extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setupBottomNavigationView() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.navigation_plogging) { // 1.홈
+            } else if (itemId == R.id.navigation_home) { //2. 플로깅 조회
+                startActivity(new Intent(GetPloggings.this, MainActivity.class));
+            } else if (itemId == R.id.navigation_map) { //3. 지도
+                startActivity(new Intent(GetPloggings.this, PloggingMapActivity.class));
+            } else if (itemId == R.id.navigation_steps) { //4. 내 걸음
+                startActivity(new Intent(GetPloggings.this, MyPloggingHomeActivity.class));
+            } else { //5. 내 정보
+                openFragment(new MypageFragment()); //MypageFragment로 이동
+            }
+
+            return true; // 이벤트 처리 완료
+        });
+    }
+    private void openFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment) // Fragment를 배치할 FrameLayout의 ID
+                .addToBackStack(null) // 뒤로 가기 스택에 추가
+                .commit();
     }
 }

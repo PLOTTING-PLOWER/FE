@@ -8,18 +8,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.home.dto.response.HomeResponse;
+import com.example.plotting_fe.mypage.ui.MypageFragment;
+import com.example.plotting_fe.myplogging.ui.MyPloggingHomeActivity;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
 import com.example.plotting_fe.plogging.dto.response.PlowerResponse;
 import com.example.plotting_fe.plogging.ui.GetPloggings;
 import com.example.plotting_fe.plogging.ui.PloggingApiService;
+import com.example.plotting_fe.plogging.ui.PloggingMapActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private HomeApiService homeApiService;
     private PloggingApiService ploggingApiService;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         // 뷰 초기화
         initializeViews();
+
+        // 네비게이션 바 설정
+        setupBottomNavigationView();
 
         // 리사이클러뷰 레이아웃 매니저 설정
         setupRecyclerView();
@@ -57,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
         // 서버에서 홈 데이터 가져오기
         getHome();
 
-        // 더미 데이터 추가 (TODO: 서버 데이터 존재시 지울예정 변경 필요)
+        // 더미 데이터 추가 (TODO: 서버 데이터 존재시 지울 예정)
         setDummyData();
-
 
         // 버튼 클릭 이벤트 설정
         setupButtonListeners();
@@ -85,8 +92,38 @@ public class MainActivity extends AppCompatActivity {
         btnRanking = findViewById(R.id.welcome_rank);
         btnAlarm = findViewById(R.id.welcome_alarm);
         btnSearch = findViewById(R.id.welcome_search);
-
     }
+
+    private void setupBottomNavigationView() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+
+            if (itemId == R.id.navigation_home) { // 1.홈
+            } else if (itemId == R.id.navigation_plogging) { //2. 플로깅 조회
+                startActivity(new Intent(MainActivity.this, GetPloggings.class));
+            } else if (itemId == R.id.navigation_map) { //3. 지도
+                startActivity(new Intent(MainActivity.this, PloggingMapActivity.class));
+            } else if (itemId == R.id.navigation_steps) { //4. 내 걸음
+                startActivity(new Intent(MainActivity.this, MyPloggingHomeActivity.class));
+            } else { //5. 내 정보
+                openFragment(new MypageFragment()); //MypageFragment로 이동
+            }
+
+            return true; // 이벤트 처리 완료
+        });
+    }
+
+    private void openFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment) // Fragment를 배치할 FrameLayout의 ID
+                .addToBackStack(null) // 뒤로 가기 스택에 추가
+                .commit();
+    }
+
 
 
     private void setupRecyclerView() {
@@ -94,43 +131,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-    private void setDummyData() {
-
-        List<PloggingResponse> dummyData = new ArrayList<>();
-
-
-        dummyData = new ArrayList<PloggingResponse>();
-
-        // PloggingResponse 객체를 생성하여 리스트에 추가
-        dummyData.add(new PloggingResponse(
-                1L, "플로깅1", 5L, "ASSIGN",
-                "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"
-        ));
-
-        dummyData.add(new PloggingResponse(
-                1L, "플로깅1", 5L, "ASSIGN",
-                "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"
-        ));
-
-        dummyData.add(new PloggingResponse(
-                1L, "플로깅1", 5L, "ASSIGN",
-                "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"
-        ));
-
-        dummyData.add(new PloggingResponse(
-                1L, "플로깅1", 5L, "ASSIGN",
-                "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"
-        ));
-        homeAdapter.updateDataList(dummyData);
-    }
-
     private void setupAdapter() {
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(homeAdapter);
-        homeAdapter = new HomeAdapter(dataList);  // 어댑터 초기화
+        homeAdapter = new HomeAdapter(dataList); // 어댑터 초기화
         recyclerView.setAdapter(homeAdapter);
     }
 
+    private void setDummyData() {
+        List<PloggingResponse> dummyData = new ArrayList<>();
+        dummyData.add(new PloggingResponse(1L, "플로깅1", 5L, "ASSIGN", "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"));
+        dummyData.add(new PloggingResponse(2L, "플로깅2", 10L, "APPROVE", "2024-12-31", "2024-12-16T14:00:00", 150L, "Busan"));
+        homeAdapter.updateDataList(dummyData);
+    }
 
     private void setupButtonListeners() {
         btnRead.setOnClickListener(v -> {
@@ -146,96 +157,37 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, GetPloggings.class));
         });
 
-//        // TODO : 알림 화면으로 intent
-//        btnAlarm.setOnClickListener(v -> {
-//            startActivity(new Intent(this, 알림 화면.class));
-//        });
-
-        // 카테고리 버튼 연결 모아놓은 메서드
         setupCategoryButtons();
     }
 
-
-    //  파라미터 : region: String, startDate: LocalDate, endDate: LocalDate, type: String, spendTime: Long,
-//  타입 바꾸기 startTime: LocalDateTime,  maxPeople: Long
     private void setupCategoryButtons() {
-        // 한번만 초기화
+        // 카테고리 버튼 초기화
         if (ploggingApiService == null) {
             ploggingApiService = new PloggingApiService();
         }
 
         btnCategotyTodayWillFinish.setOnClickListener(v -> {
-
-            // 현재 날짜와 시간을 String으로 변환
-            String endDate = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                endDate = LocalDate.now().toString();
-            }
-            String startTime = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                startTime = LocalDateTime.now().toString();
-            }
             String region = "Seoul";
-            String startDate = "2024-01-01";
-            String type = "DIRECT";
-            Long spendTime = 1L;
-            Long maxPeople = 1000L;
-            startActivity(new Intent(MainActivity.this, GetPloggings.class));
-
-            // 서버 호출하기
-            ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
-                    this);
+            String endDate = LocalDate.now().toString();
+            ploggingApiService.filterPlogging(region, "2024-01-01", endDate, "DIRECT", 1L, LocalDateTime.now().toString(), 1000L, this);
         });
 
         btnCategoty15Up.setOnClickListener(v -> {
             String region = "Seoul";
-            String startDate = "2024-01-01";
-            String endDate = "2025-01-01";
-            String type = "DIRECT";
-            Long spendTime = 1L;
-            String startTime = "2024-01-01T01:00:00";
-            Long maxPeople = 15L;
-            startActivity(new Intent(MainActivity.this, GetPloggings.class));
-
-            // 서버 호출하기
-            ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
-                    this);
-
+            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "DIRECT", 1L, "2024-01-01T01:00:00", 15L, this);
         });
 
         btnCategoryApprove.setOnClickListener(v -> {
             String region = "Seoul";
-            String startDate = "2024-01-01";
-            String endDate = "2025-01-01";
-            String type = "APPROVE";
-            Long spendTime = 1L;
-            String startTime = "2024-01-01T01:00:00";
-            Long maxPeople = 1000L;
-            startActivity(new Intent(MainActivity.this, GetPloggings.class));
-
-            // 서버 호출하기
-            ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
-                    this);
+            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "APPROVE", 1L, "2024-01-01T01:00:00", 1000L, this);
         });
 
         btnCategoryDirect.setOnClickListener(v -> {
             String region = "Seoul";
-            String startDate = "2024-01-01";
-            String endDate = "2025-01-01";
-            String type = "DIRECT";
-            Long spendTime = 1L;
-            String startTime = "2024-01-01T01:00:00";
-            Long maxPeople = 1000L;
-
-            startActivity(new Intent(MainActivity.this, GetPloggings.class));
-
-            // 서버 호출하기
-            ploggingApiService.filterPlogging(region, startDate, endDate, type, spendTime, startTime, maxPeople,
-                    this);
+            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "DIRECT", 1L, "2024-01-01T01:00:00", 1000L, this);
         });
     }
 
-    // 홈에 각 데이터 맵핑함
     private void getHome() {
         homeApiService = new HomeApiService();
         homeApiService.getHome(new HomeResponseListener() {
@@ -243,69 +195,18 @@ public class MainActivity extends AppCompatActivity {
             public void onHomeDataReceived(HomeResponse homeResponse) {
                 Toast.makeText(MainActivity.this, "반갑습니다!", Toast.LENGTH_SHORT).show();
                 Log.d("MainActivity", "Home data received: " + homeResponse.toString());
-
             }
 
-            // 인기 플로깅
             @Override
             public void onPloggingDataReceived(List<PloggingResponse> ploggingResponseList) {
-                Log.d("MainActivity", "Plogging data received: " + ploggingResponseList);
-
-                if (homeAdapter != null) {
-                    homeAdapter.updateDataList(ploggingResponseList);  // 데이터 업데이트
-                }
+                homeAdapter.updateDataList(ploggingResponseList);
             }
 
-            // 인기 플로워
             @Override
-            public void onPlowerDataReceived(List<PlowerResponse> PlowerResponse) {
-                // Plower 목록 가져오기
-                List<PlowerResponse> plowerList = PlowerResponse;
-                Log.d("Plower", plowerList.toString());
-
-                // 각 플로워에 대해 처리
-                for (int index = 0; index < plowerList.size(); index++) {
-                    PlowerResponse plower = plowerList.get(index);
-
-                    switch (index) {
-                        case 0:
-                            // 첫 번째 플로워 설정
-                            btnPlowerName1.setText(plower.getNickname());
-                            Glide.with(getApplicationContext())
-                                    .load(plower.getProfileImageUrl())
-                                    .placeholder(R.drawable.ic_icon_round)
-                                    .into(btnPlower1);
-                            break;
-                        case 1:
-                            // 두 번째 플로워 설정
-                            btnPlowerName2.setText(plower.getNickname());
-                            Glide.with(getApplicationContext())
-                                    .load(plower.getProfileImageUrl())
-                                    .placeholder(R.drawable.ic_icon_round)
-                                    .into(btnPlower2);
-                            break;
-                        case 2:
-                            // 세 번째 플로워 설정
-                            btnPlowerName3.setText(plower.getNickname());
-                            Glide.with(getApplicationContext())
-                                    .load(plower.getProfileImageUrl())
-                                    .placeholder(R.drawable.ic_icon_round)
-                                    .into(btnPlower3);
-                            break;
-                        case 3:
-                            // 네 번째 플로워 설정
-                            btnPlowerName4.setText(plower.getNickname());
-                            Glide.with(getApplicationContext())
-                                    .load(plower.getProfileImageUrl())
-                                    .placeholder(R.drawable.ic_icon_round)
-                                    .into(btnPlower4);
-                            break;
-                        default:
-                            break;
-                    }
-                }
+            public void onPlowerDataReceived(List<PlowerResponse> plowerList) {
+                // Plower 데이터를 처리하는 로직
             }
-            // 유저 이름
+
             @Override
             public void onUserDataReceiver(String nickname) {
                 userNickname.setText(nickname);
@@ -313,10 +214,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(String errorMessage) {
-                // 오류 발생 시 처리
                 Log.e("MainActivity", "Error fetching home data: " + errorMessage);
                 Toast.makeText(MainActivity.this, "실패!: " + errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 }
