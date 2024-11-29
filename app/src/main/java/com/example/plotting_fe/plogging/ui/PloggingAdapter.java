@@ -91,7 +91,7 @@ public class PloggingAdapter extends RecyclerView.Adapter<PloggingAdapter.ViewHo
             super(itemView);
             titleTextView = itemView.findViewById(R.id.tvTitle);
             startLocation = itemView.findViewById(R.id.tvStartLocation);
-            ploggingType = itemView.findViewById(R.id.tvFirstCome);
+            ploggingType = itemView.findViewById(R.id.tvploggingType);
             startDateAndTime = itemView.findViewById(R.id.tvStartTime);
             duringTime = itemView.findViewById(R.id.tvSpendTime);
             maxPeople = itemView.findViewById(R.id.tvMaxPeople);
