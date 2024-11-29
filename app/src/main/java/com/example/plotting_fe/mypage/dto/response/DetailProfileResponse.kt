@@ -7,5 +7,5 @@ data class DetailProfileResponse (
     val isStar :Boolean,         // 내가 즐겨찾기 했는지 여부
     val totalPloggingNumber: Long,   // 총 플로깅 획수
     val totalPloggingTime: Long ,     // 총 플로깅 시간
-    val ranking:Long                 // 랭킹
+    val ranking:Long,                 // 랭킹
 )

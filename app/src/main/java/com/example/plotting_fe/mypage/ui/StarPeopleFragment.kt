@@ -45,16 +45,16 @@ class StarPeopleFragment : Fragment() {
         // 어댑터 초기화 시 클릭 리스너 추가
         adapter = PeopleAdapter(peopleList, object : PeopleAdapter.OnPersonClickListener {
             override fun onPersonClick(person: Person) {
-                // ProfileDetailFragment로 이동
-                val args = Bundle().apply {
-                    putLong("userId", person.userId)
+                if(person.isProfilePublic){     // 공개일때 넘어감
+                    // ProfileDetailFragment로 이동
+                    val args = Bundle().apply {
+                        putLong("userId", person.userId)
+                    }
+                    navController.navigate(R.id.action_star_to_profile_detail, args)
                 }
-                navController.navigate(R.id.action_star_to_profile_detail, args)
             }
         })
-
         recyclerView.adapter = adapter
-
         return view
     }
 

@@ -68,7 +68,6 @@ class ProfileDetailFragment : Fragment() {
                         Log.d("get", "onResponse 성공: profileData==null")
                     }
                 } else {
-                    Toast.makeText(requireContext(), "회원 정보가 비공개 입니다.", Toast.LENGTH_SHORT).show()
                     activity?.onBackPressed()
                     Log.d("get", "onResponse 실패: " + response.code())
                 }
