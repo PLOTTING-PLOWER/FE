@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         _binding = AActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         // 시스템 바 인셋 처리
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
