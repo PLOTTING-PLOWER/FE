@@ -2,6 +2,7 @@ package com.example.plotting_fe.myplogging.ui
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
+import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
+import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import com.example.plotting_fe.plogging.ui.PloggingDetailActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyPloggingParticipatedAdapter(
     private val context: Context,
@@ -28,6 +35,8 @@ class MyPloggingParticipatedAdapter(
         val CurrentPeople: TextView = itemView.findViewById(R.id.tvCurrentPeople)
         val MaxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
         val btnJoin: Button = itemView.findViewById(R.id.btnJoin)
+        val grayStar: ImageView = itemView.findViewById(R.id.iv_gray_star)
+        val colorStar: ImageView = itemView.findViewById(R.id.iv_color_star)
 
         // 데이터를 뷰에 바인딩하는 메서드
         fun bind(item: MyPloggingParticipatedResponse) {
@@ -44,10 +53,30 @@ class MyPloggingParticipatedAdapter(
                 PloggingType.text = "승인제"
             }
 
-            // 버튼 클릭 리스너 설정
+            if (item.isStar) {
+                grayStar.visibility = View.GONE
+                colorStar.visibility = View.VISIBLE
+            } else {
+                grayStar.visibility = View.VISIBLE
+                colorStar.visibility = View.GONE
+            }
+
+            grayStar.setOnClickListener {
+                updateStar(item.ploggingId)
+                grayStar.visibility = View.GONE
+                colorStar.visibility = View.VISIBLE
+            }
+
+            colorStar.setOnClickListener {
+                updateStar(item.ploggingId)
+                grayStar.visibility = View.VISIBLE
+                colorStar.visibility = View.GONE
+            }
+
+            // 참여하기 버튼 클릭 리스너 설정
             btnJoin.setOnClickListener {
                 val intent = Intent(context, PloggingDetailActivity::class.java)
-                context.startActivity(intent) // Context를 사용해 액티비티 이동
+                context.startActivity(intent)
             }
         }
     }
@@ -62,6 +91,24 @@ class MyPloggingParticipatedAdapter(
     // ViewHolder에 데이터 바인딩
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataList[position])
+    }
+
+    fun updateStar(ploggingId: Long) {
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
+        myPloggingController.updateStar(ploggingId).enqueue(object :
+            Callback<ResponseTemplate<Void>> {
+            override fun onResponse(call: Call<ResponseTemplate<Void>>, response: Response<ResponseTemplate<Void>>) {
+                if (response.isSuccessful) {
+                    Log.d("post", "성공: $ploggingId")
+                } else {
+                    Log.d("post", "삭제 실패: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
+                Log.d("post", "실패: ${t.message}")
+            }
+        })
     }
 
     // 아이템 개수 반환

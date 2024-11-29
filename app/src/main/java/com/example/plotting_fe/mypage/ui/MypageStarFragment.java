@@ -18,7 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class MypageStarFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    private StarViewPagerAdapter pagerAdapter;
+//    private StarViewPagerAdapter pagerAdapter;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -55,9 +55,9 @@ public class MypageStarFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
 
-        // ViewPager2에 어댑터 설정
-        pagerAdapter = new StarViewPagerAdapter(this);
-        viewPager.setAdapter(pagerAdapter);
+//        // ViewPager2에 어댑터 설정
+//        pagerAdapter = new StarViewPagerAdapter(this);
+//        viewPager.setAdapter(pagerAdapter);
 
         // TabLayout과 ViewPager2 연결
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {

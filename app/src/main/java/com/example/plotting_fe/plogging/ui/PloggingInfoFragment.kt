@@ -94,7 +94,7 @@ class PloggingInfoFragment : Fragment() {
     private fun showParticipantsDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_participants, null)
 
-        participantsRecyclerView = dialogView.findViewById(R.id.participantsRecyclerView)
+        participantsRecyclerView = dialogView.findViewById(R.id.titleRecyclerView)
         participantList = ArrayList()
 
         // 다이얼로그의 TextView에 currentPeople 및 maxPeople 값을 설정할 변수

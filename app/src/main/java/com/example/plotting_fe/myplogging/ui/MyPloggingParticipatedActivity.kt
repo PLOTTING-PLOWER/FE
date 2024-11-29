@@ -54,9 +54,8 @@ class MyPloggingParticipatedActivity : AppCompatActivity() {
 
     private fun fetchData() {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
-        val userId = 1L // 테스트용으로 사용자 ID 설정
 
-        myPloggingController.getMyPloggingParticipated(userId)
+        myPloggingController.getMyPloggingParticipated()
             .enqueue(object : Callback<ResponseTemplate<List<MyPloggingParticipatedResponse>>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<List<MyPloggingParticipatedResponse>>>,

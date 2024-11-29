@@ -24,6 +24,8 @@ import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
 import com.example.plotting_fe.global.util.ClickUtil
 import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.NidOAuthIntent
+import com.navercorp.nid.oauth.NidOAuthLogin
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

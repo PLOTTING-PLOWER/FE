@@ -65,14 +65,8 @@ class PloggingInfoMapFragment : DialogFragment() {
         recyclerView = view.findViewById(R.id.recyclerViewPlogging)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        // ploggingInfoList가 null이거나 비어있으면 RecyclerView 숨기기
-        if (ploggingInfoList.isNullOrEmpty()) {
-            recyclerView.visibility = View.GONE
-            return
-        }
-
         // RecyclerView Adapter 설정
-        adapter = PloggingMapAdapter(ploggingInfoList!!)
+        adapter = PloggingMapAdapter(requireContext(),ploggingInfoList!!)
         recyclerView.adapter = adapter
     }
 }

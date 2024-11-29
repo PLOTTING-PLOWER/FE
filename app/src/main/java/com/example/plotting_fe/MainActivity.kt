@@ -3,6 +3,7 @@ package com.example.plotting_fe
 import android.content.pm.PackageManager
 import android.Manifest
 import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +17,10 @@ import androidx.navigation.ui.NavigationUI
 import com.example.plotting_fe.databinding.AActivityMainBinding
 import com.example.plotting_fe.global.application.TokenApplication
 import com.example.plotting_fe.global.util.FcmTokenUtil
+import com.example.plotting_fe.myplogging.ui.MyPloggingHomeActivity
+import com.example.plotting_fe.myplogging.ui.MyPloggingParticipatedActivity
+import com.example.plotting_fe.myplogging.ui.MyPloggingScheduledActivity
+import com.example.plotting_fe.plogging.ui.PloggingMapActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -40,7 +45,30 @@ class MainActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).post {
             val navController = findNavController(R.id.nav_host_fragment)
             val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+            // 기본 네비게이션 설정
             NavigationUI.setupWithNavController(bottomNavigationView, navController)
+
+            // BottomNavigationView 클릭 이벤트 추가
+            bottomNavigationView.setOnItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.navigation_map -> {
+                        // PloggingMapActivity로 이동
+                        startActivity(Intent(this, PloggingMapActivity::class.java))
+                        true
+                    }
+                    R.id.navigation_steps -> {
+                        // MyPloggingHomeActivity로 이동
+                        startActivity(Intent(this, MyPloggingHomeActivity::class.java))
+                        true
+                    }
+                    else -> {
+                        // 기본 네비게이션 처리
+                        NavigationUI.onNavDestinationSelected(menuItem, navController)
+                        true
+                    }
+                }
+            }
         }
 
         // FCM 토큰 요청 및 서버 전송

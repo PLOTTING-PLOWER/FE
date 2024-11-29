@@ -118,7 +118,7 @@
                 android:id="@+id/btn_meeting_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_button_round_with_color_gray"
+                android:background="@drawable/shape_edittext_rec_with_line_box"
                 android:text="전체"
                 android:textSize="13sp" />
 

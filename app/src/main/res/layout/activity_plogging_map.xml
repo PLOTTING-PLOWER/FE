@@ -51,8 +51,8 @@
                 android:gravity="center_vertical">
 
                 <!-- Search EditText -->
-                <EditText
-                    android:id="@+id/search_edit_text"
+                <TextView
+                    android:id="@+id/search_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
