@@ -17,6 +17,8 @@ import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class MyPloggingScheduledAdapter(
     private val context: Context,
@@ -42,9 +44,12 @@ class MyPloggingScheduledAdapter(
         fun bind(item: MyPloggingScheduledResponse) {
             Title.text = item.title
             StartLocation.text = item.startLocation
-            StartTime.text = item.startTime
-            SpendTime.text = (item.spendTime / 60).toString()
-            CurrentPeople.text = item.currentPeople.toString()
+
+            val formattedTime = formatStartTime(item.startTime)
+            StartTime.text = formattedTime
+
+            SpendTime.text = "${(item.spendTime / 60)}H"
+            CurrentPeople.text = "${item.currentPeople}/"
             MaxPeople.text = item.maxPeople.toString()
 
             if (item.ploggingType.name == "DIRECT") {
@@ -114,6 +119,20 @@ class MyPloggingScheduledAdapter(
     // ViewHolder에 데이터 바인딩
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataList[position])
+    }
+
+    fun formatStartTime(input: String): String {
+        // Step 1: 입력 형식에 맞는 SimpleDateFormat 정의
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
+        // Step 2: 원하는 출력 형식 정의
+        val outputFormat = SimpleDateFormat("MM.dd (E) a hh:mm", Locale.KOREAN)
+
+        // Step 3: 입력 문자열을 Date로 변환
+        val date = inputFormat.parse(input)
+
+        // Step 4: Date 객체를 원하는 형식으로 변환
+        return outputFormat.format(date)
     }
 
     // 아이템 개수 반환

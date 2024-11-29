@@ -87,7 +87,7 @@
     <!-- 위치와 날짜 및 시간 (왼쪽 위치, 오른쪽 날짜) -->
     <LinearLayout
         android:id="@+id/location_date"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
@@ -96,38 +96,42 @@
 
         <!-- 위치 -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingEnd="16dp"
             android:weightSum="1">
 
             <ImageView
-                android:layout_width="10dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.025"
                 android:contentDescription="Location Icon"
                 android:src="@drawable/ic_map" />
 
             <TextView
                 android:id="@+id/tvStartLocation"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_weight="0.55"
+                android:paddingLeft="5dp"
                 android:text="어딘가, 경기도 역암"
-                android:textColor="@color/gray"
-                android:textSize="12sp" />
-        </LinearLayout>
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"
+                style="@style/AndroidCaption6"
+                android:textColor="@color/gray"/>
 
-        <!-- 날짜 및 시간 (오른쪽에 배치) -->
-        <TextView
-            android:id="@+id/tvStartTime"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:paddingTop="0dp"
-            android:text="03.24 (일) 오후 8:00"
-            android:textColor="@color/gray"
-            android:textSize="12sp" />
+            <!-- 날짜 및 시간 (오른쪽에 배치) -->
+            <TextView
+                android:id="@+id/tvStartTime"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:layout_weight="0.4"
+                android:text="03.24 (일) 오후 8:00"
+                android:textColor="@color/gray"
+                android:includeFontPadding="false"
+                style="@style/AndroidCaption6"/>
+        </LinearLayout>
     </LinearLayout>
 
     <!-- 소요 시간 및 참가 인원 (왼쪽 소요 시간, 오른쪽 참가 인원) -->

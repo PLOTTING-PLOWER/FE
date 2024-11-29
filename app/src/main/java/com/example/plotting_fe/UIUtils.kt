@@ -1,13 +1,17 @@
 package com.example.plotting_fe.utils
 
+import android.content.Intent
 import android.view.View
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.example.plotting_fe.R
+import com.example.plotting_fe.myplogging.ui.MyPloggingHomeActivity
+import com.example.plotting_fe.plogging.ui.PloggingMapActivity
 
 object UIUtils {
 
@@ -34,5 +38,25 @@ object UIUtils {
         val navController = Navigation.findNavController(activity, R.id.nav_host_fragment)
         val bottomNavigationView = activity.findViewById<BottomNavigationView>(R.id.bottom_navigation)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
+
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.navigation_map -> {
+                    // PloggingMapActivity로 이동
+                    activity.startActivity(Intent(activity, PloggingMapActivity::class.java))
+                    true
+                }
+                R.id.navigation_steps -> {
+                    // MyPloggingHomeActivity로 이동
+                    activity.startActivity(Intent(activity, MyPloggingHomeActivity::class.java))
+                    true
+                }
+                else -> {
+                    // 기본 네비게이션 처리
+                    NavigationUI.onNavDestinationSelected(menuItem, navController)
+                    true
+                }
+            }
+        }
     }
 }

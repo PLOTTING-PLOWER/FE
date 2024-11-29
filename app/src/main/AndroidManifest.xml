@@ -106,10 +106,14 @@
             android:exported="true" />
         <activity
             android:name=".plogging.ui.PloggingMapActivity"
-            android:exported="true" /> <!-- 네이버 지도 API 클라이언트 ID 설정 -->
+            android:exported="true" />
+
+        <!-- 네이버 지도 API 클라이언트 ID 설정 -->
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="ixpavqfivc" /> <!-- Firebase Cloud Messaging 서비스 등록 -->
+            android:value="ixpavqfivc" />
+
+        <!-- Firebase Cloud Messaging 서비스 등록 -->
         <service
             android:name=".global.application.MyFirebaseMessagingService"
             android:exported="true">

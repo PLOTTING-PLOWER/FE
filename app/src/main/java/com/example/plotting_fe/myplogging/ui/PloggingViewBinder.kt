@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.TextView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class PloggingViewBinder(private val includeView: View) {
 
@@ -20,7 +22,10 @@ class PloggingViewBinder(private val includeView: View) {
     fun bind(data: MyPloggingParticipatedResponse) {
         title.text = data.title
         startLocation.text = data.startLocation
-        startTime.text = data.startTime
+
+        val formattedTime = formatStartTime(data.startTime)
+        startTime.text = formattedTime
+
         spendTime.text = "${(data.spendTime / 60)}H"
         currentPeople.text = "${data.currentPeople}/"
         maxPeople.text = "${data.maxPeople}"
@@ -30,5 +35,19 @@ class PloggingViewBinder(private val includeView: View) {
         } else {
             ploggingType.text = "승인제"
         }
+    }
+
+    fun formatStartTime(input: String): String {
+        // Step 1: 입력 형식에 맞는 SimpleDateFormat 정의
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
+        // Step 2: 원하는 출력 형식 정의
+        val outputFormat = SimpleDateFormat("MM.dd (E) a hh:mm", Locale.KOREAN)
+
+        // Step 3: 입력 문자열을 Date로 변환
+        val date = inputFormat.parse(input)
+
+        // Step 4: Date 객체를 원하는 형식으로 변환
+        return outputFormat.format(date)
     }
 }
