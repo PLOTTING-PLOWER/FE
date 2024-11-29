@@ -1,6 +1,5 @@
 package com.example.plotting_fe.mypage.ui
 
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -70,6 +69,7 @@ class ProfileDetailFragment : Fragment() {
                     }
                 } else {
                     Toast.makeText(requireContext(), "회원 정보가 비공개 입니다.", Toast.LENGTH_SHORT).show()
+                    activity?.onBackPressed()
                     Log.d("get", "onResponse 실패: " + response.code())
                 }
             }
