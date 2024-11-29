@@ -18,7 +18,6 @@ object ApiClient {
 //    private const val BASE_URL = "http://10.0.2.2:8080/"
 
     fun getApiClient(): Retrofit {
-
         val client = OkHttpClient.Builder()
             // Access Token 처리
             .addInterceptor(AuthInterceptor())
@@ -28,6 +27,7 @@ object ApiClient {
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
