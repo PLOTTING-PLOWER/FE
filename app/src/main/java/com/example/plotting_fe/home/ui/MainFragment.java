@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 
 import com.example.plotting_fe.R;
-//import com.example.plotting_fe.utils.UIUtils;
 
 public class MainFragment extends Fragment {
 
