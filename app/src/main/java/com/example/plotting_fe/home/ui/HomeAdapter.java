@@ -113,7 +113,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             super(itemView);
             // 아이템 뷰에서 TextView와 Button 초기화
             title = itemView.findViewById(R.id.tvTitle);
-            ploggingType = itemView.findViewById(R.id.tvFirstCome);
+            ploggingType = itemView.findViewById(R.id.tvploggingType);
             startLocation = itemView.findViewById(R.id.tvStartLocation);
             startTime = itemView.findViewById(R.id.tvStartTime);
             spendTime = itemView.findViewById(R.id.tvSpendTime);
