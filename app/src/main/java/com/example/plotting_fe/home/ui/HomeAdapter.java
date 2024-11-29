@@ -124,7 +124,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
             statusColor = itemView.findViewById(R.id.tvStatus);
             statusText = itemView.findViewById(R.id.tvStatusText);
-            btnStar = itemView.findViewById(R.id.starIcon);
+            btnStar = itemView.findViewById(R.id.iv_gray_star); //본래 starIcon으로 설정해둔거 merge 이후 xml 이름대로 변경
 
         }
     }

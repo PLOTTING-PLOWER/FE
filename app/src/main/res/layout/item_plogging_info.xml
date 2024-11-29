@@ -64,10 +64,9 @@
             android:layout_height="24dp"
             android:layout_marginStart="4dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_star_color"
+            android:src="@drawable/ic_star_gray"
             android:visibility="gone"
             android:contentDescription="Star Icon" />
-
     </LinearLayout>
 
     <!-- 제목 -->
