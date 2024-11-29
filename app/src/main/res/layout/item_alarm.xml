@@ -17,7 +17,8 @@
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/noto_regular"
+        android:layout_marginRight="10dp"
+        style="@style/noto_medium"
         android:text="뉴진스 하니 님 이 상도동 한바퀴 플로깅에 참여를 신청했습니다.  2d ago"
         android:textSize="14dp"/>
 

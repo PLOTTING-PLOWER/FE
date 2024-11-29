@@ -1,4 +1,4 @@
-package com.example.plotting_fe.home.ui.dto.response
+package com.example.plotting_fe.home.dto.response
 
 import com.example.plotting_fe.mypage.dto.Person
 import com.google.gson.annotations.SerializedName
