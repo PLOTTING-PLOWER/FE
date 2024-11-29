@@ -68,5 +68,11 @@ class PloggingInfoMapFragment : DialogFragment() {
         // RecyclerView Adapter 설정
         adapter = PloggingMapAdapter(requireContext(),ploggingInfoList!!)
         recyclerView.adapter = adapter
+
+        // DialogFragment 가로 크기 설정
+        dialog?.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.95).toInt(), // 화면 너비의 90%로 설정
+            ViewGroup.LayoutParams.WRAP_CONTENT // 높이는 내용에 맞게
+        )
     }
 }

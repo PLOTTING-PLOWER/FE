@@ -39,10 +39,9 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_myplogging_home)
 
-        // UI 요소 초기화
+
         initViews()
 
-        // 데이터 불러오기
         fetchData()
 
         fetchPloggingData_2()
@@ -50,7 +49,9 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         fetchPloggingData_3()
 
         fetchPloggingData_4()
+
     }
+
 
     private fun initViews() {
         // UI 요소 연결
@@ -62,12 +63,6 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         tvBtnShowMore3 = findViewById(R.id.tv_btn_show_more3)
         tvBtnShowMoreAdd = findViewById(R.id.tv_btn_show_more_add)
         edit = findViewById(R.id.edit)
-
-        // 프래그먼트 초기화
-        val rankingFragment = RankingFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, rankingFragment)
-            .commit()
 
         // 버튼 클릭 이벤트 설정
         edit.setOnClickListener {
@@ -178,11 +173,11 @@ class MyPloggingHomeActivity : AppCompatActivity() {
                 response: Response<ResponseTemplate<MonthResponse>>
             ) {
                 if (response.isSuccessful) {
-                    Log.d("post", "onResponse 성공: " + response.body().toString())
+                    Log.d("MonthResponse", "onResponse 성공: " + response.body().toString())
                     val monthResponses = response.body()?.results?.responses ?: emptyList()
                     updatePloggingView_3(monthResponses[0])
                 } else {
-                    Log.d("post", "onResponse 실패 + ${response.code()}")
+                    Log.d("MonthResponse", "onResponse 실패 + ${response.code()}")
                 }
             }
 
@@ -269,12 +264,17 @@ class MyPloggingHomeActivity : AppCompatActivity() {
     }
 
     // Fragment에서 값을 받을 메서드
-    fun updateMyRankText(myRankText: String) {
+    fun updateMyRankText(myRankText: String?) {
         Log.d("MyRank", "Received myRank: $myRankText")
-        myRank = findViewById(R.id.ranking)
-        myRank.text = "$myRankText"
 
+        // myRank가 null이면 기본값 "1등"으로 설정
+        val rankText = myRankText ?: "1등"
+
+        // myRank 뷰를 찾고 텍스트 설정
+        myRank = findViewById(R.id.ranking)
+        myRank.text = rankText
     }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
