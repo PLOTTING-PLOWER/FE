@@ -4,22 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
-import com.auth0.jwt.JWT
-import com.auth0.jwt.interfaces.DecodedJWT
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.AppInterceptor
+import com.example.plotting_fe.home.dto.response.HomeResponse
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest
-import com.example.plotting_fe.plogging.dto.response.PloggingListResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse
 import com.example.plotting_fe.plogging.presentation.PloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 class PloggingApiService {
 
@@ -104,10 +98,16 @@ class PloggingApiService {
                                 intent.putExtra("ploggingTitle_$index", plogging.title)
                                 intent.putExtra("ploggingMaxPeople_$index", plogging.maxPeople)
                                 intent.putExtra("ploggingType_$index", plogging.ploggingType)
-                                intent.putExtra("ploggingRecruitEndDate_$index", plogging.recruitEndDate)
+                                intent.putExtra(
+                                    "ploggingRecruitEndDate_$index",
+                                    plogging.recruitEndDate
+                                )
                                 intent.putExtra("ploggingStartTime_$index", plogging.startTime)
                                 intent.putExtra("ploggingSpendTime_$index", plogging.spendTime)
-                                intent.putExtra("ploggingStartLocation_$index", plogging.startLocation)
+                                intent.putExtra(
+                                    "ploggingStartLocation_$index",
+                                    plogging.startLocation
+                                )
                             }
                             context.startActivity(intent)
 
@@ -142,41 +142,34 @@ class PloggingApiService {
     }
 
     fun getPloggingWithTitle(
-        title: String,
-        context: Context
+        searchTitle: String,
+        listener: PloggingResponseListener
     ) {
-        val call: Call<ResponseTemplate<PloggingResponse>> =
-            apiService.getPloggingWithTitle(title) // title 매개변수 사용
-
-        call.enqueue(object : Callback<ResponseTemplate<PloggingResponse>> {
-            override fun onResponse(
-                call: Call<ResponseTemplate<PloggingResponse>>,
-                response: Response<ResponseTemplate<PloggingResponse>>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null && responseBody.isSuccess == true) {
-                        Toast.makeText(context, "Plogging이 성공적으로 검색되었습니다.", Toast.LENGTH_SHORT)
-                            .show()
-
-                        // GetPlogging으로 이동
-                        val intent = Intent(context, GetPloggings::class.java)
-                        context.startActivity(intent)
+        apiService.getPloggingWithTitle(searchTitle)
+            .enqueue(object : Callback<ResponseTemplate<PloggingResponse>> {
+                override fun onResponse(
+                    call: Call<ResponseTemplate<PloggingResponse>>,
+                    response: Response<ResponseTemplate<PloggingResponse>>
+                ) {
+                    if (response.isSuccessful) {
+                        val ploggingResponse = response.body()?.results
+                        if (ploggingResponse != null) {
+                            listener.onPloggingResponse(ploggingResponse)
+                            Log.d("HomeData", "homeResponse: $ploggingResponse")
+                        } else {
+                            Log.d("HomeApiService", "onResponse 실패: Body가 null입니다.")
+                        }
                     } else {
-                        Toast.makeText(
-                            context,
-                            "Plogging 검색에 실패했습니다: ${responseBody?.message ?: "알 수 없는 오류"}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Log.d("HomeApiService", "onResponse 실패: ${response.code()}")
                     }
-                } else {
-                    Toast.makeText(context, "Plogging 검색에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
-            }
 
-            override fun onFailure(call: Call<ResponseTemplate<PloggingResponse>>, t: Throwable) {
-                Toast.makeText(context, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<ResponseTemplate<PloggingResponse>>, t: Throwable) {
+                    Log.d("HomeApiService", "onFailure 에러: ${t.message}")
+                }
+            })
     }
+
 }
+
+

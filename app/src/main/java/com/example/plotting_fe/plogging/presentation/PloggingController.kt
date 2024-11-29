@@ -2,7 +2,6 @@ package com.example.plotting_fe.plogging.presentation
 
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.home.dto.response.HomeResponse
-import com.example.plotting_fe.plogging.dto.PloggingType
 import com.example.plotting_fe.plogging.dto.request.CommentUpdateRequest
 import com.example.plotting_fe.plogging.dto.request.CommentUploadRequest
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest
@@ -10,7 +9,6 @@ import com.example.plotting_fe.plogging.dto.response.CommentResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
-import com.fasterxml.jackson.annotation.JsonFormat
 import com.plotting.server.plogging.dto.response.PloggingMapResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -20,9 +18,6 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 interface PloggingController {
 

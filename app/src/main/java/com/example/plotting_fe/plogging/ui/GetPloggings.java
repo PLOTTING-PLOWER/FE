@@ -2,9 +2,11 @@ package com.example.plotting_fe.plogging.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,36 +46,8 @@ public class GetPloggings extends AppCompatActivity {
         // 버튼 모음
         buttons();
 
-        Intent intent = getIntent();
-        int indexCount = intent.getIntExtra("indexCount", 0); // 총 개수 전달받기
-        for (int index = 0; index < indexCount; index++) {
-            Long ploggingId = Long.parseLong(intent.getStringExtra("ploggingId_" + index));
-            String title = intent.getStringExtra("ploggingTitle_" + index);
-            int currentPeople = intent.getIntExtra("ploggingCurrentPeople_" + index, 0);
-            int maxPeople = intent.getIntExtra("ploggingMaxPeople_" + index, 0);
-            String ploggingType = intent.getStringExtra("ploggingType_" + index);
-            String recruitEndDate = intent.getStringExtra("ploggingRecruitEndDate_" + index);
-            String startTime = intent.getStringExtra("ploggingStartTime_" + index);
-            long spendTime = intent.getLongExtra("ploggingSpendTime_" + index, 0L);
-            String startLocation = intent.getStringExtra("ploggingStartLocation_" + index);
+//        Intent intent = getIntent();
 
-            PloggingResponse plogging = new PloggingResponse(
-                    ploggingId,
-                    title,
-//                    currentPeople,
-                    maxPeople,
-                    ploggingType,
-                    recruitEndDate,
-                    startTime,
-                    spendTime,
-                    startLocation
-            );
-            ploggingList.add(plogging);
-        }
-
-        // intent로 받은 데이터를 RecyclerView로 넘기기
-        getPloggingAdapter.updateDataList(ploggingList);
-        getPloggingAdapter.notifyDataSetChanged();
     }
 
     private void buttons() {
@@ -102,6 +76,18 @@ public class GetPloggings extends AppCompatActivity {
 
     private void searchPlogging(String searchTitle) {
         PloggingApiService ploggingApiService = new PloggingApiService();
-        ploggingApiService.getPloggingWithTitle(searchTitle, this);
+        ploggingApiService.getPloggingWithTitle(searchTitle, new PloggingResponseListener() {
+            @Override
+            public void onPloggingResponse(PloggingResponse ploggingResponse) {
+                List<PloggingResponse> ploggingList = new ArrayList<>();
+                ploggingList.add(ploggingResponse);
+
+                if (getPloggingAdapter != null) {
+                    getPloggingAdapter.updateDataList(ploggingList);
+                } else {
+                    Log.d("PloggingSearch", "어댑터가 초기화되지 않았습니다.");
+                }
+            }
+        });
     }
 }
