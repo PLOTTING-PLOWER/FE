@@ -84,11 +84,6 @@ class RankingFragment : Fragment() {
         myhour.text = (myRanking.totalHours/60).toString()+" H"
         mycount.text = myRanking.totalCount.toString()+" 회"
 
-        val activity = requireActivity()
-        if (activity is MyPloggingHomeActivity) {
-            activity.updateMyRankText(myRank.text.toString())
-        }
-
 //        top ranking
         val rankingContainers = listOf(
             R.id.ll_1, R.id.ll_2, R.id.ll_3, R.id.ll_4, R.id.ll_5, R.id.ll_6, R.id.ll_7

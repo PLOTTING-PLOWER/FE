@@ -13,6 +13,9 @@ import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.home.ui.RankingFragment
+import com.example.plotting_fe.home.ui.dto.response.RankingListResponse
+import com.example.plotting_fe.home.ui.dto.response.RankingResponse
+import com.example.plotting_fe.home.ui.presentation.RankingController
 import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
@@ -50,6 +53,8 @@ class MyPloggingHomeActivity : AppCompatActivity() {
 
         fetchPloggingData_4()
 
+        fetchRanking()
+
     }
 
 
@@ -63,6 +68,7 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         tvBtnShowMore3 = findViewById(R.id.tv_btn_show_more3)
         tvBtnShowMoreAdd = findViewById(R.id.tv_btn_show_more_add)
         edit = findViewById(R.id.edit)
+        myRank = findViewById(R.id.ranking)
 
         // 버튼 클릭 이벤트 설정
         edit.setOnClickListener {
@@ -233,6 +239,38 @@ class MyPloggingHomeActivity : AppCompatActivity() {
 
     }
 
+    private fun fetchRanking() {
+        val rankingController: RankingController = ApiClient.getApiClient().create(RankingController::class.java)
+        rankingController.getRankingList().enqueue(object :
+            Callback<ResponseTemplate<RankingListResponse>>{
+            override fun onResponse(
+                call: Call<ResponseTemplate<RankingListResponse>>,
+                response: Response<ResponseTemplate<RankingListResponse>>
+            ) {
+                if(response.isSuccessful){
+                    Log.d("get", "onResponse 성공: " + response.body().toString())
+                    val data = response.body()?.results
+                    if(data !=null){
+                        updateMyRank(data.myRanking)
+                    }else{
+                        Log.d("get", "onResponse 성공: data==null")
+                    }
+                }else{
+                    Log.d("get", "onResponse 실패: " + response.code())
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ResponseTemplate<RankingListResponse>>,
+                t: Throwable
+            ) {
+                Log.d("get", "onFailure 에러: " +  t.message.toString())
+            }
+        });
+
+    }
+
+
     private fun updatePloggingView_2(data: MyPloggingScheduledResponse) {
         val includeView = findViewById<View>(R.id.include_2)
         val viewBinder = ScheduledPloggingViewBinder(includeView)
@@ -263,16 +301,12 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         ploggingTime.text = "${response.totalSpendTime}시간"
     }
 
-    // Fragment에서 값을 받을 메서드
-    fun updateMyRankText(myRankText: String?) {
-        Log.d("MyRank", "Received myRank: $myRankText")
 
-        // myRank가 null이면 기본값 "1등"으로 설정
-        val rankText = myRankText ?: "1등"
+    private fun updateMyRank(myRanking:RankingResponse) {
 
-        // myRank 뷰를 찾고 텍스트 설정
-        myRank = findViewById(R.id.ranking)
-        myRank.text = rankText
+        myRank.text = if (myRanking.hourRank.toInt() == 0) "- 등" else "${myRanking.hourRank} 등"
+
+
     }
 
 
