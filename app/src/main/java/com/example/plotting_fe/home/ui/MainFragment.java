@@ -34,7 +34,7 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.a_activity_home, container, false);
 
         // 시스템 바 인셋 처리
-        View mainView = rootView.findViewById(R.id.main);
+        View mainView = rootView.findViewById(R.id.bottom_navigation);  //fixme
         if (mainView != null) {
             UIUtils.handleSystemBarInsets(mainView);
         }

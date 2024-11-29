@@ -7,7 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
 
-
 public interface NCPApiService {
     @GET("https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode")
     Call<GeocodeResponse> getGeocode(
