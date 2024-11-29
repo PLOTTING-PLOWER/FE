@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 선택된 상태 (checked) -->
+    <item android:drawable="@drawable/shape_button_round_with_color_checked" android:state_checked="true"/>
+    <!-- 기본 상태 (unchecked) -->
+    <item android:drawable="@drawable/shape_button_round_with_color_unchecked" />
+</selector>

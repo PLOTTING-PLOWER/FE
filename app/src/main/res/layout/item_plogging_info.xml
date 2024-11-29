@@ -64,10 +64,9 @@
             android:layout_height="24dp"
             android:layout_marginStart="4dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_star_color"
+            android:src="@drawable/ic_star_gray"
             android:visibility="gone"
             android:contentDescription="Star Icon" />
-
     </LinearLayout>
 
     <!-- 제목 -->
@@ -172,9 +171,19 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
-            android:text="3/"
+            android:text="3"
             android:textColor="@color/gray"
             android:textSize="10sp" />
+
+        <TextView
+        android:id="@+id/and"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="/"
+        android:textColor="@color/gray"
+        android:textSize="10sp"
+        android:layout_toEndOf="@id/tvCurrentPeople"
+        android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/tvMaxPeople"
