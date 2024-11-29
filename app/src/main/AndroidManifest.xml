@@ -98,8 +98,8 @@
         <activity android:name=".home.ui.MainActivity"
             android:exported="true"/>
 
-        <activity android:name=".myplogging.ui.MyPloggingUpdate2Activity"
-            android:exported="true" />
+<!--        <activity android:name=".myplogging.ui.MyPloggingUpdate2Activity"-->
+<!--            android:exported="true" />-->
 
         <activity
             android:name=".myplogging.ui.MyPloggingParticipatedActivity"
