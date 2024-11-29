@@ -35,7 +35,4 @@ interface AuthController {
     fun refreshAccessToken(
         @Body request: String
     ): Call<ResponseTemplate<String>>
-
-    @POST("/alarm/fcm-token")
-    fun sendFcmToken(@Body token: Map<String, String>): Call<ResponseTemplate<Void>>
 }

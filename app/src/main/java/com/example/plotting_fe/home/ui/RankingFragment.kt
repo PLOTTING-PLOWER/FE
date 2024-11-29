@@ -7,17 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
-import com.example.plotting_fe.home.ui.dto.response.RankingListResponse
-import com.example.plotting_fe.home.ui.dto.response.RankingResponse
-import com.example.plotting_fe.home.ui.presentation.RankingController
+import com.example.plotting_fe.home.dto.response.RankingListResponse
+import com.example.plotting_fe.home.dto.response.RankingResponse
+import com.example.plotting_fe.home.presentation.RankingController
 import com.example.plotting_fe.mypage.dto.response.DetailProfileResponse
 import com.example.plotting_fe.myplogging.ui.MyPloggingHomeActivity
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,7 +66,7 @@ class RankingFragment : Fragment() {
 
     }
 
-    private fun updateUI(topRankings:List<RankingResponse>, myRanking:RankingResponse){
+    private fun updateUI(topRankings:List<RankingResponse>, myRanking: RankingResponse){
 //        my ranking
         val profileImageView: AppCompatImageView = requireView().findViewById(R.id.iv_my)
         Glide.with(this)
