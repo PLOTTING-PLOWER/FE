@@ -121,4 +121,12 @@ dependencies {
 
     //json
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.0")
+
+    implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+
+    //token
+    implementation ("com.auth0:java-jwt:3.18.2")
+
 }

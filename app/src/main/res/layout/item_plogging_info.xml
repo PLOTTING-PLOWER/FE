@@ -168,9 +168,19 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
-            android:text="3/"
+            android:text="3"
             android:textColor="@color/gray"
             android:textSize="10sp" />
+
+        <TextView
+        android:id="@+id/and"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="/"
+        android:textColor="@color/gray"
+        android:textSize="10sp"
+        android:layout_toEndOf="@id/tvCurrentPeople"
+        android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/tvMaxPeople"
