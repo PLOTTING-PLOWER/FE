@@ -12,10 +12,9 @@ import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
-import com.example.plotting_fe.home.ui.RankingFragment
-import com.example.plotting_fe.home.ui.dto.response.RankingListResponse
-import com.example.plotting_fe.home.ui.dto.response.RankingResponse
-import com.example.plotting_fe.home.ui.presentation.RankingController
+import com.example.plotting_fe.home.dto.response.RankingListResponse
+import com.example.plotting_fe.home.dto.response.RankingResponse
+import com.example.plotting_fe.home.presentation.RankingController
 import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
@@ -302,7 +301,7 @@ class MyPloggingHomeActivity : AppCompatActivity() {
     }
 
 
-    private fun updateMyRank(myRanking:RankingResponse) {
+    private fun updateMyRank(myRanking: RankingResponse) {
 
         myRank.text = if (myRanking.hourRank.toInt() == 0) "- 등" else "${myRanking.hourRank} 등"
 
