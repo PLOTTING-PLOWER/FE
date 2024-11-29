@@ -155,11 +155,10 @@ class EditProfileActivity : AppCompatActivity() {
                     if(isAvailable){
                         checkedNickname = nickname
                         alertCheckTextView.text = "사용 가능한 닉네임 입니다."
-                        alertCheckTextView.visibility = View.VISIBLE // 텍스트뷰 보이기
                     }else{
                         alertCheckTextView.text = "이미 사용중인 닉네임 입니다."
-                        alertCheckTextView.visibility = View.VISIBLE // 텍스트뷰 보이기
                     }
+                    alertCheckTextView.visibility = View.VISIBLE // 텍스트뷰 보이기
                     Log.d("get", "onResponse 성공: " + response.body().toString())
                 }else{
                     Log.d("get", "onResponse 실패: " + response.code())
