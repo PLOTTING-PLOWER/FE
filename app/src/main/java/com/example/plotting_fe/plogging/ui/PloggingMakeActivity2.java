@@ -2,6 +2,7 @@ package com.example.plotting_fe.plogging.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,20 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.plotting_fe.BuildConfig;
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.global.NCPApiService;
-import com.example.plotting_fe.global.dto.response.GeocodeResponse;
-import com.example.plotting_fe.global.util.ApiClient;
-
+import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
 import java.util.Calendar;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment.OnAddressSelectedListener {
 
@@ -32,6 +25,14 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
     private String selectedStartDate;
     private boolean is_start_location;
 
+    /*
+    String으로 타입 바꿈
+     */
+    private String recruitStartDate;
+    private String recruitEndDate;
+    private String startDateTime;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,33 +41,29 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         editName = findViewById(R.id.edit_name);
         editIntro = findViewById(R.id.edit_intro);
         startDate = findViewById(R.id.edit_start_date_activity);
-        startTimeText= findViewById(R.id.edit_start_time_activity);
+        startTimeText = findViewById(R.id.edit_start_time_activity);
         duringTime = findViewById(R.id.input_during_time);
-        duringTimeBtn = findViewById(R.id.button_during_time);    // 예상 소요 시간
+        duringTimeBtn = findViewById(R.id.button_during_time);
         freeTime = findViewById(R.id.edit_during_time_free);
         startLocation = findViewById(R.id.edit_start_location);
         endLocation = findViewById(R.id.edit_end_location);
         btnFinish = findViewById(R.id.btn_finish);
 
-        // 활동 시작 날짜 입력 (클릭하면 캘린더로 선택)
+        // 날짜 선택을 위한 DatePickerDialog 설정
         startDate.setOnClickListener(v -> showDatePickerDialog());
 
-        // 예상 소요 시간 - 자유 선택
-        freeTime.setOnClickListener(v ->
-                Toast.makeText(PloggingMakeActivity2.this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show()
-        );
-
-        // 예상 소요 시간 입력 { hh:mm 형태로 입력 }
-        duringTimeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 직접 입력 선택시 입력란 보이도록 설정함
-                Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
-                duringTime.setVisibility(View.VISIBLE);
-            }
+        // 자유 시간을 선택했을 때의 처리
+        freeTime.setOnClickListener(v -> {
+            Toast.makeText(PloggingMakeActivity2.this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
         });
 
-        // 출발 장소 입력 {네이버 제공 예시 테스트: 분당구 불정로 6}
+        // 직접 시간을 입력하는 버튼 클릭 처리
+        duringTimeBtn.setOnClickListener(v -> {
+            Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
+            duringTime.setVisibility(View.VISIBLE);
+        });
+
+        // 출발지 주소 입력 처리
         startLocation.setOnClickListener(v -> {
             AddressSearchFragment addressSearchFragment = new AddressSearchFragment();
             getSupportFragmentManager().beginTransaction()
@@ -76,7 +73,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             is_start_location = true;
         });
 
-        // 도착 장소 입력 {네이버 제공 예시 테스트: 분당구 불정로 6}
+        // 도착지 주소 입력 처리
         endLocation.setOnClickListener(v -> {
             AddressSearchFragment addressSearchFragment = new AddressSearchFragment();
             getSupportFragmentManager().beginTransaction()
@@ -86,34 +83,69 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             is_start_location = false;
         });
 
-        // 모임 만들기 버튼 클릭 시
+        // 완료 버튼 클릭 시 데이터 제출 처리
         btnFinish.setOnClickListener(v -> {
-            String name = editName.getText().toString();
-            String intro = editIntro.getText().toString();
-            String duration = duringTime.getText().toString();
-            String startTime = startTimeText.getText().toString();
-            String startLoc = startLocation.getText().toString();
-            String endLoc = endLocation.getText().toString();
 
-            // 데이터 유효성 검사 (도착지는 null이어도 된다)
-            if (name.isEmpty() || intro.isEmpty() || duration.isEmpty() ||
-                    startTime.isEmpty() || startLoc.isEmpty()) {
+            //PloggingMakeActivity1에서 가져온 데이터
+            Intent intentFromFirstView = getIntent();
+            String selectedType = intentFromFirstView.getStringExtra("selectedType");   // 1.모임 방식 (선착순/승인제)
+            String participantNum = intentFromFirstView.getStringExtra("participantNum");   //2. 모집 인원수
+            String startDateStr = intentFromFirstView.getStringExtra("startDate");  //3.모집 시작일
+            String endDateStr= intentFromFirstView.getStringExtra("endDate");   //4. 모집 종료일
+
+            //PloggingMakeActivity2의 데이터
+            String title = editName.getText().toString();   //5. 활동명
+            String content = editIntro.getText().toString();    //6. 활동 소개
+            String spendTimeInput = duringTime.getText().toString();    //7. 활동 시작 시간
+            String startTimeInput = startTimeText.getText().toString();     //8. 예상 소요시간
+            String startLoc = startLocation.getText().toString();   //9. 출발장소
+            String endLoc = endLocation.getText().toString();   //10. 도착장소
+
+            // 데이터 유효성 검사
+            if (title.isEmpty() || content.isEmpty() || spendTimeInput.isEmpty() ||
+                    startTimeInput.isEmpty() || startLoc.isEmpty() || startDateStr.isEmpty() ||
+                    participantNum.isEmpty()) {
                 Toast.makeText(PloggingMakeActivity2.this, "필수 입력 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(PloggingMakeActivity2.this, GetPloggings.class);
-                intent.putExtra("name", name);
-                intent.putExtra("intro", intro);
-                intent.putExtra("startDate", selectedStartDate);
-                intent.putExtra("startTime", startTime);
-                intent.putExtra("duration", duration);
-                intent.putExtra("startLocation", startLoc);
-                intent.putExtra("endLocation", endLoc);
-                startActivity(intent);
+                return;
+            }
+
+            try {
+                //1번, 5번, 6번, 9번, 10번 String인지 확인하기 -> String 이다!
+                //3번, 4번, 7번
+                recruitStartDate = startDateStr;  //형식 2024-11-11
+                recruitEndDate = endDateStr;    //형식 2024-11-11
+                startDateTime = startDateStr + "T" + startTimeInput + ":00"; //형식 2024-11-11 10:00
+                //2번
+                long maxPeople = Long.parseLong(participantNum);
+                //8번
+                long spendTime = spendTimeInput.isEmpty() ? 0 : Long.parseLong(spendTimeInput);
+
+                // 유효한 데이터를 사용하여 PloggingRequest 객체 생성
+                PloggingRequest request = new PloggingRequest(
+                        title,
+                        content,
+                        maxPeople,
+                        selectedType,
+                        recruitStartDate,
+                        recruitEndDate,
+                        startDateTime,
+                        spendTime,
+                        startLoc,
+                        endLoc.isEmpty() ? null : endLoc
+                );
+                Log.d("debug", "PloggingRequest created: " + request);
+
+                // API 호출하여 서버와 통신
+                PloggingApiService ploggingApiService = new PloggingApiService();
+                ploggingApiService.createPlogging(request, PloggingMakeActivity2.this);
+            } catch (Exception e) {
+                Log.e("Error", "Invalid input data: " + e.getMessage());
+                Toast.makeText(PloggingMakeActivity2.this, "입력 데이터를 확인해주세요.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // 달력 다이얼로그
+    // 시작 날짜를 선택하기 위한 DatePickerDialog 표시
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -127,49 +159,13 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         datePickerDialog.show();
     }
 
-    // 주소
-    private void searchAddress(String query, EditText inputText) {
-        NCPApiService apiService = ApiClient.INSTANCE.getNCPApiService();
-        // 네이버 주소 검색 API 호출
-        Call<GeocodeResponse> call = apiService.getGeocode(BuildConfig.NAVER_CLIENT_ID, BuildConfig.NAVER_CLIENT_SECRET, query);
-
-        call.enqueue(new Callback<GeocodeResponse>() {
-            @Override
-            public void onResponse(Call<GeocodeResponse> call, Response<GeocodeResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    GeocodeResponse geocodeResponse = response.body();
-                    List<GeocodeResponse.Addresses> addresses = geocodeResponse.getAddresses();
-
-                    if (!addresses.isEmpty()) {
-                        // 네이버 서버에서 주소 가져오기
-                        String roadAddress = addresses.get(0).getRoadAddress();
-                        // 선택된 주소를 입력창에 표시함
-                        inputText.setText(roadAddress);
-                    } else {
-                        Toast.makeText(PloggingMakeActivity2.this, "주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GeocodeResponse> call, Throwable t) {
-                Log.e("Geocode", "Failure: " + t.getMessage());
-                Toast.makeText(PloggingMakeActivity2.this, "네이버 서버 요청 실패", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     @Override
     public void onAddressSelected(String address) {
         if (is_start_location) {
             startLocation.setText(address);
-            getSupportFragmentManager().popBackStack(); //프레그 먼트 닫기
-        }
-        else {
+        } else {
             endLocation.setText(address);
-            getSupportFragmentManager().popBackStack(); //프레그 먼트 닫기
         }
+        getSupportFragmentManager().popBackStack();
     }
-
-
 }

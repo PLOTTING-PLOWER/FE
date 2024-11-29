@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="24dp"
     android:background="#FDFDFD"
-    tools:context=".home.ui.CardnewsActivity">
+    tools:context=".home.ui.CardsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_title"
@@ -26,23 +26,25 @@
         <!-- 카드 뉴스 상세 조회에서 선택한 카드 뉴스 title  -->
         <TextView
             android:id="@+id/title"
+            style="@style/AndroidH1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_back"
-            app:layout_constraintBaseline_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_marginTop="20dp"
+            android:text="카드뉴스 타이틀"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--s3에 저장된 카드뉴스 이미지 가져오는 부분 -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/img_cardnews"
-            tools:listitem="@layout/item_cardnews_img"
             android:layout_width="match_parent"
             android:layout_height="600dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:layout_editor_absoluteX="91dp"
+            tools:listitem="@layout/item_cardnews_img" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

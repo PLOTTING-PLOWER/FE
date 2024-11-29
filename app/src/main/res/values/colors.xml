@@ -16,4 +16,5 @@
     <color name="bronze">#DBB878</color>
     <color name="gold">#F1C645</color>
     <color name="silver">#C4C4C4</color>
+    <color name="button_color_in_home">#FF8473</color>
 </resources>

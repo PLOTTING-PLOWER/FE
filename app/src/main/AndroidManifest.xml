@@ -79,6 +79,28 @@
             android:name=".plogging.ui.GetPloggings"
             android:exported="true" />
 
+        <!-- 플로깅 필터 액티비티 -->
+        <activity
+            android:name=".plogging.ui.PloggingFilter"
+            android:exported="true" />
+
+        <!-- 카드 뉴스 리스트 액티비티 -->
+        <activity
+            android:name=".home.ui.CardnewsListActivity"
+            android:exported="true" />
+
+        <!-- 카드 뉴스 액티비티 -->
+        <activity
+            android:name=".home.ui.CardsActivity"
+            android:exported="true" />
+
+        <!-- 홈 -->
+        <activity android:name=".home.ui.MainActivity"
+            android:exported="true"/>
+
+<!--        <activity android:name=".myplogging.ui.MyPloggingUpdate2Activity"-->
+<!--            android:exported="true" />-->
+
         <activity
             android:name=".myplogging.ui.MyPloggingParticipatedActivity"
             android:exported="true" />
