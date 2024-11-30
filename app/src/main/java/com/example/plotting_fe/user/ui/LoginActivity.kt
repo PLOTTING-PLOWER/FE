@@ -2,6 +2,7 @@ package com.example.plotting_fe.user.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -23,6 +24,7 @@ import com.example.plotting_fe.user.dto.request.LoginRequest
 import com.example.plotting_fe.user.dto.response.LoginResponse
 import com.example.plotting_fe.user.presentation.AuthController
 import com.example.plotting_fe.global.util.ClickUtil
+import com.example.plotting_fe.user.dto.request.AccessTokenRequest
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthIntent
 import com.navercorp.nid.oauth.NidOAuthLogin
@@ -110,6 +112,8 @@ class LoginActivity : AppCompatActivity() {
         when (result.resultCode) {
             RESULT_OK -> {
                 val accessToken = NaverIdLoginSDK.getAccessToken()
+                Log.d("launcher", "accessToken: " + accessToken)
+
                 if (!accessToken.isNullOrEmpty()) {
                     sendTokenToServer(accessToken)
                 } else {
@@ -134,21 +138,27 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendTokenToServer(accessToken: String) {
-        authController.loginWithNaver(accessToken).enqueue(object : Callback<ResponseTemplate<LoginResponse>> {
+        val accessTokenRequest = AccessTokenRequest(accessToken)
+        authController.loginWithNaver(accessTokenRequest).enqueue(object : Callback<ResponseTemplate<LoginResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<LoginResponse>>,
                 response: Response<ResponseTemplate<LoginResponse>>
             ) {
+                Log.d("get", "Response: ${response.body()}")
                 if (response.isSuccessful) {
+                    Log.d("get", "onResponse 성공: " + response.body().toString())
                     val responseTemplate = response.body()
                     checkResponse(responseTemplate)
 
                 } else {
+                    Log.d("get", "onResponse 실패: " + response.code())
                     Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ResponseTemplate<LoginResponse>>, t: Throwable) {
+                Log.d("get", "onFailure 에러: " +  t.message.toString())
+
                 Toast.makeText(
                     this@LoginActivity,
                     "네트워크 오류: ${t.message}",
@@ -172,6 +182,7 @@ class LoginActivity : AppCompatActivity() {
 
         }else{
             Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+
         }
     }
 

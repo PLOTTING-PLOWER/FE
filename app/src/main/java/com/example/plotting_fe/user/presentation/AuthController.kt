@@ -2,6 +2,7 @@ package com.example.plotting_fe.user.presentation
 
 
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.user.dto.request.AccessTokenRequest
 import com.example.plotting_fe.user.dto.request.LoginRequest
 import com.example.plotting_fe.user.dto.request.SignUpRequest
 import com.example.plotting_fe.user.dto.response.LoginResponse
@@ -12,6 +13,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface AuthController {
@@ -24,9 +26,9 @@ interface AuthController {
     @POST("/auth/login/self")
     fun login(@Body request: LoginRequest): Call<ResponseTemplate<LoginResponse>>
 
+    @Headers("Content-Type: application/json")
     @POST("/login/oauth2/code/naver")
-    @FormUrlEncoded
-    fun loginWithNaver(@Field("accessToken") accessToken: String): Call<ResponseTemplate<LoginResponse>>
+    fun loginWithNaver(@Body accessTokenRequest: AccessTokenRequest): Call<ResponseTemplate<LoginResponse>>
 
     @DELETE("/auth/withdraw")
     fun withdrawUser(): Call<ResponseTemplate<Void>>
