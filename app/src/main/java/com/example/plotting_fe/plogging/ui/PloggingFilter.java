@@ -1,9 +1,7 @@
 package com.example.plotting_fe.plogging.ui;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -16,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
+
 import java.util.Calendar;
 
 public class PloggingFilter extends AppCompatActivity {

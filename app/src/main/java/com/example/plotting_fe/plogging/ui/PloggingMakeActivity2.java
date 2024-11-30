@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
@@ -49,6 +50,9 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         endLocation = findViewById(R.id.edit_end_location);
         btnFinish = findViewById(R.id.btn_finish);
 
+        //버튼 색 초기화
+        resetTimeButtons();
+
         // 날짜 선택을 위한 DatePickerDialog 설정
         startDate.setOnClickListener(v -> showDatePickerDialog());
 
@@ -61,6 +65,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         duringTimeBtn.setOnClickListener(v -> {
             Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
             duringTime.setVisibility(View.VISIBLE);
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
         });
 
         // 출발지 주소 입력 처리
@@ -85,6 +90,8 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
         // 완료 버튼 클릭 시 데이터 제출 처리
         btnFinish.setOnClickListener(v -> {
+
+            btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
 
             //PloggingMakeActivity1에서 가져온 데이터
             Intent intentFromFirstView = getIntent();
@@ -167,5 +174,10 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             endLocation.setText(address);
         }
         getSupportFragmentManager().popBackStack();
+    }
+    private void resetTimeButtons() {
+        freeTime.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
     }
 }
