@@ -10,12 +10,19 @@
         <action
             android:id="@+id/action_home_to_ranking"
             app:destination="@id/navigation_ranking"/>
+
+
     </fragment>
 
     <fragment
         android:id="@+id/navigation_plogging"
         android:name="com.example.plotting_fe.plogging.ui.GetPloggings"
-        android:label="Home" />
+        android:label="Home">
+        <action
+            android:id="@+id/action_to_getPlogging"
+            app:destination="@id/navigation_plogging"/>
+    </fragment>
+
 
     <!-- 마이페이지  -->
     <fragment
