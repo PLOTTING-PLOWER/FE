@@ -8,6 +8,11 @@
         android:name="com.example.plotting_fe.home.ui.MainFragment"
         android:label="Home" />
 
+    <fragment
+        android:id="@+id/navigation_plogging"
+        android:name="com.example.plotting_fe.plogging.ui.GetPloggings"
+        android:label="Home" />
+
     <!-- 마이페이지  -->
     <fragment
         android:id="@+id/navigation_mypage"

@@ -36,7 +36,7 @@ public class CardnewsListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         btnBack.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainFragment.class));
         });
 
         loadCardnews();
