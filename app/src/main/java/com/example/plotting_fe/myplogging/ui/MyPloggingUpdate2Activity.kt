@@ -30,10 +30,14 @@ class MyPloggingUpdate2Activity : AppCompatActivity() {
 
     val calendar = Calendar.getInstance()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMyPloggingUpdate2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //버튼 초기화
+        resetTimeButtons()
 
         ploggingId = intent.getLongExtra("ploggingId", 1L)
         val title = intent.getStringExtra("title")
@@ -85,6 +89,7 @@ class MyPloggingUpdate2Activity : AppCompatActivity() {
         })
 
         binding.btnNext.setOnClickListener {
+            binding.btnNext.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main))
             if (binding.inputDuringTime.visibility == View.VISIBLE) {
                 spendTime = binding.inputDuringTime.text.toString().toLong()
             }
@@ -171,5 +176,8 @@ class MyPloggingUpdate2Activity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+    private fun resetTimeButtons() {
+        binding.btnNext.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray))
     }
 }

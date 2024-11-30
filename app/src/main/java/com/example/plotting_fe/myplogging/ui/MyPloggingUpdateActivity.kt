@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.plotting_fe.R
 import com.example.plotting_fe.databinding.ActivityMyPloggingUpdateBinding
 import java.util.Calendar
 
@@ -20,6 +22,8 @@ class MyPloggingUpdateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMyPloggingUpdateBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        resetTimeButtons()
 
         ploggingId = intent.getLongExtra("ploggingId", 1L)
         val title = intent.getStringExtra("title")
@@ -43,6 +47,8 @@ class MyPloggingUpdateActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
+            binding.btnNext.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main))
+
             Log.d("post", "maxPeople: " + binding.inputParticipantNum.text + "recruitStartDate: " + binding.startDate.text + "recruitEndDate: " + binding.endDate.text)
 
             val intent = Intent(this, MyPloggingUpdate2Activity::class.java)
@@ -84,5 +90,10 @@ class MyPloggingUpdateActivity : AppCompatActivity() {
             }, year, month, day
         )
         datePickerDialog.show()
+    }
+    private fun resetTimeButtons() {
+        binding.btnNext.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray))
+        binding.btnTime.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray))
+        binding.btnApproval.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray))
     }
 }

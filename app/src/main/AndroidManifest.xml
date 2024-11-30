@@ -51,7 +51,7 @@
         </activity>
         <activity
             android:name=".myplogging.ui.MyPloggingUpdateActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".myplogging.ui.MyPloggingUpdate2Activity"
             android:exported="false" />
