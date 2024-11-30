@@ -4,10 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.navigation.Navigation.findNavController
+import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.AppInterceptor
-import com.example.plotting_fe.home.dto.response.HomeResponse
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse
 import com.example.plotting_fe.plogging.presentation.PloggingController
@@ -39,12 +40,12 @@ class PloggingApiService {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.isSuccess == true) {
+                        //GetPlogging으로 이동
+
                         Toast.makeText(context, "Plogging이 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT)
                             .show()
 
-                        //GetPlogging으로 이동
-                        val intent = Intent(context, GetPloggings::class.java)
-                        context.startActivity(intent)
+
                     } else {
                         Toast.makeText(
                             context,

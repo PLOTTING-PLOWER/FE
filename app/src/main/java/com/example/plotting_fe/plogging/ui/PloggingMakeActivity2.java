@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
+
 import java.util.Calendar;
 
 public class PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment.OnAddressSelectedListener {
@@ -29,6 +30,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
     private String selectedStartDate;
     private boolean is_start_location;
     private ImageView btnBack;
+
 
     /*
     String으로 타입 바꿈
@@ -99,6 +101,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         // 완료 버튼 클릭 시 데이터 제출 처리
         btnFinish.setOnClickListener(v -> {
 
+
             btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
 
             //PloggingMakeActivity1에서 가져온 데이터
@@ -106,7 +109,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             String selectedType = intentFromFirstView.getStringExtra("selectedType");   // 1.모임 방식 (선착순/승인제)
             String participantNum = intentFromFirstView.getStringExtra("participantNum");   //2. 모집 인원수
             String startDateStr = intentFromFirstView.getStringExtra("startDate");  //3.모집 시작일
-            String endDateStr= intentFromFirstView.getStringExtra("endDate");   //4. 모집 종료일
+            String endDateStr = intentFromFirstView.getStringExtra("endDate");   //4. 모집 종료일
 
             //PloggingMakeActivity2의 데이터
             String title = editName.getText().toString();   //5. 활동명
@@ -135,6 +138,8 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                 //8번
                 long spendTime = spendTimeInput.isEmpty() ? 0 : Long.parseLong(spendTimeInput);
 
+                String endTime = "2024-11-30T19:55:07";
+
                 // 유효한 데이터를 사용하여 PloggingRequest 객체 생성
                 PloggingRequest request = new PloggingRequest(
                         title,
@@ -145,6 +150,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                         recruitEndDate,
                         startDateTime,
                         spendTime,
+                        endTime,
                         startLoc,
                         endLoc.isEmpty() ? null : endLoc
                 );
@@ -153,6 +159,10 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                 // API 호출하여 서버와 통신
                 PloggingApiService ploggingApiService = new PloggingApiService();
                 ploggingApiService.createPlogging(request, PloggingMakeActivity2.this);
+
+                // TODO : GetPloggins Fragment 로 화면 전환하기
+//                onBackButtonClick1(PloggingMakeActivity2.this);
+
             } catch (Exception e) {
                 Log.e("Error", "Invalid input data: " + e.getMessage());
                 Toast.makeText(PloggingMakeActivity2.this, "입력 데이터를 확인해주세요.", Toast.LENGTH_SHORT).show();
@@ -183,9 +193,15 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         }
         getSupportFragmentManager().popBackStack();
     }
+
     private void resetTimeButtons() {
         freeTime.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
         duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
         btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
     }
+//
+//    public static void onBackButtonClick1(final Activity activity) {
+//        activity.finishAffinity();
+//    }
 }
+
