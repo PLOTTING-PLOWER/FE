@@ -19,7 +19,7 @@ class PloggingMapActivity : AppCompatActivity() {
         val filter : ImageView = findViewById(R.id.filter)
 
         filter.setOnClickListener {
-            val intent = Intent(this, GetPloggings::class.java)
+            val intent = Intent(this, PloggingFilter::class.java)
             startActivity(intent)
         }
 
