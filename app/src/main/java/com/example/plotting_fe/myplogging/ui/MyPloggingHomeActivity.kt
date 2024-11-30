@@ -180,7 +180,7 @@ class MyPloggingHomeActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Log.d("MonthResponse", "onResponse 성공: " + response.body().toString())
                     val monthResponses = response.body()?.results?.responses ?: emptyList()
-                    updatePloggingView_3(monthResponses[0])
+                    updatePloggingView_3(monthResponses)
                 } else {
                     Log.d("MonthResponse", "onResponse 실패 + ${response.code()}")
                 }
@@ -276,10 +276,10 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         viewBinder.bind(data) // 데이터를 바인딩
     }
 
-    private fun updatePloggingView_3(data: MonthResponse.MonthData) {
+    private fun updatePloggingView_3(monthResponses: List<MonthResponse.MonthData>) {
         val includeView = findViewById<View>(R.id.include_3)
         val viewBinder = MonthlyPloggingViewBinder(includeView)
-        viewBinder.bind(data) // 데이터를 바인딩
+        viewBinder.bind(monthResponses) // 데이터를 바인딩
     }
 
     private fun updatePloggingView_4(data: MyPloggingParticipatedResponse) {
@@ -288,17 +288,23 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         viewBinder.bind(data) // 데이터를 바인딩
     }
 
-    private fun updateUI(response: MyPloggingSummaryResponse) {
+    private fun updateUI(response: MyPloggingSummaryResponse?) {
         // 프로필 이미지 로드 (Glide 라이브러리 사용)
-        Glide.with(this)
-            .load(response.profileImageUrl)
-            .into(ivProfileImageUrl)
+        if (response?.profileImageUrl != null) {
+            Glide.with(this)
+                .load(response.profileImageUrl)
+                .into(ivProfileImageUrl)
+        } else {
+            // 기본 이미지 설정
+            ivProfileImageUrl.setImageResource(R.drawable.ic_flower)
+        }
 
-        // 텍스트 뷰에 값 설정
-        tvNickname.text = response.nickname
-        ploggingCount.text = "${response.totalPloggingCount}회"
-        ploggingTime.text = "${response.totalSpendTime}시간"
+        // 텍스트 뷰에 값 설정 (기본값 적용)
+        tvNickname.text = response?.nickname ?: "plotting"
+        ploggingCount.text = "${response?.totalPloggingCount ?: 0}회"
+        ploggingTime.text = "${response?.totalSpendTime ?: 0}시간"
     }
+
 
 
     private fun updateMyRank(myRanking: RankingResponse) {
