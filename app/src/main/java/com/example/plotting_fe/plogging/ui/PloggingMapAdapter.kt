@@ -40,7 +40,7 @@ class PloggingMapAdapter(
         val SpendTime: TextView = view.findViewById(R.id.tvSpendTime)
         val grayStar: ImageView = itemView.findViewById(R.id.iv_gray_star)
         val colorStar: ImageView = itemView.findViewById(R.id.iv_color_star)
-        val btnJoin: Button = itemView.findViewById(R.id.btnJoin)
+        val btnJoin: TextView = itemView.findViewById(R.id.btnJoin)
 
         fun bind(item: PloggingMapResponse) {
 
