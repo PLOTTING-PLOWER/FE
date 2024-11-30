@@ -51,7 +51,7 @@
         </activity>
         <activity
             android:name=".myplogging.ui.MyPloggingUpdateActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".myplogging.ui.MyPloggingUpdate2Activity"
             android:exported="false" />
@@ -66,6 +66,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" /> <!-- 플로깅 모임 생성 액티비티1 -->
         <activity
             android:name=".plogging.ui.PloggingMakeActivity1"
@@ -93,7 +94,7 @@
             android:exported="true" />
 
         <!-- 홈 -->
-        <activity android:name=".home.ui.MainActivity"
+        <activity android:name=".home.ui.MainFragment"
             android:exported="true"/>
 
         <activity

@@ -1,5 +1,7 @@
 package com.example.plotting_fe.plogging.ui;
 
+import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
+
+import java.util.Calendar;
 
 public class PloggingMakeActivity1 extends AppCompatActivity {
 
@@ -40,10 +44,17 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         btnNext = findViewById(R.id.btn_next);  //6. 다음 버튼
         btnBack = findViewById(R.id.btn_back);  //0. 뒤로가기 버튼
 
+        //버튼 색 초기화
+        resetTimeButtons();
+
+        // 0. 뒤로 가기 버튼
+        onBackButtonClick(PloggingMakeActivity1.this, btnBack);
+
         // 선착순(btn_arrival) 버튼 선택
         btnArrival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnArrival.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity1.this, R.color.main));
                 ploggingType = "DIRECT";
                 Toast.makeText(PloggingMakeActivity1.this, "선착순을 선택했습니다.", Toast.LENGTH_SHORT).show();
             }
@@ -53,6 +64,7 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         btnApproval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnApproval.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity1.this, R.color.main));
                 ploggingType = "ASSIGN";
                 Toast.makeText(PloggingMakeActivity1.this, "승인제를 선택했습니다.", Toast.LENGTH_SHORT).show();
             }
@@ -77,8 +89,10 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
 
         // 다음 버튼
         btnNext.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                btnNext.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity1.this, R.color.gray));
                 Log.d("PloggingMakeActivity1", "participantNum: " + maxPeople.getText().toString());
                 Log.d("PloggingMakeActivity1", "selectedType: " + ploggingType);
                 Log.d("PloggingMakeActivity1", "startDate: " + recruitStartDate);
@@ -93,12 +107,6 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
                 intent.putExtra("endDate", recruitEndDate);    //종료일
                 startActivity(intent);
             }
-        });
-
-        // 뒤로 가기 버튼
-        btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(PloggingMakeActivity1.this, GetPloggings.class);
-            startActivityForResult(intent, 0);
         });
     }
 
@@ -119,5 +127,11 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
             }
         }, year, month, day);
         datePickerDialog.show();
+    }
+
+    private void resetTimeButtons() {
+        btnNext.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
+        btnArrival.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        btnApproval.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
     }
 }
