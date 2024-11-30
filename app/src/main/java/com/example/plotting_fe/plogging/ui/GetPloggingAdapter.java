@@ -104,7 +104,7 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView ploggingType, title, startLocation, startTime, spendTime, maxPeople, currentPeople, and, statusText;
-        Button btnJoin;
+        TextView btnJoin;
         ImageView statusColor, btnStar;
 
         public ViewHolder(View itemView) {
