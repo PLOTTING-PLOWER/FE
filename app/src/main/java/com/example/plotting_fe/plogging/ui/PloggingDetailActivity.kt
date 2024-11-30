@@ -11,27 +11,29 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 class PloggingDetailActivity : AppCompatActivity() {
-    private lateinit var ploggingId: String  // fixme : 홈에서 참여하기 누르면 넘어가기 위해서 1) ploggingId 추가함
+    private var ploggingId = 1L  // fixme : 홈에서 참여하기 누르면 넘어가기 위해서 1) ploggingId 추가함
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_plogging_detail)
 
-        ploggingId = intent.getStringExtra("ploggingId") ?: ""  // fixme : 홈에서 참여하기 누르면 넘어가기 위해서 1) ploggingId 추가함
+        ploggingId = intent.getLongExtra("ploggingId", 1L)
 
         val viewPager = findViewById<ViewPager2>(R.id.pager)
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
 
 
-        val adapter: PloggingViewPagerAdapter = PloggingViewPagerAdapter(this)
+        val adapter = PloggingViewPagerAdapter(this, ploggingId)
         viewPager.adapter = adapter
 
         TabLayoutMediator(
             tabLayout, viewPager
         ) { tab: TabLayout.Tab, position: Int ->
             when (position) {
-                0 -> tab.setText("상세정보")
+                0 -> {
+                    tab.setText("상세정보")
+                }
                 1 -> tab.setText("댓글")
             }
         }.attach()
