@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HomeApiService homeApiService;
     private PloggingApiService ploggingApiService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-
             if (itemId == R.id.navigation_home) { // 1.홈
             } else if (itemId == R.id.navigation_plogging) { //2. 플로깅 조회
                 startActivity(new Intent(MainActivity.this, GetPloggings.class));
@@ -108,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, PloggingMapActivity.class));
             } else if (itemId == R.id.navigation_steps) { //4. 내 걸음
                 startActivity(new Intent(MainActivity.this, MyPloggingHomeActivity.class));
-            } else { //5. 내 정보
-                openFragment(new MypageFragment()); //MypageFragment로 이동
+            } else if (itemId == R.id.navigation_mypage) {//5. 내 정보
+                openFragment(new MypageFragment());
             }
 
             return true; // 이벤트 처리 완료
