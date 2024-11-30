@@ -8,20 +8,21 @@
     android:background="@drawable/shape_round_corners_shadow"
     android:layout_marginBottom="16dp">
 
-    <!-- 플로깅 타입 -->
     <TextView
         android:id="@+id/tvploggingType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/approve_bg"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:background="@drawable/shape_edittext_big"
         android:text="승인제"
         android:textColor="#EF920F"
-        android:textSize="8sp"
-        android:textStyle="bold"
+        style="@style/AndroidCaption5"
+        android:includeFontPadding="false"
         android:paddingHorizontal="15dp"
         android:paddingVertical="3dp"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"  />
 
     <!-- 진행중 상태 (오른쪽 상단에 위치) -->
     <LinearLayout
@@ -38,14 +39,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_red_circle"
-            android:contentDescription="마감" />
+            android:contentDescription="진행중" />
 
         <TextView
             android:id="@+id/tvStatusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="마감"
-            android:textSize="12sp"
+            style="@style/AndroidCaption3"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
             android:gravity="center_vertical" />
@@ -65,10 +66,9 @@
             android:layout_height="24dp"
             android:layout_marginStart="4dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_star_color"
+            android:src="@drawable/ic_star_gray"
             android:visibility="gone"
             android:contentDescription="Star Icon" />
-
     </LinearLayout>
 
     <!-- 제목 -->
@@ -76,11 +76,11 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="4dp"
         android:text="상도 한바퀴 플로깅"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        style="@style/AndroidBody2"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvploggingType" />
 
@@ -158,7 +158,9 @@
             android:layout_marginStart="4dp"
             android:text="1H"
             android:textColor="@color/gray"
-            android:textSize="10sp" />
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            style="@style/AndroidCaption6"/>
 
         <!-- 참가 인원 -->
         <ImageView
@@ -175,7 +177,9 @@
             android:layout_marginStart="4dp"
             android:text="3/"
             android:textColor="@color/gray"
-            android:textSize="10sp" />
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            style="@style/AndroidCaption6" />
 
         <TextView
             android:id="@+id/tvMaxPeople"
@@ -183,20 +187,24 @@
             android:layout_height="match_parent"
             android:text="5"
             android:textColor="@color/gray"
-            android:textSize="10sp" />
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            style="@style/AndroidCaption6" />
     </LinearLayout>
 
     <!-- 참여하기 버튼 (오른쪽 아래) -->
-    <Button
+    <TextView
         android:id="@+id/btnJoin"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:background="@drawable/rounded_button"
         android:text="참여하기"
+        android:background="@drawable/shape_edittext_main"
         android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        style="@style/AndroidCaption2"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/location_date" />
 

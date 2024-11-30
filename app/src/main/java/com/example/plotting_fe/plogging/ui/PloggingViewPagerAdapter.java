@@ -5,17 +5,20 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class PloggingViewPagerAdapter extends FragmentStateAdapter {
-        public PloggingViewPagerAdapter(FragmentActivity fa) {
+        private final Long ploggingId;
+
+        public PloggingViewPagerAdapter(FragmentActivity fa, Long ploggingId) {
                 super(fa);
+                this.ploggingId = ploggingId;
         }
 
         @Override
         public Fragment createFragment(int position) {
                 switch (position) {
                     case 1:
-                                return new PloggingCommentFragment();
+                                return PloggingCommentFragment.Companion.newInstance(ploggingId);
                         default:
-                                return new PloggingInfoFragment();
+                                return PloggingInfoFragment.Companion.newInstance(ploggingId); // ploggingId 전달
                 }
         }
 

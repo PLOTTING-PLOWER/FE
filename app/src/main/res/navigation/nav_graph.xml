@@ -6,6 +6,15 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.plotting_fe.home.ui.MainFragment"
+        android:label="Home" >
+        <action
+            android:id="@+id/action_home_to_ranking"
+            app:destination="@id/navigation_ranking"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_plogging"
+        android:name="com.example.plotting_fe.plogging.ui.GetPloggings"
         android:label="Home" />
 
     <!-- 마이페이지  -->
@@ -45,11 +54,11 @@
         android:name="com.example.plotting_fe.mypage.ui.ProfileDetailFragment"
         android:label="profile" />
 
-    <!--    랭킹   -->
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_steps"-->
-<!--        android:name="com.example.plotting_fe.home.ui.RankingFragment"-->
-<!--        android:label="ranking" />-->
+<!--        랭킹   -->
+    <fragment
+        android:id="@+id/navigation_ranking"
+        android:name="com.example.plotting_fe.home.ui.RankingFragment"
+        android:label="ranking" />
 
     <!--
     <fragment

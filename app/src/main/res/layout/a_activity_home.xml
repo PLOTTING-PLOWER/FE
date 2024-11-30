@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDFDFD"
-    tools:context=".home.ui.MainActivity">
+    android:padding="16dp"
+    android:fillViewport="true"
+    tools:context=".home.ui.MainFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <!-- 환영 인사 -->
     <!-- 환영인사 사용자 이미지 -->
     <ImageView
@@ -41,7 +46,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
-        android:text="오늘 하루도 플로깅!"
+        android:text="오늘 하루도 플로팅!"
         android:textColor="#666666"
         android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@id/welcome_rank"
@@ -96,6 +101,7 @@
 
         <!-- 첫 번째 영역: 텍스트와 버튼 -->
         <LinearLayout
+            android:id="@+id/cardNews_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -131,9 +137,9 @@
             <!--카드뉴스 버튼  -->
             <Button
                 android:id="@+id/btn_read_more"
-                android:layout_width="143dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="0dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/button_cardnews_let_go_read"
@@ -479,5 +485,10 @@
         </LinearLayout>
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

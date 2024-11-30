@@ -1,11 +1,12 @@
 package com.example.plotting_fe.plogging.ui;
 
+import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
+
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
+
 import java.util.Calendar;
 
 public class PloggingFilter extends AppCompatActivity {
@@ -32,7 +34,7 @@ public class PloggingFilter extends AppCompatActivity {
     private String selectedStartDate, selectedEndDate;
 
     private String formattedStartTime;
-
+    private ImageView btnClose;
     //버튼 색상 위한 변수
     private Button lastSelectedMeetingTypeButton;
     private Button lastSelectedParticipantCountButton;
@@ -77,6 +79,7 @@ public class PloggingFilter extends AppCompatActivity {
         startTimeAll = findViewById(R.id.start_time_all);   //5. 시작 시간 -> (1)전체
         startTimeFree = findViewById(R.id.start_time_free);  //5. 시작시간 -> (2) 자유
         startTimeAfterInput = findViewById(R.id.start_time_after_input);  //5. 시작시간 -> (2) 자유 -> hh시 입력
+        btnClose = findViewById(R.id.btn_close);    //7. 닫기 버튼
 
         //버튼 색 기본
         resetBtn();
@@ -103,6 +106,9 @@ public class PloggingFilter extends AppCompatActivity {
 
         // 6. 완료 버튼
         btnSubmit.setOnClickListener(v -> submitFilters());
+
+        //7. 뒤로 가기 버튼
+        onBackButtonClick(PloggingFilter.this, btnClose);
     }
 
     // 필터 초기화 함수

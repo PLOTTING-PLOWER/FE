@@ -1,5 +1,7 @@
 package com.example.plotting_fe.plogging.ui;
 
+import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -8,10 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
@@ -24,6 +28,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
     private Button freeTime, btnFinish, duringTimeBtn;
     private String selectedStartDate;
     private boolean is_start_location;
+    private ImageView btnBack;
 
     /*
     String으로 타입 바꿈
@@ -38,6 +43,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_activity_makeplogging2);
 
+        btnBack = findViewById(R.id.iv_back);
         editName = findViewById(R.id.edit_name);
         editIntro = findViewById(R.id.edit_intro);
         startDate = findViewById(R.id.edit_start_date_activity);
@@ -48,6 +54,12 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         startLocation = findViewById(R.id.edit_start_location);
         endLocation = findViewById(R.id.edit_end_location);
         btnFinish = findViewById(R.id.btn_finish);
+
+        //버튼 색 초기화
+        resetTimeButtons();
+
+        // 뒤로 가기 버튼
+        onBackButtonClick(PloggingMakeActivity2.this, btnBack);
 
         // 날짜 선택을 위한 DatePickerDialog 설정
         startDate.setOnClickListener(v -> showDatePickerDialog());
@@ -61,6 +73,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         duringTimeBtn.setOnClickListener(v -> {
             Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
             duringTime.setVisibility(View.VISIBLE);
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
         });
 
         // 출발지 주소 입력 처리
@@ -85,6 +98,8 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
         // 완료 버튼 클릭 시 데이터 제출 처리
         btnFinish.setOnClickListener(v -> {
+
+            btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
 
             //PloggingMakeActivity1에서 가져온 데이터
             Intent intentFromFirstView = getIntent();
@@ -167,5 +182,10 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
             endLocation.setText(address);
         }
         getSupportFragmentManager().popBackStack();
+    }
+    private void resetTimeButtons() {
+        freeTime.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
     }
 }

@@ -34,10 +34,27 @@ class PloggingInfoFragment : Fragment() {
     private lateinit var adapter: PloggingUserAdapter
     private lateinit var participantList: ArrayList<Participant>
 
+    val ARG_PLOGGING_ID: String = "ploggingId"
     private var ploggingId: Long = 1
+
+    // Companion object에 newInstance 메서드 정의
+    companion object {
+        private const val ARG_PLOGGING_ID = "ploggingId"
+
+        fun newInstance(ploggingId: Long): PloggingInfoFragment {
+            val fragment = PloggingInfoFragment()
+            val args = Bundle()
+            args.putLong(ARG_PLOGGING_ID, ploggingId) // ploggingId를 Bundle에 추가
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (getArguments() != null) {
+            ploggingId = requireArguments().getLong(ARG_PLOGGING_ID) // Bundle에서 ploggingId를 가져옴
+        }
     }
 
     override fun onCreateView(
