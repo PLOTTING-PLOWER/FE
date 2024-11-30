@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
 //            // FIXME
 //            // TODO: 메인 화면은 여기가 아니라, home 도메인-> MainActivity 로 설정함.
 //            // BottomNavigationView 클릭 이벤트 추가
