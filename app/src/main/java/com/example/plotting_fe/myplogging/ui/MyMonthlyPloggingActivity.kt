@@ -166,16 +166,13 @@ class MyMonthlyPloggingActivity : AppCompatActivity() {
         val dataSet = BarDataSet(entries, "플로깅 시간").apply {
             // 색상 설정 (값이 0인 경우 색상을 투명하게 설정)
             val colors = entries.map { entry ->
-                when (entry.x) {
-                    0f -> ContextCompat.getColor(this@MyMonthlyPloggingActivity, R.color.main) // 이번 달 색상
-                    else -> {
-                        if (entry.y > 0) {
-                            ContextCompat.getColor(this@MyMonthlyPloggingActivity, R.color.light_orange) // Y값이 0보다 클 때 색상
-                        } else {
-                            Color.WHITE // Y값이 0일 때 색상
-                        }
-                    }
+                when {
+                    entry.y == 0f -> Color.WHITE // Y값이 0일 때 색상
+                    entry.x == 0f -> ContextCompat.getColor(this@MyMonthlyPloggingActivity, R.color.main) // 이번 달 색상
+                    entry.y > 0 -> ContextCompat.getColor(this@MyMonthlyPloggingActivity, R.color.light_orange) // Y값이 0보다 클 때 색상
+                    else -> Color.WHITE // Y값이 0보다 작을 때 색상 (필요시 추가)
                 }
+
             }
             setColors(colors)
 
