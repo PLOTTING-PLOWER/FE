@@ -93,7 +93,7 @@
             android:exported="true" />
 
         <!-- 홈 -->
-        <activity android:name=".home.ui.MainActivity"
+        <activity android:name=".home.ui.MainFragment"
             android:exported="true"/>
 
         <activity
