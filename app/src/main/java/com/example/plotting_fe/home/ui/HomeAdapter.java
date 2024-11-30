@@ -106,7 +106,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView ploggingType, title, startLocation, startTime, spendTime, maxPeople, currentPeople, and, statusText;
-        Button btnJoin;
+        TextView btnJoin;
         ImageView statusColor, btnStar;
 
         public ViewHolder(View itemView) {
@@ -120,7 +120,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             and = itemView.findViewById(R.id.and);  // 귀찮아서 "/"표시 따로 넣어버림
             maxPeople = itemView.findViewById(R.id.tvMaxPeople);
             currentPeople = itemView.findViewById(R.id.tvCurrentPeople);
-            btnJoin = itemView.findViewById(R.id.btnJoin);
+            btnJoin = itemView.findViewById(R.id.btnJoin);  // xml Button-> TExtview로 변경되어 있어서 그거 대로 수정함.
 
             statusColor = itemView.findViewById(R.id.tvStatus);
             statusText = itemView.findViewById(R.id.tvStatusText);
