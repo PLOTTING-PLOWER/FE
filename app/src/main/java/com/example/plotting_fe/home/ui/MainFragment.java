@@ -23,6 +23,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.home.dto.response.HomeResponse;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
@@ -98,11 +99,11 @@ public class MainFragment extends Fragment {
         // 어댑터 설정
         setupAdapter();
 
-        // 서버에서 홈 데이터 가져오기
-        getHome();
-
         // 더미 데이터 추가 (TODO: 서버 데이터 존재시 지울 예정)
         setDummyData();
+
+        // 서버에서 홈 데이터 가져오기
+        getHome();
 
         // 버튼 클릭 이벤트 설정
         setupButtonListeners();
@@ -228,6 +229,49 @@ public class MainFragment extends Fragment {
             @Override
             public void onPlowerDataReceived(List<PlowerResponse> plowerList) {
                 // Plower 데이터를 처리하는 로직
+                Log.d("Plower", plowerList.toString());
+
+                // 각 플로워에 대해 처리
+                for (int index = 0; index < plowerList.size(); index++) {
+                    PlowerResponse plower = plowerList.get(index);
+
+                    switch (index) {
+                        case 0:
+                            // 첫 번째 플로워 설정
+                            btnPlowerName1.setText(plower.getNickname());
+                            Glide.with(getActivity())
+                                    .load(plower.getProfileImageUrl())
+                                    .placeholder(R.drawable.ic_icon_round)
+                                    .into(btnPlower1);
+                            break;
+                        case 1:
+                            // 두 번째 플로워 설정
+                            btnPlowerName2.setText(plower.getNickname());
+                            Glide.with(getActivity())
+                                    .load(plower.getProfileImageUrl())
+                                    .placeholder(R.drawable.ic_icon_round)
+                                    .into(btnPlower2);
+                            break;
+                        case 2:
+                            // 세 번째 플로워 설정
+                            btnPlowerName3.setText(plower.getNickname());
+                            Glide.with(getActivity())
+                                    .load(plower.getProfileImageUrl())
+                                    .placeholder(R.drawable.ic_icon_round)
+                                    .into(btnPlower3);
+                            break;
+                        case 3:
+                            // 네 번째 플로워 설정
+                            btnPlowerName4.setText(plower.getNickname());
+                            Glide.with(getActivity())
+                                    .load(plower.getProfileImageUrl())
+                                    .placeholder(R.drawable.ic_icon_round)
+                                    .into(btnPlower4);
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
 
             @Override
