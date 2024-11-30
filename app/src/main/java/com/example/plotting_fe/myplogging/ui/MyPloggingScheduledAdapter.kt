@@ -14,6 +14,7 @@ import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,7 +37,7 @@ class MyPloggingScheduledAdapter(
         val CurrentPeople: TextView = itemView.findViewById(R.id.tvCurrentPeople)
         val MaxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
         val IsAssigned: TextView = itemView.findViewById(R.id.tvIsAssigned)
-        val cancelButton: Button = itemView.findViewById(R.id.btnCancel)
+        val cancelButton: TextView = itemView.findViewById(R.id.btnCancel)
         val grayStar: ImageView = itemView.findViewById(R.id.iv_gray_star)
         val colorStar: ImageView = itemView.findViewById(R.id.iv_color_star)
 

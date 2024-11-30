@@ -36,7 +36,7 @@ class MyPloggingParticipatedAdapter(
         val SpendTime: TextView = itemView.findViewById(R.id.tvSpendTime)
         val CurrentPeople: TextView = itemView.findViewById(R.id.tvCurrentPeople)
         val MaxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
-        val btnJoin: Button = itemView.findViewById(R.id.btnJoin)
+        val btnJoin: TextView = itemView.findViewById(R.id.btnJoin)
         val grayStar: ImageView = itemView.findViewById(R.id.iv_gray_star)
         val colorStar: ImageView = itemView.findViewById(R.id.iv_color_star)
 

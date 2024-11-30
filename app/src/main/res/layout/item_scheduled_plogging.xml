@@ -204,7 +204,7 @@
             style="@style/AndroidCaption6" />
     </LinearLayout>
 
-    <!-- 참여하기 버튼 (오른쪽 아래) -->
+    <!-- 취소하기 버튼 (오른쪽 아래) -->
     <TextView
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
