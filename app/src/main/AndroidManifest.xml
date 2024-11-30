@@ -76,6 +76,7 @@
             android:exported="true" /> <!-- 플로깅 검색 액티비티 -->
         <activity
             android:name=".plogging.ui.GetPloggings"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true" />
 
         <!-- 플로깅 필터 액티비티 -->
