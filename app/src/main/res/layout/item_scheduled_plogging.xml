@@ -1,83 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
+    android:padding="15dp"
     android:background="@drawable/shape_round_corners_shadow"
-    android:padding="15dp">
+    android:layout_marginBottom="16dp">
 
-    <!-- 승인제 배너 -->
     <TextView
         android:id="@+id/tvploggingType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/approve_bg"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="3dp"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:background="@drawable/shape_edittext_big"
         android:text="승인제"
         android:textColor="#EF920F"
-        android:textSize="8sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        style="@style/AndroidCaption5"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="3dp"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"  />
 
     <!-- 진행중 상태 (오른쪽 상단에 위치) -->
     <LinearLayout
         android:id="@+id/tvStatusContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/tvIsAssigned"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center_vertical"
+            android:layout_height="match_parent"
             android:text="승인대기"
-            android:textColor="#EF920F"
-            android:textSize="12sp" />
+            android:textColor="@color/main"
+            style="@style/AndroidCaption5"
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            android:paddingRight="8dp">
+        </TextView>
 
         <ImageView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="진행중"
-            android:src="@drawable/ic_green_circle" />
+            android:src="@drawable/ic_green_circle"
+            android:contentDescription="진행중" />
 
         <TextView
             android:id="@+id/tvStatusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="진행중"
+            style="@style/AndroidCaption3"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-            android:gravity="center_vertical"
-            android:text="진행중"
-            android:textSize="12sp" />
+            android:gravity="center_vertical" />
 
         <ImageView
             android:id="@+id/iv_gray_star"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
-            android:contentDescription="Star Icon"
-            android:src="@drawable/ic_star_gray" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_star_gray"
+            android:contentDescription="Star Icon" />
 
         <ImageView
             android:id="@+id/iv_color_star"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
-            android:contentDescription="Star Icon"
-            android:src="@drawable/ic_star_color"
-            android:visibility="gone" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_star_gray"
+            android:visibility="gone"
+            android:contentDescription="Star Icon" />
     </LinearLayout>
 
     <!-- 제목 -->
@@ -85,11 +88,11 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="4dp"
         android:text="상도 한바퀴 플로깅"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        style="@style/AndroidBody2"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvploggingType" />
 
@@ -167,7 +170,9 @@
             android:layout_marginStart="4dp"
             android:text="1H"
             android:textColor="@color/gray"
-            android:textSize="10sp" />
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            style="@style/AndroidCaption6"/>
 
         <!-- 참가 인원 -->
         <ImageView
@@ -182,9 +187,23 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
-            android:text="3/"
+            android:text="3"
             android:textColor="@color/gray"
-            android:textSize="10sp" />
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            style="@style/AndroidCaption6" />
+
+        <TextView
+            android:id="@+id/and"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="/"
+            android:textColor="@color/gray"
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            style="@style/AndroidCaption6"
+            android:layout_toEndOf="@id/tvCurrentPeople"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/tvMaxPeople"
@@ -192,20 +211,24 @@
             android:layout_height="match_parent"
             android:text="5"
             android:textColor="@color/gray"
-            android:textSize="10sp" />
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            style="@style/AndroidCaption6" />
     </LinearLayout>
 
-    <!-- 취소하기 버튼 (오른쪽 아래) -->
-    <Button
+    <!-- 참여하기 버튼 (오른쪽 아래) -->
+    <TextView
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:background="@drawable/rounded_button"
         android:text="취소하기"
+        android:background="@drawable/shape_edittext_main"
         android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        style="@style/AndroidCaption2"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/location_date" />
 

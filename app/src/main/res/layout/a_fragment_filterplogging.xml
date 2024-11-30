@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         style="@style/AndroidButton1"
-        android:text="모아모아플로깅" />
+        android:text="모아모아 플로깅" />
 
     <!-- 상단 묶어 버림 -->
     <LinearLayout
@@ -109,21 +109,4 @@
         android:layout_alignParentBottom="true"
         android:paddingBottom="80dp"
         android:src="@drawable/ic_plus" />
-
-    <!-- 네비게이션 바 -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/rounded_bottom_nav_background"
-        app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/bottom_nav_item_color"
-        app:itemTextColor="@color/bottom_nav_item_color"
-        app:labelVisibilityMode="labeled"
-        app:itemActiveIndicatorStyle="@android:color/transparent"
-        app:itemBackground="@android:color/transparent" />
-
-
-
 </RelativeLayout>

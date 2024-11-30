@@ -49,7 +49,7 @@ class MyPloggingScheduledAdapter(
             StartTime.text = formattedTime
 
             SpendTime.text = "${(item.spendTime / 60)}H"
-            CurrentPeople.text = "${item.currentPeople}/"
+            CurrentPeople.text = "${item.currentPeople}"
             MaxPeople.text = item.maxPeople.toString()
 
             if (item.ploggingType.name == "DIRECT") {
