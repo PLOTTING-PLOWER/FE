@@ -27,7 +27,7 @@ interface AuthController {
     fun login(@Body request: LoginRequest): Call<ResponseTemplate<LoginResponse>>
 
     @Headers("Content-Type: application/json")
-    @POST("/login/oauth2/code/naver")
+    @POST("/auth/login/naver")
     fun loginWithNaver(@Body accessTokenRequest: AccessTokenRequest): Call<ResponseTemplate<LoginResponse>>
 
     @DELETE("/auth/withdraw")

@@ -78,6 +78,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // 일반 로그인
     private fun handleLogin(email: String, password: String) {
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "이메일과 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
@@ -93,7 +94,6 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val responseTemplate = response.body()
                     checkResponse(responseTemplate)
-
                 } else {
                     Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
@@ -115,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("launcher", "accessToken: " + accessToken)
 
                 if (!accessToken.isNullOrEmpty()) {
-                    sendTokenToServer(accessToken)
+                    sendTokenToServer(accessToken)      // 서버에 accessToken 전송
                 } else {
                     Toast.makeText(this, "액세스 토큰을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
                 }
@@ -138,18 +138,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendTokenToServer(accessToken: String) {
-        val accessTokenRequest = AccessTokenRequest(accessToken)
-        authController.loginWithNaver(accessTokenRequest).enqueue(object : Callback<ResponseTemplate<LoginResponse>> {
+        val request = AccessTokenRequest(accessToken)
+        authController.loginWithNaver(request).enqueue(object : Callback<ResponseTemplate<LoginResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<LoginResponse>>,
                 response: Response<ResponseTemplate<LoginResponse>>
             ) {
-                Log.d("get", "Response: ${response.body()}")
                 if (response.isSuccessful) {
                     Log.d("get", "onResponse 성공: " + response.body().toString())
                     val responseTemplate = response.body()
                     checkResponse(responseTemplate)
-
                 } else {
                     Log.d("get", "onResponse 실패: " + response.code())
                     Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
