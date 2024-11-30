@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,10 +68,24 @@ public class MainFragment extends Fragment {
         btnCatagoty15Up = view.findViewById(R.id.categoty_15_up);
         btnCatagotyApprove = view.findViewById(R.id.category_approve);
         btnCatagotyRandom = view.findViewById(R.id.category_random);
+        btnRanking = view.findViewById(R.id.welcome_rank);
+        btnAlarm = view.findViewById(R.id.welcome_alarm);
 
         // 버튼 클릭 리스너 설정
         btnCardnews.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CardnewsListActivity.class);
+            startActivity(intent);
+        });
+
+        //
+        btnRanking.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_home_to_ranking);
+        });
+
+        // 알람 리스트 이동
+        btnAlarm.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), AlarmActivity.class);
             startActivity(intent);
         });
 

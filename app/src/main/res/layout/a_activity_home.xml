@@ -42,7 +42,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
-        android:text="오늘 하루도 플로깅!"
+        android:text="오늘 하루도 플로팅!"
         android:textColor="#666666"
         android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@id/welcome_rank"
