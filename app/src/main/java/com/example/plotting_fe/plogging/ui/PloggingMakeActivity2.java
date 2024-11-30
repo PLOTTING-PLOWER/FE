@@ -1,5 +1,7 @@
 package com.example.plotting_fe.plogging.ui;
 
+import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -25,6 +28,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
     private Button freeTime, btnFinish, duringTimeBtn;
     private String selectedStartDate;
     private boolean is_start_location;
+    private ImageView btnBack;
 
     /*
     String으로 타입 바꿈
@@ -39,6 +43,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_activity_makeplogging2);
 
+        btnBack = findViewById(R.id.iv_back);
         editName = findViewById(R.id.edit_name);
         editIntro = findViewById(R.id.edit_intro);
         startDate = findViewById(R.id.edit_start_date_activity);
@@ -52,6 +57,9 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
         //버튼 색 초기화
         resetTimeButtons();
+
+        // 뒤로 가기 버튼
+        onBackButtonClick(PloggingMakeActivity2.this, btnBack);
 
         // 날짜 선택을 위한 DatePickerDialog 설정
         startDate.setOnClickListener(v -> showDatePickerDialog());
