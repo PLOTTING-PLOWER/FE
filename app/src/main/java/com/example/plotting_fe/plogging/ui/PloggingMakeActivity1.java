@@ -1,5 +1,7 @@
 package com.example.plotting_fe.plogging.ui;
 
+import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
+
+import java.util.Calendar;
 
 public class PloggingMakeActivity1 extends AppCompatActivity {
 
@@ -43,6 +46,9 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
 
         //버튼 색 초기화
         resetTimeButtons();
+
+        // 0. 뒤로 가기 버튼
+        onBackButtonClick(PloggingMakeActivity1.this, btnBack);
 
         // 선착순(btn_arrival) 버튼 선택
         btnArrival.setOnClickListener(new View.OnClickListener() {
@@ -101,12 +107,6 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
                 intent.putExtra("endDate", recruitEndDate);    //종료일
                 startActivity(intent);
             }
-        });
-
-        // 뒤로 가기 버튼
-        btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(PloggingMakeActivity1.this, GetPloggings.class);
-            startActivityForResult(intent, 0);
         });
     }
 

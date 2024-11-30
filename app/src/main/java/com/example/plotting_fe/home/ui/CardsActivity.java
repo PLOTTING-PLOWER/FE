@@ -1,5 +1,7 @@
 package com.example.plotting_fe.home.ui;
 
+import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -47,7 +49,7 @@ public class CardsActivity extends AppCompatActivity implements CardsListener {
         imgCardNewsRecyclerView.setAdapter(cardsAdapter);
 
         // 뒤로 가기 버튼 클릭 시 종료
-        backButton.setOnClickListener(view -> finish());
+        onBackButtonClick(CardsActivity.this, backButton);
     }
 
     private void loadCards(Long cardId) {
