@@ -14,7 +14,7 @@ class PloggingMapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plogging_map)
-
+/*
         val search: TextView = findViewById(R.id.search_text)
         val filter : ImageView = findViewById(R.id.filter)
 
@@ -27,7 +27,7 @@ class PloggingMapActivity : AppCompatActivity() {
             val intent = Intent(this, GetPloggings::class.java)
             startActivity(intent)
         }
-
+*/
         // PloggingMapFragment를 추가
         val mapFragment = PloggingMapFragment()
         supportFragmentManager.beginTransaction()
