@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +56,25 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
             public void onClick(View v) {
                 btnArrival.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity1.this, R.color.main));
                 ploggingType = "DIRECT";
+
+                // TextView 색상 변경
+                TextView nameTextView = findViewById(R.id.nameTextView);
+                TextView detailsTextView = findViewById(R.id.detailsTextView);
+                TextView noticeTextView = findViewById(R.id.noticeTextView);
+
+                nameTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.white));
+                detailsTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.white));
+                noticeTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.white));
+
+                btnApproval.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity1.this, R.color.light_gray));
+
+                // TextView 색상 변경
+                TextView approvalTextView = findViewById(R.id.approvalTextView); // ID를 지정해 주세요
+                TextView approvalDetailsTextView = findViewById(R.id.approvalDetailsTextView); // ID를 지정해 주세요
+
+                approvalTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.gray));
+                approvalDetailsTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.gray));
+
                 Toast.makeText(PloggingMakeActivity1.this, "선착순을 선택했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -65,6 +85,25 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
             public void onClick(View v) {
                 btnApproval.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity1.this, R.color.main));
                 ploggingType = "ASSIGN";
+
+                // TextView 색상 변경
+                TextView nameTextView = findViewById(R.id.nameTextView);
+                TextView detailsTextView = findViewById(R.id.detailsTextView);
+                TextView noticeTextView = findViewById(R.id.noticeTextView);
+
+                nameTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.gray));
+                detailsTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.gray));
+                noticeTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.gray));
+
+                btnArrival.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity1.this, R.color.light_gray));
+
+                // TextView 색상 변경
+                TextView approvalTextView = findViewById(R.id.approvalTextView); // ID를 지정해 주세요
+                TextView approvalDetailsTextView = findViewById(R.id.approvalDetailsTextView); // ID를 지정해 주세요
+
+                approvalTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.white));
+                approvalDetailsTextView.setTextColor(ContextCompat.getColor(PloggingMakeActivity1.this, R.color.white));
+
                 Toast.makeText(PloggingMakeActivity1.this, "승인제를 선택했습니다.", Toast.LENGTH_SHORT).show();
             }
         });

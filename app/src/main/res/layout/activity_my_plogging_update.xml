@@ -103,6 +103,7 @@
                                 android:textColor="@color/gray"/>
 
                             <TextView
+                                android:id="@+id/detailsTextView2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="누구나 참여할 수 있어서 신청률이 높아요."
@@ -138,6 +139,7 @@
                     android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_approve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="승인제"
@@ -148,6 +150,7 @@
                             style="@style/AndroidBody2" />
 
                         <TextView
+                            android:id="@+id/tv_approve_details"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="호스트가 직접 멤버를 수락하거나 거절할 수 있어요."

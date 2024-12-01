@@ -26,6 +26,7 @@ class MyPloggingUpdateActivity : AppCompatActivity() {
         resetTimeButtons()
 
         ploggingId = intent.getLongExtra("ploggingId", 1L)
+        val ploggingType = intent.getStringExtra("ploggingType")
         val title = intent.getStringExtra("title")
         val content = intent.getStringExtra("content")
         val startTime = intent.getStringExtra("startTime")
@@ -37,6 +38,17 @@ class MyPloggingUpdateActivity : AppCompatActivity() {
         binding.inputParticipantNum.setText(maxPeople.toString())
         binding.startDate.setText(recruitStartDate)
         binding.endDate.setText(recruitEndDate)
+
+        if (ploggingType == "DIRECT") {
+            binding.btnTime.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main))
+            binding.nameTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.detailsTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.detailsTextView2.setTextColor(ContextCompat.getColor(this, R.color.white))
+        } else {
+            binding.btnApproval.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main))
+            binding.tvApprove.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.tvApproveDetails.setTextColor(ContextCompat.getColor(this, R.color.white))
+        }
 
         binding.startDate.setOnClickListener {
             showDatePickerDialog(true)
