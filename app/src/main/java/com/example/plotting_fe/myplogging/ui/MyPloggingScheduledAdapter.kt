@@ -101,11 +101,6 @@ class MyPloggingScheduledAdapter(
                 call: Call<ResponseTemplate<Void>>,
                 response: Response<ResponseTemplate<Void>>
             ) {
-
-                // 요청 성공 여부 로그
-                Log.d("API_CALL", "Request URL: ${call.request().url}")
-                Log.d("API_CALL", "Response Code: ${response.code()}")
-                Log.d("API_CALL", "Response Message: ${response.message()}")
                 if (response.isSuccessful) {
                     Toast.makeText(context, "플로깅 취소 완료.", Toast.LENGTH_SHORT).show()
 
@@ -115,7 +110,7 @@ class MyPloggingScheduledAdapter(
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
-                Log.e("API_CALL", "Error: ${t.localizedMessage}")
+
                 Toast.makeText(context, "네트워크 오류로 취소 요청에 실패했습니다.", Toast.LENGTH_SHORT).show()
             }
         })

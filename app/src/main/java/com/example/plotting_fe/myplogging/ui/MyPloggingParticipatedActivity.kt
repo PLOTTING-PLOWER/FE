@@ -16,6 +16,7 @@ import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.plotting_fe.global.util.ClickUtil
 
 class MyPloggingParticipatedActivity : AppCompatActivity() {
 
@@ -39,17 +40,10 @@ class MyPloggingParticipatedActivity : AppCompatActivity() {
         recyclerViewParticipatedPlogging = findViewById(R.id.recyclerView_participated_plogging)
         backButton = findViewById(R.id.iv_back)
 
-        backButton.setOnClickListener {
-            navigateToHome()
-        }
+        //뒤로 가기
+        ClickUtil.onBackButtonClick(this, backButton)
 
         recyclerViewParticipatedPlogging.layoutManager = LinearLayoutManager(this)
-    }
-
-    private fun navigateToHome() {
-        val intent = Intent(this, MyPloggingHomeActivity::class.java)
-        startActivity(intent)
-        finish() // 현재 Activity 종료
     }
 
     private fun fetchData() {

@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
-import com.example.plotting_fe.global.util.RetrofitImpl
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.plotting_fe.global.util.ClickUtil
 
 class MyPloggingScheduledActivity : AppCompatActivity() {
 
@@ -32,12 +32,8 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
         recyclerViewScheduledPlogging = findViewById(R.id.recyclerView_scheduled_plogging)
         backButton = findViewById(R.id.iv_back)
 
-        // 뒤로가기 버튼 클릭 이벤트 설정
-        backButton.setOnClickListener {
-            val intent = Intent(this, MyPloggingHomeActivity::class.java)
-            startActivity(intent) // MyPloggingHomeActivity로 이동
-            finish() // 현재 Activity 종료
-        }
+        //뒤로 가기
+        ClickUtil.onBackButtonClick(this, backButton)
 
         // RecyclerView 초기화
         recyclerViewScheduledPlogging.layoutManager = LinearLayoutManager(this)
