@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
@@ -23,7 +24,7 @@ import java.util.Locale
 
 class MyPloggingScheduledAdapter(
     private val context: Context,
-    private val dataList: List<MyPloggingScheduledResponse>,
+    private var dataList: List<MyPloggingScheduledResponse>,
     private val onCancelClick: (ploggingId: Long) -> Unit
 ) : RecyclerView.Adapter<MyPloggingScheduledAdapter.ViewHolder>() {
 
@@ -87,10 +88,39 @@ class MyPloggingScheduledAdapter(
 
             cancelButton.setOnClickListener {
                 // Call the onCancelClick function to trigger the API request
-                onCancelClick(item.ploggingId)
+                cancelPlogging(item.ploggingId)
             }
         }
     }
+
+     fun cancelPlogging(ploggingId: Long) {
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
+        myPloggingController.reqeustCancel(ploggingId).enqueue(object :
+            Callback<ResponseTemplate<Void>> {
+            override fun onResponse(
+                call: Call<ResponseTemplate<Void>>,
+                response: Response<ResponseTemplate<Void>>
+            ) {
+
+                // 요청 성공 여부 로그
+                Log.d("API_CALL", "Request URL: ${call.request().url}")
+                Log.d("API_CALL", "Response Code: ${response.code()}")
+                Log.d("API_CALL", "Response Message: ${response.message()}")
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "플로깅 취소 완료.", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    Toast.makeText(context, "플로깅 취소 실패.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
+                Log.e("API_CALL", "Error: ${t.localizedMessage}")
+                Toast.makeText(context, "네트워크 오류로 취소 요청에 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 
     fun updateStar(ploggingId: Long) {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
@@ -138,4 +168,5 @@ class MyPloggingScheduledAdapter(
 
     // 아이템 개수 반환
     override fun getItemCount(): Int = dataList.size
+
 }
