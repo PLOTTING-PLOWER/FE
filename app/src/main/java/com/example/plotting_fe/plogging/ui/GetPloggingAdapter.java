@@ -122,7 +122,7 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
 
             statusColor = itemView.findViewById(R.id.tvStatus);
             statusText = itemView.findViewById(R.id.tvStatusText);
-            btnStar = itemView.findViewById(R.id.iv_color_star);
+            btnStar = itemView.findViewById(R.id.iv_gray_star);
 
         }
     }

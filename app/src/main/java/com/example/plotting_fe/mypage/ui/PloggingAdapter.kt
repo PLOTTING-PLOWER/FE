@@ -53,14 +53,14 @@ class PloggingAdapter(
         private val spendTime :TextView = itemView.findViewById(R.id.tvSpendTime)
         private val status :TextView = itemView.findViewById(R.id.tvStatusText)
         private val statusImage :ImageView = itemView.findViewById(R.id.tvStatus)
-        private val starIcon : ImageView = itemView.findViewById(R.id.starIcon)
-        private val button : Button = itemView.findViewById(R.id.btnJoin)
+        private val starIcon : ImageView = itemView.findViewById(R.id.iv_gray_star)
+        private val button : TextView = itemView.findViewById(R.id.btnJoin)
 
 
         fun bind(plogging: Plogging){
             title.text = plogging.title
             maxPeople.text = plogging.maxPeople.toString()
-            currentPeople.text = plogging.currentPeople.toString()+"/"
+            currentPeople.text = plogging.currentPeople.toString()
             startTime.text = plogging.startTime
             startLocation.text = plogging.startLocation
             spendTime.text = (plogging.spendTime/60).toString()+"H"
@@ -100,10 +100,10 @@ class PloggingAdapter(
 
         private fun onStarClick(plogging: Plogging, position: Int) {
             // 즐겨찾기 API 호출
-            toggleUserStar(plogging.ploggingId, position)
+            togglePloggingStar(plogging.ploggingId, position)
         }
 
-        private fun toggleUserStar(starId: Long, position: Int) {
+        private fun togglePloggingStar(starId: Long, position: Int) {
             val starController = ApiClient.getApiClient().create(StarController::class.java)
             starController.updateUserStar(starId).enqueue(object :
                 Callback<ResponseTemplate<Boolean>> {

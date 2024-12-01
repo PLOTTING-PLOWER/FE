@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.plotting_fe.global.ResponseTemplate;
 import com.example.plotting_fe.user.ui.LoginActivity;
 import com.example.plotting_fe.user.ui.SignUpActivity;
 
@@ -51,6 +52,32 @@ public class ClickUtil {
             }
         });
     }
+
+    private fun togglePloggingStar(starId: Long, position: Int) {
+        val starController = ApiClient.getApiClient().create(StarController::class.java)
+        starController.updateUserStar(starId).enqueue(object :
+        Callback<ResponseTemplate<Boolean>> {
+            override fun onResponse(call: Call<ResponseTemplate<Boolean>>, response: Response<ResponseTemplate<Boolean>>) {
+                if (response.isSuccessful) {
+                    // 서버에서 반환된 즐겨찾기 상태로 UI 업데이트
+                    val isStarred = response.body()?.results ?: false
+                    if(!isStarred){
+                        ploggingList.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, ploggingList.size) // 나머지 항목 갱신
+                        Log.d("post", "즐겨찾기 해제 성공: $isStarred")
+                    }
+                } else {
+                    Log.d("post", "onResponse 실패: " + response.code())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<Boolean>>, t: Throwable) {
+                Log.d("post", "onFailure 에러: " +  t.message.toString())
+            }
+        })
+    }
+
 
 
 }
