@@ -47,6 +47,8 @@ class PloggingCommentFragment : Fragment() {
 
     val ARG_PLOGGING_ID: String = "ploggingId"
     private var ploggingId: Long = 1
+    private var nickname: String = "슝슝이"
+    private lateinit var profileImageUrl: String
 
     // Companion object에 newInstance 메서드 정의
     companion object {
@@ -141,10 +143,10 @@ class PloggingCommentFragment : Fragment() {
                         // 새 댓글 생성
                         val newReply = Reply(
                             id = replies.size.toLong() + 1,
-                            username = "슝슝이",
+                            username = nickname,
                             timestamp = LocalDateTime.now().format(formatter),
                             content = content,
-                            profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/profile/soong.png",
+                            profileImageUrl = profileImageUrl,
                             depth = depth,
                             parentCommentId = parentCommentId,
                             isCommentPublic = isCommentPublic,
@@ -196,10 +198,10 @@ class PloggingCommentFragment : Fragment() {
             // 새 댓글 생성
             val newComment = Comment(
                 id = comments.size.toLong() + 1,
-                username = "슝슝이",
+                username = nickname,
                 timestamp = LocalDateTime.now().format(formatter),
                 content = content,
-                profileImageUrl = "https://plower.s3.ap-northeast-2.amazonaws.com/profile/soong.png",
+                profileImageUrl = profileImageUrl,
                 depth = 0L,
                 parentCommentId = 0L,
                 isCommentPublic = isCommentPublic,
@@ -227,8 +229,11 @@ class PloggingCommentFragment : Fragment() {
                 response: Response<ResponseTemplate<CommentResponse>>,
             ) {
                 if (response.isSuccessful) {
-                    val body = response.body()?.results?.comments
-                    body?.let {
+                    val body = response.body()?.results
+                    nickname = body?.nickname.toString()
+                    profileImageUrl = body?.profileImageUrl.toString()
+
+                    body?.comments?.let {
                         comments.clear() // 기존 댓글 리스트를 비우고
                         comments.addAll(it.map { comment ->
                             // Comment 객체로 변환

@@ -3,6 +3,7 @@ package com.example.plotting_fe.plogging.dto.response
 import com.example.plotting_fe.plogging.dto.PloggingType
 
 data class PloggingDetailResponse(
+    val creator: String,
     val title: String,
     val content: String,
     val currentPeople: Long,

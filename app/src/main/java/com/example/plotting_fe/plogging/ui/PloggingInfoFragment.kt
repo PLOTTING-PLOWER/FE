@@ -107,7 +107,6 @@ class PloggingInfoFragment : Fragment() {
         })
     }
 
-
     private fun showParticipantsDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_participants, null)
 
@@ -202,7 +201,7 @@ class PloggingInfoFragment : Fragment() {
                     body?.let {
                         // TextView에 body.title을 설정
                         binding.tvTitle.text = it.title
-                        binding.tvHost.text = "플라워"
+                        binding.tvHost.text = it.creator
                         binding.tvCurrentPeople.text = it.currentPeople.toString()
                         binding.tvMaxPeople.text = it.maxPeople.toString()
                         binding.tvTime.text = (it.spendTime / 60).toString()
