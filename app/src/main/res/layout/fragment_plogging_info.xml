@@ -6,6 +6,11 @@
     android:padding="16dp"
     tools:context=".plogging.ui.PloggingInfoFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -306,5 +311,5 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>
