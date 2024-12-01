@@ -10,8 +10,6 @@
         <action
             android:id="@+id/action_home_to_ranking"
             app:destination="@id/navigation_ranking"/>
-
-
     </fragment>
 
     <fragment

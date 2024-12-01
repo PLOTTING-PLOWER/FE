@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
@@ -113,6 +114,7 @@ class MypageProfileFragment: Fragment() {
         profileMessageTextView.text = profile.profileMessage
         Glide.with(this)
             .load(profile.profileImageUrl)
+            .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
             .placeholder(R.drawable.ic_flower)
             .error(R.drawable.ic_flower)
             .into(profileImageView)

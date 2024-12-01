@@ -70,7 +70,6 @@ public class MainFragment extends Fragment {
         btnCatagoty15Up = view.findViewById(R.id.categoty_15_up);
         btnCatagotyApprove = view.findViewById(R.id.category_approve);
         btnCatagotyRandom = view.findViewById(R.id.category_random);
-        btnRanking = view.findViewById(R.id.welcome_rank);
         btnAlarm = view.findViewById(R.id.welcome_alarm);
 
         // 버튼 클릭 리스너 설정
@@ -79,7 +78,7 @@ public class MainFragment extends Fragment {
             startActivity(intent);
         });
 
-        //
+        btnRanking = view.findViewById(R.id.welcome_rank);
         btnRanking.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.action_home_to_ranking);

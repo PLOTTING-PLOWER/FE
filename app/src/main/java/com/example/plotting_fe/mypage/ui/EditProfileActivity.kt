@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,10 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
@@ -189,6 +185,7 @@ class EditProfileActivity : AppCompatActivity() {
 
                 Glide.with(this)
                     .load(compressedFile) // 리사이즈 및 압축된 이미지
+                    .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
                     .diskCacheStrategy(DiskCacheStrategy.NONE) // 디스크 캐시 비활성화
                     .skipMemoryCache(true) // 메모리 캐시 비활성화
                     .into(profileImageView)  // 새로운 이미지 로드
