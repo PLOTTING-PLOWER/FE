@@ -1,5 +1,7 @@
 package com.example.plotting_fe.mypage.ui
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +15,11 @@ import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.mypage.dto.Plogging
 import com.example.plotting_fe.mypage.presentation.StarController
+import com.example.plotting_fe.plogging.ui.PloggingDetailActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.AccessController.getContext
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -54,9 +58,10 @@ class PloggingAdapter(
         private val status :TextView = itemView.findViewById(R.id.tvStatusText)
         private val statusImage :ImageView = itemView.findViewById(R.id.tvStatus)
         private val starIcon : ImageView = itemView.findViewById(R.id.iv_gray_star)
-        private val button : TextView = itemView.findViewById(R.id.btnJoin)
+        private val btnJoin : TextView = itemView.findViewById(R.id.btnJoin)
 
 
+        @SuppressLint("ResourceAsColor")
         fun bind(plogging: Plogging){
             title.text = plogging.title
             maxPeople.text = plogging.maxPeople.toString()
@@ -84,18 +89,31 @@ class PloggingAdapter(
             if (recruitEndDate.isBefore(LocalDate.now())) {
                 status.text = "마감"
                 statusImage.setImageResource(R.drawable.ic_red_circle)
-                button.visibility = View.GONE
+                btnJoin.text = "신청종료"
+                btnJoin.setBackgroundResource(R.drawable.shape_edittext_rectangle)
+                btnJoin.setTextColor(R.color.gray)
             } else {
                 status.text = "진행"
                 statusImage.setImageResource(R.drawable.ic_green_circle) // 녹색 아이콘으로 표시
-                button.text = "참가하기"
+                btnJoin.text = "참가하기"
             }
 
+            // 즐겨찾기 버튼
             starIcon.setOnClickListener {
                 onStarClick(plogging, adapterPosition)
             }
 
+            // 참가하기 버튼
+            btnJoin.setOnClickListener {
+                val context = itemView.context // `itemView`를 통해 context를 가져옵니다.
+                val intent = Intent(context, PloggingDetailActivity::class.java)
+                intent.putExtra("ploggingId", plogging.ploggingId) // `ploggingId` 전달
+                context.startActivity(intent) // `context`에서 `startActivity` 호출
+            }
+
             itemView.setOnClickListener { onPloggingClickListener.onPloggingClick(plogging) }
+
+
         }
 
         private fun onStarClick(plogging: Plogging, position: Int) {

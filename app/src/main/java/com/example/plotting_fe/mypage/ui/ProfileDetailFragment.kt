@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
@@ -86,7 +88,10 @@ class ProfileDetailFragment : Fragment() {
         val profileImageView: AppCompatImageView = requireView().findViewById(R.id.iv_image)
         Glide.with(this)
             .load(profileData.profileImageUrl)
+            .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
             .placeholder(R.drawable.ic_flower)
+            .skipMemoryCache(true) // 메모리 캐시 비활성화
+            .diskCacheStrategy(DiskCacheStrategy.NONE) // 디스크 캐시 비활성화
             .into(profileImageView)
 
         val profileMessage : TextView = requireView().findViewById(R.id.profileDescription)

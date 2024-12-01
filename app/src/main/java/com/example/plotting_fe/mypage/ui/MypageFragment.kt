@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.WelcomeActivity
 import com.example.plotting_fe.global.ResponseTemplate
@@ -130,6 +131,7 @@ class MypageFragment: Fragment() {
         // 프로필 이미지 설정
         Glide.with(this)
             .load(myPageResponse.profileImageUrl)
+            .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
             .placeholder(R.drawable.ic_flower)
             .error(R.drawable.ic_flower)
             .into(profileImage)

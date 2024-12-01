@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
@@ -58,6 +59,7 @@ class PeopleAdapter(
 
             Glide.with(itemView.context)
                 .load(person.profileImageUrl)
+                .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
                 .placeholder(R.drawable.ic_flower)
                 .into(profileImage)
 

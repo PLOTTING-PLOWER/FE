@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.home.dto.response.HomeResponse;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
@@ -241,7 +242,8 @@ public class MainFragment extends Fragment {
                             btnPlowerName1.setText(plower.getNickname());
                             Glide.with(getActivity())
                                     .load(plower.getProfileImageUrl())
-                                    .placeholder(R.drawable.ic_icon_round)
+                                    .apply(new RequestOptions().circleCrop()) // 이미지를 원형으로 변환
+                                    .placeholder(R.drawable.ic_flower)
                                     .into(btnPlower1);
                             break;
                         case 1:
@@ -249,7 +251,8 @@ public class MainFragment extends Fragment {
                             btnPlowerName2.setText(plower.getNickname());
                             Glide.with(getActivity())
                                     .load(plower.getProfileImageUrl())
-                                    .placeholder(R.drawable.ic_icon_round)
+                                    .apply(new RequestOptions().circleCrop()) // 이미지를 원형으로 변환
+                                    .placeholder(R.drawable.ic_flower)
                                     .into(btnPlower2);
                             break;
                         case 2:
@@ -257,7 +260,8 @@ public class MainFragment extends Fragment {
                             btnPlowerName3.setText(plower.getNickname());
                             Glide.with(getActivity())
                                     .load(plower.getProfileImageUrl())
-                                    .placeholder(R.drawable.ic_icon_round)
+                                    .apply(new RequestOptions().circleCrop()) // 이미지를 원형으로 변환
+                                    .placeholder(R.drawable.ic_flower)
                                     .into(btnPlower3);
                             break;
                         case 3:
@@ -265,7 +269,8 @@ public class MainFragment extends Fragment {
                             btnPlowerName4.setText(plower.getNickname());
                             Glide.with(getActivity())
                                     .load(plower.getProfileImageUrl())
-                                    .placeholder(R.drawable.ic_icon_round)
+                                    .apply(new RequestOptions().circleCrop()) // 이미지를 원형으로 변환
+                                    .placeholder(R.drawable.ic_flower)
                                     .into(btnPlower4);
                             break;
                         default:

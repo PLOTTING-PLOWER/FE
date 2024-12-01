@@ -4,6 +4,9 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +22,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
@@ -33,6 +41,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.io.FileOutputStream
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -110,10 +119,13 @@ class EditProfileActivity : AppCompatActivity() {
 
         // Glide를 사용해 프로필 이미지 로드
         Glide.with(this)
-            .load(profileImageUrl)
+            .load(profileImageUrl?.takeIf { it.isNotEmpty() }) // URL이 비어있지 않은 경우만 로드
+            .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
             .placeholder(R.drawable.ic_flower) // 로드 중 기본 이미지
             .error(R.drawable.ic_flower) // 로드 실패 시 기본 이미지
-            .into(profileImageView)
+            .skipMemoryCache(true) // 메모리 캐시 비활성화
+            .diskCacheStrategy(DiskCacheStrategy.NONE) // 디스크 캐시 비활성화
+            .into(profileImageView) // 이미지뷰에 로드
     }
 
     private fun setupSpinner() {
@@ -165,8 +177,78 @@ class EditProfileActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
             selectedImageUri = data?.data
-            profileImageView.setImageURI(selectedImageUri) // 선택된 이미지를 이미지뷰에 표시
+            selectedImageUri?.let { uri ->
+                // 이미지 리사이즈 및 압축 후 이미지뷰에 설정
+                val compressedFile = resizeAndCompressImage(uri)
+
+                // 파일 크기 확인
+                if (!checkFileSize(compressedFile)) {
+                    Toast.makeText(this, "파일 크기가 너무 큽니다. 최대 2MB로 제한됩니다.", Toast.LENGTH_SHORT).show()
+                    return
+                }
+
+                Glide.with(this)
+                    .load(compressedFile) // 리사이즈 및 압축된 이미지
+                    .diskCacheStrategy(DiskCacheStrategy.NONE) // 디스크 캐시 비활성화
+                    .skipMemoryCache(true) // 메모리 캐시 비활성화
+                    .into(profileImageView)  // 새로운 이미지 로드
+            }
         }
+    }
+
+    private fun resizeAndCompressImage(uri: Uri): File {
+        val inputStream = contentResolver.openInputStream(uri)
+        val originalBitmap = BitmapFactory.decodeStream(inputStream)
+
+        // 이미지 크기를 800x800으로 리사이징 (너무 큰 이미지일 경우 크기를 줄임)
+        val scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, 800, 800, false)
+        originalBitmap.recycle()
+
+        // 압축 파일 저장 위치
+        val compressedFile = File(cacheDir, "compressed_image.jpg")
+
+        var quality = 50
+        var fileSizeInKB: Long
+
+        // 처음 압축하고 크기를 체크
+        var outputStream = FileOutputStream(compressedFile)
+        scaledBitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+        outputStream.flush()
+        outputStream.close()
+
+        // 파일 크기 확인
+        fileSizeInKB = compressedFile.length() / 1024  // KB 단위로 변환
+
+        // 파일 크기가 100KB보다 크면 반복해서 압축
+        while (fileSizeInKB > 30 && quality > 10) {
+            // 압축률을 낮추고 새로운 OutputStream을 생성하여 압축
+            quality -= 5
+            outputStream = FileOutputStream(compressedFile) // 새로운 outputStream 생성
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+            outputStream.flush()
+            outputStream.close()
+
+            // 파일 크기 재확인
+            fileSizeInKB = compressedFile.length() / 1024  // KB 단위로 변환
+        }
+
+        scaledBitmap.recycle()
+
+        // 파일 크기가 여전히 큰 경우
+        if (fileSizeInKB > 30) {
+            Log.d("Image Compression", "파일 크기가 여전히 큽니다: $fileSizeInKB KB")
+        }
+
+        return compressedFile
+    }
+
+    private fun checkFileSize(file: File): Boolean {
+        val fileSize = file.length()
+        val maxFileSize = 2 * 1024 * 1024 // 2MB로 제한
+
+        Log.d("FileSizeCheck", "파일 크기: ${fileSize / 1024} KB")  // KB 단위로 파일 크기 출력
+
+        return fileSize <= maxFileSize
     }
 
     private fun checkNickname(nickname: String){
@@ -198,6 +280,9 @@ class EditProfileActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ResponseTemplate<Boolean>>, t: Throwable) {
                 Log.d("get", "onFailure 에러: " +  t.message.toString())
+                if(t.message.toString()=="413"){
+                    Toast.makeText(this@EditProfileActivity, "파일 사이즈가 너무 큽니다", Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
