@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plotting_fe.databinding.ActivityMyPloggingCreatedBinding
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.myplogging.dto.PloggingData
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingCreatedResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
@@ -35,9 +36,7 @@ class MyPloggingCreatedActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
+        ClickUtil.onBackButtonClick(this, binding.btnBack)
     }
 
     private fun loadInfo(view: View) {

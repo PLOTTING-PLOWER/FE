@@ -84,6 +84,7 @@ class MyPloggingCreatedAdapter(
                 val context = itemView.context
                 val intent = Intent(context, MyPloggingUpdateActivity::class.java)
                 intent.putExtra("ploggingId", item.ploggingId) // ploggingId 전달
+                intent.putExtra("ploggingType", item.ploggingType)
                 intent.putExtra("title", item.title)
                 intent.putExtra("content", item.content)
                 intent.putExtra("startTime", item.startTime)

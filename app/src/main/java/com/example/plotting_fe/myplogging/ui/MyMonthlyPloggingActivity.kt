@@ -11,6 +11,7 @@ import com.example.plotting_fe.R
 import com.example.plotting_fe.databinding.ActivityMyMonthlyPloggingBinding
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import com.github.mikephil.charting.charts.BarChart
@@ -48,9 +49,7 @@ class MyMonthlyPloggingActivity : AppCompatActivity() {
 
         loadInfo()
 
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
+        ClickUtil.onBackButtonClick(this, binding.btnBack)
     }
 
     private fun loadInfo() {
