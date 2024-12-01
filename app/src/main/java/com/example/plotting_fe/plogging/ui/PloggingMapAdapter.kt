@@ -80,9 +80,10 @@ class PloggingMapAdapter(
                 colorStar.visibility = View.GONE
             }
 
-            // 버튼 클릭 리스너 설정
+            // 참여하기 버튼 클릭 리스너 설정
             btnJoin.setOnClickListener {
                 val intent = Intent(context, PloggingDetailActivity::class.java)
+                intent.putExtra("ploggingId", item.ploggingId) // 플로깅 ID 전달
                 context.startActivity(intent) // Context를 사용해 액티비티 이동
             }
         }
