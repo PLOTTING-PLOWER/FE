@@ -103,9 +103,9 @@ class PloggingAdapter(
             togglePloggingStar(plogging.ploggingId, position)
         }
 
-        private fun togglePloggingStar(starId: Long, position: Int) {
+        private fun togglePloggingStar(ploggingId: Long, position: Int) {
             val starController = ApiClient.getApiClient().create(StarController::class.java)
-            starController.updateUserStar(starId).enqueue(object :
+            starController.updatePloggingStar(ploggingId).enqueue(object :
                 Callback<ResponseTemplate<Boolean>> {
                 override fun onResponse(call: Call<ResponseTemplate<Boolean>>, response: Response<ResponseTemplate<Boolean>>) {
                     if (response.isSuccessful) {

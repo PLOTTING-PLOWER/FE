@@ -20,4 +20,9 @@ interface StarController {
         @Path("starId") starId: Long
     ): Call<ResponseTemplate<Boolean>>
 
+    @POST("/star/plogging/{ploggingId}")
+    fun updatePloggingStar(
+        @Path("ploggingId") ploggingId: Long
+    ): Call<ResponseTemplate<Boolean>>
+
 }

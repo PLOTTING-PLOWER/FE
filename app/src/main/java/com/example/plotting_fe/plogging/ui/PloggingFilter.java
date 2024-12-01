@@ -1,6 +1,5 @@
 package com.example.plotting_fe.plogging.ui;
 
-import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.global.util.ClickUtil;
 
 import java.util.Calendar;
 
@@ -108,7 +108,7 @@ public class PloggingFilter extends AppCompatActivity {
         btnSubmit.setOnClickListener(v -> submitFilters());
 
         //7. 뒤로 가기 버튼
-        onBackButtonClick(PloggingFilter.this, btnClose);
+        ClickUtil.INSTANCE.onBackButtonClick(PloggingFilter.this, btnClose);
     }
 
     // 필터 초기화 함수

@@ -1,6 +1,5 @@
 package com.example.plotting_fe.home.ui;
 
-import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.global.util.ClickUtil;
 import com.example.plotting_fe.home.dto.response.CardResponse;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class CardsActivity extends AppCompatActivity implements CardsListener {
         imgCardNewsRecyclerView.setAdapter(cardsAdapter);
 
         // 뒤로 가기 버튼 클릭 시 종료
-        onBackButtonClick(CardsActivity.this, backButton);
+        ClickUtil.INSTANCE.onBackButtonClick(CardsActivity.this, backButton);
     }
 
     private void loadCards(Long cardId) {

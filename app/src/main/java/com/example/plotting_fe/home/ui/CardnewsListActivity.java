@@ -1,7 +1,5 @@
 package com.example.plotting_fe.home.ui;
 
-import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.global.util.ClickUtil;
 import com.example.plotting_fe.home.dto.response.CardnewsResponse;
 import com.example.plotting_fe.home.dto.response.CardnewsResponseList;
 
@@ -36,8 +35,7 @@ public class CardnewsListActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.ic_back);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        onBackButtonClick(CardnewsListActivity.this, btnBack);
+        ClickUtil.INSTANCE.onBackButtonClick(CardnewsListActivity.this, btnBack);
 
         loadCardnews();
     }

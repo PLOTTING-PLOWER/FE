@@ -1,7 +1,5 @@
 package com.example.plotting_fe.plogging.ui;
 
-import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.global.util.ClickUtil;
 
 import java.util.Calendar;
 
@@ -48,7 +47,7 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         resetTimeButtons();
 
         // 0. 뒤로 가기 버튼
-        onBackButtonClick(PloggingMakeActivity1.this, btnBack);
+        ClickUtil.INSTANCE.onBackButtonClick(PloggingMakeActivity1.this, btnBack);
 
         // 선착순(btn_arrival) 버튼 선택
         btnArrival.setOnClickListener(new View.OnClickListener() {

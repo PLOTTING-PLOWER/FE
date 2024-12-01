@@ -70,7 +70,7 @@ public class MypageStarFragment extends Fragment {
 
         // 뒤로 가기 버튼 설정
         ImageView backButton = view.findViewById(R.id.iv_back);
-        ClickUtil.onBackButtonClick(this, backButton);
+        ClickUtil.INSTANCE.onBackButtonClick(this, backButton);
 
         return view;
     }

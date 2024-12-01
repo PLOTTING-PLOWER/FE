@@ -38,11 +38,12 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
 
+
         // 회원가입 버튼에 클릭 리스너 설정
-        findViewById(R.id.btn_join).setOnClickListener(v -> ClickUtil.onJoinClick(this));
+        findViewById(R.id.btn_join).setOnClickListener(v -> ClickUtil.INSTANCE.onJoinClick(this));
 
         // 로그인 버튼에 클릭 리스너 설정
-        findViewById(R.id.btn_login).setOnClickListener(v -> ClickUtil.onLoginClick(this));
+        findViewById(R.id.btn_login).setOnClickListener(v -> ClickUtil.INSTANCE.onLoginClick(this));
     }
 
     private boolean isLoggedIn() {

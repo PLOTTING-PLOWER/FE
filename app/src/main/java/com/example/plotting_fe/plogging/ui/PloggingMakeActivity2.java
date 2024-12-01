@@ -1,7 +1,5 @@
 package com.example.plotting_fe.plogging.ui;
 
-import static com.example.plotting_fe.global.util.ClickUtil.onBackButtonClick;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -18,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.global.util.ClickUtil;
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
 
 import java.util.Calendar;
@@ -61,7 +60,7 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         resetTimeButtons();
 
         // 뒤로 가기 버튼
-        onBackButtonClick(PloggingMakeActivity2.this, btnBack);
+        ClickUtil.INSTANCE.onBackButtonClick(PloggingMakeActivity2.this, btnBack);
 
         // 날짜 선택을 위한 DatePickerDialog 설정
         startDate.setOnClickListener(v -> showDatePickerDialog());

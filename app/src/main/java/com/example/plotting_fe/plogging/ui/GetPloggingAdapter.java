@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.global.util.ClickUtil;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
 
 import java.text.ParseException;
@@ -88,10 +89,12 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
             Drawable colorStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_color);
             Drawable grayStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_gray);
 
-            if (starIcon.getDrawable().getConstantState().equals(colorStar.getConstantState())) {
-                starIcon.setImageDrawable(grayStar);  // ic_star_gray로 변경
-            } else {
-                starIcon.setImageDrawable(colorStar);  // ic_star_color로 변경
+            if(ClickUtil.INSTANCE.togglePloggingStar(data.getPloggingId())){
+                if (starIcon.getDrawable().getConstantState().equals(colorStar.getConstantState())) {
+                    starIcon.setImageDrawable(grayStar);  // ic_star_gray로 변경
+                } else {
+                    starIcon.setImageDrawable(colorStar);  // ic_star_color로 변경
+                }
             }
         });
     }
