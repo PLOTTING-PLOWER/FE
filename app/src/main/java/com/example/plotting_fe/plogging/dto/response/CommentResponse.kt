@@ -1,6 +1,8 @@
 package com.example.plotting_fe.plogging.dto.response
 
 data class CommentResponse(
+    val nickname: String,
+    val profileImageUrl: String,
     val comments: List<commentList>
 ) {
     data class commentList(
