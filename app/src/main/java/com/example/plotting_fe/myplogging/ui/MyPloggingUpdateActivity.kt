@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.plotting_fe.R
 import com.example.plotting_fe.databinding.ActivityMyPloggingUpdateBinding
+import com.example.plotting_fe.global.util.ClickUtil
 import java.util.Calendar
 
 class MyPloggingUpdateActivity : AppCompatActivity() {
@@ -76,10 +77,7 @@ class MyPloggingUpdateActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnBack.setOnClickListener {
-            val intent = Intent(this, MyPloggingCreatedActivity::class.java)
-            startActivityForResult(intent, 0)
-        }
+        ClickUtil.onBackButtonClick(this, binding.btnBack)
     }
 
     private fun showDatePickerDialog(isStart: Boolean) {

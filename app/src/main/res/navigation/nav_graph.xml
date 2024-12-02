@@ -10,6 +10,10 @@
         <action
             android:id="@+id/action_home_to_ranking"
             app:destination="@id/navigation_ranking"/>
+
+        <action
+            android:id="@+id/action_home_to_plogging"
+            app:destination="@id/navigation_plogging"/>
     </fragment>
 
     <fragment
@@ -48,16 +52,8 @@
         android:id="@+id/navigation_mypage_star"
         android:name="com.example.plotting_fe.mypage.ui.MypageStarFragment"
         android:label="profile" >
-        <action
-            android:id="@+id/action_star_to_profile_detail"
-            app:destination="@id/navigation_profile_detail"/>
-    </fragment>
 
-    <!--    프로필 상세 정보    -->
-    <fragment
-        android:id="@+id/navigation_profile_detail"
-        android:name="com.example.plotting_fe.mypage.ui.ProfileDetailFragment"
-        android:label="profile" />
+    </fragment>
 
 <!--        랭킹   -->
     <fragment
