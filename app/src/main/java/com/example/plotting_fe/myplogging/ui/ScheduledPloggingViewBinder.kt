@@ -1,9 +1,17 @@
 package com.example.plotting_fe.myplogging.ui
 
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.plotting_fe.R
+import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
+import com.example.plotting_fe.myplogging.presentation.MyPloggingController
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -17,6 +25,8 @@ class ScheduledPloggingViewBinder (private val includeView: View) {
     private val currentPeople: TextView = includeView.findViewById(R.id.tvCurrentPeople)
     private val maxPeople: TextView = includeView.findViewById(R.id.tvMaxPeople)
     private val IsAssigned: TextView = includeView.findViewById(R.id.tvIsAssigned)
+    val grayStar: ImageView = includeView.findViewById(R.id.iv_gray_star)
+    val colorStar: ImageView = includeView.findViewById(R.id.iv_color_star)
 
     fun bind(data: MyPloggingScheduledResponse) {
         title.text = data.title
@@ -40,6 +50,44 @@ class ScheduledPloggingViewBinder (private val includeView: View) {
         } else {
             IsAssigned.text = "승인대기"
         }
+
+        if (data.isStar) {
+            grayStar.visibility = View.GONE
+            colorStar.visibility = View.VISIBLE
+        } else {
+            grayStar.visibility = View.VISIBLE
+            colorStar.visibility = View.GONE
+        }
+
+        grayStar.setOnClickListener {
+            updateStar(data.ploggingId)
+            grayStar.visibility = View.GONE
+            colorStar.visibility = View.VISIBLE
+        }
+
+        colorStar.setOnClickListener {
+            updateStar(data.ploggingId)
+            grayStar.visibility = View.VISIBLE
+            colorStar.visibility = View.GONE
+        }
+    }
+
+    fun updateStar(ploggingId: Long) {
+        val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
+        myPloggingController.updateStar(ploggingId).enqueue(object :
+            Callback<ResponseTemplate<Void>> {
+            override fun onResponse(call: Call<ResponseTemplate<Void>>, response: Response<ResponseTemplate<Void>>) {
+                if (response.isSuccessful) {
+                    Log.d("post", "성공: $ploggingId")
+                } else {
+                    Log.d("post", "삭제 실패: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
+                Log.d("post", "실패: ${t.message}")
+            }
+        })
     }
 
     fun formatStartTime(input: String): String {

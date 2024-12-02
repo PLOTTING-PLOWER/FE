@@ -36,7 +36,6 @@ class MyPloggingParticipatedAdapter(
         val SpendTime: TextView = itemView.findViewById(R.id.tvSpendTime)
         val CurrentPeople: TextView = itemView.findViewById(R.id.tvCurrentPeople)
         val MaxPeople: TextView = itemView.findViewById(R.id.tvMaxPeople)
-        val btnJoin: TextView = itemView.findViewById(R.id.btnJoin)
         val grayStar: ImageView = itemView.findViewById(R.id.iv_gray_star)
         val colorStar: ImageView = itemView.findViewById(R.id.iv_color_star)
 
@@ -78,8 +77,8 @@ class MyPloggingParticipatedAdapter(
                 colorStar.visibility = View.GONE
             }
 
-            // 참여하기 버튼 클릭 리스너 설정
-            btnJoin.setOnClickListener {
+            // 뷰 하나 당 리스너 설정
+            itemView.setOnClickListener {
                 val intent = Intent(context, PloggingDetailActivity::class.java)
                 intent.putExtra("ploggingId", item.ploggingId) // 플로깅 ID 전달
                 context.startActivity(intent)

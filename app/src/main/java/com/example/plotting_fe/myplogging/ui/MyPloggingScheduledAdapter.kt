@@ -24,9 +24,12 @@ import java.util.Locale
 
 class MyPloggingScheduledAdapter(
     private val context: Context,
-    private var dataList: List<MyPloggingScheduledResponse>,
+    private var dataList: MutableList<MyPloggingScheduledResponse>,
     private val onCancelClick: (ploggingId: Long) -> Unit
 ) : RecyclerView.Adapter<MyPloggingScheduledAdapter.ViewHolder>() {
+
+    // 데이터를 MutableList로 변환하여 내부에서 관리
+  //  private var dataList: MutableList<MyPloggingScheduledResponse> = dataList.toMutableList()
 
     // ViewHolder 클래스 정의
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -87,13 +90,12 @@ class MyPloggingScheduledAdapter(
             }
 
             cancelButton.setOnClickListener {
-                // Call the onCancelClick function to trigger the API request
-                cancelPlogging(item.ploggingId)
+                cancelPlogging(item.ploggingId, adapterPosition)
             }
         }
     }
 
-     fun cancelPlogging(ploggingId: Long) {
+    fun cancelPlogging(ploggingId: Long, position: Int) {
         val myPloggingController = ApiClient.getApiClient().create(MyPloggingController::class.java)
         myPloggingController.reqeustCancel(ploggingId).enqueue(object :
             Callback<ResponseTemplate<Void>> {
@@ -104,13 +106,18 @@ class MyPloggingScheduledAdapter(
                 if (response.isSuccessful) {
                     Toast.makeText(context, "플로깅 취소 완료.", Toast.LENGTH_SHORT).show()
 
+                    // 데이터 리스트에서 해당 아이템 삭제
+                    dataList.removeAt(position)
+
+                    // RecyclerView에서 아이템 삭제
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, dataList.size) // 다른 아이템 위치 갱신
                 } else {
                     Toast.makeText(context, "플로깅 취소 실패.", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
-
                 Toast.makeText(context, "네트워크 오류로 취소 요청에 실패했습니다.", Toast.LENGTH_SHORT).show()
             }
         })

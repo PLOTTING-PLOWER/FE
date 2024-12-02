@@ -11,55 +11,68 @@
         android:layout_height="wrap_content">
 
     <!-- 위쪽 배너 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tv_User"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_orange"
-        android:focusable="true"
-        android:paddingVertical="8dp"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- 프로필 이미지 -->
-        <ImageView
-            android:id="@+id/IvProfileImageUrl"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:contentDescription="프로필 이미지"
-            android:src="@drawable/ic_flower"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- 닉네임 -->
-        <TextView
-            android:id="@+id/tvNickname"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tv_User"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="하츄핑"
-            android:textSize="20sp"
-            android:textColor="#ffffff"
-            style="@style/AndroidButton2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/IvProfileImageUrl"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_edit_myplogging"
-            app:layout_constraintBottom_toBottomOf="@id/IvProfileImageUrl"
+            android:background="@drawable/background_orange"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingVertical="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/IvProfileImageUrl"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- 프로필 이미지 -->
+            <ImageView
+                android:id="@+id/IvProfileImageUrl"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="프로필 이미지"
+                android:src="@drawable/ic_flower"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 닉네임 -->
+            <TextView
+                android:id="@+id/tvNickname"
+                style="@style/AndroidButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="하츄핑"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/IvProfileImageUrl"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/home"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_home"
+                app:layout_constraintBottom_toBottomOf="@id/IvProfileImageUrl"
+                app:layout_constraintEnd_toStartOf="@id/edit"
+                app:layout_constraintTop_toTopOf="@id/IvProfileImageUrl"
+                app:tint="#ffffff" />
+
+            <ImageView
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_edit_myplogging"
+                app:layout_constraintBottom_toBottomOf="@id/IvProfileImageUrl"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/IvProfileImageUrl" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/tv"
@@ -189,6 +202,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
             <include
                 android:id="@+id/include_2"
                 layout="@layout/item_scheduled_plogging"
@@ -199,7 +213,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"/>
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/monthly"
@@ -287,7 +302,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"/>
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"/>
+
+            <include
+                android:id="@+id/include_4_null"
+                layout="@layout/item_null_plogging"
+                app:layout_constraintTop_toBottomOf="@id/tv_participated"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="visible"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

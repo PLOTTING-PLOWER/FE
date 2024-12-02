@@ -9,12 +9,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.home.dto.response.RankingListResponse
 import com.example.plotting_fe.home.dto.response.RankingResponse
 import com.example.plotting_fe.home.presentation.RankingController
+import com.example.plotting_fe.home.ui.MainFragment
 import com.example.plotting_fe.myplogging.dto.response.MonthResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingParticipatedResponse
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
@@ -36,6 +38,7 @@ class MyPloggingHomeActivity : AppCompatActivity() {
     private lateinit var tvBtnShowMoreAdd: TextView
     private lateinit var edit : ImageView
     private lateinit var myRank : TextView             // 랭킹
+    private lateinit var home : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,12 +71,25 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         tvBtnShowMoreAdd = findViewById(R.id.tv_btn_show_more_add)
         edit = findViewById(R.id.edit)
         myRank = findViewById(R.id.ranking)
+        //home  = findViewById(R.id.home)
 
         // 버튼 클릭 이벤트 설정
         edit.setOnClickListener {
             val intent = Intent(this, MyPloggingCreatedActivity::class.java)
             startActivity(intent)
         }
+
+        // 홈으로 이동
+        home.setOnClickListener {
+            val fragmentManager = supportFragmentManager
+            val transaction = fragmentManager.beginTransaction()
+
+            // MainFragment로 전환
+            transaction.replace(R.id.fragment_container, MainFragment()) // R.id.fragment_container는 프래그먼트를 표시할 컨테이너 ID
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
 
         tvBtnShowMore2.setOnClickListener {
             val intent = Intent(this, MyPloggingScheduledActivity::class.java)
@@ -271,9 +287,19 @@ class MyPloggingHomeActivity : AppCompatActivity() {
 
 
     private fun updatePloggingView_2(data: MyPloggingScheduledResponse) {
-        val includeView = findViewById<View>(R.id.include_2)
-        val viewBinder = ScheduledPloggingViewBinder(includeView)
-        viewBinder.bind(data) // 데이터를 바인딩
+        val scheduledView = findViewById<View>(R.id.include_2)
+
+        if (data == null) {
+
+            scheduledView.visibility = View.GONE
+        } else {
+
+            scheduledView.visibility = View.VISIBLE
+
+            // 데이터를 바인딩
+            val viewBinder = ScheduledPloggingViewBinder(scheduledView)
+            viewBinder.bind(data)
+        }
     }
 
     private fun updatePloggingView_3(monthResponses: List<MonthResponse.MonthData>) {
@@ -284,8 +310,21 @@ class MyPloggingHomeActivity : AppCompatActivity() {
 
     private fun updatePloggingView_4(data: MyPloggingParticipatedResponse) {
         val includeView = findViewById<View>(R.id.include_4)
-        val viewBinder = PloggingViewBinder(includeView)
-        viewBinder.bind(data) // 데이터를 바인딩
+        val nullView = findViewById<View>(R.id.include_4_null)
+
+        if (data == null) {
+
+            nullView.visibility = View.VISIBLE
+            includeView.visibility = View.GONE
+
+        } else {
+
+            includeView.visibility = View.VISIBLE
+            nullView.visibility = View.GONE
+
+            val viewBinder = PloggingViewBinder(includeView)
+            viewBinder.bind(data) // 데이터를 바인딩
+        }
     }
 
     private fun updateUI(response: MyPloggingSummaryResponse?) {
@@ -293,6 +332,9 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         if (response?.profileImageUrl != null) {
             Glide.with(this)
                 .load(response.profileImageUrl)
+                .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
+                .placeholder(R.drawable.ic_flower)
+                .error(R.drawable.ic_flower)
                 .into(ivProfileImageUrl)
         } else {
             // 기본 이미지 설정

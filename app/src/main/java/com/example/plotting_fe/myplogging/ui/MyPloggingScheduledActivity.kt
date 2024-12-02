@@ -1,6 +1,5 @@
 package com.example.plotting_fe.myplogging.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -13,16 +12,19 @@ import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingScheduledResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
+import com.example.plotting_fe.global.util.ClickUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.example.plotting_fe.global.util.ClickUtil
 
 class MyPloggingScheduledActivity : AppCompatActivity() {
 
     private lateinit var recyclerViewScheduledPlogging: RecyclerView
     private lateinit var backButton: ImageView
     private lateinit var adapter: MyPloggingScheduledAdapter
+
+    // 데이터를 MutableList로 유지
+    private val dataList: MutableList<MyPloggingScheduledResponse> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +34,15 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
         recyclerViewScheduledPlogging = findViewById(R.id.recyclerView_scheduled_plogging)
         backButton = findViewById(R.id.iv_back)
 
-        //뒤로 가기
+        // 뒤로 가기 버튼 이벤트 연결
         ClickUtil.onBackButtonClick(this, backButton)
 
         // RecyclerView 초기화
         recyclerViewScheduledPlogging.layoutManager = LinearLayoutManager(this)
+        adapter = MyPloggingScheduledAdapter(this, dataList) { ploggingId ->
+            cancelPlogging(ploggingId)
+        }
+        recyclerViewScheduledPlogging.adapter = adapter
 
         // 데이터 불러오기
         fetchData()
@@ -47,40 +53,35 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
 
         myPloggingController.getMyPloggingScheduled().enqueue(object :
             Callback<ResponseTemplate<List<MyPloggingScheduledResponse>>> {
-                override fun onResponse(
-                    call: Call<ResponseTemplate<List<MyPloggingScheduledResponse>>>,
-                    response: Response<ResponseTemplate<List<MyPloggingScheduledResponse>>>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body()?.results?.let { data ->
-                            Log.d("MyPloggingParticipated", "Received data: $data")
-                            setupRecyclerView(data)
-                        } ?: run {
-                            Log.e("MyPloggingParticipated", "Response body is null")
-                            showToast("데이터가 없습니다.")
-                        }
-                    } else {
-                        Log.e("MyPloggingParticipated", "Error code: ${response.code()}")
-                        showToast("데이터를 불러오는 데 실패했습니다. (${response.code()})")
+            override fun onResponse(
+                call: Call<ResponseTemplate<List<MyPloggingScheduledResponse>>>,
+                response: Response<ResponseTemplate<List<MyPloggingScheduledResponse>>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.results?.let { data ->
+                        Log.d("MyPloggingScheduled", "Received data: $data")
+
+                        dataList.clear() // 이전 데이터 삭제
+                        dataList.addAll(data)
+                        adapter.notifyDataSetChanged()
+                    } ?: run {
+                        Log.e("MyPloggingScheduled", "Response body is null")
+                        showToast("데이터가 없습니다.")
                     }
+                } else {
+                    Log.e("MyPloggingScheduled", "Error code: ${response.code()}")
+                    showToast("데이터를 불러오는 데 실패했습니다. (${response.code()})")
                 }
+            }
 
-                override fun onFailure(
-                    call: Call<ResponseTemplate<List<MyPloggingScheduledResponse>>>,
-                    t: Throwable
-                ) {
-                    Log.e("MyPloggingParticipated", "API call failed: ${t.message}")
-                    showToast("서버 연결에 실패했습니다.")
-                }
-            })
-    }
-
-    private fun setupRecyclerView(dataList: List<MyPloggingScheduledResponse>) {
-        adapter = MyPloggingScheduledAdapter(this,dataList) { ploggingId ->
-            // 취소 버튼 클릭 시 호출되는 메서드
-            cancelPlogging(ploggingId)
-        }
-        recyclerViewScheduledPlogging.adapter = adapter
+            override fun onFailure(
+                call: Call<ResponseTemplate<List<MyPloggingScheduledResponse>>>,
+                t: Throwable
+            ) {
+                Log.e("MyPloggingScheduled", "API call failed: ${t.message}")
+                showToast("서버 연결에 실패했습니다.")
+            }
+        })
     }
 
     private fun cancelPlogging(ploggingId: Long) {
@@ -88,31 +89,35 @@ class MyPloggingScheduledActivity : AppCompatActivity() {
 
         myPloggingController.reqeustCancel(ploggingId).enqueue(object :
             Callback<ResponseTemplate<Void>> {
-                override fun onResponse(
-                    call: Call<ResponseTemplate<Void>>,
-                    response: Response<ResponseTemplate<Void>>
-                ) {
-                    if (response.isSuccessful) {
-                        showToast("플로깅이 취소되었습니다.")
-                        // 취소 후 데이터를 갱신
-                        fetchData()
-                    } else {
-                        showToast("취소에 실패했습니다. 다시 시도해 주세요.")
+            override fun onResponse(
+                call: Call<ResponseTemplate<Void>>,
+                response: Response<ResponseTemplate<Void>>
+            ) {
+                if (response.isSuccessful) {
+                    showToast("플로깅이 취소되었습니다.")
+
+                    // MutableList에서 데이터 제거
+                    val position = dataList.indexOfFirst { it.ploggingId == ploggingId }
+                    if (position != -1) {
+                        dataList.removeAt(position)
+                        adapter.notifyItemRemoved(position)
+                        adapter.notifyItemRangeChanged(position, dataList.size)
                     }
+                } else {
+                    showToast("취소에 실패했습니다. 다시 시도해 주세요.")
                 }
+            }
 
-                override fun onFailure(
-                    call: Call<ResponseTemplate<Void>>,
-                    t: Throwable
-                ) {
-                    showToast("서버 연결에 실패했습니다.")
-                }
-            })
+            override fun onFailure(
+                call: Call<ResponseTemplate<Void>>,
+                t: Throwable
+            ) {
+                showToast("서버 연결에 실패했습니다.")
+            }
+        })
     }
-
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
-

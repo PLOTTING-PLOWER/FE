@@ -33,7 +33,7 @@
             android:textColor="@color/black" />
     </LinearLayout>
 
-    <!-- RecyclerView for Plogging Map Items -->
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_participated_plogging"
         tools:listitem="@layout/item_participated_plogging"
