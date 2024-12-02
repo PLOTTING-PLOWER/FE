@@ -32,6 +32,7 @@
         android:layout_marginStart="8dp"
         android:fontFamily="sans-serif-medium"
         android:text="달려라 승실이 님"
+        style="@style/Androidbutton4"
         android:textColor="#333333"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@id/welcome_rank"
@@ -44,9 +45,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="sans-serif"
         android:text="오늘 하루도 플로팅!"
+        style="@style/AndroidRate"
         android:textColor="#666666"
         android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@id/welcome_rank"
@@ -104,7 +104,7 @@
             android:id="@+id/cardNews_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -128,8 +128,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:fontFamily="sans-serif-medium"
+                style="@style/AndroidSubtitle2"
                 android:text="플로깅이란?"
+
                 android:textColor="#330600"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -144,6 +145,7 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/button_cardnews_let_go_read"
                 android:text="읽으러 가기"
+                style="@style/Androidbutton4"
                 android:textColor="#FFFFFF"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -152,9 +154,8 @@
         <ImageView
             android:id="@+id/img_cardnews"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="130dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="13dp"
             android:layout_marginBottom="13dp"
             android:layout_weight="1"
@@ -190,7 +191,7 @@
 
                 <ImageView
                     android:id="@+id/categoty_today_finish"
-                    android:layout_width="35dp"
+                    android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginVertical="10dp"
@@ -205,6 +206,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="오늘마감"
+                    style="@style/Androidbutton4"
                     android:textColor="#595959"
                     android:textSize="13sp" />
 
@@ -220,7 +222,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                        android:id="@+id/categoty_15_up"
+                    android:id="@+id/categoty_15_up"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="20dp"
@@ -236,6 +238,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="15명 이하"
+                    style="@style/Androidbutton4"
                     android:textColor="#595959"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -252,7 +255,7 @@
                 <ImageView
                     android:id="@+id/category_approve"
                     android:layout_width="40dp"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginVertical="10dp"
                     android:background="@drawable/circle_shape"
@@ -266,6 +269,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="승인제 플로깅"
+                    style="@style/Androidbutton4"
                     android:textColor="#595959"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -295,6 +299,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="선착순 플로깅"
+                    style="@style/Androidbutton4"
                     android:textColor="#595959"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -316,8 +321,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif-medium"
             android:text="인기 플로깅"
+            style="@style/Androidbutton4"
             android:textColor="#333333"
             android:textSize="16sp" />
 
@@ -350,8 +355,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif-medium"
             android:text="인기 플로워"
+            style="@style/Androidbutton4"
             android:textColor="#333333"
             android:textSize="16sp" />
 
@@ -388,6 +393,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이름"
+                    style="@style/AndroidCaption6"
                     android:gravity="center"
                     android:textSize="12sp"
                     android:textColor="@android:color/black"/>
@@ -418,6 +424,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이름"
+                    style="@style/AndroidCaption6"
                     android:gravity="center"
                     android:textSize="12sp"
                     android:textColor="@android:color/black"/>
@@ -448,6 +455,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이름"
+                    style="@style/AndroidCaption6"
                     android:gravity="center"
                     android:textSize="12sp"
                     android:textColor="@android:color/black"/>
@@ -478,6 +486,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이름"
+                    style="@style/AndroidCaption6"
                     android:gravity="center"
                     android:textSize="12sp"
                     android:textColor="@android:color/black"/>

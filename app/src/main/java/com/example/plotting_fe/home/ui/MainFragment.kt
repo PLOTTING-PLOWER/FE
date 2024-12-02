@@ -15,15 +15,13 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.home.dto.response.HomeResponse
-import com.example.plotting_fe.plogging.dto.response.PloggingResponse
+import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse
 import com.example.plotting_fe.plogging.dto.response.PlowerResponse
 import com.example.plotting_fe.plogging.ui.GetPloggings
 import com.example.plotting_fe.plogging.ui.PloggingApiService
@@ -59,7 +57,7 @@ class MainFragment : Fragment() {
     private lateinit var btnPlowerName3: TextView
     private lateinit var btnPlowerName4: TextView
     private lateinit var userNickname: TextView
-    private val dataList = mutableListOf<PloggingResponse>()
+    private val dataList = mutableListOf<PloggingGetStarResponse>()
 
     private lateinit var homeApiService: HomeApiService
     private lateinit var ploggingApiService: PloggingApiService
@@ -138,6 +136,7 @@ class MainFragment : Fragment() {
         btnRanking = view.findViewById(R.id.welcome_rank)
         btnAlarm = view.findViewById(R.id.welcome_alarm)
         btnSearch = view.findViewById(R.id.welcome_search)
+
     }
 
     private fun setupRecyclerView() {
@@ -151,9 +150,9 @@ class MainFragment : Fragment() {
     }
 
     private fun setDummyData() {
-        val dummyData = mutableListOf<PloggingResponse>()
-        dummyData.add(PloggingResponse(1L, "플로깅1", 5L, "ASSIGN", "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"))
-        dummyData.add(PloggingResponse(2L, "플로깅2", 10L, "APPROVE", "2024-12-31", "2024-12-16T14:00:00", 150L, "Busan"))
+        val dummyData = mutableListOf<PloggingGetStarResponse>()
+        dummyData.add(PloggingGetStarResponse(1L, "플로깅1", 5L, 10L, "ASSIGN", "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul", true))
+        dummyData.add(PloggingGetStarResponse(2L, "플로깅2", 10L, 15L,"APPROVE", "2024-12-31", "2024-12-16T14:00:00", 150L, "Busan", false))
         homeAdapter.updateDataList(dummyData)
     }
 
@@ -211,15 +210,61 @@ class MainFragment : Fragment() {
                 Log.d("MainFragment", "Home data received: $homeResponse")
             }
 
-            override fun onPloggingDataReceived(ploggingResponseList: List<PloggingResponse>) {
+            override fun onPloggingDataReceived(ploggingGetStarListResponse: List<PloggingGetStarResponse>) {
                 // 플로깅 데이터 처리
-                homeAdapter.updateDataList(ploggingResponseList)
+                homeAdapter.updateDataList(ploggingGetStarListResponse)
             }
 
             override fun onPlowerDataReceived(plowerList: List<PlowerResponse>) {
                 // 플로워 데이터 처리
                 Log.d("Plower", plowerList.toString())
                 // 필요한 처리를 해주세요
+
+
+                // 각 플로워에 대해 처리
+                for (index in plowerList.indices) {
+                    val plower = plowerList[index]
+
+                    when (index) {
+                        0 -> {
+                            // 첫 번째 플로워 설정
+                            btnPlowerName1.text = plower.nickname
+                            Glide.with(activity!!)
+                                .load(plower.profileImageUrl)
+                                .placeholder(R.drawable.ic_icon_round)
+                                .into(btnPlower1)
+                        }
+
+                        1 -> {
+                            // 두 번째 플로워 설정
+                            btnPlowerName2.text = plower.nickname
+                            Glide.with(activity!!)
+                                .load(plower.profileImageUrl)
+                                .placeholder(R.drawable.ic_icon_round)
+                                .into(btnPlower2)
+                        }
+
+                        2 -> {
+                            // 세 번째 플로워 설정
+                            btnPlowerName3.text = plower.nickname
+                            Glide.with(activity!!)
+                                .load(plower.profileImageUrl)
+                                .placeholder(R.drawable.ic_icon_round)
+                                .into(btnPlower3)
+                        }
+
+                        3 -> {
+                            // 네 번째 플로워 설정
+                            btnPlowerName4.text = plower.nickname
+                            Glide.with(activity!!)
+                                .load(plower.profileImageUrl)
+                                .placeholder(R.drawable.ic_icon_round)
+                                .into(btnPlower4)
+                        }
+
+                        else -> {}
+                    }
+                }
             }
 
             override fun onUserDataReceiver(nickname: String) {
@@ -234,5 +279,4 @@ class MainFragment : Fragment() {
             }
         })
     }
-
 }

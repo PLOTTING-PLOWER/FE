@@ -10,6 +10,7 @@ import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.global.util.AppInterceptor
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest
+import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse
 import com.example.plotting_fe.plogging.presentation.PloggingController
 import retrofit2.Call
@@ -147,10 +148,10 @@ class PloggingApiService {
         listener: PloggingResponseListener
     ) {
         apiService.getPloggingWithTitle(searchTitle)
-            .enqueue(object : Callback<ResponseTemplate<PloggingResponse>> {
+            .enqueue(object : Callback<ResponseTemplate<PloggingGetStarResponse>> {
                 override fun onResponse(
-                    call: Call<ResponseTemplate<PloggingResponse>>,
-                    response: Response<ResponseTemplate<PloggingResponse>>
+                    call: Call<ResponseTemplate<PloggingGetStarResponse>>,
+                    response: Response<ResponseTemplate<PloggingGetStarResponse>>
                 ) {
                     if (response.isSuccessful) {
                         val ploggingResponse = response.body()?.results
@@ -165,7 +166,7 @@ class PloggingApiService {
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseTemplate<PloggingResponse>>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseTemplate<PloggingGetStarResponse>>, t: Throwable) {
                     Log.d("HomeApiService", "onFailure 에러: ${t.message}")
                 }
             })

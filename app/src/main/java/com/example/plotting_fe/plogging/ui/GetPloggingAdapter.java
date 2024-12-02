@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.global.util.ClickUtil;
+import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
 
 import java.text.ParseException;
@@ -23,14 +24,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.ViewHolder> {
-    private List<PloggingResponse> dataList;
+    private List<PloggingGetStarResponse> dataList;
 
-    public GetPloggingAdapter(List<PloggingResponse> dataList) {
+    public GetPloggingAdapter(List<PloggingGetStarResponse> dataList) {
         this.dataList = dataList;
     }
 
     // 데이터 업데이트 메서드
-    public void updateDataList(List<PloggingResponse> newDataList) {
+    public void updateDataList(List<PloggingGetStarResponse> newDataList) {
         this.dataList = newDataList;
         notifyDataSetChanged();
     }
@@ -43,7 +44,7 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
 
     @Override
     public void onBindViewHolder(GetPloggingAdapter.ViewHolder holder, int position) {
-        PloggingResponse data = dataList.get(position);
+        PloggingGetStarResponse data = dataList.get(position);
 
         //1. 승인제인가 선착순인가
         String formattedPloggingType = formatPloggingType(data.getPloggingType());

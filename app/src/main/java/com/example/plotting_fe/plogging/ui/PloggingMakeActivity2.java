@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.global.util.ClickUtil;
@@ -161,6 +162,12 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
                 // TODO : GetPloggins Fragment 로 화면 전환하기
 //                onBackButtonClick1(PloggingMakeActivity2.this);
+
+                GetPloggings getPlogginsFragment = new GetPloggings();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, getPlogginsFragment); // fragment_container는 프래그먼트를 표시할 ViewGroup의 ID입니다.
+                transaction.addToBackStack(null); // 백 스택에 추가하여 뒤로 가기 가능
+                transaction.commit();
 
             } catch (Exception e) {
                 Log.e("Error", "Invalid input data: " + e.getMessage());
