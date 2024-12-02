@@ -66,17 +66,38 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         // 날짜 선택을 위한 DatePickerDialog 설정
         startDate.setOnClickListener(v -> showDatePickerDialog());
 
-        // 자유 시간을 선택했을 때의 처리
+//        // FIXME
+//        // 자유 시간을 선택했을 때의 처리
+//        freeTime.setOnClickListener(v -> {
+//            duringTimeBtn.setTextColor(ContextCompat.getColor(this, R.color.white));
+//            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
+//            Toast.makeText(PloggingMakeActivity2.this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
+//        });
+//
+//
+//        // 직접 시간을 입력하는 버튼 클릭 처리
+//        duringTimeBtn.setOnClickListener(v -> {
+//            Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
+//            duringTime.setVisibility(View.VISIBLE);
+//            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
+//            duringTimeBtn.setTextColor(ContextCompat.getColor(this, R.color.white));
+//
+//        });
+
+        // Fixme
         freeTime.setOnClickListener(v -> {
-            Toast.makeText(PloggingMakeActivity2.this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
+            setButtonActive(freeTime);
+            setButtonInactive(duringTimeBtn);
+            Toast.makeText(this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
         });
 
-        // 직접 시간을 입력하는 버튼 클릭 처리
+        // Fixme
         duringTimeBtn.setOnClickListener(v -> {
-            Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
-            duringTime.setVisibility(View.VISIBLE);
-            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
+            setButtonActive(duringTimeBtn);
+            setButtonInactive(freeTime);
+            Toast.makeText(this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
         });
+
 
         // 출발지 주소 입력 처리
         startLocation.setOnClickListener(v -> {
@@ -205,9 +226,17 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
         btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
     }
-//
-//    public static void onBackButtonClick1(final Activity activity) {
-//        activity.finishAffinity();
-//    }
+
+    // 버튼 활성화 설정
+    private void setButtonActive(Button button) {
+        button.setTextColor(ContextCompat.getColor(this, R.color.white));
+        button.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
+    }
+
+    // 버튼 비활성화 설정
+    private void setButtonInactive(Button button) {
+        button.setTextColor(ContextCompat.getColor(this, R.color.gray));
+        button.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+    }
 }
 

@@ -276,8 +276,9 @@
 
             <Button
                 android:id="@+id/participant_all"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:buttonTint="#FFA500"
                 android:text="전체"
@@ -285,9 +286,10 @@
 
             <Button
                 android:id="@+id/participant_5"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:buttonTint="#FFA500"
                 android:text="5"
@@ -295,9 +297,10 @@
 
             <Button
                 android:id="@+id/participant_10"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:buttonTint="#FFA500"
                 android:text="10"
@@ -305,9 +308,10 @@
 
             <Button
                 android:id="@+id/participant_15"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:buttonTint="#FFA500"
                 android:text="15"
@@ -321,6 +325,5 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/common_google_signin_btn_text_dark_disabled"
             android:text="완료" />
-
     </LinearLayout>
 </ScrollView>
