@@ -207,14 +207,13 @@ PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment
                 PloggingApiService ploggingApiService = new PloggingApiService();
                 ploggingApiService.createPlogging(request, PloggingMakeActivity2.this);
 
-                // TODO : GetPloggins Fragment 로 화면 전환하기
+                // FIXME : GetPloggins Fragment 로 화면 전환하기
 //                onBackButtonClick1(PloggingMakeActivity2.this);
-
-                GetPloggings getPlogginsFragment = new GetPloggings();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, getPlogginsFragment); // fragment_container는 프래그먼트를 표시할 ViewGroup의 ID입니다.
-                transaction.addToBackStack(null); // 백 스택에 추가하여 뒤로 가기 가능
-                transaction.commit();
+//                GetPloggings getPlogginsFragment = new GetPloggings();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.fragment_container, getPlogginsFragment); // fragment_container는 프래그먼트를 표시할 ViewGroup의 ID입니다.
+//                transaction.addToBackStack(null); // 백 스택에 추가하여 뒤로 가기 가능
+//                transaction.commit();
 
             } catch (Exception e) {
                 Log.e("Error", "Invalid input data: " + e.getMessage());
