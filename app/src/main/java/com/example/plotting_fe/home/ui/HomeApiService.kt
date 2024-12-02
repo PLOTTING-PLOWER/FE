@@ -31,15 +31,21 @@ class HomeApiService {
                             homeResponse.plowerResponseList.plowerResponseList ?: emptyList()
 
                         listener.onHomeDataReceived(homeResponse)
-                        listener.onPloggingDataReceived(homeResponse.ploggingStarResponseList.ploggingResponseList)
+//                        listener.onPloggingDataReceived(homeResponse.ploggingGetStarResponseList.ploggingGetStarListResponse)
+                        if (response != null) {
+                            listener.onPloggingDataReceived(homeResponse.ploggingGetStarResponseList.ploggingGetStarResponseList)
+                        } else {
+                            Log.d(
+                                "onPloggingDataReceived",
+                                "ploggingResponseList: " + homeResponse.ploggingGetStarResponseList.ploggingGetStarResponseList.toString()
+                            );
+                        }
+
                         listener.onPlowerDataReceived(plowerList)
-                        listener.onUserDataReceiver(homeResponse.userNickname)
+                        listener.onUserDataReceiver(homeResponse.userNickname, homeResponse.userImageUrl)
 
                         Log.d("HomeData", "homeResponse: " + homeResponse)
-                        Log.d(
-                            "onPloggingDataReceived",
-                            "ploggingResponseList: " + homeResponse.ploggingStarResponseList.ploggingResponseList.toString()
-                        );
+
                         Log.d("onPlowerDataReceived", "plower" + plowerList)
                     } else {
                         Log.d("HomeApiService", "onResponse 실패: Body가 null입니다.")

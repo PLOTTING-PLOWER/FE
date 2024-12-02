@@ -21,10 +21,13 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+
         buildTypes {
             buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
             buildConfigField ("String", "NAVER_CLIENT_ID", properties.getProperty("NAVER_CLIENT_ID"))
             buildConfigField ("String", "NAVER_CLIENT_SECRET", properties.getProperty("NAVER_CLIENT_SECRET"))
+            buildConfigField ("String", "NAVER_CLIENT_ID_MAP", properties.getProperty("NAVER_CLIENT_ID_MAP"))
+            buildConfigField ("String", "NAVER_CLIENT_SECRET_MAP", properties.getProperty("NAVER_CLIENT_SECRET_MAP"))
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

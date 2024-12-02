@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.global.util.ClickUtil;
@@ -21,7 +23,8 @@ import com.example.plotting_fe.plogging.dto.request.PloggingRequest;
 
 import java.util.Calendar;
 
-public class PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment.OnAddressSelectedListener {
+public class
+PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment.OnAddressSelectedListener {
 
     private EditText editName, editIntro, startDate, startTimeText,
             startLocation, endLocation, duringTime;
@@ -29,7 +32,6 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
     private String selectedStartDate;
     private boolean is_start_location;
     private ImageView btnBack;
-
 
     /*
     String으로 타입 바꿈
@@ -65,17 +67,63 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         // 날짜 선택을 위한 DatePickerDialog 설정
         startDate.setOnClickListener(v -> showDatePickerDialog());
 
-        // 자유 시간을 선택했을 때의 처리
         freeTime.setOnClickListener(v -> {
-            Toast.makeText(PloggingMakeActivity2.this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
+            // '자유' 버튼 클릭 시
+            freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.white));
+            freeTime.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.main));
+
+            // '직접 입력' 버튼 비활성화
+            duringTimeBtn.setEnabled(false);
+            duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));  // 비활성화된 상태 색상
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.light_gray));
+            duringTime.setVisibility(View.INVISIBLE);
+
+            Toast.makeText(this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
         });
 
-        // 직접 시간을 입력하는 버튼 클릭 처리
         duringTimeBtn.setOnClickListener(v -> {
-            Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
+            // '직접 입력' 버튼 클릭 시
+            duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.white));
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.main));
             duringTime.setVisibility(View.VISIBLE);
-            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
+
+            // '자유' 버튼 비활성화
+            freeTime.setEnabled(false);
+            freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));  // 비활성화된 상태 색상
+            freeTime.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.light_gray));
+
+            Toast.makeText(this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
         });
+
+// 다른 버튼이 선택되면 다시 활성화하기 위한 코드 추가
+        freeTime.setOnClickListener(v -> {
+            // '자유' 버튼 클릭 시
+            freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.white));
+            freeTime.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.main));
+
+            // 다른 버튼을 다시 활성화
+            duringTimeBtn.setEnabled(true);
+            duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));  // 활성화된 상태 색상
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.light_gray));
+            duringTime.setVisibility(View.INVISIBLE);
+
+            Toast.makeText(this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
+        });
+        
+        duringTimeBtn.setOnClickListener(v -> {
+            // '직접 입력' 버튼 클릭 시
+            duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.white));
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.main));
+            duringTime.setVisibility(View.VISIBLE);
+
+            // 다른 버튼을 다시 활성화
+            freeTime.setEnabled(true);
+            freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));  // 활성화된 상태 색상
+            freeTime.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.light_gray));
+
+            Toast.makeText(this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
+        });
+
 
         // 출발지 주소 입력 처리
         startLocation.setOnClickListener(v -> {
@@ -162,6 +210,12 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
                 // TODO : GetPloggins Fragment 로 화면 전환하기
 //                onBackButtonClick1(PloggingMakeActivity2.this);
 
+                GetPloggings getPlogginsFragment = new GetPloggings();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, getPlogginsFragment); // fragment_container는 프래그먼트를 표시할 ViewGroup의 ID입니다.
+                transaction.addToBackStack(null); // 백 스택에 추가하여 뒤로 가기 가능
+                transaction.commit();
+
             } catch (Exception e) {
                 Log.e("Error", "Invalid input data: " + e.getMessage());
                 Toast.makeText(PloggingMakeActivity2.this, "입력 데이터를 확인해주세요.", Toast.LENGTH_SHORT).show();
@@ -177,11 +231,14 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
-            selectedStartDate = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
+            // 두 자리 형식으로 날짜 포맷팅
+            String formattedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
+            selectedStartDate = formattedDate;
             startDate.setText(selectedStartDate);
         }, year, month, day);
         datePickerDialog.show();
     }
+
 
     @Override
     public void onAddressSelected(String address) {
@@ -195,12 +252,10 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
     private void resetTimeButtons() {
         freeTime.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));
         duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));
         btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
     }
-//
-//    public static void onBackButtonClick1(final Activity activity) {
-//        activity.finishAffinity();
-//    }
 }
 
