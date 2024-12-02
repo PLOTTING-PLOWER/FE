@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.home.dto.response.HomeResponse
+import com.example.plotting_fe.myplogging.dto.PloggingData
 import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse
 import com.example.plotting_fe.plogging.dto.response.PlowerResponse
 import com.example.plotting_fe.plogging.ui.GetPloggings
@@ -28,6 +29,7 @@ import com.example.plotting_fe.plogging.ui.PloggingApiService
 import com.example.plotting_fe.utils.UIUtils
 import java.time.LocalDate
 import java.time.LocalDateTime
+
 
 class MainFragment : Fragment() {
 
@@ -82,7 +84,7 @@ class MainFragment : Fragment() {
             startActivity(intent)
         }
 
-        btnRanking.setOnClickListener {v->
+        btnRanking.setOnClickListener { v ->
             val navController = Navigation.findNavController(v)
             navController.navigate(R.id.action_home_to_ranking)
         }
@@ -151,18 +153,45 @@ class MainFragment : Fragment() {
 
     private fun setDummyData() {
         val dummyData = mutableListOf<PloggingGetStarResponse>()
-        dummyData.add(PloggingGetStarResponse(1L, "플로깅1", 5L, 10L, "ASSIGN", "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul", true))
-        dummyData.add(PloggingGetStarResponse(2L, "플로깅2", 10L, 15L,"APPROVE", "2024-12-31", "2024-12-16T14:00:00", 150L, "Busan", false))
+        dummyData.add(
+            PloggingGetStarResponse(
+                1L,
+                "플로깅1",
+                5L,
+                10L,
+                "ASSIGN",
+                "2024-12-31",
+                "2024-12-15T10:00:00",
+                120L,
+                "Seoul",
+                true
+            )
+        )
+        dummyData.add(
+            PloggingGetStarResponse(
+                2L,
+                "플로깅2",
+                10L,
+                15L,
+                "APPROVE",
+                "2024-12-31",
+                "2024-12-16T14:00:00",
+                150L,
+                "Busan",
+                false
+            )
+        )
         homeAdapter.updateDataList(dummyData)
     }
 
     private fun setupButtonListeners() {
         btnRead.setOnClickListener {
-            it.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.button_color_in_home)
+            it.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.button_color_in_home)
             startActivity(Intent(activity, CardnewsListActivity::class.java))
         }
 
-        btnRanking.setOnClickListener {v ->
+        btnRanking.setOnClickListener { v ->
             val navController = Navigation.findNavController(v)
             navController.navigate(R.id.action_home_to_ranking)
         }
@@ -183,24 +212,61 @@ class MainFragment : Fragment() {
             val region = "Seoul"
             val endDate = LocalDate.now().toString()
 
-            ploggingApiService.filterPlogging(region, "2024-01-01", endDate, "DIRECT", 1L, LocalDateTime.now().toString(), 1000L, activity)
+            ploggingApiService.filterPlogging(
+                region,
+                "2024-01-01",
+                endDate,
+                "DIRECT",
+                1L,
+                LocalDateTime.now().toString(),
+                1000L,
+                activity
+            )
         }
 
         btnCategoty15Up.setOnClickListener {
             val region = "Seoul"
-            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "DIRECT", 1L, "2024-01-01T01:00:00", 15L, activity)
+            ploggingApiService.filterPlogging(
+                region,
+                "2024-01-01",
+                "2025-01-01",
+                "DIRECT",
+                1L,
+                "2024-01-01T01:00:00",
+                15L,
+                activity
+            )
         }
 
         btnCategoryApprove.setOnClickListener {
             val region = "Seoul"
-            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "APPROVE", 1L, "2024-01-01T01:00:00", 1000L, activity)
+            ploggingApiService.filterPlogging(
+                region,
+                "2024-01-01",
+                "2025-01-01",
+                "APPROVE",
+                1L,
+                "2024-01-01T01:00:00",
+                1000L,
+                activity
+            )
         }
 
         btnCategoryDirect.setOnClickListener {
             val region = "Seoul"
-            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "DIRECT", 1L, "2024-01-01T01:00:00", 1000L, activity)
+            ploggingApiService.filterPlogging(
+                region,
+                "2024-01-01",
+                "2025-01-01",
+                "DIRECT",
+                1L,
+                "2024-01-01T01:00:00",
+                1000L,
+                activity
+            )
         }
     }
+
     private fun getHome() {
         homeApiService = HomeApiService()
         homeApiService.getHome(object : HomeResponseListener {
@@ -218,8 +284,6 @@ class MainFragment : Fragment() {
             override fun onPlowerDataReceived(plowerList: List<PlowerResponse>) {
                 // 플로워 데이터 처리
                 Log.d("Plower", plowerList.toString())
-                // 필요한 처리를 해주세요
-
 
                 // 각 플로워에 대해 처리
                 for (index in plowerList.indices) {
@@ -278,5 +342,18 @@ class MainFragment : Fragment() {
                 Toast.makeText(activity, "실패: $errorMessage", Toast.LENGTH_SHORT).show()
             }
         })
+
+        //    private fun setStarIcon(btnStar: ImageView, star: Boolean) {
+//        // 색이 채워진 별과 회색 별 아이콘을 Drawable로 가져오기
+//        val colorStar = ContextCompat.getDrawable(btnStar.context, R.drawable.ic_star_color)
+//        val grayStar = ContextCompat.getDrawable(btnStar.context, R.drawable.ic_star_gray)
+//
+//        // star 값에 따라 아이콘 설정
+//        if (star) {
+//            btnStar.setImageDrawable(colorStar) // star가 true일 때, 채워진 별 아이콘 설정
+//        } else {
+//            btnStar.setImageDrawable(grayStar) // star가 false일 때, 회색 별 아이콘 설정
+//        }
+//    }\
     }
 }

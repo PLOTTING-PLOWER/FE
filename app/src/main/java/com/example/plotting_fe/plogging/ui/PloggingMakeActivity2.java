@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -66,35 +67,57 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
         // 날짜 선택을 위한 DatePickerDialog 설정
         startDate.setOnClickListener(v -> showDatePickerDialog());
 
-//        // FIXME
-//        // 자유 시간을 선택했을 때의 처리
-//        freeTime.setOnClickListener(v -> {
-//            duringTimeBtn.setTextColor(ContextCompat.getColor(this, R.color.white));
-//            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
-//            Toast.makeText(PloggingMakeActivity2.this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
-//        });
-//
-//
-//        // 직접 시간을 입력하는 버튼 클릭 처리
-//        duringTimeBtn.setOnClickListener(v -> {
-//            Toast.makeText(PloggingMakeActivity2.this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
-//            duringTime.setVisibility(View.VISIBLE);
-//            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
-//            duringTimeBtn.setTextColor(ContextCompat.getColor(this, R.color.white));
-//
-//        });
-
-        // Fixme
         freeTime.setOnClickListener(v -> {
-            setButtonActive(freeTime);
-            setButtonInactive(duringTimeBtn);
+            // '자유' 버튼 클릭 시
+            freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.white));
+            freeTime.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.main));
+
+            // '직접 입력' 버튼 비활성화
+            duringTimeBtn.setEnabled(false);
+            duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));  // 비활성화된 상태 색상
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.light_gray));
+
             Toast.makeText(this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
         });
 
-        // Fixme
         duringTimeBtn.setOnClickListener(v -> {
-            setButtonActive(duringTimeBtn);
-            setButtonInactive(freeTime);
+            // '직접 입력' 버튼 클릭 시
+            duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.white));
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.main));
+
+            // '자유' 버튼 비활성화
+            freeTime.setEnabled(false);
+            freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));  // 비활성화된 상태 색상
+            freeTime.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.light_gray));
+
+            Toast.makeText(this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
+        });
+
+// 다른 버튼이 선택되면 다시 활성화하기 위한 코드 추가
+        freeTime.setOnClickListener(v -> {
+            // '자유' 버튼 클릭 시
+            freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.white));
+            freeTime.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.main));
+
+            // 다른 버튼을 다시 활성화
+            duringTimeBtn.setEnabled(true);
+            duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));  // 활성화된 상태 색상
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.light_gray));
+
+            Toast.makeText(this, "자유를 선택했습니다.", Toast.LENGTH_SHORT).show();
+        });
+
+// Fixme: 클릭 시 '직접 입력' 버튼을 활성화
+        duringTimeBtn.setOnClickListener(v -> {
+            // '직접 입력' 버튼 클릭 시
+            duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.white));
+            duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.main));
+
+            // 다른 버튼을 다시 활성화
+            freeTime.setEnabled(true);
+            freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));  // 활성화된 상태 색상
+            freeTime.setBackgroundTintList(ContextCompat.getColorStateList(PloggingMakeActivity2.this, R.color.light_gray));
+
             Toast.makeText(this, "직접 입력을 선택했습니다.", Toast.LENGTH_SHORT).show();
         });
 
@@ -223,20 +246,10 @@ public class PloggingMakeActivity2 extends AppCompatActivity implements AddressS
 
     private void resetTimeButtons() {
         freeTime.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        freeTime.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));
         duringTimeBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
+        duringTimeBtn.setTextColor(ContextCompat.getColor(PloggingMakeActivity2.this, R.color.gray));
         btnFinish.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));
-    }
-
-    // 버튼 활성화 설정
-    private void setButtonActive(Button button) {
-        button.setTextColor(ContextCompat.getColor(this, R.color.white));
-        button.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main));
-    }
-
-    // 버튼 비활성화 설정
-    private void setButtonInactive(Button button) {
-        button.setTextColor(ContextCompat.getColor(this, R.color.gray));
-        button.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray));
     }
 }
 

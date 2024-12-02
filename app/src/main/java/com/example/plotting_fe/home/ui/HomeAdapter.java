@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.global.util.ClickUtil;
+import com.example.plotting_fe.myplogging.dto.PloggingData;
+import com.example.plotting_fe.plogging.dto.response.PloggingEntity;
 import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse;
-import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
 import com.example.plotting_fe.plogging.ui.PloggingDetailActivity;
 
 import java.text.ParseException;
@@ -47,7 +47,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         PloggingGetStarResponse data = dataList.get(position);
-        setStarIcon(holder.btnStar, data.isStar());
 
         //1. 승인제인가 선착순인가
         String formattedPloggingType = formatPloggingType(data.getPloggingType());
@@ -86,54 +85,41 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             v.getContext().startActivity(intent);
         });
 
-//        //4. 즐겨찾기 버튼
-//        holder.btnStar.setOnClickListener(v -> {
-//            ImageView starIcon = (ImageView) v;
-//
-//            Drawable colorStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_color);
-//            Drawable grayStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_gray);
-//
-//            if(ClickUtil.INSTANCE.togglePloggingStar(data.getPloggingId())){
-//                if (starIcon.getDrawable().getConstantState().equals(colorStar.getConstantState())) {
-//                    starIcon.setImageDrawable(grayStar);  // ic_star_gray로 변경
-//                } else {
-//                    starIcon.setImageDrawable(colorStar);  // ic_star_color로 변경
-//                }
-//            }
-//        });
+//        // 초기 상태 설정
+//        if (data.isStar()) {
+//            holder.btnStar.setImageDrawable(
+//                    ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_star_color)
+//            );
+//        } else {
+//            holder.btnStar.setImageDrawable(
+//                    ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_star_gray)
+//            );
+//        }
+
+        // 4. 즐겨찾기 버튼
         holder.btnStar.setOnClickListener(v -> {
             ImageView starIcon = (ImageView) v;
 
-            // 초기 아이콘 설정 (response에서 받은 isStar 사용)
             Drawable colorStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_color);
             Drawable grayStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_gray);
 
-            // 클릭 이벤트 처리
-            if (ClickUtil.INSTANCE.togglePloggingStar(data.getPloggingId())) {
-                // 현재 상태 기반으로 아이콘 변경 및 isStar 상태 반전
-                if (data.isStar()) {
-                    starIcon.setImageDrawable(grayStar); // ic_star_gray로 변경
-                } else {
-                    starIcon.setImageDrawable(colorStar); // ic_star_color로 변경
+            ClickUtil.INSTANCE.togglePloggingStarWithHome(data.getPloggingId(), new ClickUtil.ToggleCallback() {
+                @Override
+                public void onComplete(boolean isStarred) {
+                    if (isStarred) {
+                        holder.btnStar.setImageDrawable(colorStar);
+//                        data.setStar(true);
+                    } else {
+                        holder.btnStar.setImageDrawable(grayStar);
+//                        data.setStar(false);
+                    }
+                    notifyDataSetChanged();
                 }
-                data.isStar(); // isStar 값 반전
-            }
+            });
         });
-
     }
 
-    private void setStarIcon(ImageView btnStar, boolean star) {
-        // 색이 채워진 별과 회색 별 아이콘을 Drawable로 가져오기
-        Drawable colorStar = ContextCompat.getDrawable(btnStar.getContext(), R.drawable.ic_star_color);
-        Drawable grayStar = ContextCompat.getDrawable(btnStar.getContext(), R.drawable.ic_star_gray);
 
-        // star 값에 따라 아이콘 설정
-        if (star) {
-            btnStar.setImageDrawable(colorStar);  // star가 true일 때, 채워진 별 아이콘 설정
-        } else {
-            btnStar.setImageDrawable(grayStar);  // star가 false일 때, 회색 별 아이콘 설정
-        }
-    }
 
     @Override
     public int getItemCount() {
@@ -162,8 +148,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             statusColor = itemView.findViewById(R.id.tvStatus);
             statusText = itemView.findViewById(R.id.tvStatusText);
             btnStar = itemView.findViewById(R.id.iv_gray_star); //본래 starIcon으로 설정해둔거 merge 이후 xml 이름대로 변경
-
         }
+
     }
 
     private String formatDate(String dateStr) {

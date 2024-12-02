@@ -24,5 +24,4 @@ interface StarController {
     fun updatePloggingStar(
         @Path("ploggingId") ploggingId: Long
     ): Call<ResponseTemplate<Boolean>>
-
 }

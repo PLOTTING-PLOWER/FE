@@ -10,5 +10,34 @@ data class PloggingGetStarResponse(
     val startTime: String,
     val spendTime: Long,
     val startLocation: String,
-    val isStar: Boolean
-)
+    var isStar: Boolean // var로 변경하여 값을 변경 가능하게 만듬
+) {
+    fun toStarFalse(): PloggingEntity {
+        return PloggingEntity(
+            ploggingId = this.ploggingId,
+            title = this.title,
+            currentPeople = this.currentPeople,
+            maxPeople = this.maxPeople,
+            ploggingType = this.ploggingType,
+            recruitEndDate = this.recruitEndDate,
+            startTime = this.startTime,
+            spendTime = this.spendTime,
+            startLocation = this.startLocation,
+            isStar = false
+        )
+    }
+    fun toStarTrue(): PloggingEntity {
+        return PloggingEntity(
+            ploggingId = this.ploggingId,
+            title = this.title,
+            currentPeople = this.currentPeople,
+            maxPeople = this.maxPeople,
+            ploggingType = this.ploggingType,
+            recruitEndDate = this.recruitEndDate,
+            startTime = this.startTime,
+            spendTime = this.spendTime,
+            startLocation = this.startLocation,
+            isStar = true
+        )
+    }
+}
