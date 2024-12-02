@@ -81,15 +81,6 @@ class PloggingCommentFragment : Fragment() {
         commentsRecyclerView = view.findViewById(R.id.rv_comment)
         commentsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        // 예시 댓글 데이터 추가
-        replies = mutableListOf(
-            Reply(1, "YU", "2024.10.08 12:30 PM", "답변 내용", "", 1, 1, true, true),
-            Reply(2, "PARK", "2024.10.08 12:31 PM", "또 다른 답변 내용", "", 1, 1, true, true)
-        )
-
-        comments.add(Comment(1, "LEE", "2024.10.08 12:00 PM", "같이 플로깅 할래?", "", 0, 0, true, true, replies))
-        comments.add(Comment(2, "OH", "2024.10.08 12:00 PM", "또 다른 댓글", "", 0, 0, true, true, mutableListOf()))
-
         loadInfo(view)
 
         commentAdapter = CommentAdapter(comments, this) { comment ->

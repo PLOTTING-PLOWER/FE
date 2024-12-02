@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
@@ -42,6 +43,7 @@ class ReplyAdapter(private val replies: List<Reply>) : RecyclerView.Adapter<Repl
             // Glide를 사용하여 이미지 로드
             Glide.with(profileImage)
                 .load(profileImageUrl) // participant.imageUrl에 실제 이미지 URL이 있어야 함
+                .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
                 .placeholder(R.drawable.ic_flower) // 로딩 중에 표시할 이미지
                 .error(R.drawable.ic_flower) // 오류 발생 시 표시할 이미지
                 .into(profileImage)

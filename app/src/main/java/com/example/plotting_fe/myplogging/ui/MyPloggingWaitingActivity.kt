@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plotting_fe.databinding.ActivityMyPloggingWaitingBinding
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.myplogging.dto.WaitingPeople
 import com.example.plotting_fe.myplogging.dto.response.MyPloggingWaitingResponse
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
@@ -24,7 +25,7 @@ class MyPloggingWaitingActivity : AppCompatActivity() {
     private var _binding: ActivityMyPloggingWaitingBinding? = null
     private val binding get() = _binding!!
 
-    var ploggingId = 4L
+    var ploggingId = 1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +49,7 @@ class MyPloggingWaitingActivity : AppCompatActivity() {
 
         loadInfo(binding.root)
 
-        binding.btnBack.setOnClickListener {
-            val intent = Intent(this, MyPloggingCreatedActivity::class.java)
-            startActivityForResult(intent, 0) // REQUEST_CODE는 임의의 정수 상수
-        }
+        ClickUtil.onBackButtonClick(this, binding.btnBack)
     }
 
     private fun loadInfo(view: View) {

@@ -14,6 +14,7 @@ import com.example.plotting_fe.R
 import com.example.plotting_fe.databinding.ActivityMyPloggingUpdate2Binding
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.myplogging.dto.request.MyPloggingUpdateRequest
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import retrofit2.Call
@@ -111,9 +112,7 @@ class MyPloggingUpdate2Activity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
+        ClickUtil.onBackButtonClick(this, binding.btnBack)
     }
 
     private fun postData(request: MyPloggingUpdateRequest) {
