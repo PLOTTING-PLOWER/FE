@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.home.dto.response.RankingListResponse
 import com.example.plotting_fe.home.dto.response.RankingResponse
 import com.example.plotting_fe.home.presentation.RankingController
@@ -30,6 +32,10 @@ class RankingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_ranking, container, false)
+
+        // 뒤로 가기 버튼 설정
+        val backButton: ImageView = view.findViewById(R.id.iv_back)
+        ClickUtil.onBackButtonClick(this, backButton)
 
         fetchRanking()
         return view
@@ -122,22 +128,24 @@ class RankingFragment : Fragment() {
 
                     it.visibility = View.VISIBLE
                 } else {
-                    if ((i + 1) >= 5) {
-                        // Divider ID를 직접 참조
-                        val dividerId = when (i + 1) {
-                            5 -> R.id.view_5
-                            6 -> R.id.view_6
-                            7 -> R.id.view_7
-                            else -> null
-                        }
-                        dividerId?.let { id ->
-                            val divider: View? = it.findViewById(id)
-                            divider?.visibility = View.GONE // Divider 숨기기
-                        }
-                    }
                     it.visibility = View.GONE
                 }
             }
+        }
+        val noData :TextView = requireView().findViewById(R.id.tv_no_data)
+        val divider5: View = requireView().findViewById(R.id.view_5)
+        val divider6: View = requireView().findViewById(R.id.view_6)
+        val divider7: View = requireView().findViewById(R.id.view_7)
+        if(topRankings.size==0){
+            noData.visibility=View.VISIBLE
+            divider5.visibility=View.GONE
+            divider6.visibility=View.GONE
+            divider7.visibility=View.GONE
+        }else{
+            noData.visibility=View.GONE
+            divider5.visibility=View.VISIBLE
+            divider6.visibility=View.VISIBLE
+            divider7.visibility=View.VISIBLE
         }
 
     }

@@ -24,7 +24,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="관심 목록"
+        android:text="랭킹"
         style="@style/AndroidButton1"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
@@ -166,7 +166,9 @@
                     android:paddingStart="5dp"
                     android:layout_gravity="center_vertical" />
 
+
             </LinearLayout>
+
 
             <!-- 1등 ~ 3등 -->
             <LinearLayout
@@ -395,19 +397,27 @@
                         <TextView
                             style="@style/noto_bold"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="27dp"
                             android:text="3"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="15dp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
-
+            <TextView
+                android:id="@+id/tv_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="랭킹 정보가 없습니다."
+                style="@style/AndroidBody4"
+                android:textColor="@color/gray"
+                android:layout_marginVertical="50dp"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
 
             <!-- 4등 ~ 7등 -->
             <LinearLayout
