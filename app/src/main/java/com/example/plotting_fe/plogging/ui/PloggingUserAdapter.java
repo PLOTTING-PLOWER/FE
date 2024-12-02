@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plotting_fe.R;
-import com.example.plotting_fe.mypage.ui.ProfileDetailFragment;
+import com.example.plotting_fe.mypage.ui.ProfileDetailActivity;
 import com.example.plotting_fe.plogging.dto.Participant;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class PloggingUserAdapter extends RecyclerView.Adapter<PloggingUserAdapte
 
         holder.itemView.setOnClickListener(v -> {
             Participant item = participantList.get(position);
-            Intent intent = new Intent(v.getContext(), ProfileDetailFragment.class);
+            Intent intent = new Intent(v.getContext(), ProfileDetailActivity.class);
             intent.putExtra("userId", item.getUserId()); // ploggingId 전달
             v.getContext().startActivity(intent);
             ((Activity)v.getContext()).finish();

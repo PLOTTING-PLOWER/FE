@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-
     <application
         android:name=".global.application.TokenApplication"
         android:allowBackup="true"
@@ -25,6 +24,9 @@
         android:theme="@style/Theme.Plotting_FE"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".mypage.ui.ProfileDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".home.ui.AlarmActivity"
             android:exported="false" />
@@ -47,8 +49,7 @@
         </activity>
         <activity
             android:name=".user.ui.LoginActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".myplogging.ui.MyPloggingUpdateActivity"
             android:exported="true" />
@@ -66,8 +67,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" /> <!-- 플로깅 모임 생성 액티비티1 -->
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" /> <!-- 플로깅 모임 생성 액티비티1 -->
         <activity
             android:name=".plogging.ui.PloggingMakeActivity1"
             android:exported="true" /> <!-- 플로깅 모임 생성 액티비티2 -->
@@ -76,27 +77,19 @@
             android:exported="true" /> <!-- 플로깅 검색 액티비티 -->
         <activity
             android:name=".plogging.ui.GetPloggings"
-            android:exported="true" />
-
-        <!-- 플로깅 필터 액티비티 -->
+            android:exported="true" /> <!-- 플로깅 필터 액티비티 -->
         <activity
             android:name=".plogging.ui.PloggingFilter"
-            android:exported="true" />
-
-        <!-- 카드 뉴스 리스트 액티비티 -->
+            android:exported="true" /> <!-- 카드 뉴스 리스트 액티비티 -->
         <activity
             android:name=".home.ui.CardnewsListActivity"
-            android:exported="true" />
-
-        <!-- 카드 뉴스 액티비티 -->
+            android:exported="true" /> <!-- 카드 뉴스 액티비티 -->
         <activity
             android:name=".home.ui.CardsActivity"
+            android:exported="true" /> <!-- 홈 -->
+        <activity
+            android:name=".home.ui.MainFragment"
             android:exported="true" />
-
-        <!-- 홈 -->
-        <activity android:name=".home.ui.MainFragment"
-            android:exported="true"/>
-
         <activity
             android:name=".myplogging.ui.MyPloggingParticipatedActivity"
             android:exported="true" />
@@ -106,20 +99,15 @@
         <activity
             android:name=".myplogging.ui.MyPloggingCreatedActivity"
             android:exported="true" />
-
         <activity
             android:name=".myplogging.ui.MyPloggingHomeActivity"
             android:exported="true" />
         <activity
             android:name=".plogging.ui.PloggingMapActivity"
-            android:exported="true" />
-
-        <!-- 네이버 지도 API 클라이언트 ID 설정 -->
+            android:exported="true" /> <!-- 네이버 지도 API 클라이언트 ID 설정 -->
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="ixpavqfivc" />
-
-        <!-- Firebase Cloud Messaging 서비스 등록 -->
+            android:value="ixpavqfivc" /> <!-- Firebase Cloud Messaging 서비스 등록 -->
         <service
             android:name=".global.application.MyFirebaseMessagingService"
             android:exported="true">
@@ -128,4 +116,5 @@
             </intent-filter>
         </service>
     </application>
+
 </manifest>

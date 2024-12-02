@@ -1,6 +1,7 @@
 package com.example.plotting_fe.mypage.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -39,21 +40,19 @@ class StarPeopleFragment : Fragment() {
         // 데이터 로드 및 리사이클러 뷰 업데이트
         fetchUserStarList()
 
-        // NavController 초기화
-        val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-
-        // 어댑터 초기화 시 클릭 리스너 추가
+        // 어댑터 초기화 시 클릭 리스너 추가 (프로필 디테일 페이지로 이동)
         adapter = PeopleAdapter(peopleList, object : PeopleAdapter.OnPersonClickListener {
             override fun onPersonClick(person: Person) {
-                if(person.isProfilePublic){     // 공개일때 넘어감
-                    // ProfileDetailFragment로 이동
-                    val args = Bundle().apply {
-                        putLong("userId", person.userId)
+                if (person.isProfilePublic) { // 공개일 때만 넘어감
+                    // ProfileDetailActivity로 이동
+                    val intent = Intent(context, ProfileDetailActivity::class.java).apply {
+                        putExtra("userId", person.userId) // userId 전달
                     }
-                    navController.navigate(R.id.action_star_to_profile_detail, args)
+                    context?.startActivity(intent)
                 }
             }
         })
+
         recyclerView.adapter = adapter
         return view
     }
