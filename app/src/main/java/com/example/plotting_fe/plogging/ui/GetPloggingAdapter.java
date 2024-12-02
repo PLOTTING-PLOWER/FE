@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
 import com.example.plotting_fe.global.util.ClickUtil;
+import com.example.plotting_fe.myplogging.dto.PloggingData;
+import com.example.plotting_fe.plogging.dto.response.PloggingEntity;
 import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse;
-import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
+import com.example.plotting_fe.plogging.ui.PloggingDetailActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.ViewHolder> {
+
     private List<PloggingGetStarResponse> dataList;
 
     public GetPloggingAdapter(List<PloggingGetStarResponse> dataList) {
@@ -37,13 +39,13 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
     }
 
     @Override
-    public GetPloggingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_plogging_info, parent, false);
-        return new GetPloggingAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(GetPloggingAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         PloggingGetStarResponse data = dataList.get(position);
 
         //1. 승인제인가 선착순인가
@@ -68,7 +70,7 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
         String formattedSpendTime = formatSpendTime(data.getSpendTime());
         holder.spendTime.setText(formattedSpendTime);
         //8. 현재 참여 인원
-//        holder.currentPeople.setText(String.valueOf(data.getCurrentPeople()));
+        holder.currentPeople.setText(String.valueOf(data.getCurrentPeople()));
         //9. "/" 표시
         holder.and.setText("/");
         //10. 최대 참가 인원
@@ -83,22 +85,41 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
             v.getContext().startActivity(intent);
         });
 
-        //4. 즐겨찾기 버튼
+//        // 초기 상태 설정
+//        if (data.isStar()) {
+//            holder.btnStar.setImageDrawable(
+//                    ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_star_color)
+//            );
+//        } else {
+//            holder.btnStar.setImageDrawable(
+//                    ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_star_gray)
+//            );
+//        }
+
+        // 4. 즐겨찾기 버튼
         holder.btnStar.setOnClickListener(v -> {
             ImageView starIcon = (ImageView) v;
 
             Drawable colorStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_color);
             Drawable grayStar = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_gray);
 
-            if(ClickUtil.INSTANCE.togglePloggingStar(data.getPloggingId())){
-                if (starIcon.getDrawable().getConstantState().equals(colorStar.getConstantState())) {
-                    starIcon.setImageDrawable(grayStar);  // ic_star_gray로 변경
-                } else {
-                    starIcon.setImageDrawable(colorStar);  // ic_star_color로 변경
+            ClickUtil.INSTANCE.togglePloggingStarWithHome(data.getPloggingId(), new ClickUtil.ToggleCallback() {
+                @Override
+                public void onComplete(boolean isStarred) {
+                    if (isStarred) {
+                        holder.btnStar.setImageDrawable(colorStar);
+//                        data.setStar(true);
+                    } else {
+                        holder.btnStar.setImageDrawable(grayStar);
+//                        data.setStar(false);
+                    }
+                    notifyDataSetChanged();
                 }
-            }
+            });
         });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -122,13 +143,13 @@ public class GetPloggingAdapter extends RecyclerView.Adapter<GetPloggingAdapter.
             and = itemView.findViewById(R.id.and);  // 귀찮아서 "/"표시 따로 넣어버림
             maxPeople = itemView.findViewById(R.id.tvMaxPeople);
             currentPeople = itemView.findViewById(R.id.tvCurrentPeople);
-            btnJoin = itemView.findViewById(R.id.btnJoin);
+            btnJoin = itemView.findViewById(R.id.btnJoin);  // xml Button-> TExtview로 변경되어 있어서 그거 대로 수정함.
 
             statusColor = itemView.findViewById(R.id.tvStatus);
             statusText = itemView.findViewById(R.id.tvStatusText);
-            btnStar = itemView.findViewById(R.id.iv_gray_star);
-
+            btnStar = itemView.findViewById(R.id.iv_gray_star); //본래 starIcon으로 설정해둔거 merge 이후 xml 이름대로 변경
         }
+
     }
 
     private String formatDate(String dateStr) {
