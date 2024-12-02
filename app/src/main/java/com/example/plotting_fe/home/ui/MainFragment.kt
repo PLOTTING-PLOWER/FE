@@ -84,15 +84,7 @@ class MainFragment : Fragment() {
             startActivity(intent)
         }
 
-        btnRanking.setOnClickListener {v->
-            val navController = Navigation.findNavController(v)
-            navController.navigate(R.id.action_home_to_ranking)
-        }
 
-        btnAlarm.setOnClickListener {
-            val intent = Intent(activity, AlarmActivity::class.java)
-            startActivity(intent)
-        }
 
         initializeViews(view)
         setupRecyclerView()
@@ -168,8 +160,14 @@ class MainFragment : Fragment() {
             navController.navigate(R.id.action_home_to_ranking)
         }
 
-        btnSearch.setOnClickListener {
-            startActivity(Intent(activity, GetPloggings::class.java))
+        btnAlarm.setOnClickListener {
+            val intent = Intent(activity, AlarmActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnSearch.setOnClickListener {v->
+            val navController = Navigation.findNavController(v)
+            navController.navigate(R.id.action_home_to_plogging)
         }
 
         setupCategoryButtons()

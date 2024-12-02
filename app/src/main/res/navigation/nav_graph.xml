@@ -10,6 +10,10 @@
         <action
             android:id="@+id/action_home_to_ranking"
             app:destination="@id/navigation_ranking"/>
+
+        <action
+            android:id="@+id/action_home_to_plogging"
+            app:destination="@id/navigation_plogging"/>
     </fragment>
 
     <fragment
