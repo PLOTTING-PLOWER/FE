@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plotting_fe.R
 import com.example.plotting_fe.home.dto.response.HomeResponse
-import com.example.plotting_fe.myplogging.dto.PloggingData
 import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse
 import com.example.plotting_fe.plogging.dto.response.PlowerResponse
 import com.example.plotting_fe.plogging.ui.GetPloggings
@@ -272,7 +271,7 @@ class MainFragment : Fragment() {
         homeApiService.getHome(object : HomeResponseListener {
             override fun onHomeDataReceived(homeResponse: HomeResponse) {
                 // 홈 데이터 처리
-                Toast.makeText(activity, "반갑습니다!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "플로깅 합시다!", Toast.LENGTH_SHORT).show()
                 Log.d("MainFragment", "Home data received: $homeResponse")
             }
 
@@ -331,9 +330,13 @@ class MainFragment : Fragment() {
                 }
             }
 
-            override fun onUserDataReceiver(nickname: String) {
+            override fun onUserDataReceiver(nickname: String, userImageUrl: String) {
                 // 사용자 닉네임 처리
                 userNickname.text = nickname
+                Glide.with(activity!!)
+                    .load(userImageUrl)
+                    .placeholder(R.drawable.ic_icon_round)
+                    .into(userProfile)
             }
 
             override fun onError(errorMessage: String) {
@@ -342,18 +345,5 @@ class MainFragment : Fragment() {
                 Toast.makeText(activity, "실패: $errorMessage", Toast.LENGTH_SHORT).show()
             }
         })
-
-        //    private fun setStarIcon(btnStar: ImageView, star: Boolean) {
-//        // 색이 채워진 별과 회색 별 아이콘을 Drawable로 가져오기
-//        val colorStar = ContextCompat.getDrawable(btnStar.context, R.drawable.ic_star_color)
-//        val grayStar = ContextCompat.getDrawable(btnStar.context, R.drawable.ic_star_gray)
-//
-//        // star 값에 따라 아이콘 설정
-//        if (star) {
-//            btnStar.setImageDrawable(colorStar) // star가 true일 때, 채워진 별 아이콘 설정
-//        } else {
-//            btnStar.setImageDrawable(grayStar) // star가 false일 때, 회색 별 아이콘 설정
-//        }
-//    }\
     }
 }

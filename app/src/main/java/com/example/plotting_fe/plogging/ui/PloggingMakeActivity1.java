@@ -155,7 +155,8 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
-            String date = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
+            // 두 자리 형식으로 날짜 포맷팅
+            String date = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
             if (isStartDate) {
                 recruitStartDate = date;
                 inputStartDate.setText(date);
@@ -166,6 +167,7 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
         }, year, month, day);
         datePickerDialog.show();
     }
+
 
     private void resetTimeButtons() {
         btnNext.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray));

@@ -42,7 +42,7 @@ class HomeApiService {
                         }
 
                         listener.onPlowerDataReceived(plowerList)
-                        listener.onUserDataReceiver(homeResponse.userNickname)
+                        listener.onUserDataReceiver(homeResponse.userNickname, homeResponse.userImageUrl)
 
                         Log.d("HomeData", "homeResponse: " + homeResponse)
 
