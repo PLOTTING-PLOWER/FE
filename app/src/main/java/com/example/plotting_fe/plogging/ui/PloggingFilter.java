@@ -105,7 +105,11 @@ public class PloggingFilter extends AppCompatActivity {
         endDate.setOnClickListener(v -> showDatePickerDialogOfEnd());
 
         // 6. 완료 버튼
-        btnSubmit.setOnClickListener(v -> submitFilters());
+        btnSubmit.setOnClickListener(v ->  {
+                submitFilters();
+                changeButtonColor(btnSubmit);
+                }
+        );
 
         //7. 뒤로 가기 버튼
         ClickUtil.INSTANCE.onBackButtonClick(PloggingFilter.this, btnClose);
@@ -245,7 +249,11 @@ public class PloggingFilter extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
-            selectedStartDate = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
+            // 월과 일이 1자리 수일 때 0을 채워서 2자리로 만들기
+            String formattedMonth = String.format("%02d", selectedMonth + 1); // +1을 해줘야 실제 월 값이 됩니다.
+            String formattedDay = String.format("%02d", selectedDay);
+
+            selectedStartDate = selectedYear + "-" + formattedMonth + "-" + formattedDay;
             startDate.setText(selectedStartDate);
         }, year, month, day);
         datePickerDialog.show();
@@ -259,7 +267,11 @@ public class PloggingFilter extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
-            selectedEndDate = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
+            // 월과 일이 1자리 수일 때 0을 채워서 2자리로 만들기
+            String formattedMonth = String.format("%02d", selectedMonth + 1); // +1을 해줘야 실제 월 값이 됩니다.
+            String formattedDay = String.format("%02d", selectedDay);
+
+            selectedEndDate = selectedYear + "-" + formattedMonth + "-" + formattedDay;
             endDate.setText(selectedEndDate);
         }, year, month, day);
         datePickerDialog.show();

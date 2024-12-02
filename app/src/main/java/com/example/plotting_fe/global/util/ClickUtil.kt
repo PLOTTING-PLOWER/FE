@@ -3,16 +3,17 @@ package com.example.plotting_fe.global.util
 import android.app.Activity
 import android.content.Intent
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.plotting_fe.global.ResponseTemplate
+import com.example.plotting_fe.global.util.ApiClient.getApiClient
 import com.example.plotting_fe.mypage.presentation.StarController
 import com.example.plotting_fe.user.ui.LoginActivity
 import com.example.plotting_fe.user.ui.SignUpActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 object ClickUtil {
 
@@ -75,5 +76,40 @@ object ClickUtil {
         })
         return isSuccessful
     }
+
+    fun togglePloggingStarWithHome(ploggingId: Long, callback: ToggleCallback) {
+        val starController = getApiClient().create(StarController::class.java)
+        starController.updatePloggingStar(ploggingId)
+            .enqueue(object : Callback<ResponseTemplate<Boolean>> { // Changed Boolean? to Boolean
+                override fun onResponse(
+                    call: Call<ResponseTemplate<Boolean>>,
+                    response: Response<ResponseTemplate<Boolean>>
+                ) {
+                    if (response.isSuccessful) {
+                        val isStarred = response.body()?.results ?: false // Handle null safely here
+                        if (!isStarred) {
+                            Log.d("post", "즐겨찾기 해제 성공: $isStarred")
+                        } else {
+                            Log.d("post", "즐겨찾기 추가 성공: $isStarred")
+                        }
+                        // 콜백으로 결과 반환
+                        callback.onComplete(isStarred)
+                    } else {
+                        Log.d("post", "onResponse 실패: " + response.code())
+                        callback.onComplete(false) // 실패 시 false 반환
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseTemplate<Boolean>>, t: Throwable) {
+                    Log.d("post", "onFailure 에러: " + t.message)
+                    callback.onComplete(false) // 실패 시 false 반환
+                }
+            })
+    }
+
+    interface ToggleCallback {
+        fun onComplete(isStarred: Boolean)
+    }
+
 
 }

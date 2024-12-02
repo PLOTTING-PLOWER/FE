@@ -68,7 +68,7 @@ public class AddressSearchFragment extends Fragment {
     private void searchAddress(String query) {
         // 네이버 주소 검색 API 호출
         NCPApiService apiService = ApiClient.INSTANCE.getNCPApiService();
-        Call<GeocodeResponse> call = apiService.getGeocode(BuildConfig.NAVER_CLIENT_ID, BuildConfig.NAVER_CLIENT_SECRET, query);
+        Call<GeocodeResponse> call = apiService.getGeocode(BuildConfig.NAVER_CLIENT_ID_MAP, BuildConfig.NAVER_CLIENT_SECRET_MAP, query);
 
         call.enqueue(new Callback<GeocodeResponse>() {
             @Override

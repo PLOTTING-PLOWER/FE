@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plotting_fe.R;
+import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse;
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class GetPloggings extends Fragment {
 
     private ImageView addBtn, searchBtn, filterBtn;
     private EditText searchInput;
-    private List<PloggingResponse> ploggingList;
+    private List<PloggingGetStarResponse> ploggingList;
     private RecyclerView recyclerView;
     private GetPloggingAdapter getPloggingAdapter;
 
@@ -75,15 +76,14 @@ public class GetPloggings extends Fragment {
                 searchPlogging(searchTitle);
             }
         });
-
     }
 
     private void searchPlogging(String searchTitle) {
         PloggingApiService ploggingApiService = new PloggingApiService();
         ploggingApiService.getPloggingWithTitle(searchTitle, new PloggingResponseListener() {
             @Override
-            public void onPloggingResponse(PloggingResponse ploggingResponse) {
-                List<PloggingResponse> ploggingList = new ArrayList<>();
+            public void onPloggingResponse(PloggingGetStarResponse ploggingResponse) {
+                List<PloggingGetStarResponse> ploggingList = new ArrayList<>();
                 ploggingList.add(ploggingResponse);
 
                 if (getPloggingAdapter != null) {

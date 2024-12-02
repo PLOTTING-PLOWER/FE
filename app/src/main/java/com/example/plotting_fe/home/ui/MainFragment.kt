@@ -15,15 +15,13 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.home.dto.response.HomeResponse
-import com.example.plotting_fe.plogging.dto.response.PloggingResponse
+import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse
 import com.example.plotting_fe.plogging.dto.response.PlowerResponse
 import com.example.plotting_fe.plogging.ui.GetPloggings
 import com.example.plotting_fe.plogging.ui.PloggingApiService
@@ -59,7 +57,7 @@ class MainFragment : Fragment() {
     private lateinit var btnPlowerName3: TextView
     private lateinit var btnPlowerName4: TextView
     private lateinit var userNickname: TextView
-    private val dataList = mutableListOf<PloggingResponse>()
+    private val dataList = mutableListOf<PloggingGetStarResponse>()
 
     private lateinit var homeApiService: HomeApiService
     private lateinit var ploggingApiService: PloggingApiService
@@ -143,19 +141,46 @@ class MainFragment : Fragment() {
     }
 
     private fun setDummyData() {
-        val dummyData = mutableListOf<PloggingResponse>()
-        dummyData.add(PloggingResponse(1L, "플로깅1", 5L, "ASSIGN", "2024-12-31", "2024-12-15T10:00:00", 120L, "Seoul"))
-        dummyData.add(PloggingResponse(2L, "플로깅2", 10L, "APPROVE", "2024-12-31", "2024-12-16T14:00:00", 150L, "Busan"))
+        val dummyData = mutableListOf<PloggingGetStarResponse>()
+        dummyData.add(
+            PloggingGetStarResponse(
+                1L,
+                "플로깅1",
+                5L,
+                10L,
+                "ASSIGN",
+                "2024-12-31",
+                "2024-12-15T10:00:00",
+                120L,
+                "Seoul",
+                true
+            )
+        )
+        dummyData.add(
+            PloggingGetStarResponse(
+                2L,
+                "플로깅2",
+                10L,
+                15L,
+                "APPROVE",
+                "2024-12-31",
+                "2024-12-16T14:00:00",
+                150L,
+                "Busan",
+                false
+            )
+        )
         homeAdapter.updateDataList(dummyData)
     }
 
     private fun setupButtonListeners() {
         btnRead.setOnClickListener {
-            it.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.button_color_in_home)
+            it.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.button_color_in_home)
             startActivity(Intent(activity, CardnewsListActivity::class.java))
         }
 
-        btnRanking.setOnClickListener {v ->
+        btnRanking.setOnClickListener { v ->
             val navController = Navigation.findNavController(v)
             navController.navigate(R.id.action_home_to_ranking)
         }
@@ -182,22 +207,58 @@ class MainFragment : Fragment() {
             val region = "Seoul"
             val endDate = LocalDate.now().toString()
 
-            ploggingApiService.filterPlogging(region, "2024-01-01", endDate, "DIRECT", 1L, LocalDateTime.now().toString(), 1000L, activity)
+            ploggingApiService.filterPlogging(
+                region,
+                "2024-01-01",
+                endDate,
+                "DIRECT",
+                1L,
+                LocalDateTime.now().toString(),
+                1000L,
+                activity
+            )
         }
 
         btnCategoty15Up.setOnClickListener {
             val region = "Seoul"
-            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "DIRECT", 1L, "2024-01-01T01:00:00", 15L, activity)
+            ploggingApiService.filterPlogging(
+                region,
+                "2024-01-01",
+                "2025-01-01",
+                "DIRECT",
+                1L,
+                "2024-01-01T01:00:00",
+                15L,
+                activity
+            )
         }
 
         btnCategoryApprove.setOnClickListener {
             val region = "Seoul"
-            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "APPROVE", 1L, "2024-01-01T01:00:00", 1000L, activity)
+            ploggingApiService.filterPlogging(
+                region,
+                "2024-01-01",
+                "2025-01-01",
+                "APPROVE",
+                1L,
+                "2024-01-01T01:00:00",
+                1000L,
+                activity
+            )
         }
 
         btnCategoryDirect.setOnClickListener {
             val region = "Seoul"
-            ploggingApiService.filterPlogging(region, "2024-01-01", "2025-01-01", "DIRECT", 1L, "2024-01-01T01:00:00", 1000L, activity)
+            ploggingApiService.filterPlogging(
+                region,
+                "2024-01-01",
+                "2025-01-01",
+                "DIRECT",
+                1L,
+                "2024-01-01T01:00:00",
+                1000L,
+                activity
+            )
         }
     }
     private fun getHome() {
@@ -205,24 +266,72 @@ class MainFragment : Fragment() {
         homeApiService.getHome(object : HomeResponseListener {
             override fun onHomeDataReceived(homeResponse: HomeResponse) {
                 // 홈 데이터 처리
-                Toast.makeText(activity, "반갑습니다!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "플로깅 합시다!", Toast.LENGTH_SHORT).show()
                 Log.d("MainFragment", "Home data received: $homeResponse")
             }
 
-            override fun onPloggingDataReceived(ploggingResponseList: List<PloggingResponse>) {
+            override fun onPloggingDataReceived(ploggingGetStarListResponse: List<PloggingGetStarResponse>) {
                 // 플로깅 데이터 처리
-                homeAdapter.updateDataList(ploggingResponseList)
+                homeAdapter.updateDataList(ploggingGetStarListResponse)
             }
 
             override fun onPlowerDataReceived(plowerList: List<PlowerResponse>) {
                 // 플로워 데이터 처리
                 Log.d("Plower", plowerList.toString())
-                // 필요한 처리를 해주세요
+
+                // 각 플로워에 대해 처리
+                for (index in plowerList.indices) {
+                    val plower = plowerList[index]
+
+                    when (index) {
+                        0 -> {
+                            // 첫 번째 플로워 설정
+                            btnPlowerName1.text = plower.nickname
+                            Glide.with(activity!!)
+                                .load(plower.profileImageUrl)
+                                .placeholder(R.drawable.ic_icon_round)
+                                .into(btnPlower1)
+                        }
+
+                        1 -> {
+                            // 두 번째 플로워 설정
+                            btnPlowerName2.text = plower.nickname
+                            Glide.with(activity!!)
+                                .load(plower.profileImageUrl)
+                                .placeholder(R.drawable.ic_icon_round)
+                                .into(btnPlower2)
+                        }
+
+                        2 -> {
+                            // 세 번째 플로워 설정
+                            btnPlowerName3.text = plower.nickname
+                            Glide.with(activity!!)
+                                .load(plower.profileImageUrl)
+                                .placeholder(R.drawable.ic_icon_round)
+                                .into(btnPlower3)
+                        }
+
+                        3 -> {
+                            // 네 번째 플로워 설정
+                            btnPlowerName4.text = plower.nickname
+                            Glide.with(activity!!)
+                                .load(plower.profileImageUrl)
+                                .placeholder(R.drawable.ic_icon_round)
+                                .into(btnPlower4)
+                        }
+
+                        else -> {}
+                    }
+                }
             }
 
-            override fun onUserDataReceiver(nickname: String) {
+            override fun onUserDataReceiver(nickname: String, userImageUrl: String) {
                 // 사용자 닉네임 처리
                 userNickname.text = nickname
+                Glide.with(activity!!)
+                    .load(userImageUrl)
+                    .placeholder(R.drawable.ic_icon_round)
+                    .into(userProfile)
             }
 
             override fun onError(errorMessage: String) {

@@ -7,6 +7,7 @@ import com.example.plotting_fe.plogging.dto.request.CommentUploadRequest
 import com.example.plotting_fe.plogging.dto.request.PloggingRequest
 import com.example.plotting_fe.plogging.dto.response.CommentResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingDetailResponse
+import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingUserListResponse
 import com.plotting.server.plogging.dto.response.PloggingMapResponse
@@ -25,7 +26,7 @@ interface PloggingController {
     @GET("/ploggings/{title}")
     fun getPloggingWithTitle(
         @Path("title") title: String
-    ): Call<ResponseTemplate<PloggingResponse>>
+    ): Call<ResponseTemplate<PloggingGetStarResponse>>
 
     //플로깅 홈
     @GET("/ploggings/home/{userId}")
