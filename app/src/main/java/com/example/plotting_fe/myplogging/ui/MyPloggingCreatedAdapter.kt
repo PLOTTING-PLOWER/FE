@@ -77,7 +77,6 @@ class MyPloggingCreatedAdapter(
                 val intent = Intent(context, MyPloggingWaitingActivity::class.java)
                 intent.putExtra("ploggingId", item.ploggingId) // ploggingId 전달
                 context.startActivity(intent)
-                activity.finish()
             }
 
             btnUpdate.setOnClickListener() {
@@ -93,7 +92,6 @@ class MyPloggingCreatedAdapter(
                 intent.putExtra("recruitStartDate", item.recruitStartDate)
                 intent.putExtra("recruitEndDate", item.recruitEndDate)
                 context.startActivity(intent)
-                activity.finish()
             }
 
             btnDelete.setOnClickListener {
