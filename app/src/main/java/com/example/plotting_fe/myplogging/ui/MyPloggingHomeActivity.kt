@@ -71,7 +71,7 @@ class MyPloggingHomeActivity : AppCompatActivity() {
         tvBtnShowMoreAdd = findViewById(R.id.tv_btn_show_more_add)
         edit = findViewById(R.id.edit)
         myRank = findViewById(R.id.ranking)
-        //home  = findViewById(R.id.home)
+        home  = findViewById(R.id.home)
 
         // 버튼 클릭 이벤트 설정
         edit.setOnClickListener {
