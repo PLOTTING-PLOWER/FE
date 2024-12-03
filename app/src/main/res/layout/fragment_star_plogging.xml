@@ -8,14 +8,10 @@
     tools:context=".mypage.ui.StarPloggingFragment"
     android:padding="20dp">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ploggingsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="true"
             tools:listitem="@layout/item_plogging_info"/>
-    </ScrollView>
 </LinearLayout>
