@@ -3,17 +3,13 @@ package com.example.plotting_fe.plogging.ui
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
-
-import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.plotting_fe.R;
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
 import com.example.plotting_fe.myplogging.presentation.MyPloggingController
