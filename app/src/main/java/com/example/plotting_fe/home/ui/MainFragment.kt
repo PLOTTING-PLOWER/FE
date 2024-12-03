@@ -23,7 +23,6 @@ import com.example.plotting_fe.R
 import com.example.plotting_fe.home.dto.response.HomeResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse
 import com.example.plotting_fe.plogging.dto.response.PlowerResponse
-import com.example.plotting_fe.plogging.ui.GetPloggings
 import com.example.plotting_fe.plogging.ui.PloggingApiService
 import com.example.plotting_fe.utils.UIUtils
 import java.time.LocalDate
@@ -136,7 +135,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        homeAdapter = HomeAdapter(dataList)
+        homeAdapter = HomeAdapter(requireContext(), dataList) // context를 `requireContext()`로 수정
         recyclerView.adapter = homeAdapter
     }
 
@@ -170,7 +169,6 @@ class MainFragment : Fragment() {
                 false
             )
         )
-        homeAdapter.updateDataList(dummyData)
     }
 
     private fun setupButtonListeners() {
@@ -272,7 +270,18 @@ class MainFragment : Fragment() {
 
             override fun onPloggingDataReceived(ploggingGetStarListResponse: List<PloggingGetStarResponse>) {
                 // 플로깅 데이터 처리
-                homeAdapter.updateDataList(ploggingGetStarListResponse)
+//                homeAdapter.updateDataList(ploggingGetStarListResponse)
+//                homeAdapter. notifyDataSetChanged()
+                homeAdapter.setData(ploggingGetStarListResponse)
+                homeAdapter.notifyDataSetChanged()
+
+//                // 별점이 있는 항목만 갱신
+//                for (index in ploggingGetStarListResponse.indices) {
+//                    val item = ploggingGetStarListResponse[index]
+//                    if (item.isStar) {
+//                        homeAdapter.notifyItemChanged(index)
+//                    }
+//                }
             }
 
             override fun onPlowerDataReceived(plowerList: List<PlowerResponse>) {
