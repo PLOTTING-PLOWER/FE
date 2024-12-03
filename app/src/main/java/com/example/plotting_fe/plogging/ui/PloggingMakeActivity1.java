@@ -144,6 +144,8 @@ public class PloggingMakeActivity1 extends AppCompatActivity {
                 intent.putExtra("startDate", recruitStartDate);    //시작일
                 intent.putExtra("endDate", recruitEndDate);    //종료일
                 startActivity(intent);
+
+                finish();
             }
         });
     }
