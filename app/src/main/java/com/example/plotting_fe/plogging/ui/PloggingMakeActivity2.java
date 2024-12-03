@@ -162,6 +162,7 @@ PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment
             String title = editName.getText().toString();   //5. 활동명
             String content = editIntro.getText().toString();    //6. 활동 소개
             String spendTimeInput = duringTime.getText().toString();    //7. 활동 시작 시간
+            String startDateInput = startDate.getText().toString();
             String startTimeInput = startTimeText.getText().toString();     //8. 예상 소요시간
             String startLoc = startLocation.getText().toString();   //9. 출발장소
             String endLoc = endLocation.getText().toString();   //10. 도착장소
@@ -179,7 +180,7 @@ PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment
                 //3번, 4번, 7번
                 recruitStartDate = startDateStr;  //형식 2024-11-11
                 recruitEndDate = endDateStr;    //형식 2024-11-11
-                startDateTime = startDateStr + "T" + startTimeInput + ":00"; //형식 2024-11-11 10:00
+                startDateTime = startDateInput + "T" + startTimeInput + ":00"; //형식 2024-11-11 10:00
                 //2번
                 long maxPeople = Long.parseLong(participantNum);
                 //8번
@@ -214,6 +215,8 @@ PloggingMakeActivity2 extends AppCompatActivity implements AddressSearchFragment
 //                transaction.replace(R.id.fragment_container, getPlogginsFragment); // fragment_container는 프래그먼트를 표시할 ViewGroup의 ID입니다.
 //                transaction.addToBackStack(null); // 백 스택에 추가하여 뒤로 가기 가능
 //                transaction.commit();
+
+                finish();
 
             } catch (Exception e) {
                 Log.e("Error", "Invalid input data: " + e.getMessage());

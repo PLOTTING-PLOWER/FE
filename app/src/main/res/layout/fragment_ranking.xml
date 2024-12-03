@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="15dp"
             android:layout_marginBottom="10dp">
 
             <LinearLayout
@@ -95,16 +95,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="420등"
-                    style="@style/AndroidCaption1"
+                    android:text="-등"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
                 <!-- Profile Image -->
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_my"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_flower"
                     android:scaleType="centerCrop"
                     android:background="@drawable/circle_shape"
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="하츄핑"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -128,7 +128,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="0.5 H"
-                    style="@style/AndroidCaption1"
+                    android:background="@drawable/my_time_background"
+                    android:backgroundTint="@color/main"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="7dp"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -138,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="2회"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:paddingStart="10dp"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
@@ -447,7 +451,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="4등"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -469,7 +473,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="하츄핑"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -482,7 +486,7 @@
                     android:paddingHorizontal="10dp"
                     android:background="@drawable/time_background"
                     android:textColor="@color/main"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -492,7 +496,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="2회"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:textColor="@color/gray"
                     android:layout_marginStart="20dp" />
             </LinearLayout>
@@ -525,7 +529,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="5등"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -547,7 +551,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="하츄핑"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -560,7 +564,7 @@
                     android:paddingHorizontal="10dp"
                     android:background="@drawable/time_background"
                     android:textColor="@color/main"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -570,7 +574,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="2회"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:textColor="@color/gray"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
@@ -604,7 +608,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="6등"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -626,7 +630,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="하츄핑"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -639,7 +643,7 @@
                     android:paddingHorizontal="10dp"
                     android:background="@drawable/time_background"
                     android:textColor="@color/main"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -649,7 +653,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="2회"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:textColor="@color/gray"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
@@ -682,7 +686,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="7등"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -704,7 +708,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="하츄핑"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -717,7 +721,7 @@
                     android:textColor="@color/main"
                     android:paddingHorizontal="10dp"
                     android:text="0.5 H"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />
 
@@ -727,7 +731,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="2회"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption5"
                     android:textColor="@color/gray"
                     android:layout_marginStart="20dp"
                     android:gravity="center_vertical" />

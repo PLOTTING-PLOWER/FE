@@ -36,19 +36,7 @@ class StarPloggingFragment : Fragment() {
 
         fetchStarredPlogging()
 
-        // NavController 초기화
-//        val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-
-        // 어댑터 초기화 시 클릭 리스너 추가
-        adapter = PloggingAdapter(ploggingList, object : PloggingAdapter.OnPloggingClickListener {
-            override fun onPloggingClick(plogging: Plogging){
-                // ProfileDetailFragment로 이동
-//                val args = Bundle().apply {
-//                    putLong("userId", person.userId)
-//                }
-//                navController.navigate(R.id.action_star_to_profile_detail, args)
-            }
-        })
+        adapter = PloggingAdapter(ploggingList)
 
         recyclerView.adapter = adapter
 

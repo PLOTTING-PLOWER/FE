@@ -2,6 +2,7 @@ package com.example.plotting_fe.mypage.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
@@ -26,12 +30,7 @@ import java.time.format.DateTimeFormatter
 
 class PloggingAdapter(
     private val ploggingList: MutableList<Plogging>,
-    private val onPloggingClickListener: OnPloggingClickListener
 ) : RecyclerView.Adapter<PloggingAdapter.PloggingViewHolder>() {
-
-    interface OnPloggingClickListener{
-        fun onPloggingClick(plogigng: Plogging)
-    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -59,6 +58,7 @@ class PloggingAdapter(
         private val statusImage :ImageView = itemView.findViewById(R.id.tvStatus)
         private val starIcon : ImageView = itemView.findViewById(R.id.iv_gray_star)
         private val btnJoin : TextView = itemView.findViewById(R.id.btnJoin)
+        private val background : ConstraintLayout = itemView.findViewById(R.id.background)
 
 
         @SuppressLint("ResourceAsColor")
@@ -89,10 +89,20 @@ class PloggingAdapter(
             if (recruitEndDate.isBefore(LocalDate.now())) {
                 status.text = "마감"
                 statusImage.setImageResource(R.drawable.ic_red_circle)
-                btnJoin.text = "신청종료"
-                btnJoin.setBackgroundResource(R.drawable.shape_edittext_rectangle)
-                btnJoin.setTextColor(R.color.gray)
+                // 배경 틴트 색상 설정
+                background.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.light_gray))
+                btnJoin.visibility = View.GONE
+
+                // 마감 상태일 때만 클릭 가능
+                background.setOnClickListener {
+                    Log.d("PloggingAdapter", "마감된 플로깅 클릭됨")
+                    val intent = Intent(itemView.context, PloggingDetailActivity::class.java)
+                    intent.putExtra("ploggingId", plogging.ploggingId)
+                    itemView.context.startActivity(intent)
+                }
+
             } else {
+                background.setOnClickListener(null)
                 status.text = "진행"
                 statusImage.setImageResource(R.drawable.ic_green_circle) // 녹색 아이콘으로 표시
                 btnJoin.text = "참가하기"
@@ -110,9 +120,6 @@ class PloggingAdapter(
                 intent.putExtra("ploggingId", plogging.ploggingId) // `ploggingId` 전달
                 context.startActivity(intent) // `context`에서 `startActivity` 호출
             }
-
-            itemView.setOnClickListener { onPloggingClickListener.onPloggingClick(plogging) }
-
 
         }
 
