@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plotting_fe.R
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.home.ui.MainFragment
 
 class PloggingMapActivity : AppCompatActivity() {
@@ -23,15 +24,7 @@ class PloggingMapActivity : AppCompatActivity() {
             .replace(R.id.map_fragment_container, mapFragment)
             .commit()
 
-        // 홈으로 이동
-        home.setOnClickListener {
-            val fragmentManager = supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-
-            // MainFragment로 전환
-            transaction.replace(R.id.fragment_container, MainFragment()) // R.id.fragment_container는 프래그먼트를 표시할 컨테이너 ID
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
+        // 뒤로 가기 버튼 이벤트 연결
+        ClickUtil.onBackButtonClick(this, home)
     }
 }

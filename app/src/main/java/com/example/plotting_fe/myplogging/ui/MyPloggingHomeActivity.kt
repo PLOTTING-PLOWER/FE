@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
 import com.example.plotting_fe.global.util.ApiClient
+import com.example.plotting_fe.global.util.ClickUtil
 import com.example.plotting_fe.home.dto.response.RankingListResponse
 import com.example.plotting_fe.home.dto.response.RankingResponse
 import com.example.plotting_fe.home.presentation.RankingController
@@ -79,17 +80,8 @@ class MyPloggingHomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 홈으로 이동
-        home.setOnClickListener {
-            val fragmentManager = supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-
-            // MainFragment로 전환
-            transaction.replace(R.id.fragment_container, MainFragment()) // R.id.fragment_container는 프래그먼트를 표시할 컨테이너 ID
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
-
+        // 뒤로 가기 버튼 이벤트 연결
+        ClickUtil.onBackButtonClick(this, home)
 
         tvBtnShowMore2.setOnClickListener {
             val intent = Intent(this, MyPloggingScheduledActivity::class.java)
