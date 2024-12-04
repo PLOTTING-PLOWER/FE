@@ -15,6 +15,8 @@ import com.example.plotting_fe.home.dto.Alarm
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.temporal.ChronoField
 import java.time.temporal.ChronoUnit
 
 class AlarmAdapter(
@@ -43,7 +45,13 @@ class AlarmAdapter(
             val createdDate = alarm.createdDate
 
             // 날짜 형식 변환
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+            // 날짜 형식 변환 (유연한 포매터 사용)
+            val formatter = DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
+                .optionalStart()
+                .appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true) // 소수점 최대 9자리 허용
+                .optionalEnd()
+                .toFormatter()
             val alarmDateTime = LocalDateTime.parse(createdDate, formatter)
             val now = LocalDateTime.now()
             Log.d("AlarmAdapter", "createdDate: "+ createdDate + "/ now: " + now)
