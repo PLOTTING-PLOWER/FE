@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
@@ -18,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class GetPloggingAdapter(
@@ -36,6 +38,8 @@ class GetPloggingAdapter(
         private val grayStar: ImageView = itemView.findViewById(R.id.iv_gray_star)
         private val colorStar: ImageView = itemView.findViewById(R.id.iv_color_star)
         private val btnJoin: TextView = itemView.findViewById(R.id.btnJoin)
+        private val statusImage: ImageView = itemView.findViewById(R.id.tvStatus)
+        private val statusText: TextView = itemView.findViewById(R.id.tvStatusText)
 
         fun bind(item: PloggingGetStarResponse) {
             title.text = item.title
@@ -45,6 +49,13 @@ class GetPloggingAdapter(
             currentPeople.text = item.currentPeople.toString()
             maxPeople.text = item.maxPeople.toString()
             ploggingType.text = if (item.ploggingType == "DIRECT") "선착순" else "승인제"
+
+            // 진행 여부 표시
+            val isOngoing = formatStatus(item.recruitEndDate)
+            statusText.text = if (isOngoing) "진행" else "마감"
+            statusImage.setImageResource(
+                if (isOngoing) R.drawable.ic_green_circle else R.drawable.ic_red_circle
+            )
 
             updateStarIcon(item.isStar)
 
@@ -98,6 +109,19 @@ class GetPloggingAdapter(
         private fun formatSpendTime(spendTime: Long): String {
             val hours = (spendTime / 60).toInt()
             return "$hours 시간"
+        }
+
+        private fun formatStatus(recruitEndDate: String): Boolean {
+            return try {
+                val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val currentDateTime = Date() // 현재 시간
+                val endDateTime = dateTimeFormat.parse(recruitEndDate)
+
+                endDateTime != null && endDateTime.after(currentDateTime)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                false
+            }
         }
     }
 

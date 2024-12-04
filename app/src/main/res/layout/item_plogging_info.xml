@@ -42,8 +42,8 @@
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_green_circle"
-            android:contentDescription="진행중" />
+            android:contentDescription="진행중"
+            android:src="@drawable/ic_green_circle" />
 
         <TextView
             android:id="@+id/tvStatusText"

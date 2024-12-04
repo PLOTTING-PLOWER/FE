@@ -24,9 +24,9 @@
 //import java.util.List;
 //import java.util.Locale;
 //
-
-// FIXME : 파일 안지운 이유: 홈에서 다시 들어올때 초기화 된 상태로 다시
-//  반영되어야하는데 안돼서 HomeAdapter.java는 주석처리하고 HomeAdapter.kt 사용함.
+//
+//// FIXME : 파일 안지운 이유: 홈에서 다시 들어올때 초기화 된 상태로 다시
+////  반영되어야하는데 안돼서 HomeAdapter.java는 주석처리하고 HomeAdapter.kt 사용함.
 //
 //public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 //
@@ -112,7 +112,7 @@
 //                public void onComplete(boolean isStarred) {
 //                    if (isStarred) {
 //                        holder.btnStar.setImageDrawable(colorStar);
-////                        data.setStar(true);
+////                       data.setStar(true);
 //                    } else {
 //                        holder.btnStar.setImageDrawable(grayStar);
 ////                        data.setStar(false);
