@@ -16,6 +16,9 @@ import com.example.plotting_fe.myplogging.presentation.MyPloggingController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MyPloggingCreatedAdapter(
     private val items: MutableList<PloggingData>,
@@ -36,6 +39,8 @@ class MyPloggingCreatedAdapter(
         val btnUpdate: TextView = itemView.findViewById(R.id.btn_update)
         val grayStar: ImageView = itemView.findViewById(R.id.iv_gray_star)
         val colorStar: ImageView = itemView.findViewById(R.id.iv_color_star)
+        private val statusImage: ImageView = itemView.findViewById(R.id.tvStatus)
+        private val statusText: TextView = itemView.findViewById(R.id.tvStatusText)
 
         fun bind(item: PloggingData, onDeleteClick: (Long) -> Unit, activity: MyPloggingCreatedActivity) {
             title.text = item.title
@@ -44,6 +49,12 @@ class MyPloggingCreatedAdapter(
             spendTime.text = (item.spendTime / 60).toString()
             currentPeople.text = item.currentPeople.toString()
             maxPeople.text = item.maxPeople.toString()
+
+            val isOngoing = formatStatus(item.recruitEndDate)
+            statusText.text = if (isOngoing) "진행" else "마감"
+            statusImage.setImageResource(
+                if (isOngoing) R.drawable.ic_green_circle else R.drawable.ic_red_circle
+            )
 
             if (item.ploggingType.name == "DIRECT") {
                 ploggintType.text = "선착순"
@@ -115,6 +126,18 @@ class MyPloggingCreatedAdapter(
                     Log.d("post", "실패: ${t.message}")
                 }
             })
+        }
+        private fun formatStatus(recruitEndDate: String): Boolean {
+            return try {
+                val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val currentDateTime = Date() // 현재 시간
+                val endDateTime = dateTimeFormat.parse(recruitEndDate)
+
+                endDateTime != null && endDateTime.after(currentDateTime)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                false
+            }
         }
     }
 
