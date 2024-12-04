@@ -19,6 +19,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.plotting_fe.R
 import com.example.plotting_fe.home.dto.response.HomeResponse
 import com.example.plotting_fe.plogging.dto.response.PloggingGetStarResponse
@@ -339,6 +340,7 @@ class MainFragment : Fragment() {
                 userNickname.text = nickname
                 Glide.with(activity!!)
                     .load(userImageUrl)
+                    .apply(RequestOptions().circleCrop()) // 이미지를 원형으로 변환
                     .placeholder(R.drawable.ic_icon_round)
                     .into(userProfile)
             }
