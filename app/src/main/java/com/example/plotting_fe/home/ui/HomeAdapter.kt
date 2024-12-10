@@ -2,14 +2,12 @@ package com.example.plotting_fe.home.ui
 
 import android.content.Context
 import android.content.Intent
-import android.net.wifi.p2p.WifiP2pManager.DnsSdTxtRecordListener
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
