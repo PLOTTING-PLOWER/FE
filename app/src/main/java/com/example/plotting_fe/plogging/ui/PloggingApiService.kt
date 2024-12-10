@@ -42,14 +42,6 @@ class PloggingApiService {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.isSuccess == true) {
-                        //GetPlogging으로 이동
-                        val fragment = GetPloggings() // GetPloggingFragment는 실제 Fragment 클래스 이름으로 변경
-                        val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
-                        transaction.replace(R.id.fragment_container, fragment) // R.id.fragment_container는 Fragment를 교체할 View의 ID
-                        transaction.addToBackStack(null) // 이전 Fragment로 돌아갈 수 있도록 백스택에 추가
-                        transaction.commit()
-
-
                         Toast.makeText(context, "Plogging이 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT)
                             .show()
 
