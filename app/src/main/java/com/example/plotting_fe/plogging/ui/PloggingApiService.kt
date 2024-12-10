@@ -120,16 +120,18 @@ class PloggingApiService {
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
-                            Toast.makeText(context, "조건에 맞는 플로깅이 없습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "조건에 맞는 플로깅이 없습니다. \n 플로깅을 생성해주세요!", Toast.LENGTH_SHORT).show()
                             Log.d("filterPlogging", "No matching plogging found.")
                         }
                     } else {
                         Log.d("filterPlogging", "failed! ${responseBody?.message}")
-                        Toast.makeText(context, "Plogging 목록 조회 실패", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "조건에 맞는 플로깅이 없습니다. \n" +
+                                " 플로깅을 생성해주세요!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Log.d("filterPlogging", "failed! server die ")
-                    Toast.makeText(context, "서버 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "조건에 맞는 플로깅이 없습니다. \n" +
+                            " 플로깅을 생성해주세요!", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -137,7 +139,8 @@ class PloggingApiService {
                 call: Call<ResponseTemplate<List<PloggingResponse>>>,
                 t: Throwable
             ) {
-                Toast.makeText(context, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "조건에 맞는 플로깅이 없습니다. \n" +
+                        " 플로깅을 생성해주세요!", Toast.LENGTH_SHORT).show()
                 Log.d("filterPlogging", "filterPlogging_onFailure: ${t.message}")
             }
         })
