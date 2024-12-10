@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation.findNavController
 import com.example.plotting_fe.R
 import com.example.plotting_fe.global.ResponseTemplate
@@ -43,12 +42,6 @@ class PloggingApiService {
                     val responseBody = response.body()
                     if (responseBody != null && responseBody.isSuccess == true) {
                         //GetPlogging으로 이동
-                        val fragment = GetPloggings() // GetPloggingFragment는 실제 Fragment 클래스 이름으로 변경
-                        val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
-                        transaction.replace(R.id.fragment_container, fragment) // R.id.fragment_container는 Fragment를 교체할 View의 ID
-                        transaction.addToBackStack(null) // 이전 Fragment로 돌아갈 수 있도록 백스택에 추가
-                        transaction.commit()
-
 
                         Toast.makeText(context, "Plogging이 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT)
                             .show()
@@ -132,11 +125,11 @@ class PloggingApiService {
                         }
                     } else {
                         Log.d("filterPlogging", "failed! ${responseBody?.message}")
-                        Toast.makeText(context, "조건에 맞는 플로깅이 없습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Plogging 목록 조회 실패", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Log.d("filterPlogging", "failed! server die ")
-                    Toast.makeText(context, "조건에 맞는 플로깅이 없습니다.\n 플로깅을 만들어보세요", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "서버 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -144,8 +137,7 @@ class PloggingApiService {
                 call: Call<ResponseTemplate<List<PloggingResponse>>>,
                 t: Throwable
             ) {
-                Toast.makeText(context, "조건에 맞는 플로깅이 없습니다.\n" +
-                        " 플로깅을 생성해보세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
                 Log.d("filterPlogging", "filterPlogging_onFailure: ${t.message}")
             }
         })

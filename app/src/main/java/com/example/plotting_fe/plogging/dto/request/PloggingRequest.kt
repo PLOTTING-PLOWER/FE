@@ -9,7 +9,7 @@ data class PloggingRequest(
     var recruitEndDate: String,
     var startTime: String,
     var spendTime: Long,
-    var endTime: String,
+    var endTime : String,
     var startLocation: String,
     var endLocation: String
 )

@@ -83,6 +83,7 @@ class MainFragment : Fragment() {
         }
 
 
+
         initializeViews(view)
         setupRecyclerView()
         setupAdapter()
